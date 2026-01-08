@@ -227,12 +227,12 @@
     </script>
 
     <!-- Hero Section -->
-    <header class="relative min-h-[600px] flex items-center overflow-hidden bg-brand-green">
+    <header class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div class="absolute inset-0 z-0">
             <img src="/public/assets/aerial-view.jpg" class="w-full h-full object-cover opacity-50" alt="Background Aerial View">
             <div class="absolute inset-0 bg-gradient-to-r from-brand-green via-brand-green/80 to-transparent"></div>
         </div>
-        <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center">
+        <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4">
             <div class="md:w-1/2 text-white py-12">
                 <h1 class="text-6xl md:text-8xl font-bold mb-4 leading-tight uppercase tracking-tighter">GIFT REAL <br>ESTATE PLC</h1>
                 <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Real Estatae Developer!</h2>
@@ -246,8 +246,8 @@
                     </a>
                 </div>
             </div>
-            <div class="md:w-1/2 mt-8 md:mt-0 flex justify-end items-end h-full">
-                <img src="/public/assets/man-with-tablet.png" class="max-h-[600px] w-auto object-contain object-bottom mb-[-2px]" alt="Gift Real Estate Representative">
+            <div class="md:w-1/2 mt-8 md:mt-0 flex justify-start items-end self-stretch pl-0">
+                <img src="/public/assets/man-with-tablet.png" class="max-h-[750px] w-auto object-contain object-bottom mb-[-2px] transform scale-125 translate-x-[-15%]" alt="Gift Real Estate Representative">
             </div>
         </div>
     </header>

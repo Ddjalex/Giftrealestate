@@ -234,5 +234,35 @@
 
     <!-- Footer -->
     <?php include 'footer.php'; ?>
+    <script>
+        async function loadAbout() {
+            try {
+                const response = await fetch('/api/about');
+                const data = await response.json();
+                if (data && !data.error) {
+                    if (data.title) {
+                        const titleElement = document.querySelector('h1.text-5xl.font-bold.text-gray-900.mb-8');
+                        if (titleElement) titleElement.innerText = data.title;
+                    }
+                    if (data.content) {
+                        const contentElement = document.querySelector('p.text-gray-600.text-lg.mb-8.leading-relaxed');
+                        if (contentElement) contentElement.innerText = data.content;
+                    }
+                    if (data.image_url) {
+                        const imgElement = document.querySelector('section.py-12 img');
+                        if (imgElement) {
+                            const imgPath = data.image_url.startsWith('/') || data.image_url.startsWith('http') 
+                                ? data.image_url 
+                                : '/uploads/' + data.image_url;
+                            imgElement.src = imgPath;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading about content:', error);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', loadAbout);
+    </script>
 </body>
 </html>
