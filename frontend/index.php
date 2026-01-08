@@ -228,8 +228,8 @@
 
     <!-- Hero Section -->
     <header class="relative h-[600px] flex items-center overflow-hidden">
-        <div class="absolute inset-0 bg-black/50 z-10"></div>
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+        <div class="absolute inset-0 bg-[url('/public/assets/home-header.jpg')] bg-cover bg-center"></div>
         <div class="container mx-auto px-4 relative z-20 text-white">
             <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">Ethiopia's Most Trusted <br><span class="text-brand-yellow">Real Estate Partner</span></h1>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl">Discover exceptional properties and build your future with Gift Real Estate PLC. From luxury villas to commercial spaces.</p>
