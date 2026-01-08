@@ -108,6 +108,14 @@
                 <h3 class="text-2xl font-bold text-brand-green mb-8">About Page Content</h3>
                 <form id="about-form" class="space-y-6">
                     <div>
+                        <label class="block text-gray-700 font-bold mb-2">About Us Title</label>
+                        <input type="text" name="title" id="about_title_input" class="w-full p-3 border rounded-lg" placeholder="Gift Real Estate PLC">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">About Us Content</label>
+                        <textarea name="content" id="about_content_input" class="w-full p-3 border rounded-lg h-32" placeholder="Describe your company..."></textarea>
+                    </div>
+                    <div>
                         <label class="block text-gray-700 font-bold mb-2">History Section Image</label>
                         <input type="file" name="about_history_image_file" class="w-full p-3 border rounded-lg" accept="image/*" onchange="previewAboutImage(this, 'about_history_image_preview')">
                         <input type="hidden" name="about_history_image">

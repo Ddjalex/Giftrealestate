@@ -27,11 +27,28 @@ function switchTab(tab) {
 
 async function fetchData() {
     if (currentTab === 'settings' || currentTab === 'about') {
-        const response = await fetch('/api/settings.php');
+        const response = await fetch('/api/about.php'); // Changed from settings.php to about.php
         const settings = await response.json();
         const formId = currentTab === 'settings' ? 'settings-form' : 'about-form';
         const form = document.getElementById(formId);
         if (form) {
+            // Special handling for About tab
+            if (currentTab === 'about') {
+                const aboutTitle = document.getElementById('about_title_input');
+                const aboutContent = document.getElementById('about_content_input');
+                if (aboutTitle) aboutTitle.value = settings.title || '';
+                if (aboutContent) aboutContent.value = settings.content || '';
+                if (settings.image_url) {
+                    document.querySelector('[name="about_history_image"]').value = settings.image_url;
+                    const preview = document.getElementById('about_history_image_preview');
+                    if (preview) {
+                        preview.src = settings.image_url.startsWith('http') ? settings.image_url : '/uploads/' + settings.image_url;
+                        preview.classList.remove('hidden');
+                    }
+                }
+                return;
+            }
+            // Original logic for settings
             for (const key in settings) {
                 if (form.elements[key]) {
                     form.elements[key].value = settings[key];
@@ -54,35 +71,26 @@ async function fetchData() {
 
 async function saveAbout() {
     const form = document.getElementById('about-form');
-    const formData = new FormData();
-    const payload = {};
+    const payload = {
+        title: document.getElementById('about_title_input').value,
+        content: document.getElementById('about_content_input').value
+    };
     
     // Process files first
-    const fileInputs = form.querySelectorAll('input[type="file"]');
-    for (const input of fileInputs) {
-        if (input.files.length > 0) {
-            const uploadFormData = new FormData();
-            uploadFormData.append('images[]', input.files[0]);
-            const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: uploadFormData });
-            const uploadData = await uploadRes.json();
-            if (uploadData.urls && uploadData.urls.length > 0) {
-                const hiddenInputName = input.name.replace('_file', '');
-                payload[hiddenInputName] = uploadData.urls[0];
-            }
-        } else {
-            const hiddenInputName = input.name.replace('_file', '');
-            payload[hiddenInputName] = form.elements[hiddenInputName].value;
+    const fileInput = form.querySelector('input[name="about_history_image_file"]');
+    if (fileInput.files.length > 0) {
+        const uploadFormData = new FormData();
+        uploadFormData.append('images[]', fileInput.files[0]);
+        const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: uploadFormData });
+        const uploadData = await uploadRes.json();
+        if (uploadData.urls && uploadData.urls.length > 0) {
+            payload.image_url = uploadData.urls[0];
         }
-    }
-
-    // Add other fields
-    for (const element of form.elements) {
-        if (element.name && element.type !== 'file' && !payload[element.name]) {
-            payload[element.name] = element.value;
-        }
+    } else {
+        payload.image_url = form.elements['about_history_image'].value;
     }
     
-    const response = await fetch('/api/settings.php', {
+    const response = await fetch('/api/about.php', { // Changed from settings.php to about.php
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

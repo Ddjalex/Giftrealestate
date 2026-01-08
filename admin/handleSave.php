@@ -13,7 +13,24 @@ async function handleSave() {
     const payload = Object.fromEntries(formData.entries());
     
     // Handle single image upload for non-properties
-    if (currentTab !== 'properties' && currentTab !== 'inquiries' && currentTab !== 'settings' && currentTab !== 'about') {
+    if (currentTab === 'about') {
+        const imageInput = document.querySelector('input[name="about_history_image_file"]');
+        if (imageInput && imageInput.files.length > 0) {
+            const imgFormData = new FormData();
+            imgFormData.append('images[]', imageInput.files[0]);
+            try {
+                const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: imgFormData });
+                const uploadData = await uploadRes.json();
+                if (uploadData.urls && uploadData.urls.length > 0) {
+                    payload.image_url = uploadData.urls[0];
+                }
+            } catch (e) {
+                console.error('About image upload failed', e);
+            }
+        } else {
+            payload.image_url = document.querySelector('input[name="about_history_image"]').value;
+        }
+    } else if (currentTab !== 'properties' && currentTab !== 'inquiries' && currentTab !== 'settings') {
         const inputId = `${currentTab === 'properties' ? 'prop' : currentTab}-image-input`;
         const imageInput = document.getElementById(inputId);
         if (imageInput && imageInput.files.length > 0) {
