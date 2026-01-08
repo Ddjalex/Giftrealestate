@@ -32,9 +32,11 @@ if (strpos($path, '/api/') === 0) {
 } elseif ($path === '/news') {
     include 'frontend/news.php';
 } elseif ($path === '/gallery') {
-    include 'frontend/index.php'; // Or a separate gallery page if preferred, but for now we scroll to section
+    include 'frontend/gallery.php';
 } elseif ($path === '/properties') {
-    include 'frontend/index.php';
+    include 'frontend/properties.php';
+} elseif ($path === '/inquiries') {
+    include 'frontend/inquiries.php';
 } elseif ($path === '/contact') {
     include 'frontend/index.php';
 } elseif (strpos($path, '/admin') === 0) {
