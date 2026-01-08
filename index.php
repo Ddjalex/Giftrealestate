@@ -30,15 +30,15 @@ if (strpos($path, '/api/') === 0) {
         echo json_encode(['error' => 'Endpoint not found']);
     }
 } elseif ($path === '/news') {
-    readfile('frontend/news.html');
+    include 'frontend/news.php';
 } elseif ($path === '/gallery') {
-    include 'frontend/index.html'; // Or a separate gallery page if preferred, but for now we scroll to section
+    include 'frontend/index.php'; // Or a separate gallery page if preferred, but for now we scroll to section
 } elseif ($path === '/properties') {
-    include 'frontend/index.html';
+    include 'frontend/index.php';
 } elseif ($path === '/contact') {
-    include 'frontend/index.html';
+    include 'frontend/index.php';
 } elseif (strpos($path, '/admin') === 0) {
-    include 'admin/index.html';
+    include 'admin/index.php';
 } else {
-    include 'frontend/index.html';
+    include 'frontend/index.php';
 }
