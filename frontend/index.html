@@ -17,6 +17,16 @@
         .text-brand-yellow { color: var(--brand-yellow); }
         .border-brand-yellow { border-color: var(--brand-yellow); }
         .hover-bg-brand-yellow:hover { background-color: #fbc02d; }
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+            padding-right: 2.5rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -60,9 +70,9 @@
         <div class="container mx-auto px-4 relative z-20 text-white">
             <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">Ethiopia's Most Trusted <br><span class="text-brand-yellow">Real Estate Partner</span></h1>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl">Discover exceptional properties and build your future with Gift Real Estate PLC. From luxury villas to commercial spaces.</p>
-        <div class="max-w-4xl mx-auto bg-white p-4 rounded-xl shadow-lg flex flex-wrap gap-4">
-            <input type="text" id="search-location" placeholder="Search by location (CMC, Bole, Ayat)..." class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green">
-            <select id="filter-type" class="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green">
+        <div class="max-w-4xl mx-auto bg-white p-4 rounded-xl shadow-lg flex flex-col md:flex-row gap-4 relative z-30">
+            <input type="text" id="search-location" placeholder="Search by location (CMC, Bole, Ayat)..." class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800">
+            <select id="filter-type" class="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800 bg-white min-w-[200px]">
                 <option value="">All Types</option>
                 <option value="Residential Apartments">Residential Apartments</option>
                 <option value="Commercial Properties">Commercial Properties</option>
@@ -71,7 +81,7 @@
                 <option value="Retail Shops">Retail Shops</option>
                 <option value="Land & Plots">Land & Plots</option>
             </select>
-            <button onclick="filterProperties()" class="bg-brand-yellow text-brand-green font-bold px-8 py-3 rounded-lg hover:bg-yellow-500 transition shadow-md">Search</button>
+            <button onclick="filterProperties()" class="bg-brand-yellow text-brand-green font-bold px-8 py-3 rounded-lg hover:bg-yellow-500 transition shadow-md whitespace-nowrap">Search Properties</button>
         </div>
     </header>
 
