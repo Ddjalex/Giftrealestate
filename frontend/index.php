@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --brand-green: #004d40;
+            --brand-green: #008148; /* More vibrant green like the target site */
             --brand-yellow: #fdd835;
         }
         .bg-brand-green { background-color: var(--brand-green); }
@@ -17,6 +17,42 @@
         .text-brand-yellow { color: var(--brand-yellow); }
         .border-brand-yellow { border-color: var(--brand-yellow); }
         .hover-bg-brand-yellow:hover { background-color: #fbc02d; }
+        
+        /* Navigation enhancements */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--brand-green);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Modern Card Styling */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: var(--brand-green);
+        }
+        
+        /* About Section Overlay */
+        .about-overlay {
+            background: linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.9) 100%);
+        }
+        
         select {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -52,16 +88,17 @@
             <div class="flex items-center">
                 <img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain">
             </div>
-            <div class="hidden md:flex space-x-8 font-semibold text-brand-green">
-                <a href="/" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Home</a>
-                <a href="/about" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">About</a>
-                <a href="/properties" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Properties</a>
-                <a href="/gallery" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Gallery</a>
-                <a href="/news" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">News</a>
-                <a href="/inquiries" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Inquiries</a>
-                <a href="/contact" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Contact</a>
+            <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
+                <a href="/" class="nav-link text-brand-green">Home</a>
+                <a href="/about" class="nav-link">About Us</a>
+                <a href="/gallery" class="nav-link">Gallery</a>
+                <a href="/properties" class="nav-link">Propertys</a>
+                <a href="/news" class="nav-link">News</a>
+                <a href="/contact" class="nav-link">Contact</a>
             </div>
-            <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full hover:bg-opacity-90 transition">Call Us <i class="fas fa-phone-alt ml-2"></i></a>
+            <a href="tel:+251921878641" class="bg-[#008148] text-white font-bold px-8 py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg">
+                Call Us <i class="fas fa-phone-square-alt text-xl"></i>
+            </a>
         </div>
     </nav>
 
@@ -309,20 +346,19 @@
     <!-- About Section -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="max-w-5xl mx-auto">
-                <div class="bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-100 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-brand-green"></div>
-                    <h2 class="text-4xl md:text-5xl font-bold text-brand-green mb-8">About Gift Real Estate PLC</h2>
-                    <p class="text-xl text-gray-700 leading-relaxed mb-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white rounded-[40px] p-8 md:p-16 border-2 border-[#00ff00] shadow-sm relative overflow-hidden text-center">
+                    <h2 class="text-5xl md:text-6xl font-bold text-black mb-12">About Gift Real Estate PLC</h2>
+                    <p class="text-2xl text-gray-800 leading-relaxed mb-12 max-w-5xl mx-auto font-medium">
                         For over 25 years, Gift Real Estate PLC has been Ethiopia's trusted partner in building residential apartments, commercial apartments and creating exceptional living experiences. We don't just sell properties – we help you build your future.
                     </p>
                     
-                    <div class="relative rounded-2xl overflow-hidden h-80 mb-12 group">
-                        <div class="absolute inset-0 bg-brand-green/60 mix-blend-multiply z-10 transition-opacity group-hover:opacity-40"></div>
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Gift Real Estate Projects">
-                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-8 text-center">
-                            <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">"Gift Real Estate PLC"</h3>
-                            <p class="text-white text-lg max-w-2xl">
+                    <div class="relative rounded-[40px] overflow-hidden h-[500px] group shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110" alt="Gift Real Estate Projects">
+                        <div class="absolute inset-0 about-overlay z-10 opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-12 text-center text-white">
+                            <h3 class="text-5xl md:text-6xl font-bold mb-8">"Gift Real Estate PLC"</h3>
+                            <p class="text-2xl md:text-3xl max-w-5xl leading-relaxed font-semibold">
                                 Gift Real Estate PLC's mission is to provide cutting-edge residential and commercial properties that are designed and built specifically to meet the needs of customers, transforming their lifestyle to a higher standard 21st-century lifestyle.
                             </p>
                         </div>
@@ -335,41 +371,41 @@
     <!-- Services -->
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <!-- Residential Sales -->
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 text-center">
-                    <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-green transition-colors duration-300">
-                        <i class="fas fa-home text-3xl text-brand-green group-hover:text-brand-yellow transition-colors duration-300"></i>
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group">
+                    <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-[#008148] transition-all duration-500">
+                        <i class="fas fa-home text-4xl text-[#008148] group-hover:text-white transition-all duration-500"></i>
                     </div>
-                    <h4 class="text-2xl font-bold mb-4 text-brand-green">Residential Sales</h4>
-                    <p class="text-gray-600 leading-relaxed">Find your perfect home from our extensive collection of villas, apartments, and family residences.</p>
+                    <h4 class="text-2xl font-bold mb-6 text-black">Residential Sales</h4>
+                    <p class="text-gray-500 text-lg leading-relaxed">Find your perfect home from our extensive collection of villas, apartments, and family residences.</p>
                 </div>
 
                 <!-- Commercial Properties -->
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 text-center">
-                    <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-green transition-colors duration-300">
-                        <i class="fas fa-users text-3xl text-brand-green group-hover:text-brand-yellow transition-colors duration-300"></i>
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group">
+                    <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-[#008148] transition-all duration-500">
+                        <i class="fas fa-users text-4xl text-[#008148] group-hover:text-white transition-all duration-500"></i>
                     </div>
-                    <h4 class="text-2xl font-bold mb-4 text-brand-green">Commercial Properties</h4>
-                    <p class="text-gray-600 leading-relaxed">Prime commercial spaces for your business needs, from retail shops to office complexes.</p>
+                    <h4 class="text-2xl font-bold mb-6 text-black">Commercial Properties</h4>
+                    <p class="text-gray-500 text-lg leading-relaxed">Prime commercial spaces for your business needs, from retail shops to office complexes.</p>
                 </div>
 
                 <!-- Property Management -->
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 text-center">
-                    <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-green transition-colors duration-300">
-                        <i class="fas fa-handshake text-3xl text-brand-green group-hover:text-brand-yellow transition-colors duration-300"></i>
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group">
+                    <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-[#008148] transition-all duration-500">
+                        <i class="fas fa-handshake text-4xl text-[#008148] group-hover:text-white transition-all duration-500"></i>
                     </div>
-                    <h4 class="text-2xl font-bold mb-4 text-brand-green">Property Management</h4>
-                    <p class="text-gray-600 leading-relaxed">Comprehensive property management services to maximize your investment returns.</p>
+                    <h4 class="text-2xl font-bold mb-6 text-[#008148]">Property Management</h4>
+                    <p class="text-gray-500 text-lg leading-relaxed">Comprehensive property management services to maximize your investment returns.</p>
                 </div>
 
                 <!-- Real Estate Developing -->
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 text-center">
-                    <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-green transition-colors duration-300">
-                        <i class="fas fa-broadcast-tower text-3xl text-brand-green group-hover:text-brand-yellow transition-colors duration-300"></i>
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group">
+                    <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-[#008148] transition-all duration-500">
+                        <i class="fas fa-broadcast-tower text-4xl text-[#008148] group-hover:text-white transition-all duration-500"></i>
                     </div>
-                    <h4 class="text-2xl font-bold mb-4 text-brand-green">Real Estate Developing</h4>
-                    <p class="text-gray-600 leading-relaxed">Expert guidance on real estate investments and market opportunities in Ethiopia.</p>
+                    <h4 class="text-2xl font-bold mb-6 text-black">Real Estate Developing</h4>
+                    <p class="text-gray-500 text-lg leading-relaxed">Expert guidance on real estate investments and market opportunities in Ethiopia.</p>
                 </div>
             </div>
         </div>
