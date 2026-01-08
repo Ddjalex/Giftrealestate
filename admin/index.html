@@ -59,8 +59,33 @@
                 <input type="text" name="title" placeholder="Property Title" class="w-full p-2 border rounded" required>
                 <textarea name="description" placeholder="Description" class="w-full p-2 border rounded"></textarea>
                 <div class="grid grid-cols-2 gap-4">
+                    <select name="property_type" class="p-2 border rounded" required>
+                        <option value="">Select Type</option>
+                        <option value="Residential Apartment">Residential Apartment</option>
+                        <option value="Commercial Property">Commercial Property</option>
+                        <option value="Luxury Villa">Luxury Villa</option>
+                        <option value="Office Space">Office Space</option>
+                        <option value="Retail Shop">Retail Shop</option>
+                        <option value="Land & Plot">Land & Plot</option>
+                    </select>
+                    <select name="status" class="p-2 border rounded" required>
+                        <option value="For Sale">For Sale</option>
+                        <option value="For Rent">For Rent</option>
+                        <option value="Reduced">Reduced</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
                     <input type="number" name="price" placeholder="Price (ETB)" class="p-2 border rounded">
                     <input type="text" name="location" placeholder="Location" class="p-2 border rounded">
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <input type="number" name="bedrooms" placeholder="Beds" class="p-2 border rounded">
+                    <input type="number" name="bathrooms" placeholder="Baths" class="p-2 border rounded">
+                    <input type="number" name="area_sqft" placeholder="Sq Ft" class="p-2 border rounded">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" name="featured" id="featured" class="mr-2">
+                    <label for="featured">Featured Property</label>
                 </div>
                 <div class="flex justify-end space-x-2">
                     <button type="button" onclick="hideAddModal()" class="px-4 py-2 text-gray-500">Cancel</button>
