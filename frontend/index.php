@@ -290,15 +290,20 @@
 
                 async function loadProperties() {
                     try {
-                        const response = await fetch('/api/properties');
-                        allProperties = await response.json();
-                        displayProperties(allProperties);
+                        const [propsRes, settingsRes] = await Promise.all([
+                            fetch('/api/properties'),
+                            fetch('/api/settings')
+                        ]);
+                        allProperties = await propsRes.json();
+                        const settings = await settingsRes.json();
+                        const contactPhone = settings.phone || '+251921878641';
+                        displayProperties(allProperties, contactPhone);
                     } catch (error) {
                         console.error('Error loading properties:', error);
                     }
                 }
 
-                function displayProperties(properties) {
+                function displayProperties(properties, contactPhone) {
                     const grid = document.getElementById('property-grid');
                     if (properties.length === 0) {
                         grid.innerHTML = '<div class="text-center col-span-full py-10 text-gray-500">No properties found.</div>';
@@ -331,6 +336,9 @@
                             return '/uploads/' + img;
                         });
                         
+                        const whatsappMsg = encodeURIComponent(`I am interested in this property: ${p.title} at ${p.location}`);
+                        const whatsappLink = `https://wa.me/${contactPhone.replace(/\+/g, '').replace(/\s/g, '')}?text=${whatsappMsg}`;
+                        
                         return `
                         <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
                             <div class="relative h-64 overflow-hidden bg-gray-200">
@@ -359,10 +367,20 @@
                             </div>
                             <div class="p-6">
                                 <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">${p.property_type || 'Property'}</div>
-                                <div class="text-brand-green font-bold text-lg mb-1">${new Intl.NumberFormat('en-ET', { style: 'currency', currency: 'ETB' }).format(p.price)}</div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="bg-gray-100 text-gray-800 text-xs font-bold px-2 py-1 rounded">Call for price</div>
+                                </div>
                                 <h3 class="text-xl font-bold text-gray-800 mb-2 truncate">${p.title}</h3>
                                 <p class="text-gray-500 text-sm mb-2"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location}</p>
                                 <p class="text-gray-500 text-sm mb-4 line-clamp-2">${p.description || ''}</p>
+                                <div class="flex gap-2 mb-4">
+                                    <a href="tel:${contactPhone}" class="flex-1 bg-brand-green text-white text-center py-2 rounded-lg font-bold text-sm hover:bg-opacity-90 transition flex items-center justify-center gap-2">
+                                        <i class="fas fa-phone-alt"></i> Call
+                                    </a>
+                                    <a href="${whatsappLink}" target="_blank" class="flex-1 bg-[#25D366] text-white text-center py-2 rounded-lg font-bold text-sm hover:bg-opacity-90 transition flex items-center justify-center gap-2">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </a>
+                                </div>
                                 <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
                                     <span class="flex items-center"><i class="fas fa-bed mr-2 text-brand-green"></i> ${p.bedrooms} Beds</span>
                                     <span class="flex items-center"><i class="fas fa-bath mr-2 text-brand-green"></i> ${p.bathrooms} Baths</span>
