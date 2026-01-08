@@ -53,11 +53,11 @@
                 <img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain">
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green">
-                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Home</a>
-                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Properties</a>
-                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">About Us</a>
-                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Services</a>
-                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Contact</a>
+                <a href="#home" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Home</a>
+                <a href="#properties" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Properties</a>
+                <a href="#gallery" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Gallery</a>
+                <a href="#news" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">News</a>
+                <a href="#contact" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Contact</a>
             </div>
             <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full hover:bg-opacity-90 transition">Call Us <i class="fas fa-phone-alt ml-2"></i></a>
         </div>
@@ -172,7 +172,7 @@
     </div>
 
     <!-- Featured Properties -->
-    <section class="py-20 bg-gray-50">
+    <section id="properties" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-end mb-12">
                 <div>
@@ -251,6 +251,41 @@
                 }
 
                 loadProperties();
+
+                async function loadGallery() {
+                    const response = await fetch('/api/gallery');
+                    const items = await response.json();
+                    const grid = document.getElementById('gallery-grid');
+                    grid.innerHTML = items.map(item => `
+                        <div class="relative group h-64 overflow-hidden rounded-xl">
+                            <img src="${item.image_url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
+                                <span class="text-xs font-bold text-brand-yellow uppercase mb-1">${item.category}</span>
+                                <h4 class="font-bold">${item.title}</h4>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                async function loadNews() {
+                    const response = await fetch('/api/news');
+                    const items = await response.json();
+                    const grid = document.getElementById('news-grid');
+                    grid.innerHTML = items.map(item => `
+                        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition">
+                            <img src="${item.image_url || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'}" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <span class="text-xs text-gray-400 font-bold uppercase">${new Date(item.created_at).toLocaleDateString()}</span>
+                                <h4 class="text-xl font-bold text-brand-green mt-2 mb-4">${item.title}</h4>
+                                <p class="text-gray-500 text-sm line-clamp-3 mb-4">${item.content}</p>
+                                <a href="#" class="text-brand-green font-bold text-sm hover:text-brand-yellow">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                loadGallery();
+                loadNews();
             </script>
             
             <div class="text-center mt-12">
@@ -260,6 +295,32 @@
     </section>
 
     <!-- Services -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-brand-green mb-4">Our Project Gallery</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Take a look at our ongoing and completed projects across Ethiopia.</p>
+            </div>
+            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- Gallery items will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-brand-green mb-4">Latest News & Updates</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Stay updated with the latest from Gift Real Estate PLC.</p>
+            </div>
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- News items will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Original Services Section (Renamed or Kept) -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
