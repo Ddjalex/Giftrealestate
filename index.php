@@ -31,6 +31,8 @@ if (strpos($path, '/api/') === 0) {
     }
 } elseif ($path === '/news') {
     include 'frontend/news.php';
+} elseif ($path === '/about') {
+    include 'frontend/about.php';
 } elseif ($path === '/gallery') {
     include 'frontend/gallery.php';
 } elseif ($path === '/properties') {
