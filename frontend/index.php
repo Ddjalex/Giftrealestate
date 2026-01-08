@@ -227,50 +227,31 @@
     </script>
 
     <!-- Hero Section -->
-    <header class="relative h-[650px] flex items-center overflow-hidden">
-        <div class="absolute inset-0 bg-brand-green/80 z-10"></div>
+    <header class="relative h-[600px] flex items-center overflow-hidden">
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
         <div class="absolute inset-0 bg-[url('/public/assets/home-header.jpg')] bg-cover bg-center"></div>
-        <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center justify-between text-white">
-            <div class="md:w-3/5">
-                <h1 class="text-6xl md:text-8xl font-bold mb-4 leading-tight uppercase tracking-tighter">ESTATE PLC</h1>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white">Real Estatae Developer!</h2>
-                <p class="text-lg md:text-xl mb-10 max-w-xl text-gray-100 font-medium">Discover exceptional properties and build your future with Ethiopia's most trusted real estate partner. From luxury villas to commercial spaces, we make your dreams a reality.</p>
-                
-                <div class="flex flex-wrap gap-4">
-                    <a href="/properties" class="bg-brand-green border-2 border-white text-white font-bold px-8 py-4 rounded-lg hover:bg-white hover:text-brand-green transition shadow-xl text-lg flex items-center gap-2">
-                        View Properties <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="/about" class="bg-white text-brand-green font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition shadow-xl text-lg flex items-center gap-2">
-                        Read More.... <i class="fas fa-arrow-circle-down text-brand-green"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="md:w-2/5 mt-12 md:mt-0 relative">
-                <img id="home-client-img" src="" class="w-full max-w-lg mx-auto transform hover:scale-105 transition duration-500 hidden" alt="Client Image">
-            </div>
+        <div class="container mx-auto px-4 relative z-20 text-white">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">Ethiopia's Most Trusted <br><span class="text-brand-yellow">Real Estate Partner</span></h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl">Discover exceptional properties and build your future with Gift Real Estate PLC. From luxury villas to commercial spaces.</p>
         </div>
     </header>
 
-    <!-- Stats Bar -->
+    <!-- Stats Bar & Search Box -->
     <div class="container mx-auto px-4 -mt-16 relative z-30">
         <div class="grid grid-cols-1 md:grid-cols-3 bg-white shadow-2xl rounded-xl overflow-hidden text-center divide-y md:divide-y-0 md:divide-x divide-gray-100 mb-8">
-            <div class="p-8 flex flex-col items-center">
-                <i class="fas fa-building text-brand-yellow text-4xl mb-4"></i>
+            <div class="p-8">
                 <div class="text-4xl font-bold text-brand-green">3000+</div>
-                <div class="text-gray-500 font-bold uppercase tracking-wider text-xs mt-2">Properties Sold</div>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Properties Sold</div>
             </div>
-            <div class="p-8 flex flex-col items-center">
-                <i class="fas fa-phone-alt text-brand-yellow text-4xl mb-4"></i>
-                <div class="text-2xl font-bold text-brand-green" id="stats-phone">0921878641</div>
-                <div class="text-gray-500 font-bold uppercase tracking-wider text-xs mt-2">For more information</div>
+            <div class="p-8">
+                <div class="text-4xl font-bold text-brand-green" id="stats-phone">0921878641</div>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Call For Info</div>
             </div>
-            <div class="p-8 flex flex-col items-center">
-                <i class="fas fa-award text-brand-yellow text-4xl mb-4"></i>
+            <div class="p-8">
                 <div class="text-4xl font-bold text-brand-green">25+</div>
-                <div class="text-gray-500 font-bold uppercase tracking-wider text-xs mt-2">Years Experience</div>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Years Experience</div>
             </div>
         </div>
-    </div>
         
         <div class="max-w-4xl mx-auto bg-white p-4 rounded-xl shadow-lg flex flex-col md:flex-row gap-4">
             <input type="text" id="search-location" placeholder="Search by location (CMC, Bole, Ayat)..." class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800">
@@ -346,12 +327,6 @@
                         
                         const statsPhone = document.getElementById('stats-phone');
                         if (statsPhone) statsPhone.innerText = contactPhone;
-
-                        const homeClientImg = document.getElementById('home-client-img');
-                        if (homeClientImg && settings.home_client_image) {
-                            homeClientImg.src = settings.home_client_image.startsWith('http') ? settings.home_client_image : `/uploads/${settings.home_client_image}`;
-                            homeClientImg.classList.remove('hidden');
-                        }
 
                         displayProperties(allProperties, contactPhone);
                     } catch (error) {

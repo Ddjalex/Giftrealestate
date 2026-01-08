@@ -162,35 +162,8 @@ function renderTable() {
 
 async function saveSettings() {
     const form = document.getElementById('settings-form');
-    const formData = new FormData();
-    const payload = {};
-    
-    // Process files
-    const fileInputs = form.querySelectorAll('input[type="file"]');
-    for (const input of fileInputs) {
-        if (input.files.length > 0) {
-            const uploadFormData = new FormData();
-            uploadFormData.append('images[]', input.files[0]);
-            const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: uploadFormData });
-            const uploadData = await uploadRes.json();
-            if (uploadData.urls && uploadData.urls.length > 0) {
-                const hiddenInputName = input.name.replace('_file', '');
-                payload[hiddenInputName] = uploadData.urls[0];
-            }
-        } else {
-            const hiddenInputName = input.name.replace('_file', '');
-            if (form.elements[hiddenInputName]) {
-                payload[hiddenInputName] = form.elements[hiddenInputName].value;
-            }
-        }
-    }
-
-    // Add other fields
-    for (const element of form.elements) {
-        if (element.name && element.type !== 'file' && !payload[element.name]) {
-            payload[element.name] = element.value;
-        }
-    }
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
     
     const response = await fetch('/api/settings.php', {
         method: 'POST',
@@ -200,7 +173,6 @@ async function saveSettings() {
 
     if (response.ok) {
         alert('Settings saved successfully!');
-        fetchData();
     }
 }
 
