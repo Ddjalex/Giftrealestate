@@ -306,41 +306,70 @@
         </div>
     </section>
 
-    <!-- Services -->
+    <!-- About Section -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-brand-green mb-4">Our Services</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Providing cutting-edge residential and commercial properties designed to transform your lifestyle.</p>
+            <div class="max-w-5xl mx-auto">
+                <div class="bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-brand-green"></div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-brand-green mb-8">About Gift Real Estate PLC</h2>
+                    <p class="text-xl text-gray-700 leading-relaxed mb-8">
+                        For over 25 years, Gift Real Estate PLC has been Ethiopia's trusted partner in building residential apartments, commercial apartments and creating exceptional living experiences. We don't just sell properties – we help you build your future.
+                    </p>
+                    
+                    <div class="relative rounded-2xl overflow-hidden h-80 mb-12 group">
+                        <div class="absolute inset-0 bg-brand-green/60 mix-blend-multiply z-10 transition-opacity group-hover:opacity-40"></div>
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Gift Real Estate Projects">
+                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-8 text-center">
+                            <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">"Gift Real Estate PLC"</h3>
+                            <p class="text-white text-lg max-w-2xl">
+                                Gift Real Estate PLC's mission is to provide cutting-edge residential and commercial properties that are designed and built specifically to meet the needs of customers, transforming their lifestyle to a higher standard 21st-century lifestyle.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="text-center p-8 rounded-xl hover:bg-gray-50 transition">
-                    <div class="w-16 h-16 bg-brand-yellow/20 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
-                        <i class="fas fa-home"></i>
+                <!-- Residential Sales -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 text-center">
+                    <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-green transition-colors duration-300">
+                        <i class="fas fa-home text-3xl text-brand-green group-hover:text-brand-yellow transition-colors duration-300"></i>
                     </div>
-                    <h4 class="text-xl font-bold mb-3 text-brand-green">Residential Sales</h4>
-                    <p class="text-gray-500 text-sm">Find your perfect home from our collection of villas and apartments.</p>
+                    <h4 class="text-2xl font-bold mb-4 text-brand-green">Residential Sales</h4>
+                    <p class="text-gray-600 leading-relaxed">Find your perfect home from our extensive collection of villas, apartments, and family residences.</p>
                 </div>
-                <div class="text-center p-8 rounded-xl hover:bg-gray-50 transition">
-                    <div class="w-16 h-16 bg-brand-yellow/20 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
-                        <i class="fas fa-building"></i>
+
+                <!-- Commercial Properties -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 text-center">
+                    <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-green transition-colors duration-300">
+                        <i class="fas fa-users text-3xl text-brand-green group-hover:text-brand-yellow transition-colors duration-300"></i>
                     </div>
-                    <h4 class="text-xl font-bold mb-3 text-brand-green">Commercial</h4>
-                    <p class="text-gray-500 text-sm">Prime commercial spaces for your business needs.</p>
+                    <h4 class="text-2xl font-bold mb-4 text-brand-green">Commercial Properties</h4>
+                    <p class="text-gray-600 leading-relaxed">Prime commercial spaces for your business needs, from retail shops to office complexes.</p>
                 </div>
-                <div class="text-center p-8 rounded-xl hover:bg-gray-50 transition">
-                    <div class="w-16 h-16 bg-brand-yellow/20 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
-                        <i class="fas fa-tasks"></i>
+
+                <!-- Property Management -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 text-center">
+                    <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-green transition-colors duration-300">
+                        <i class="fas fa-handshake text-3xl text-brand-green group-hover:text-brand-yellow transition-colors duration-300"></i>
                     </div>
-                    <h4 class="text-xl font-bold mb-3 text-brand-green">Management</h4>
-                    <p class="text-gray-500 text-sm">Comprehensive property management to maximize returns.</p>
+                    <h4 class="text-2xl font-bold mb-4 text-brand-green">Property Management</h4>
+                    <p class="text-gray-600 leading-relaxed">Comprehensive property management services to maximize your investment returns.</p>
                 </div>
-                <div class="text-center p-8 rounded-xl hover:bg-gray-50 transition">
-                    <div class="w-16 h-16 bg-brand-yellow/20 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
-                        <i class="fas fa-chart-line"></i>
+
+                <!-- Real Estate Developing -->
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 text-center">
+                    <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-green transition-colors duration-300">
+                        <i class="fas fa-broadcast-tower text-3xl text-brand-green group-hover:text-brand-yellow transition-colors duration-300"></i>
                     </div>
-                    <h4 class="text-xl font-bold mb-3 text-brand-green">Consultation</h4>
-                    <p class="text-gray-500 text-sm">Expert guidance on real estate market opportunities.</p>
+                    <h4 class="text-2xl font-bold mb-4 text-brand-green">Real Estate Developing</h4>
+                    <p class="text-gray-600 leading-relaxed">Expert guidance on real estate investments and market opportunities in Ethiopia.</p>
                 </div>
             </div>
         </div>
