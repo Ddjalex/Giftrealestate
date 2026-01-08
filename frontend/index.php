@@ -227,12 +227,27 @@
     </script>
 
     <!-- Hero Section -->
-    <header class="relative h-[600px] flex items-center overflow-hidden">
-        <div class="absolute inset-0 bg-black/40 z-10"></div>
-        <div class="absolute inset-0 bg-[url('/public/assets/home-header.jpg')] bg-cover bg-center"></div>
-        <div class="container mx-auto px-4 relative z-20 text-white">
-            <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">Ethiopia's Most Trusted <br><span class="text-brand-yellow">Real Estate Partner</span></h1>
-            <p class="text-xl md:text-2xl mb-8 max-w-2xl">Discover exceptional properties and build your future with Gift Real Estate PLC. From luxury villas to commercial spaces.</p>
+    <header class="relative min-h-[600px] flex items-center overflow-hidden bg-brand-green">
+        <div class="absolute inset-0 z-0">
+            <img src="/public/assets/aerial-view.jpg" class="w-full h-full object-cover opacity-30" alt="Background Aerial View">
+        </div>
+        <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-white py-12">
+                <h1 class="text-6xl md:text-8xl font-bold mb-4 leading-tight uppercase tracking-tighter">GIFT REAL <br>ESTATE PLC</h1>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Real Estatae Developer!</h2>
+                <p class="text-lg md:text-xl mb-10 max-w-xl leading-relaxed">Discover exceptional properties and build your future with Ethiopia's most trusted real estate partner. From luxury villas to commercial spaces, we make your dreams a reality.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="/propertys" class="bg-[#2e7d32] hover:bg-[#1b5e20] text-white px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2 border border-white/20 transition-all">
+                        View Properties <span>→</span>
+                    </a>
+                    <a href="/about" class="bg-white hover:bg-gray-100 text-[#2e7d32] px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2 transition-all shadow-lg">
+                        Read More.... <span class="bg-[#2e7d32] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">↓</span>
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-8 md:mt-0 flex justify-end">
+                <img src="/public/assets/man-with-tablet.png" class="max-h-[550px] object-contain" alt="Gift Real Estate Representative">
+            </div>
         </div>
     </header>
 
