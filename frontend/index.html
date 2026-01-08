@@ -253,11 +253,13 @@
                 loadProperties();
 
                 // Handle deep linking for section-based routes
-                window.addEventListener('DOMContentLoaded', () => {
+                window.addEventListener('load', () => {
                     const path = window.location.pathname;
-                    if (path === '/properties') document.getElementById('properties').scrollIntoView();
-                    if (path === '/gallery') document.getElementById('gallery').scrollIntoView();
-                    if (path === '/contact') document.getElementById('contact').scrollIntoView();
+                    setTimeout(() => {
+                        if (path === '/properties') document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' });
+                        if (path === '/gallery') document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
+                        if (path === '/contact') document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 500);
                 });
 
                 async function loadGallery() {
@@ -358,7 +360,8 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-green text-white pt-20 pb-10">
+    <section id="contact" class="bg-brand-green">
+        <footer class="text-white pt-20 pb-10">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div>
