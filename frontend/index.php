@@ -303,11 +303,30 @@
                         return;
                     }
 
-                    grid.innerHTML = properties.map(p => `
+                    grid.innerHTML = properties.map(p => {
+                        const gallery = p.gallery_images ? JSON.parse(p.gallery_images) : [p.main_image];
+                        const images = gallery.filter(img => img);
+                        
+                        return `
                         <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
-                            <div class="relative h-64">
-                                <img src="${p.main_image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${p.title}">
-                                <div class="absolute top-4 left-4 flex gap-2">
+                            <div class="relative h-64 overflow-hidden">
+                                <div class="property-slider h-full w-full flex transition-transform duration-500" id="slider-${p.id}">
+                                    ${images.map(img => `
+                                        <img src="${img}" class="w-full h-full object-cover flex-shrink-0" alt="${p.title}">
+                                    `).join('')}
+                                </div>
+                                ${images.length > 1 ? `
+                                    <button onclick="event.stopPropagation(); moveSlider(${p.id}, -1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white z-20">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <button onclick="event.stopPropagation(); moveSlider(${p.id}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white z-20">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                    <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
+                                        ${images.map((_, i) => `<div class="w-2 h-2 rounded-full bg-white/50 slider-dot-${p.id}" data-index="${i}"></div>`).join('')}
+                                    </div>
+                                ` : ''}
+                                <div class="absolute top-4 left-4 flex gap-2 z-10">
                                     ${p.featured ? '<span class="bg-brand-green text-brand-yellow text-xs font-bold px-3 py-1 rounded">FEATURED</span>' : ''}
                                     <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded">${p.status ? p.status.toUpperCase() : 'FOR SALE'}</span>
                                 </div>
@@ -325,7 +344,23 @@
                                 </div>
                             </div>
                         </div>
-                    `).join('');
+                    `}).join('');
+                }
+
+                const sliderStates = {};
+                function moveSlider(id, dir) {
+                    if (!sliderStates[id]) sliderStates[id] = 0;
+                    const slider = document.getElementById(`slider-${id}`);
+                    const images = slider.querySelectorAll('img');
+                    const dots = document.querySelectorAll(`.slider-dot-${id}`);
+                    
+                    sliderStates[id] = (sliderStates[id] + dir + images.length) % images.length;
+                    slider.style.transform = `translateX(-${sliderStates[id] * 100}%)`;
+                    
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('bg-white', i === sliderStates[id]);
+                        dot.classList.toggle('bg-white/50', i !== sliderStates[id]);
+                    });
                 }
 
                 function filterProperties() {

@@ -198,7 +198,10 @@
                 </div>
                 <div>
                     <label class="block text-sm font-bold mb-2">Property Images</label>
-                    <input type="file" id="prop-images-input" multiple class="w-full p-2 border rounded" accept="image/*">
+                    <div class="flex gap-2 mb-2">
+                        <input type="file" id="prop-images-input" multiple class="flex-1 p-2 border rounded" accept="image/*">
+                        <button type="button" onclick="document.getElementById('prop-images-input').click()" class="bg-gray-200 px-4 py-2 rounded font-bold text-sm hover:bg-gray-300">Add More</button>
+                    </div>
                     <div id="prop-images-preview" class="grid grid-cols-4 gap-2 mt-2"></div>
                 </div>
                 <div class="flex items-center">
@@ -460,6 +463,8 @@
                         const uploadData = await uploadRes.json();
                         console.log('Upload result:', uploadData);
                         if (uploadData.urls) {
+                            // If editing, we might want to append. But for now, we replace.
+                            // To support appending, we'd need to fetch current images first.
                             payload.main_image = uploadData.urls[0];
                             payload.gallery_images = uploadData.urls;
                         }
@@ -484,20 +489,42 @@
         // Initialize
         window.onload = () => {
             fetchData();
+            
+            let allFiles = [];
+
             // Image preview listener
             const imgInput = document.getElementById('prop-images-input');
             if (imgInput) {
                 imgInput.addEventListener('change', function(e) {
                     const preview = document.getElementById('prop-images-preview');
                     if (!preview) return;
+                    
+                    const files = Array.from(this.files);
+                    allFiles = [...allFiles, ...files];
+                    
                     preview.innerHTML = '';
-                    Array.from(this.files).forEach(file => {
+                    allFiles.forEach((file, index) => {
                         const reader = new FileReader();
                         reader.onload = function(e) {
+                            const container = document.createElement('div');
+                            container.className = 'relative group';
+                            
                             const img = document.createElement('img');
                             img.src = e.target.result;
                             img.className = 'h-20 w-20 object-cover rounded border';
-                            preview.appendChild(img);
+                            
+                            const removeBtn = document.createElement('button');
+                            removeBtn.innerHTML = '&times;';
+                            removeBtn.className = 'absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity';
+                            removeBtn.onclick = (e) => {
+                                e.preventDefault();
+                                allFiles.splice(index, 1);
+                                imgInput.dispatchEvent(new Event('change'));
+                            };
+                            
+                            container.appendChild(img);
+                            container.appendChild(removeBtn);
+                            preview.appendChild(container);
                         }
                         reader.readAsDataURL(file);
                     });
