@@ -229,8 +229,8 @@
     <!-- Hero Section -->
     <header class="relative min-h-[700px] flex items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="/public/assets/header-bg.jpg" class="w-full h-full object-cover scale-[1.75] translate-x-[-20%] translate-y-[5%]" alt="Background Aerial View">
-            <div class="absolute inset-0 bg-black/40"></div>
+            <img src="/uploads/home_header.jpg" class="w-full h-full object-cover" alt="Background Aerial View">
+            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.8) 100%);"></div>
         </div>
         <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4">
             <div class="md:w-1/2 text-white py-12">
@@ -246,8 +246,8 @@
                     </a>
                 </div>
             </div>
-            <div class="md:w-1/2 mt-8 md:mt-0 flex justify-start items-end self-stretch pl-0">
-                <img src="/public/assets/man-with-tablet.png" class="max-h-[-800px] w-auto object-contain object-bottom mb-[-190px] transform scale-50 translate-x-[-40%]" alt="Gift Real Estate Representative">
+            <div class="md:w-1/2 mt-8 md:mt-0 flex justify-center md:justify-end items-end">
+                <img src="/public/assets/man-with-tablet.png" class="max-h-[600px] w-auto object-contain object-bottom" alt="Gift Real Estate Representative">
             </div>
         </div>
     </header>
