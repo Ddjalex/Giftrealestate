@@ -470,15 +470,24 @@
                 }
             }
 
-            const response = await fetch(`/api/${currentTab}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+            try {
+                const response = await fetch(`/api/${currentTab}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-            if (response.ok) {
-                hideAddModal();
-                fetchData();
+                if (response.ok) {
+                    alert('Saved successfully!');
+                    hideAddModal();
+                    fetchData();
+                } else {
+                    const err = await response.json();
+                    alert('Error: ' + (err.error || 'Failed to save'));
+                }
+            } catch (e) {
+                console.error('Save failed', e);
+                alert('An error occurred while saving.');
             }
         }
 
