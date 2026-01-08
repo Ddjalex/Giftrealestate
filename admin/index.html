@@ -52,40 +52,41 @@
     </main>
 
     <!-- Simple Add Modal (Hidden by default) -->
-    <div id="add-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+    <div id="add-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
         <div class="bg-white rounded-lg p-6 max-w-lg w-full">
-            <h3 class="text-xl font-bold mb-4">Add New Property</h3>
+            <h3 id="modal-title" class="text-xl font-bold mb-4">Add New Property</h3>
             <form id="add-property-form" class="space-y-4">
-                <input type="text" name="title" placeholder="Property Title" class="w-full p-2 border rounded" required>
-                <textarea name="description" placeholder="Description" class="w-full p-2 border rounded"></textarea>
+                <input type="hidden" name="id" id="prop-id">
+                <input type="text" name="title" id="prop-title" placeholder="Property Title" class="w-full p-2 border rounded" required>
+                <textarea name="description" id="prop-description" placeholder="Description" class="w-full p-2 border rounded"></textarea>
                 <div class="grid grid-cols-2 gap-4">
-                    <select name="property_type" class="p-2 border rounded" required>
+                    <select name="property_type" id="prop-type" class="p-2 border rounded" required>
                         <option value="">Select Type</option>
-                        <option value="Residential Apartment">Residential Apartment</option>
-                        <option value="Commercial Property">Commercial Property</option>
-                        <option value="Luxury Villa">Luxury Villa</option>
-                        <option value="Office Space">Office Space</option>
-                        <option value="Retail Shop">Retail Shop</option>
-                        <option value="Land & Plot">Land & Plot</option>
+                        <option value="Residential Apartments">Residential Apartments</option>
+                        <option value="Commercial Properties">Commercial Properties</option>
+                        <option value="Luxury Villas">Luxury Villas</option>
+                        <option value="Office Spaces">Office Spaces</option>
+                        <option value="Retail Shops">Retail Shops</option>
+                        <option value="Land & Plots">Land & Plots</option>
                     </select>
-                    <select name="status" class="p-2 border rounded" required>
+                    <select name="status" id="prop-status" class="p-2 border rounded" required>
                         <option value="For Sale">For Sale</option>
                         <option value="For Rent">For Rent</option>
                         <option value="Reduced">Reduced</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <input type="number" name="price" placeholder="Price (ETB)" class="p-2 border rounded">
-                    <input type="text" name="location" placeholder="Location" class="p-2 border rounded">
+                    <input type="number" name="price" id="prop-price" placeholder="Price (ETB)" class="p-2 border rounded">
+                    <input type="text" name="location" id="prop-location" placeholder="Location" class="p-2 border rounded">
                 </div>
                 <div class="grid grid-cols-3 gap-4">
-                    <input type="number" name="bedrooms" placeholder="Beds" class="p-2 border rounded">
-                    <input type="number" name="bathrooms" placeholder="Baths" class="p-2 border rounded">
-                    <input type="number" name="area_sqft" placeholder="Sq Ft" class="p-2 border rounded">
+                    <input type="number" name="bedrooms" id="prop-beds" placeholder="Beds" class="p-2 border rounded">
+                    <input type="number" name="bathrooms" id="prop-baths" placeholder="Baths" class="p-2 border rounded">
+                    <input type="number" name="area_sqft" id="prop-area" placeholder="Sq Ft" class="p-2 border rounded">
                 </div>
                 <div class="flex items-center">
-                    <input type="checkbox" name="featured" id="featured" class="mr-2">
-                    <label for="featured">Featured Property</label>
+                    <input type="checkbox" name="featured" id="prop-featured" class="mr-2">
+                    <label for="prop-featured">Featured Property</label>
                 </div>
                 <div class="flex justify-end space-x-2">
                     <button type="button" onclick="hideAddModal()" class="px-4 py-2 text-gray-500">Cancel</button>
@@ -96,15 +97,16 @@
     </div>
 
     <script>
+        let properties = [];
         async function fetchProperties() {
             const response = await fetch('/api/properties');
-            const data = await response.json();
+            properties = await response.json();
             const tbody = document.getElementById('admin-property-list');
-            tbody.innerHTML = data.map(p => `
+            tbody.innerHTML = properties.map(p => `
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap font-medium">${p.title}</td>
                     <td class="px-6 py-4 whitespace-nowrap">${p.location}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${p.price} ETB</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${new Intl.NumberFormat().format(p.price)} ETB</td>
                     <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">${p.status}</span></td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
                         <button onclick="editProperty(${p.id})" class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
@@ -121,13 +123,44 @@
             }
         }
 
-        function showAddModal() { document.getElementById('add-modal').classList.remove('hidden'); }
-        function hideAddModal() { document.getElementById('add-modal').classList.add('hidden'); }
+        function editProperty(id) {
+            const p = properties.find(prop => prop.id == id);
+            if (!p) return;
+            document.getElementById('modal-title').innerText = 'Edit Property';
+            document.getElementById('prop-id').value = p.id;
+            document.getElementById('prop-title').value = p.title;
+            document.getElementById('prop-description').value = p.description || '';
+            document.getElementById('prop-type').value = p.property_type || '';
+            document.getElementById('prop-status').value = p.status || 'For Sale';
+            document.getElementById('prop-price').value = p.price || 0;
+            document.getElementById('prop-location').value = p.location || '';
+            document.getElementById('prop-beds').value = p.bedrooms || 0;
+            document.getElementById('prop-baths').value = p.bathrooms || 0;
+            document.getElementById('prop-area').value = p.area_sqft || 0;
+            document.getElementById('prop-featured').checked = p.featured;
+            showAddModal();
+        }
+
+        function showAddModal() { 
+            if (!document.getElementById('prop-id').value) {
+                document.getElementById('modal-title').innerText = 'Add New Property';
+                document.getElementById('add-property-form').reset();
+            }
+            document.getElementById('add-modal').classList.remove('hidden'); 
+        }
+        function hideAddModal() { 
+            document.getElementById('add-modal').classList.add('hidden'); 
+            document.getElementById('prop-id').value = '';
+            document.getElementById('add-property-form').reset();
+        }
 
         document.getElementById('add-property-form').onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
+            // Checkbox handling
+            data.featured = document.getElementById('prop-featured').checked;
+            
             const response = await fetch('/api/properties', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

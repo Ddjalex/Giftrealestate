@@ -1,16 +1,11 @@
 <?php
-// Gift Real Estate - Ethiopia
-// Minimal Entry Point
-
+// PHP Entry Point for Gift Real Estate
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if ($path === '/health') {
-    die("OK");
-}
-
+// Simple routing
 if (strpos($path, '/api/') === 0) {
     require_once 'api/db.php';
     if (strpos($path, '/api/properties') === 0) {
@@ -19,23 +14,10 @@ if (strpos($path, '/api/') === 0) {
         require 'api/inquiries.php';
     } else {
         header('Content-Type: application/json');
-        echo json_encode(['error' => 'Not Found']);
+        echo json_encode(['error' => 'Endpoint not found']);
     }
-    exit;
-}
-
-if (strpos($path, '/admin') === 0) {
-    if (file_exists('admin/index.html')) {
-        include 'admin/index.html';
-    } else {
-        echo "Admin missing";
-    }
-    exit;
-}
-
-// Default to Frontend
-if (file_exists('frontend/index.html')) {
-    include 'frontend/index.html';
+} elseif (strpos($path, '/admin') === 0) {
+    include 'admin/index.html';
 } else {
-    echo "Frontend missing";
+    include 'frontend/index.html';
 }

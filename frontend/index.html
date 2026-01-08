@@ -60,10 +60,18 @@
         <div class="container mx-auto px-4 relative z-20 text-white">
             <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">Ethiopia's Most Trusted <br><span class="text-brand-yellow">Real Estate Partner</span></h1>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl">Discover exceptional properties and build your future with Gift Real Estate PLC. From luxury villas to commercial spaces.</p>
-            <div class="flex flex-wrap gap-4">
-                <a href="#" class="bg-brand-yellow text-brand-green font-bold px-8 py-4 rounded hover:bg-yellow-500 transition shadow-lg">View Properties</a>
-                <a href="#" class="bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold px-8 py-4 rounded hover:bg-white/20 transition">Read More</a>
-            </div>
+        <div class="max-w-4xl mx-auto bg-white p-4 rounded-xl shadow-lg flex flex-wrap gap-4">
+            <input type="text" id="search-location" placeholder="Search by location (CMC, Bole, Ayat)..." class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green">
+            <select id="filter-type" class="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green">
+                <option value="">All Types</option>
+                <option value="Residential Apartments">Residential Apartments</option>
+                <option value="Commercial Properties">Commercial Properties</option>
+                <option value="Luxury Villas">Luxury Villas</option>
+                <option value="Office Spaces">Office Spaces</option>
+                <option value="Retail Shops">Retail Shops</option>
+                <option value="Land & Plots">Land & Plots</option>
+            </select>
+            <button onclick="filterProperties()" class="bg-brand-yellow text-brand-green font-bold px-8 py-3 rounded-lg hover:bg-yellow-500 transition shadow-md">Search</button>
         </div>
     </header>
 
@@ -107,42 +115,63 @@
             </div>
             
             <script>
+                let allProperties = [];
+
                 async function loadProperties() {
                     try {
                         const response = await fetch('/api/properties');
-                        const properties = await response.json();
-                        const grid = document.getElementById('property-grid');
-                        
-                        if (properties.length === 0) {
-                            grid.innerHTML = '<div class="text-center col-span-full py-10 text-gray-500">No properties found.</div>';
-                            return;
-                        }
-
-                        grid.innerHTML = properties.map(p => `
-                            <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
-                                <div class="relative h-64">
-                                    <img src="${p.main_image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${p.title}">
-                                    <div class="absolute top-4 left-4 flex gap-2">
-                                        ${p.featured ? '<span class="bg-brand-green text-brand-yellow text-xs font-bold px-3 py-1 rounded">FEATURED</span>' : ''}
-                                        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded">${p.status.toUpperCase()}</span>
-                                    </div>
-                                </div>
-                                <div class="p-6">
-                                    <div class="text-brand-green font-bold text-lg mb-1">${new Intl.NumberFormat('en-ET', { style: 'currency', currency: 'ETB' }).format(p.price)}</div>
-                                    <h3 class="text-xl font-bold text-gray-800 mb-2 truncate">${p.title}</h3>
-                                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">${p.description || ''}</p>
-                                    <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
-                                        <span class="flex items-center"><i class="fas fa-bed mr-2 text-brand-green"></i> ${p.bedrooms} Beds</span>
-                                        <span class="flex items-center"><i class="fas fa-bath mr-2 text-brand-green"></i> ${p.bathrooms} Baths</span>
-                                        <span class="flex items-center"><i class="fas fa-ruler-combined mr-2 text-brand-green"></i> ${p.area_sqft} sq ft</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('');
+                        allProperties = await response.json();
+                        displayProperties(allProperties);
                     } catch (error) {
                         console.error('Error loading properties:', error);
                     }
                 }
+
+                function displayProperties(properties) {
+                    const grid = document.getElementById('property-grid');
+                    if (properties.length === 0) {
+                        grid.innerHTML = '<div class="text-center col-span-full py-10 text-gray-500">No properties found.</div>';
+                        return;
+                    }
+
+                    grid.innerHTML = properties.map(p => `
+                        <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                            <div class="relative h-64">
+                                <img src="${p.main_image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${p.title}">
+                                <div class="absolute top-4 left-4 flex gap-2">
+                                    ${p.featured ? '<span class="bg-brand-green text-brand-yellow text-xs font-bold px-3 py-1 rounded">FEATURED</span>' : ''}
+                                    <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded">${p.status ? p.status.toUpperCase() : 'FOR SALE'}</span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">${p.property_type || 'Property'}</div>
+                                <div class="text-brand-green font-bold text-lg mb-1">${new Intl.NumberFormat('en-ET', { style: 'currency', currency: 'ETB' }).format(p.price)}</div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2 truncate">${p.title}</h3>
+                                <p class="text-gray-500 text-sm mb-2"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location}</p>
+                                <p class="text-gray-500 text-sm mb-4 line-clamp-2">${p.description || ''}</p>
+                                <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
+                                    <span class="flex items-center"><i class="fas fa-bed mr-2 text-brand-green"></i> ${p.bedrooms} Beds</span>
+                                    <span class="flex items-center"><i class="fas fa-bath mr-2 text-brand-green"></i> ${p.bathrooms} Baths</span>
+                                    <span class="flex items-center"><i class="fas fa-ruler-combined mr-2 text-brand-green"></i> ${p.area_sqft} sq ft</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                function filterProperties() {
+                    const location = document.getElementById('search-location').value.toLowerCase();
+                    const type = document.getElementById('filter-type').value;
+
+                    const filtered = allProperties.filter(p => {
+                        const matchLocation = !location || (p.location && p.location.toLowerCase().includes(location));
+                        const matchType = !type || p.property_type === type;
+                        return matchLocation && matchType;
+                    });
+
+                    displayProperties(filtered);
+                }
+
                 loadProperties();
             </script>
             
