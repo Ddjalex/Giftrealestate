@@ -1,19 +1,32 @@
 <?php
-require_once 'db.php';
+// Database connection using environment variables
+$host = getenv('PGHOST');
+$port = getenv('PGPORT');
+$dbname = getenv('PGDATABASE');
+$user = getenv('PGUSER');
+$password = getenv('PGPASSWORD');
 
-header('Content-Type: application/json');
+try {
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password";
+    $pdo = new PDO($dsn);
+    // Use integer values directly if constants cause issues in this environment
+    $pdo->setAttribute(3, 2); // PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION
+    $pdo->setAttribute(19, 2); // PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC
+} catch (PDOException $e) {
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'Database connection failed: ' . $e->getMessage()]);
+    exit;
+}
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
-        // Handle single property vs list
         if (isset($_GET['id'])) {
             $stmt = $pdo->prepare("SELECT * FROM properties WHERE id = ?");
             $stmt->execute([$_GET['id']]);
             $property = $stmt->fetch();
             if ($property) {
-                // Fetch images
                 $imgStmt = $pdo->prepare("SELECT image_url, is_main FROM property_images WHERE property_id = ?");
                 $imgStmt->execute([$_GET['id']]);
                 $property['images'] = $imgStmt->fetchAll();
@@ -29,7 +42,6 @@ switch ($method) {
         break;
 
     case 'POST':
-        // Authentication check should go here
         $data = json_decode(file_get_contents('php://input'), true);
         if (!$data) {
             http_response_code(400);
