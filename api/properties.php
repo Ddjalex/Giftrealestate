@@ -71,6 +71,22 @@ switch ($method) {
         }
         break;
 
+    case 'DELETE':
+        if (isset($_GET['id'])) {
+            try {
+                $stmt = $pdo->prepare("DELETE FROM properties WHERE id = ?");
+                $stmt->execute([$_GET['id']]);
+                echo json_encode(['status' => 'success']);
+            } catch (PDOException $e) {
+                http_response_code(500);
+                echo json_encode(['error' => $e->getMessage()]);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'Missing ID']);
+        }
+        break;
+
     default:
         http_response_code(405);
         echo json_encode(['error' => 'Method not allowed']);
