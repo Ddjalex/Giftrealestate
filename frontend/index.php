@@ -466,34 +466,39 @@
     <!-- Footer -->
     <section id="contact" class="bg-brand-green">
         <footer class="text-white pt-20 pb-10">
+        <div class="container mx-auto px-4 text-center mb-12">
+            <h3 class="text-3xl font-bold text-brand-yellow mb-8">Visit Our Office</h3>
+            <div id="map-container" class="rounded-3xl overflow-hidden shadow-2xl h-96 border-4 border-brand-yellow/30 bg-white/5">
+                <p class="pt-40 text-gray-400">Map location loading...</p>
+            </div>
+        </div>
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div>
                     <div class="text-2xl font-black text-brand-yellow mb-6 uppercase">Gift Real Estate</div>
-                    <p class="text-gray-400 text-sm mb-6">For over 25 years, Gift Real Estate PLC has been Ethiopia’s trusted partner in building residential and commercial apartments.</p>
+                    <p id="footer-about" class="text-gray-400 text-sm mb-6">For over 25 years, Gift Real Estate PLC has been Ethiopia’s trusted partner in building residential and commercial apartments.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a id="social-facebook" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-facebook-f"></i></a>
+                        <a id="social-telegram" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-telegram"></i></a>
+                        <a id="social-instagram" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-instagram"></i></a>
+                        <a id="social-linkedin" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Property Types</h4>
+                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Contact Details</h4>
                     <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition">Residential Apartments</a></li>
-                        <li><a href="#" class="hover:text-white transition">Commercial Properties</a></li>
-                        <li><a href="#" class="hover:text-white transition">Luxury Villas</a></li>
-                        <li><a href="#" class="hover:text-white transition">Office Spaces</a></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand-yellow mt-1"></i> <span id="footer-address">Kazanchis, Black Gold Plaza, Addis Ababa</span></li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-brand-yellow"></i> <span id="footer-phone">+251 921878641</span></li>
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand-yellow"></i> <span id="footer-email">info@giftrealestate.com</span></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-lg font-bold mb-6 text-brand-yellow">Quick Links</h4>
                     <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
-                        <li><a href="#" class="hover:text-white transition">Services</a></li>
-                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="/about" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="/properties" class="hover:text-white transition">Our Properties</a></li>
+                        <li><a href="/gallery" class="hover:text-white transition">Project Gallery</a></li>
+                        <li><a href="/news" class="hover:text-white transition">Latest News</a></li>
                     </ul>
                 </div>
                 <div>
@@ -510,5 +515,36 @@
             </div>
         </div>
     </footer>
+    <script>
+        async function loadSettings() {
+            try {
+                const response = await fetch('/api/settings');
+                const settings = await response.json();
+                if (settings.address) {
+                    document.getElementById('footer-address').innerText = settings.address;
+                    // Update top bar as well
+                    const topBarAddress = document.querySelector('.bg-brand-green.text-white span');
+                    if (topBarAddress) topBarAddress.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${settings.address}`;
+                }
+                if (settings.phone) {
+                    document.getElementById('footer-phone').innerText = settings.phone;
+                    const topBarPhone = document.querySelectorAll('.bg-brand-green.text-white span')[1];
+                    if (topBarPhone) topBarPhone.innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone}`;
+                }
+                if (settings.email) document.getElementById('footer-email').innerText = settings.email;
+                if (settings.facebook) document.getElementById('social-facebook').href = settings.facebook;
+                if (settings.telegram) document.getElementById('social-telegram').href = settings.telegram;
+                if (settings.instagram) document.getElementById('social-instagram').href = settings.instagram;
+                if (settings.linkedin) document.getElementById('social-linkedin').href = settings.linkedin;
+                
+                if (settings.map_iframe) {
+                    document.getElementById('map-container').innerHTML = `<iframe src="${settings.map_iframe}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
+                }
+            } catch (e) {
+                console.error('Failed to load settings', e);
+            }
+        }
+        loadSettings();
+    </script>
 </body>
 </html>

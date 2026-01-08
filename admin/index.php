@@ -27,6 +27,7 @@
             <button onclick="switchTab('gallery')" id="nav-gallery" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Gallery</button>
             <button onclick="switchTab('news')" id="nav-news" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">News</button>
             <button onclick="switchTab('inquiries')" id="nav-inquiries" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Inquiries</button>
+            <button onclick="switchTab('settings')" id="nav-settings" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Settings</button>
         </nav>
     </aside>
 
@@ -84,6 +85,66 @@
                 </table>
             </div>
         </div>
+
+        <div id="content-settings" class="tab-content p-8 hidden">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-brand-green mb-8">System Settings</h3>
+                <form id="settings-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Office Address</label>
+                            <input type="text" name="address" class="w-full p-3 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Contact Phone</label>
+                            <input type="text" name="phone" class="w-full p-3 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Contact Email</label>
+                            <input type="email" name="email" class="w-full p-3 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Facebook URL</label>
+                            <input type="text" name="facebook" class="w-full p-3 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Telegram URL</label>
+                            <input type="text" name="telegram" class="w-full p-3 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Instagram URL</label>
+                            <input type="text" name="instagram" class="w-full p-3 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">LinkedIn URL</label>
+                            <input type="text" name="linkedin" class="w-full p-3 border rounded-lg">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">Google Map Iframe Source (URL only)</label>
+                        <textarea name="map_iframe" class="w-full p-3 border rounded-lg h-24" placeholder="Paste the src URL from the Google Maps embed code"></textarea>
+                    </div>
+                    <button type="button" onclick="saveSettings()" class="bg-brand-green text-brand-yellow font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition">Save Settings</button>
+                </form>
+
+                <div class="mt-12 pt-8 border-t">
+                    <h3 class="text-2xl font-bold text-brand-green mb-8">Security</h3>
+                    <form id="password-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2">New Password</label>
+                                <input type="password" id="new-password" class="w-full p-3 border rounded-lg" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2">Confirm Password</label>
+                                <input type="password" id="confirm-password" class="w-full p-3 border rounded-lg" required>
+                            </div>
+                        </div>
+                        <button type="button" onclick="changePassword()" class="bg-brand-green text-brand-yellow font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition">Update Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Simple Add Modal (Hidden by default) -->
@@ -119,6 +180,11 @@
                     <input type="number" name="bathrooms" id="prop-baths" placeholder="Baths" class="p-2 border rounded">
                     <input type="number" name="area_sqft" id="prop-area" placeholder="Sq Ft" class="p-2 border rounded">
                 </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2">Property Images</label>
+                    <input type="file" id="prop-images-input" multiple class="w-full p-2 border rounded" accept="image/*">
+                    <div id="prop-images-preview" class="grid grid-cols-4 gap-2 mt-2"></div>
+                </div>
                 <div class="flex items-center">
                     <input type="checkbox" name="featured" id="prop-featured" class="mr-2">
                     <label for="prop-featured">Featured Property</label>
@@ -146,149 +212,6 @@
         </div>
     </div>
 
-    <script>
-        let currentTab = 'properties';
-        let data = { properties: [], gallery: [], news: [] };
-
-        function switchTab(tab) {
-            currentTab = tab;
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            document.getElementById(`content-${tab}`).classList.remove('hidden');
-            
-            document.querySelectorAll('#admin-nav button').forEach(b => b.classList.remove('bg-yellow-600', 'text-white'));
-            document.getElementById(`nav-${tab}`).classList.add('bg-yellow-600', 'text-white');
-            
-            document.getElementById('current-tab-title').innerText = `Manage ${tab.charAt(0).toUpperCase() + tab.slice(1)}`;
-            fetchData();
-        }
-
-        async function fetchData() {
-            const response = await fetch(`/api/${currentTab}`);
-            data[currentTab] = await response.json();
-            renderTable();
-        }
-
-        function renderTable() {
-            const tbody = document.getElementById(`admin-${currentTab}-list`);
-            if (!tbody) return;
-            
-            if (currentTab === 'properties') {
-                tbody.innerHTML = data.properties.map(p => `
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap font-medium">${p.title}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">${p.location}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">${new Intl.NumberFormat().format(p.price)} ETB</td>
-                        <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">${p.status}</span></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                            <button onclick="editItem(${p.id})" class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
-                            <button onclick="deleteItem(${p.id})" class="text-red-600 hover:text-red-900">Delete</button>
-                        </td>
-                    </tr>
-                `).join('');
-            } else if (currentTab === 'gallery') {
-                tbody.innerHTML = data.gallery.map(g => `
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap"><img src="${g.image_url}" class="h-10 w-10 object-cover rounded"></td>
-                        <td class="px-6 py-4 whitespace-nowrap font-medium">${g.title}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">${g.category}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                            <button onclick="editItem(${g.id})" class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
-                            <button onclick="deleteItem(${g.id})" class="text-red-600 hover:text-red-900">Delete</button>
-                        </td>
-                    </tr>
-                `).join('');
-            } else if (currentTab === 'news') {
-                tbody.innerHTML = data.news.map(n => `
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(n.created_at).toLocaleDateString()}</td>
-                        <td class="px-6 py-4 whitespace-nowrap font-medium">${n.title}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                            <button onclick="editItem(${n.id})" class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
-                            <button onclick="deleteItem(${n.id})" class="text-red-600 hover:text-red-900">Delete</button>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-        }
-
-        async function deleteItem(id) {
-            if (confirm(`Are you sure you want to delete this ${currentTab} item?`)) {
-                const response = await fetch(`/api/${currentTab}?id=${id}`, { method: 'DELETE' });
-                if (response.ok) fetchData();
-            }
-        }
-
-        function editItem(id) {
-            const item = data[currentTab].find(i => i.id == id);
-            if (!item) return;
-            
-            showAddModal();
-            document.getElementById('modal-title').innerText = `Edit ${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}`;
-            
-            if (currentTab === 'properties') {
-                document.getElementById('prop-id').value = item.id;
-                document.getElementById('prop-title').value = item.title;
-                document.getElementById('prop-description').value = item.description || '';
-                document.getElementById('prop-type').value = item.property_type;
-                document.getElementById('prop-status').value = item.status;
-                document.getElementById('prop-price').value = item.price;
-                document.getElementById('prop-location').value = item.location;
-                document.getElementById('prop-beds').value = item.bedrooms;
-                document.getElementById('prop-baths').value = item.bathrooms;
-                document.getElementById('prop-area').value = item.area_sqft;
-                document.getElementById('prop-featured').checked = item.featured;
-            } else if (currentTab === 'gallery') {
-                document.getElementById('gallery-id').value = item.id;
-                document.getElementById('gallery-title').value = item.title;
-                document.getElementById('gallery-url').value = item.image_url;
-                document.getElementById('gallery-category').value = item.category || '';
-            } else if (currentTab === 'news') {
-                document.getElementById('news-id').value = item.id;
-                document.getElementById('news-title').value = item.title;
-                document.getElementById('news-content').value = item.content || '';
-                document.getElementById('news-url').value = item.image_url || '';
-            }
-        }
-
-        function showAddModal() {
-            document.querySelectorAll('.modal-form').forEach(f => f.classList.add('hidden'));
-            document.getElementById(`add-${currentTab === 'properties' ? 'property' : currentTab}-form`).classList.remove('hidden');
-            document.getElementById('modal-title').innerText = `Add New ${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}`;
-            document.getElementById('add-modal').classList.remove('hidden');
-        }
-
-        function hideAddModal() {
-            document.getElementById('add-modal').classList.add('hidden');
-            document.querySelectorAll('.modal-form').forEach(f => {
-                f.reset();
-                const idField = f.querySelector('input[type="hidden"]');
-                if (idField) idField.value = '';
-            });
-        }
-
-        async function handleSave() {
-            const formId = `add-${currentTab === 'properties' ? 'property' : currentTab}-form`;
-            const form = document.getElementById(formId);
-            const formData = new FormData(form);
-            const payload = Object.fromEntries(formData.entries());
-            
-            if (currentTab === 'properties') {
-                payload.featured = document.getElementById('prop-featured').checked;
-            }
-
-            const response = await fetch(`/api/${currentTab}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                hideAddModal();
-                fetchData();
-            }
-        }
-
-        fetchData();
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>

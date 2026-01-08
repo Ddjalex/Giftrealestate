@@ -25,6 +25,12 @@ if (strpos($path, '/api/') === 0) {
         require 'api/news.php';
     } elseif (strpos($path, '/api/inquiries') === 0) {
         require 'api/inquiries.php';
+    } elseif (strpos($path, '/api/settings') === 0) {
+        require 'api/settings.php';
+    } elseif (strpos($path, '/api/upload') === 0) {
+        require 'api/upload.php';
+    } elseif (strpos($path, '/api/change_password') === 0) {
+        require 'api/change_password.php';
     } else {
         header('Content-Type: application/json');
         echo json_encode(['error' => 'Endpoint not found']);
