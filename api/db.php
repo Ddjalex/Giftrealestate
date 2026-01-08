@@ -31,7 +31,25 @@ if ($host) {
                 title TEXT,
                 content TEXT,
                 image_url TEXT,
+                vision_image TEXT,
+                ceo_image TEXT,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+            CREATE TABLE IF NOT EXISTS properties (
+                id SERIAL PRIMARY KEY,
+                title TEXT NOT NULL,
+                description TEXT,
+                price DECIMAL(15, 2),
+                location TEXT,
+                property_type TEXT,
+                status TEXT,
+                bedrooms INTEGER,
+                bathrooms INTEGER,
+                area_sqft DECIMAL(15, 2),
+                featured INTEGER DEFAULT 0,
+                main_image TEXT,
+                gallery_images TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         ");
         

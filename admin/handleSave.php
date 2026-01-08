@@ -12,23 +12,32 @@ async function handleSave() {
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
     
-    // Handle single image upload for non-properties
+    // Handle image uploads
     if (currentTab === 'about') {
-        const imageInput = document.querySelector('input[name="about_history_image_file"]');
-        if (imageInput && imageInput.files.length > 0) {
-            const imgFormData = new FormData();
-            imgFormData.append('images[]', imageInput.files[0]);
-            try {
-                const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: imgFormData });
-                const uploadData = await uploadRes.json();
-                if (uploadData.urls && uploadData.urls.length > 0) {
-                    payload.image_url = uploadData.urls[0];
+        const imageMappings = [
+            { file: 'about_history_image_file', hidden: 'about_history_image', key: 'image_url' },
+            { file: 'about_vision_image_file', hidden: 'about_vision_image', key: 'vision_image' },
+            { file: 'about_ceo_image_file', hidden: 'about_ceo_image', key: 'ceo_image' }
+        ];
+
+        for (const mapping of imageMappings) {
+            const fileInput = form.querySelector(`input[name="${mapping.file}"]`);
+            if (fileInput && fileInput.files.length > 0) {
+                const imgFormData = new FormData();
+                imgFormData.append('images[]', fileInput.files[0]);
+                try {
+                    const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: imgFormData });
+                    const uploadData = await uploadRes.json();
+                    if (uploadData.urls && uploadData.urls.length > 0) {
+                        payload[mapping.key] = uploadData.urls[0];
+                    }
+                } catch (e) {
+                    console.error(`${mapping.key} upload failed`, e);
                 }
-            } catch (e) {
-                console.error('About image upload failed', e);
+            } else {
+                const hiddenInput = document.getElementById(`${mapping.hidden}_input`);
+                if (hiddenInput) payload[mapping.key] = hiddenInput.value;
             }
-        } else {
-            payload.image_url = document.querySelector('input[name="about_history_image"]').value;
         }
     } else if (currentTab !== 'properties' && currentTab !== 'inquiries' && currentTab !== 'settings') {
         const inputId = `${currentTab === 'properties' ? 'prop' : currentTab}-image-input`;

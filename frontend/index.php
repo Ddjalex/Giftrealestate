@@ -227,10 +227,10 @@
     </script>
 
     <!-- Hero Section -->
-    <header class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
+    <header class="relative min-h-[700px] flex items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="/public/assets/aerial-view.jpg" class="w-full h-full object-cover opacity-50" alt="Background Aerial View">
-            <div class="absolute inset-0 bg-gradient-to-r from-brand-green via-brand-green/80 to-transparent"></div>
+            <img src="/public/assets/header-bg.jpg" class="w-full h-full object-cover scale-[1.75] translate-x-[-20%] translate-y-[5%]" alt="Background Aerial View">
+            <div class="absolute inset-0 bg-black/40"></div>
         </div>
         <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4">
             <div class="md:w-1/2 text-white py-12">
