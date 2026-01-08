@@ -39,31 +39,31 @@ async function fetchData() {
                 if (aboutTitle) aboutTitle.value = settings.title || '';
                 if (aboutContent) aboutContent.value = settings.content || '';
                 
-        const images = [
-            { key: 'image_url', hidden: 'about_history_image_input', preview: 'about_history_image_preview' },
-            { key: 'vision_image', hidden: 'about_vision_image_input', preview: 'about_vision_image_preview' },
-            { key: 'ceo_image', hidden: 'about_ceo_image_input', preview: 'about_ceo_image_preview' }
-        ];
+                const images = [
+                    { key: 'image_url', hidden: 'about_history_image_input', preview: 'about_history_image_preview' },
+                    { key: 'vision_image', hidden: 'about_vision_image_input', preview: 'about_vision_image_preview' },
+                    { key: 'ceo_image', hidden: 'about_ceo_image_input', preview: 'about_ceo_image_preview' }
+                ];
 
-        images.forEach(img => {
-            const value = settings[img.key];
-            if (value) {
-                const hiddenInput = document.getElementById(img.hidden);
-                if (hiddenInput) hiddenInput.value = value;
-                const preview = document.getElementById(img.preview);
-                if (preview) {
-                    preview.src = value.startsWith('http') ? value : '/uploads/' + value;
-                    preview.classList.remove('hidden');
-                }
-            } else {
-                // Clear previews if no value
-                const preview = document.getElementById(img.preview);
-                if (preview) {
-                    preview.src = '';
-                    preview.classList.add('hidden');
-                }
-            }
-        });
+                images.forEach(img => {
+                    const value = settings[img.key];
+                    if (value) {
+                        const hiddenInput = document.getElementById(img.hidden);
+                        if (hiddenInput) hiddenInput.value = value;
+                        const preview = document.getElementById(img.preview);
+                        if (preview) {
+                            preview.src = value.startsWith('http') ? value : '/uploads/' + value;
+                            preview.classList.remove('hidden');
+                        }
+                    } else {
+                        // Clear previews if no value
+                        const preview = document.getElementById(img.preview);
+                        if (preview) {
+                            preview.src = '';
+                            preview.classList.add('hidden');
+                        }
+                    }
+                });
                 return;
             }
             // Original logic for settings
