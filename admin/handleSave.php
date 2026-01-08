@@ -12,6 +12,21 @@ async function handleSave() {
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
     
+    // Handle single image upload for non-properties
+    if (currentTab !== 'properties' && currentTab !== 'inquiries' && currentTab !== 'settings' && currentTab !== 'about') {
+        const inputId = `${currentTab === 'properties' ? 'prop' : currentTab}-image-input`;
+        const imageInput = document.getElementById(inputId);
+        if (imageInput && imageInput.files.length > 0) {
+            const imgFormData = new FormData();
+            imgFormData.append('images[]', imageInput.files[0]);
+            const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: imgFormData });
+            const uploadData = await uploadRes.json();
+            if (uploadData.urls && uploadData.urls.length > 0) {
+                payload.image_url = uploadData.urls[0];
+            }
+        }
+    }
+
     if (currentTab === 'properties') {
         payload.featured = document.getElementById('prop-featured').checked;
         

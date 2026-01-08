@@ -108,16 +108,22 @@
                 <h3 class="text-2xl font-bold text-brand-green mb-8">About Page Content</h3>
                 <form id="about-form" class="space-y-6">
                     <div>
-                        <label class="block text-gray-700 font-bold mb-2">History Section Image URL</label>
-                        <input type="text" name="about_history_image" class="w-full p-3 border rounded-lg">
+                        <label class="block text-gray-700 font-bold mb-2">History Section Image</label>
+                        <input type="file" name="about_history_image_file" class="w-full p-3 border rounded-lg" accept="image/*" onchange="previewAboutImage(this, 'about_history_image_preview')">
+                        <input type="hidden" name="about_history_image">
+                        <img id="about_history_image_preview" class="mt-2 h-32 hidden">
                     </div>
                     <div>
-                        <label class="block text-gray-700 font-bold mb-2">Vision Section Image URL</label>
-                        <input type="text" name="about_vision_image" class="w-full p-3 border rounded-lg">
+                        <label class="block text-gray-700 font-bold mb-2">Vision Section Image</label>
+                        <input type="file" name="about_vision_image_file" class="w-full p-3 border rounded-lg" accept="image/*" onchange="previewAboutImage(this, 'about_vision_image_preview')">
+                        <input type="hidden" name="about_vision_image">
+                        <img id="about_vision_image_preview" class="mt-2 h-32 hidden">
                     </div>
                     <div>
-                        <label class="block text-gray-700 font-bold mb-2">CEO/Founder Image URL</label>
-                        <input type="text" name="about_ceo_image" class="w-full p-3 border rounded-lg">
+                        <label class="block text-gray-700 font-bold mb-2">CEO/Founder Image</label>
+                        <input type="file" name="about_ceo_image_file" class="w-full p-3 border rounded-lg" accept="image/*" onchange="previewAboutImage(this, 'about_ceo_image_preview')">
+                        <input type="hidden" name="about_ceo_image">
+                        <img id="about_ceo_image_preview" class="mt-2 h-32 hidden">
                     </div>
                     <button type="button" onclick="saveAbout()" class="bg-brand-green text-brand-yellow font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition">Save About Content</button>
                 </form>
@@ -251,7 +257,12 @@
             <form id="add-gallery-form" class="modal-form space-y-4 hidden">
                 <input type="hidden" name="id" id="gallery-id">
                 <input type="text" name="title" id="gallery-title" placeholder="Image Title" class="w-full p-2 border rounded" required>
-                <input type="text" name="image_url" id="gallery-url" placeholder="Image URL" class="w-full p-2 border rounded" required>
+                <div>
+                    <label class="block text-sm font-bold mb-2">Gallery Image</label>
+                    <input type="file" id="gallery-image-input" class="w-full p-2 border rounded" accept="image/*">
+                    <input type="hidden" name="image_url" id="gallery-url">
+                    <div id="gallery-image-preview" class="mt-2 h-20"></div>
+                </div>
                 <input type="text" name="category" id="gallery-category" placeholder="Category" class="w-full p-2 border rounded">
             </form>
 
@@ -259,14 +270,24 @@
                 <input type="hidden" name="id" id="news-id">
                 <input type="text" name="title" id="news-title" placeholder="News Title" class="w-full p-2 border rounded" required>
                 <textarea name="content" id="news-content" placeholder="News Content" class="w-full p-2 border rounded h-32"></textarea>
-                <input type="text" name="image_url" id="news-url" placeholder="Cover Image URL" class="w-full p-2 border rounded">
+                <div>
+                    <label class="block text-sm font-bold mb-2">Cover Image</label>
+                    <input type="file" id="news-image-input" class="w-full p-2 border rounded" accept="image/*">
+                    <input type="hidden" name="image_url" id="news-url">
+                    <div id="news-image-preview" class="mt-2 h-20"></div>
+                </div>
             </form>
 
             <form id="add-blog-form" class="modal-form space-y-4 hidden">
                 <input type="hidden" name="id" id="blog-id">
                 <input type="text" name="title" id="blog-title" placeholder="Blog Title" class="w-full p-2 border rounded" required>
                 <textarea name="content" id="blog-content" placeholder="Blog Content" class="w-full p-2 border rounded h-32"></textarea>
-                <input type="text" name="image_url" id="blog-url" placeholder="Cover Image URL" class="w-full p-2 border rounded">
+                <div>
+                    <label class="block text-sm font-bold mb-2">Cover Image</label>
+                    <input type="file" id="blog-image-input" class="w-full p-2 border rounded" accept="image/*">
+                    <input type="hidden" name="image_url" id="blog-url">
+                    <div id="blog-image-preview" class="mt-2 h-20"></div>
+                </div>
             </form>
 
             <form id="add-inquiries-form" class="modal-form space-y-4 hidden">
