@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Simple routing
-if (strpos($path, '/public/') === 0) {
+if (strpos($path, '/public/') === 0 || strpos($path, '/uploads/') === 0) {
     $file = __DIR__ . $path;
     if (file_exists($file)) {
         $mime = mime_content_type($file);
