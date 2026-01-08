@@ -1090,10 +1090,11 @@
                 <div>
                     <h4 class="text-lg font-bold mb-6 text-brand-yellow">Property Types</h4>
                     <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="/properties" class="hover:text-white transition">Residential Apartments</a></li>
-                        <li><a href="/properties" class="hover:text-white transition">Commercial Properties</a></li>
-                        <li><a href="/properties" class="hover:text-white transition">Luxury Villas</a></li>
-                        <li><a href="/properties" class="hover:text-white transition">Office Spaces</a></li>
+                        <li><a href="/properties?type=Residential+Apartments" class="hover:text-white transition">Residential Apartments</a></li>
+                        <li><a href="/properties?type=Commercial+Properties" class="hover:text-white transition">Commercial Properties</a></li>
+                        <li><a href="/properties?type=Luxury+Villas" class="hover:text-white transition">Luxury Villas</a></li>
+                        <li><a href="/properties?type=Office+Spaces" class="hover:text-white transition">Office Spaces</a></li>
+                        <li><a href="/properties?type=Retail+Shops" class="hover:text-white transition">Retail Shops</a></li>
                     </ul>
                 </div>
                 <div>
