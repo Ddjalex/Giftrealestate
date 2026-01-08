@@ -349,7 +349,7 @@
                         
                         return `
                         <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
-                            <div class="relative h-64 overflow-hidden bg-gray-200 cursor-pointer" onclick="showPropertyDetail(${p.id})">
+                            <div class="relative h-64 overflow-hidden bg-gray-200 cursor-pointer" onclick="window.location.href='/property/${p.id}'">
                                 <div class="property-slider h-full w-full flex transition-transform duration-500" id="slider-${p.id}">
                                     ${images.map(img => `
                                         <div class="w-full h-full flex-shrink-0">
@@ -371,7 +371,7 @@
                                 </div>
                             </div>
                             <div class="p-6">
-                                <h3 class="property-title text-xl font-bold text-gray-800 mb-2 cursor-pointer transition" onclick="showPropertyDetail(${p.id})">${p.title}</h3>
+                                <h3 class="property-title text-xl font-bold text-gray-800 mb-2 cursor-pointer transition" onclick="window.location.href='/property/${p.id}'">${p.title}</h3>
                                 <div class="inline-block bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg mb-3">Call for price</div>
                                 <div class="text-sm text-gray-500 mb-3 flex items-center gap-2">
                                     <i class="fas fa-ruler-combined text-gray-400"></i> ${p.area_sqft} sq ft
@@ -639,7 +639,7 @@
                         
                         return `
                         <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
-                            <div class="relative h-64 overflow-hidden bg-gray-200 cursor-pointer" onclick="showPropertyDetail(${p.id})">
+                            <div class="relative h-64 overflow-hidden bg-gray-200 cursor-pointer" onclick="window.location.href='/property/${p.id}'">
                                 <div class="property-slider h-full w-full flex transition-transform duration-500" id="slider-${p.id}">
                                     ${images.map(img => `
                                         <div class="w-full h-full flex-shrink-0">
@@ -661,7 +661,7 @@
                                 </div>
                             </div>
                             <div class="p-6">
-                                <h3 class="property-title text-xl font-bold text-gray-800 mb-2 cursor-pointer transition" onclick="showPropertyDetail(${p.id})">${p.title}</h3>
+                                <h3 class="property-title text-xl font-bold text-gray-800 mb-2 cursor-pointer transition" onclick="window.location.href='/property/${p.id}'">${p.title}</h3>
                                 <div class="inline-block bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg mb-3">Call for price</div>
                                 <div class="text-sm text-gray-500 mb-3 flex items-center gap-2">
                                     <i class="fas fa-ruler-combined text-gray-400"></i> ${p.area_sqft} sq ft

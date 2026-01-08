@@ -15,6 +15,22 @@ if (strpos($path, '/public/') === 0 || strpos($path, '/uploads/') === 0) {
         exit;
     }
 }
+
+// Property Detail Routing
+if (preg_match('/^\/property\/([^\/]+)/', $path, $matches)) {
+    $slug = $matches[1];
+    // If slug is numeric, it's an ID
+    if (is_numeric($slug)) {
+        $_GET['id'] = $slug;
+    } else {
+        // Find ID by slug (assuming title to slug conversion for now or direct match)
+        // For simplicity with current DB schema, we'll keep using ID but support the URL structure
+        $_GET['id'] = $slug; 
+    }
+    require 'property.php';
+    exit;
+}
+
 if (strpos($path, '/api/') === 0) {
     require_once 'api/db.php';
     if (strpos($path, '/api/properties') === 0) {
