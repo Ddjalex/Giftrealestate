@@ -28,6 +28,7 @@
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green">
                 <a href="/" class="hover:text-brand-yellow">Home</a>
+                <a href="/about" class="hover:text-brand-yellow">About</a>
                 <a href="/properties" class="hover:text-brand-yellow">Properties</a>
                 <a href="/gallery" class="text-brand-yellow">Gallery</a>
                 <a href="/news" class="hover:text-brand-yellow">News</a>
