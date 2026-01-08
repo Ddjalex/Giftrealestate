@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Gift Real Estate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-green: #004d40;
+            --brand-yellow: #fdd835;
+        }
+        .bg-brand-green { background-color: var(--brand-green); }
+        .text-brand-green { color: var(--brand-green); }
+    </style>
+</head>
+<body class="bg-gray-100 flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-brand-green text-white">
+        <div class="p-6 text-2xl font-bold text-brand-yellow">Admin Dashboard</div>
+        <nav class="mt-6">
+            <a href="#" class="block py-2.5 px-4 bg-yellow-600 text-white">Properties</a>
+            <a href="#" class="block py-2.5 px-4 hover:bg-yellow-600 transition">Inquiries</a>
+            <a href="#" class="block py-2.5 px-4 hover:bg-yellow-600 transition">Users</a>
+            <a href="#" class="block py-2.5 px-4 hover:bg-yellow-600 transition">Settings</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto">
+        <header class="bg-white shadow p-4 flex justify-between items-center">
+            <h2 class="text-xl font-bold text-brand-green">Manage Listings</h2>
+            <button class="bg-brand-green text-brand-yellow font-bold px-4 py-2 rounded">+ Add Property</button>
+        </header>
+        <div class="p-8">
+            <div class="bg-white rounded shadow overflow-hidden">
+                <table class="min-w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap font-medium">Luxury Villa CMC</td>
+                            <td class="px-6 py-4 whitespace-nowrap">CMC, Addis Ababa</td>
+                            <td class="px-6 py-4 whitespace-nowrap">15,000,000 ETB</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Active</span></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                                <a href="#" class="text-blue-600 hover:text-blue-900 mr-2">Edit</a>
+                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

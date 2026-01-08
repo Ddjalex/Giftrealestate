@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Real Estate - Ethiopia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-green: #004d40; /* Approximate from logo */
+            --brand-yellow: #fdd835; /* Approximate from logo */
+        }
+        .bg-brand-green { background-color: var(--brand-green); }
+        .text-brand-green { color: var(--brand-green); }
+        .bg-brand-yellow { background-color: var(--brand-yellow); }
+        .text-brand-yellow { color: var(--brand-yellow); }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-brand-green p-4 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-brand-yellow">GIFT REAL ESTATE</h1>
+            <ul class="flex space-x-6">
+                <li><a href="#" class="hover:text-brand-yellow">Home</a></li>
+                <li><a href="#" class="hover:text-brand-yellow">Properties</a></li>
+                <li><a href="#" class="hover:text-brand-yellow">About</a></li>
+                <li><a href="#" class="hover:text-brand-yellow">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="bg-white py-16 text-center">
+        <h2 class="text-4xl font-bold text-brand-green mb-4">Find Your Dream Home in Ethiopia</h2>
+        <p class="text-gray-600 mb-8">Luxury Apartments, Villas, and Commercial Properties</p>
+        <div class="max-w-2xl mx-auto flex">
+            <input type="text" placeholder="Search by location (e.g. CMC, Bole, Ayat)..." class="flex-1 p-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-brand-green">
+            <button class="bg-brand-yellow text-brand-green font-bold px-8 py-3 rounded-r-lg hover:bg-yellow-500 transition">Search</button>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-12 px-4">
+        <h3 class="text-2xl font-bold text-brand-green mb-8">Featured Properties</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Property Card -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
+                <div class="h-48 bg-gray-300"></div>
+                <div class="p-6">
+                    <span class="bg-brand-green text-brand-yellow text-xs font-bold px-2 py-1 rounded uppercase">For Sale</span>
+                    <h4 class="text-xl font-bold mt-2 text-brand-green">Luxury Villa in CMC</h4>
+                    <p class="text-gray-600">4 Bedrooms • 3 Bathrooms • 250 sqm</p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-brand-green font-bold text-lg">ETB 15,000,000</span>
+                        <a href="#" class="text-brand-green hover:underline">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <!-- More cards can be added here -->
+        </div>
+    </main>
+
+    <footer class="bg-brand-green text-white py-8 mt-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2026 Gift Real Estate Ethiopia. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
