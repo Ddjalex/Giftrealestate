@@ -264,6 +264,18 @@
         </div>
     </div>
 
+    <!-- Property Detail Modal -->
+    <div id="property-modal" class="fixed inset-0 bg-black/80 z-[100] hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-6xl max-h-[90vh] rounded-3xl overflow-y-auto relative p-6 md:p-10">
+            <button onclick="closePropertyModal()" class="absolute right-6 top-6 text-gray-400 hover:text-gray-600 transition z-50">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <div id="property-modal-content">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
     <!-- Featured Properties -->
     <section id="properties" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
@@ -323,15 +335,7 @@
                             console.error('Error parsing gallery images for property', p.id, e);
                             gallery = [p.main_image];
                         }
-                        const images = gallery.filter(img => {
-                            if (!img) return false;
-                            // Check if it's a relative path starting with /
-                            if (img.startsWith('/')) return true;
-                            // Check if it's an absolute URL
-                            if (img.startsWith('http://') || img.startsWith('https://')) return true;
-                            // If it's a filename, assume it's in /uploads/
-                            return true;
-                        }).map(img => {
+                        const images = gallery.filter(img => img).map(img => {
                             if (img.startsWith('/') || img.startsWith('http')) return img;
                             return '/uploads/' + img;
                         });
@@ -341,7 +345,7 @@
                         
                         return `
                         <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
-                            <div class="relative h-64 overflow-hidden bg-gray-200">
+                            <div class="relative h-64 overflow-hidden bg-gray-200 cursor-pointer" onclick="showPropertyDetail(${p.id})">
                                 <div class="property-slider h-full w-full flex transition-transform duration-500" id="slider-${p.id}">
                                     ${images.map(img => `
                                         <div class="w-full h-full flex-shrink-0">
@@ -356,9 +360,6 @@
                                     <button onclick="event.stopPropagation(); moveSlider(${p.id}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white z-20">
                                         <i class="fas fa-chevron-right"></i>
                                     </button>
-                                    <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
-                                        ${images.map((_, i) => `<div class="w-2 h-2 rounded-full bg-white/50 slider-dot-${p.id}" data-index="${i}"></div>`).join('')}
-                                    </div>
                                 ` : ''}
                                 <div class="absolute top-4 left-4 flex gap-2 z-10">
                                     ${p.featured ? '<span class="bg-brand-green text-brand-yellow text-xs font-bold px-3 py-1 rounded">FEATURED</span>' : ''}
@@ -366,13 +367,14 @@
                                 </div>
                             </div>
                             <div class="p-6">
-                                <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">${p.property_type || 'Property'}</div>
-                                <div class="flex justify-between items-center mb-1">
-                                    <div class="bg-gray-100 text-gray-800 text-xs font-bold px-2 py-1 rounded">Call for price</div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2 cursor-pointer hover:text-brand-green transition" onclick="showPropertyDetail(${p.id})">${p.title}</h3>
+                                <div class="inline-block bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg mb-3">Call for price</div>
+                                <div class="text-sm text-gray-500 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-ruler-combined text-gray-400"></i> ${p.area_sqft} sq ft
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-800 mb-2 truncate">${p.title}</h3>
-                                <p class="text-gray-500 text-sm mb-2"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location}</p>
-                                <p class="text-gray-500 text-sm mb-4 line-clamp-2">${p.description || ''}</p>
+                                <div class="text-sm font-medium text-gray-700 mb-1">${p.title}</div>
+                                <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">${p.property_type || 'Property'}</div>
+                                
                                 <div class="flex gap-2 mb-4">
                                     <a href="tel:${contactPhone}" class="flex-1 bg-brand-green text-white text-center py-2 rounded-lg font-bold text-sm hover:bg-opacity-90 transition flex items-center justify-center gap-2">
                                         <i class="fas fa-phone-alt"></i> Call
@@ -384,11 +386,513 @@
                                 <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
                                     <span class="flex items-center"><i class="fas fa-bed mr-2 text-brand-green"></i> ${p.bedrooms} Beds</span>
                                     <span class="flex items-center"><i class="fas fa-bath mr-2 text-brand-green"></i> ${p.bathrooms} Baths</span>
-                                    <span class="flex items-center"><i class="fas fa-ruler-combined mr-2 text-brand-green"></i> ${p.area_sqft} sq ft</span>
                                 </div>
                             </div>
                         </div>
                     `}).join('');
+                }
+
+                function showPropertyDetail(id) {
+                    const p = allProperties.find(item => item.id == id);
+                    if (!p) return;
+
+                    let gallery = [];
+                    try {
+                        if (p.gallery_images) {
+                            const parsed = typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : p.gallery_images;
+                            gallery = Array.isArray(parsed) ? parsed : [parsed];
+                        } else {
+                            gallery = [p.main_image];
+                        }
+                    } catch (e) {
+                        gallery = [p.main_image];
+                    }
+                    const images = gallery.filter(img => img).map(img => {
+                        if (img.startsWith('/') || img.startsWith('http')) return img;
+                        return '/uploads/' + img;
+                    });
+
+                    const modal = document.getElementById('property-modal');
+                    const content = document.getElementById('property-modal-content');
+                    
+                    const contactPhone = document.querySelector('a[href^="tel:"]')?.href.split(':')[1] || '+251921878641';
+
+                    content.innerHTML = `
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <div class="md:w-2/3">
+                                <div class="relative h-[400px] rounded-2xl overflow-hidden mb-4 group">
+                                    <div class="flex h-full transition-transform duration-500" id="modal-slider">
+                                        ${images.map(img => `
+                                            <img src="${img}" class="w-full h-full object-cover flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80'">
+                                        `).join('')}
+                                    </div>
+                                    ${images.length > 1 ? `
+                                        <button onclick="moveModalSlider(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-3 rounded-full shadow-lg hover:bg-white z-10">
+                                            <i class="fas fa-chevron-left text-brand-green"></i>
+                                        </button>
+                                        <button onclick="moveModalSlider(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 p-3 rounded-full shadow-lg hover:bg-white z-10">
+                                            <i class="fas fa-chevron-right text-brand-green"></i>
+                                        </button>
+                                        <div class="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                            <span id="modal-current-slide">1</span> / ${images.length}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="grid grid-cols-4 gap-2 mb-8">
+                                    ${images.map((img, i) => `
+                                        <img src="${img}" onclick="setModalSlide(${i})" class="h-20 w-full object-cover rounded-lg cursor-pointer hover:opacity-80 transition border-2 ${i === 0 ? 'border-brand-green' : 'border-transparent'}" data-modal-thumb="${i}">
+                                    `).join('')}
+                                </div>
+
+                                <div class="mb-8">
+                                    <div class="text-sm font-bold text-gray-400 uppercase mb-2">${p.property_type}</div>
+                                    <div class="flex justify-between items-start gap-4 mb-4">
+                                        <h2 class="text-3xl font-bold text-gray-900">${p.title}</h2>
+                                        <a href="tel:${contactPhone}" class="bg-brand-green text-white px-6 py-3 rounded-xl font-bold hover:bg-opacity-90 transition shadow-lg whitespace-nowrap">
+                                            REQUEST INFO
+                                        </a>
+                                    </div>
+                                    <div class="text-sm text-gray-500 mb-6">${p.title}</div>
+                                    <div class="flex items-center gap-2 text-gray-400 mb-8">
+                                        <i class="fas fa-ruler-combined"></i> ${p.area_sqft} sq ft
+                                    </div>
+
+                                    <div class="border-t border-b py-6 mb-8">
+                                        <h3 class="text-xl font-bold mb-4">Basics</h3>
+                                        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                            <div>
+                                                <div class="text-xs text-gray-400 uppercase font-bold mb-1">Date added</div>
+                                                <div class="font-medium">${new Date(p.created_at).toLocaleDateString()}</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs text-gray-400 uppercase font-bold mb-1">Type</div>
+                                                <div class="font-medium">${p.property_type}</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs text-gray-400 uppercase font-bold mb-1">Area</div>
+                                                <div class="font-medium">${p.area_sqft} sq ft</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-8">
+                                        <h3 class="text-xl font-bold mb-4">Description</h3>
+                                        <div class="text-gray-600 leading-relaxed whitespace-pre-line">${p.description || 'No description available.'}</div>
+                                    </div>
+
+                                    <div class="mb-8">
+                                        <h3 class="text-xl font-bold mb-4">Amenities & Features</h3>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-snowflake text-brand-green"></i> Air conditioning
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-fire text-brand-green"></i> Barbeque
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-wind text-brand-green"></i> Dryer
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-elevator text-brand-green"></i> Elevator
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-dumbbell text-brand-green"></i> Gym
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-tshirt text-brand-green"></i> Laundry
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-wifi text-brand-green"></i> WiFi
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md:w-1/3">
+                                <div class="bg-gray-50 rounded-2xl p-6 sticky top-24">
+                                    <h3 class="text-xl font-bold mb-6">Ask an Agent About This Home</h3>
+                                    <form id="modal-inquiry-form" class="space-y-4">
+                                        <input type="hidden" name="property_id" value="${p.id}">
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-1">Name*</label>
+                                            <input type="text" name="name" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-1">Email*</label>
+                                            <input type="email" name="email" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-1">Phone</label>
+                                            <input type="tel" name="phone" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-1">Message*</label>
+                                            <textarea name="message" required class="w-full p-3 border rounded-lg h-32 focus:ring-2 focus:ring-brand-green outline-none">I'm interested in "${p.title}"</textarea>
+                                        </div>
+                                        <button type="submit" class="w-full bg-brand-green text-white font-bold py-4 rounded-xl hover:bg-opacity-90 transition shadow-lg mt-4">
+                                            REQUEST INFO
+                                        </button>
+                                        <p class="text-[10px] text-gray-400 mt-4 text-center">
+                                            By clicking the "REQUEST INFO" button you agree to the Terms of Use and Privacy Policy
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    window.modalSlide = 0;
+                    window.modalSlidesCount = images.length;
+                    
+                    document.getElementById('modal-inquiry-form').onsubmit = handleModalInquiry;
+                    
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                async function handleModalInquiry(e) {
+                    e.preventDefault();
+                    const form = e.target;
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData.entries());
+                    
+                    try {
+                        const response = await fetch('/api/inquiries', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        });
+                        if (response.ok) {
+                            alert('Thank you for your interest! An agent will contact you soon.');
+                            form.reset();
+                        } else {
+                            alert('Sorry, something went wrong. Please try calling us directly.');
+                        }
+                    } catch (e) {
+                        console.error('Inquiry error:', e);
+                    }
+                }
+
+                function closePropertyModal() {
+                    const modal = document.getElementById('property-modal');
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    document.body.style.overflow = 'auto';
+                }
+
+                function moveModalSlider(dir) {
+                    window.modalSlide = (window.modalSlide + dir + window.modalSlidesCount) % window.modalSlidesCount;
+                    updateModalSlider();
+                }
+
+                function setModalSlide(index) {
+                    window.modalSlide = index;
+                    updateModalSlider();
+                }
+
+                function updateModalSlider() {
+                    const slider = document.getElementById('modal-slider');
+                    if (slider) slider.style.transform = `translateX(-${window.modalSlide * 100}%)`;
+                    
+                    const currentSpan = document.getElementById('modal-current-slide');
+                    if (currentSpan) currentSpan.innerText = window.modalSlide + 1;
+                    
+                    document.querySelectorAll('[data-modal-thumb]').forEach((thumb, i) => {
+                        thumb.classList.toggle('border-brand-green', i === window.modalSlide);
+                        thumb.classList.toggle('border-transparent', i !== window.modalSlide);
+                    });
+                }
+
+                function displayProperties(properties, contactPhone) {
+                    const grid = document.getElementById('property-grid');
+                    if (properties.length === 0) {
+                        grid.innerHTML = '<div class="text-center col-span-full py-10 text-gray-500">No properties found.</div>';
+                        return;
+                    }
+
+                    grid.innerHTML = properties.map(p => {
+                        let gallery = [];
+                        try {
+                            if (p.gallery_images) {
+                                const parsed = typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : p.gallery_images;
+                                gallery = Array.isArray(parsed) ? parsed : [parsed];
+                            } else {
+                                gallery = [p.main_image];
+                            }
+                        } catch (e) {
+                            console.error('Error parsing gallery images for property', p.id, e);
+                            gallery = [p.main_image];
+                        }
+                        const images = gallery.filter(img => img).map(img => {
+                            if (img.startsWith('/') || img.startsWith('http')) return img;
+                            return '/uploads/' + img;
+                        });
+                        
+                        const whatsappMsg = encodeURIComponent(`I am interested in this property: ${p.title} at ${p.location}`);
+                        const whatsappLink = `https://wa.me/${contactPhone.replace(/\+/g, '').replace(/\s/g, '')}?text=${whatsappMsg}`;
+                        
+                        return `
+                        <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                            <div class="relative h-64 overflow-hidden bg-gray-200 cursor-pointer" onclick="showPropertyDetail(${p.id})">
+                                <div class="property-slider h-full w-full flex transition-transform duration-500" id="slider-${p.id}">
+                                    ${images.map(img => `
+                                        <div class="w-full h-full flex-shrink-0">
+                                            <img src="${img}" class="w-full h-full object-cover" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'">
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                ${images.length > 1 ? `
+                                    <button onclick="event.stopPropagation(); moveSlider(${p.id}, -1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white z-20">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <button onclick="event.stopPropagation(); moveSlider(${p.id}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white z-20">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                ` : ''}
+                                <div class="absolute top-4 left-4 flex gap-2 z-10">
+                                    ${p.featured ? '<span class="bg-brand-green text-brand-yellow text-xs font-bold px-3 py-1 rounded">FEATURED</span>' : ''}
+                                    <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded">${p.status ? p.status.toUpperCase() : 'FOR SALE'}</span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-800 mb-2 cursor-pointer hover:text-brand-green transition" onclick="showPropertyDetail(${p.id})">${p.title}</h3>
+                                <div class="inline-block bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg mb-3">Call for price</div>
+                                <div class="text-sm text-gray-500 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-ruler-combined text-gray-400"></i> ${p.area_sqft} sq ft
+                                </div>
+                                <div class="text-sm font-medium text-gray-700 mb-1">${p.title}</div>
+                                <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">${p.property_type || 'Property'}</div>
+                                
+                                <div class="flex gap-2 mb-4">
+                                    <a href="tel:${contactPhone}" class="flex-1 bg-brand-green text-white text-center py-2 rounded-lg font-bold text-sm hover:bg-opacity-90 transition flex items-center justify-center gap-2">
+                                        <i class="fas fa-phone-alt"></i> Call
+                                    </a>
+                                    <a href="${whatsappLink}" target="_blank" class="flex-1 bg-[#25D366] text-white text-center py-2 rounded-lg font-bold text-sm hover:bg-opacity-90 transition flex items-center justify-center gap-2">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </a>
+                                </div>
+                                <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
+                                    <span class="flex items-center"><i class="fas fa-bed mr-2 text-brand-green"></i> ${p.bedrooms} Beds</span>
+                                    <span class="flex items-center"><i class="fas fa-bath mr-2 text-brand-green"></i> ${p.bathrooms} Baths</span>
+                                </div>
+                            </div>
+                        </div>
+                    `}).join('');
+                }
+
+                function showPropertyDetail(id) {
+                    const p = allProperties.find(item => item.id == id);
+                    if (!p) return;
+
+                    let gallery = [];
+                    try {
+                        if (p.gallery_images) {
+                            const parsed = typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : p.gallery_images;
+                            gallery = Array.isArray(parsed) ? parsed : [parsed];
+                        } else {
+                            gallery = [p.main_image];
+                        }
+                    } catch (e) {
+                        gallery = [p.main_image];
+                    }
+                    const images = gallery.filter(img => img).map(img => {
+                        if (img.startsWith('/') || img.startsWith('http')) return img;
+                        return '/uploads/' + img;
+                    });
+
+                    const modal = document.getElementById('property-modal');
+                    const content = document.getElementById('property-modal-content');
+                    
+                    const contactPhone = document.querySelector('a[href^="tel:"]')?.href.split(':')[1] || '+251921878641';
+
+                    content.innerHTML = `
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <div class="md:w-2/3">
+                                <div class="relative h-[400px] rounded-2xl overflow-hidden mb-4 group">
+                                    <div class="flex h-full transition-transform duration-500" id="modal-slider">
+                                        ${images.map(img => `
+                                            <img src="${img}" class="w-full h-full object-cover flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80'">
+                                        `).join('')}
+                                    </div>
+                                    ${images.length > 1 ? `
+                                        <button onclick="moveModalSlider(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-3 rounded-full shadow-lg hover:bg-white z-10">
+                                            <i class="fas fa-chevron-left text-brand-green"></i>
+                                        </button>
+                                        <button onclick="moveModalSlider(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 p-3 rounded-full shadow-lg hover:bg-white z-10">
+                                            <i class="fas fa-chevron-right text-brand-green"></i>
+                                        </button>
+                                        <div class="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                            <span id="modal-current-slide">1</span> / ${images.length}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="grid grid-cols-4 gap-2 mb-8">
+                                    ${images.map((img, i) => `
+                                        <img src="${img}" onclick="setModalSlide(${i})" class="h-20 w-full object-cover rounded-lg cursor-pointer hover:opacity-80 transition border-2 ${i === 0 ? 'border-brand-green' : 'border-transparent'}" data-modal-thumb="${i}">
+                                    `).join('')}
+                                </div>
+
+                                <div class="mb-8">
+                                    <div class="text-sm font-bold text-gray-400 uppercase mb-2">${p.property_type}</div>
+                                    <div class="flex justify-between items-start gap-4 mb-4">
+                                        <h2 class="text-3xl font-bold text-gray-900">${p.title}</h2>
+                                        <a href="tel:${contactPhone}" class="bg-brand-green text-white px-6 py-3 rounded-xl font-bold hover:bg-opacity-90 transition shadow-lg whitespace-nowrap">
+                                            REQUEST INFO
+                                        </a>
+                                    </div>
+                                    <div class="text-sm text-gray-500 mb-6">${p.title}</div>
+                                    <div class="flex items-center gap-2 text-gray-400 mb-8">
+                                        <i class="fas fa-ruler-combined"></i> ${p.area_sqft} sq ft
+                                    </div>
+
+                                    <div class="border-t border-b py-6 mb-8">
+                                        <h3 class="text-xl font-bold mb-4">Basics</h3>
+                                        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                            <div>
+                                                <div class="text-xs text-gray-400 uppercase font-bold mb-1">Date added</div>
+                                                <div class="font-medium">${new Date(p.created_at).toLocaleDateString()}</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs text-gray-400 uppercase font-bold mb-1">Type</div>
+                                                <div class="font-medium">${p.property_type}</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs text-gray-400 uppercase font-bold mb-1">Area</div>
+                                                <div class="font-medium">${p.area_sqft} sq ft</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-8">
+                                        <h3 class="text-xl font-bold mb-4">Description</h3>
+                                        <div class="text-gray-600 leading-relaxed whitespace-pre-line">${p.description || 'No description available.'}</div>
+                                    </div>
+
+                                    <div class="mb-8">
+                                        <h3 class="text-xl font-bold mb-4">Amenities & Features</h3>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-snowflake text-brand-green"></i> Air conditioning
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-fire text-brand-green"></i> Barbeque
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-wind text-brand-green"></i> Dryer
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-elevator text-brand-green"></i> Elevator
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-dumbbell text-brand-green"></i> Gym
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-tshirt text-brand-green"></i> Laundry
+                                            </div>
+                                            <div class="flex items-center gap-3 text-gray-600">
+                                                <i class="fas fa-wifi text-brand-green"></i> WiFi
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md:w-1/3">
+                                <div class="bg-gray-50 rounded-2xl p-6 sticky top-24">
+                                    <h3 class="text-xl font-bold mb-6">Ask an Agent About This Home</h3>
+                                    <form id="modal-inquiry-form" class="space-y-4">
+                                        <input type="hidden" name="property_id" value="${p.id}">
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-1">Name*</label>
+                                            <input type="text" name="name" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-1">Email*</label>
+                                            <input type="email" name="email" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-1">Phone</label>
+                                            <input type="tel" name="phone" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-1">Message*</label>
+                                            <textarea name="message" required class="w-full p-3 border rounded-lg h-32 focus:ring-2 focus:ring-brand-green outline-none">I'm interested in "${p.title}"</textarea>
+                                        </div>
+                                        <button type="submit" class="w-full bg-brand-green text-white font-bold py-4 rounded-xl hover:bg-opacity-90 transition shadow-lg mt-4">
+                                            REQUEST INFO
+                                        </button>
+                                        <p class="text-[10px] text-gray-400 mt-4 text-center">
+                                            By clicking the "REQUEST INFO" button you agree to the Terms of Use and Privacy Policy
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    window.modalSlide = 0;
+                    window.modalSlidesCount = images.length;
+                    
+                    document.getElementById('modal-inquiry-form').onsubmit = handleModalInquiry;
+                    
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                async function handleModalInquiry(e) {
+                    e.preventDefault();
+                    const form = e.target;
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData.entries());
+                    
+                    try {
+                        const response = await fetch('/api/inquiries', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        });
+                        if (response.ok) {
+                            alert('Thank you for your interest! An agent will contact you soon.');
+                            form.reset();
+                        } else {
+                            alert('Sorry, something went wrong. Please try calling us directly.');
+                        }
+                    } catch (e) {
+                        console.error('Inquiry error:', e);
+                    }
+                }
+
+                function closePropertyModal() {
+                    const modal = document.getElementById('property-modal');
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    document.body.style.overflow = 'auto';
+                }
+
+                function moveModalSlider(dir) {
+                    window.modalSlide = (window.modalSlide + dir + window.modalSlidesCount) % window.modalSlidesCount;
+                    updateModalSlider();
+                }
+
+                function setModalSlide(index) {
+                    window.modalSlide = index;
+                    updateModalSlider();
+                }
+
+                function updateModalSlider() {
+                    const slider = document.getElementById('modal-slider');
+                    if (slider) slider.style.transform = `translateX(-${window.modalSlide * 100}%)`;
+                    
+                    const currentSpan = document.getElementById('modal-current-slide');
+                    if (currentSpan) currentSpan.innerText = window.modalSlide + 1;
+                    
+                    document.querySelectorAll('[data-modal-thumb]').forEach((thumb, i) => {
+                        thumb.classList.toggle('border-brand-green', i === window.modalSlide);
+                        thumb.classList.toggle('border-transparent', i !== window.modalSlide);
+                    });
                 }
 
                 const sliderStates = {};
