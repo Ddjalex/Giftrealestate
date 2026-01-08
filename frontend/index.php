@@ -247,7 +247,7 @@
                 </div>
             </div>
             <div class="md:w-1/2 mt-8 md:mt-0 flex justify-start items-end self-stretch pl-0">
-                <img src="/public/assets/man-with-tablet.png" class="max-h-[1000px] w-auto object-contain object-bottom mb-[-10px] transform scale-[1.75] translate-x-[-20%] origin-bottom" alt="Gift Real Estate Representative">
+                <img src="/public/assets/man-with-tablet.png" class="max-h-[-800px] w-auto object-contain object-bottom mb-[-190px] transform scale-50 translate-x-[-40%]" alt="Gift Real Estate Representative">
             </div>
         </div>
     </header>

@@ -118,19 +118,19 @@
                     <div>
                         <label class="block text-gray-700 font-bold mb-2">History Section Image</label>
                         <input type="file" name="about_history_image_file" class="w-full p-3 border rounded-lg" accept="image/*" onchange="previewAboutImage(this, 'about_history_image_preview')">
-                        <input type="hidden" name="about_history_image">
+                        <input type="hidden" name="about_history_image" id="about_history_image_input">
                         <img id="about_history_image_preview" class="mt-2 h-32 hidden">
                     </div>
                     <div>
                         <label class="block text-gray-700 font-bold mb-2">Vision Section Image</label>
                         <input type="file" name="about_vision_image_file" class="w-full p-3 border rounded-lg" accept="image/*" onchange="previewAboutImage(this, 'about_vision_image_preview')">
-                        <input type="hidden" name="about_vision_image">
+                        <input type="hidden" name="about_vision_image" id="about_vision_image_input">
                         <img id="about_vision_image_preview" class="mt-2 h-32 hidden">
                     </div>
                     <div>
                         <label class="block text-gray-700 font-bold mb-2">CEO/Founder Image</label>
                         <input type="file" name="about_ceo_image_file" class="w-full p-3 border rounded-lg" accept="image/*" onchange="previewAboutImage(this, 'about_ceo_image_preview')">
-                        <input type="hidden" name="about_ceo_image">
+                        <input type="hidden" name="about_ceo_image" id="about_ceo_image_input">
                         <img id="about_ceo_image_preview" class="mt-2 h-32 hidden">
                     </div>
                     <button type="button" onclick="saveAbout()" class="bg-brand-green text-brand-yellow font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition">Save About Content</button>

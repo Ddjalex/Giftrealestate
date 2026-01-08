@@ -38,14 +38,25 @@ async function fetchData() {
                 const aboutContent = document.getElementById('about_content_input');
                 if (aboutTitle) aboutTitle.value = settings.title || '';
                 if (aboutContent) aboutContent.value = settings.content || '';
-                if (settings.image_url) {
-                    document.querySelector('[name="about_history_image"]').value = settings.image_url;
-                    const preview = document.getElementById('about_history_image_preview');
-                    if (preview) {
-                        preview.src = settings.image_url.startsWith('http') ? settings.image_url : '/uploads/' + settings.image_url;
-                        preview.classList.remove('hidden');
+                
+                const images = [
+                    { key: 'image_url', hidden: 'about_history_image_input', preview: 'about_history_image_preview' },
+                    { key: 'vision_image', hidden: 'about_vision_image_input', preview: 'about_vision_image_preview' },
+                    { key: 'ceo_image', hidden: 'about_ceo_image_input', preview: 'about_ceo_image_preview' }
+                ];
+
+                images.forEach(img => {
+                    const value = settings[img.key];
+                    if (value) {
+                        const hiddenInput = document.getElementById(img.hidden);
+                        if (hiddenInput) hiddenInput.value = value;
+                        const preview = document.getElementById(img.preview);
+                        if (preview) {
+                            preview.src = value.startsWith('http') ? value : '/uploads/' + value;
+                            preview.classList.remove('hidden');
+                        }
                     }
-                }
+                });
                 return;
             }
             // Original logic for settings
@@ -73,21 +84,30 @@ async function saveAbout() {
     const form = document.getElementById('about-form');
     const payload = {
         title: document.getElementById('about_title_input').value,
-        content: document.getElementById('about_content_input').value
+        content: document.getElementById('about_content_input').value,
+        image_url: document.getElementById('about_history_image_input').value,
+        vision_image: document.getElementById('about_vision_image_input').value,
+        ceo_image: document.getElementById('about_ceo_image_input').value
     };
     
-    // Process files first
-    const fileInput = form.querySelector('input[name="about_history_image_file"]');
-    if (fileInput.files.length > 0) {
-        const uploadFormData = new FormData();
-        uploadFormData.append('images[]', fileInput.files[0]);
-        const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: uploadFormData });
-        const uploadData = await uploadRes.json();
-        if (uploadData.urls && uploadData.urls.length > 0) {
-            payload.image_url = uploadData.urls[0];
+    // Process files
+    const fileMappings = [
+        { input: 'about_history_image_file', key: 'image_url' },
+        { input: 'about_vision_image_file', key: 'vision_image' },
+        { input: 'about_ceo_image_file', key: 'ceo_image' }
+    ];
+
+    for (const mapping of fileMappings) {
+        const fileInput = form.querySelector(`input[name="${mapping.input}"]`);
+        if (fileInput && fileInput.files.length > 0) {
+            const uploadFormData = new FormData();
+            uploadFormData.append('images[]', fileInput.files[0]);
+            const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: uploadFormData });
+            const uploadData = await uploadRes.json();
+            if (uploadData.urls && uploadData.urls.length > 0) {
+                payload[mapping.key] = uploadData.urls[0];
+            }
         }
-    } else {
-        payload.image_url = form.elements['about_history_image'].value;
     }
     
     const response = await fetch('/api/about.php', { // Changed from settings.php to about.php

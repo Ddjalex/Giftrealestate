@@ -33,6 +33,8 @@ if (strpos($path, '/api/') === 0) {
         require 'api/news.php';
     } elseif (strpos($path, '/api/inquiries') === 0) {
         require 'api/inquiries.php';
+    } elseif (strpos($path, '/api/about') === 0) {
+        require 'api/about.php';
     } elseif (strpos($path, '/api/settings') === 0) {
         require 'api/settings.php';
     } elseif (strpos($path, '/api/upload') === 0) {

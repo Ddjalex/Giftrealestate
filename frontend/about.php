@@ -248,15 +248,27 @@
                         const contentElement = document.querySelector('p.text-gray-600.text-lg.mb-8.leading-relaxed');
                         if (contentElement) contentElement.innerText = data.content;
                     }
-                    if (data.image_url) {
-                        const imgElement = document.querySelector('section.py-12 img');
-                        if (imgElement) {
-                            const imgPath = data.image_url.startsWith('/') || data.image_url.startsWith('http') 
-                                ? data.image_url 
-                                : '/uploads/' + data.image_url;
-                            imgElement.src = imgPath;
+                    
+                    const imageMappings = [
+                        { key: 'image_url', selector: 'section.py-12 img' },
+                        { key: 'vision_image', selector: 'section.relative.py-24', isBg: true },
+                        { key: 'ceo_image', selector: 'section.relative.py-24.bg-cover.bg-center:last-of-type img' }
+                    ];
+
+                    imageMappings.forEach(mapping => {
+                        const value = data[mapping.key];
+                        if (value) {
+                            const imgPath = value.startsWith('/') || value.startsWith('http') ? value : '/uploads/' + value;
+                            const element = document.querySelector(mapping.selector);
+                            if (element) {
+                                if (mapping.isBg) {
+                                    element.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${imgPath}')`;
+                                } else {
+                                    element.src = imgPath;
+                                }
+                            }
                         }
-                    }
+                    });
                 }
             } catch (error) {
                 console.error('Error loading about content:', error);

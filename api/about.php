@@ -29,11 +29,24 @@ switch ($method) {
             $row = $stmt->fetch();
             
             if ($row) {
-                $stmt = $pdo->prepare("UPDATE about_us SET title=?, content=?, image_url=?, updated_at=CURRENT_TIMESTAMP WHERE id=?");
-                $stmt->execute([$data['title'] ?? '', $data['content'] ?? '', $data['image_url'] ?? '', $row['id']]);
+                $stmt = $pdo->prepare("UPDATE about_us SET title=?, content=?, image_url=?, vision_image=?, ceo_image=?, updated_at=CURRENT_TIMESTAMP WHERE id=?");
+                $stmt->execute([
+                    $data['title'] ?? '', 
+                    $data['content'] ?? '', 
+                    $data['image_url'] ?? '', 
+                    $data['vision_image'] ?? '', 
+                    $data['ceo_image'] ?? '', 
+                    $row['id']
+                ]);
             } else {
-                $stmt = $pdo->prepare("INSERT INTO about_us (title, content, image_url) VALUES (?, ?, ?)");
-                $stmt->execute([$data['title'] ?? '', $data['content'] ?? '', $data['image_url'] ?? '']);
+                $stmt = $pdo->prepare("INSERT INTO about_us (title, content, image_url, vision_image, ceo_image) VALUES (?, ?, ?, ?, ?)");
+                $stmt->execute([
+                    $data['title'] ?? '', 
+                    $data['content'] ?? '', 
+                    $data['image_url'] ?? '', 
+                    $data['vision_image'] ?? '', 
+                    $data['ceo_image'] ?? ''
+                ]);
             }
             echo json_encode(['status' => 'success']);
         } catch (PDOException $e) {
