@@ -229,24 +229,12 @@
         <div class="container mx-auto px-4 relative z-20 text-white">
             <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">Ethiopia's Most Trusted <br><span class="text-brand-yellow">Real Estate Partner</span></h1>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl">Discover exceptional properties and build your future with Gift Real Estate PLC. From luxury villas to commercial spaces.</p>
-        <div class="max-w-4xl mx-auto bg-white p-4 rounded-xl shadow-lg flex flex-col md:flex-row gap-4 relative z-30">
-            <input type="text" id="search-location" placeholder="Search by location (CMC, Bole, Ayat)..." class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800">
-            <select id="filter-type" class="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800 bg-white min-w-[200px]">
-                <option value="">All Types</option>
-                <option value="Residential Apartments">Residential Apartments</option>
-                <option value="Commercial Properties">Commercial Properties</option>
-                <option value="Luxury Villas">Luxury Villas</option>
-                <option value="Office Spaces">Office Spaces</option>
-                <option value="Retail Shops">Retail Shops</option>
-                <option value="Land & Plots">Land & Plots</option>
-            </select>
-            <button onclick="filterProperties()" class="bg-brand-yellow text-brand-green font-bold px-8 py-3 rounded-lg hover:bg-yellow-500 transition shadow-md whitespace-nowrap">Search Properties</button>
         </div>
     </header>
 
-    <!-- Stats Bar -->
+    <!-- Stats Bar & Search Box -->
     <div class="container mx-auto px-4 -mt-16 relative z-30">
-        <div class="grid grid-cols-1 md:grid-cols-3 bg-white shadow-2xl rounded-xl overflow-hidden text-center divide-y md:divide-y-0 md:divide-x divide-gray-100">
+        <div class="grid grid-cols-1 md:grid-cols-3 bg-white shadow-2xl rounded-xl overflow-hidden text-center divide-y md:divide-y-0 md:divide-x divide-gray-100 mb-8">
             <div class="p-8">
                 <div class="text-4xl font-bold text-brand-green">3000+</div>
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Properties Sold</div>
@@ -259,6 +247,20 @@
                 <div class="text-4xl font-bold text-brand-green">25+</div>
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Years Experience</div>
             </div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto bg-white p-4 rounded-xl shadow-lg flex flex-col md:flex-row gap-4">
+            <input type="text" id="search-location" placeholder="Search by location (CMC, Bole, Ayat)..." class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800">
+            <select id="filter-type" class="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800 bg-white min-w-[200px]">
+                <option value="">All Types</option>
+                <option value="Residential Apartments">Residential Apartments</option>
+                <option value="Commercial Properties">Commercial Properties</option>
+                <option value="Luxury Villas">Luxury Villas</option>
+                <option value="Office Spaces">Office Spaces</option>
+                <option value="Retail Shops">Retail Shops</option>
+                <option value="Land & Plots">Land & Plots</option>
+            </select>
+            <button onclick="filterProperties()" class="bg-brand-yellow text-brand-green font-bold px-8 py-3 rounded-lg hover:bg-yellow-500 transition shadow-md whitespace-nowrap">Search Properties</button>
         </div>
     </div>
 
