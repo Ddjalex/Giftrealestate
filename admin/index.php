@@ -468,6 +468,9 @@
                         console.error('Upload failed', e);
                     }
                 }
+            } else {
+                // For other tabs, make sure we don't send empty files
+                delete payload.images;
             }
 
             try {

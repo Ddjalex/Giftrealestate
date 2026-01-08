@@ -37,17 +37,17 @@ switch ($method) {
                 $stmt->execute([
                     $data['title'],
                     $data['description'] ?? '',
-                    $data['price'] ?? 0,
+                    (float)($data['price'] ?? 0),
                     $data['location'] ?? '',
                     $data['property_type'] ?? 'Residential Apartments',
                     $data['status'] ?? 'For Sale',
-                    $data['bedrooms'] ?? 0,
-                    $data['bathrooms'] ?? 0,
-                    $data['area_sqft'] ?? 0,
-                    (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? true : false,
+                    (int)($data['bedrooms'] ?? 0),
+                    (int)($data['bathrooms'] ?? 0),
+                    (float)($data['area_sqft'] ?? 0),
+                    (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? 1 : 0,
                     $data['main_image'] ?? null,
                     isset($data['gallery_images']) ? json_encode($data['gallery_images']) : null,
-                    $data['id']
+                    (int)$data['id']
                 ]);
             } else {
                 // Insert
@@ -55,14 +55,14 @@ switch ($method) {
                 $stmt->execute([
                     $data['title'],
                     $data['description'] ?? '',
-                    $data['price'] ?? 0,
+                    (float)($data['price'] ?? 0),
                     $data['location'] ?? '',
                     $data['property_type'] ?? 'Residential Apartments',
                     $data['status'] ?? 'For Sale',
-                    $data['bedrooms'] ?? 0,
-                    $data['bathrooms'] ?? 0,
-                    $data['area_sqft'] ?? 0,
-                    (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? true : false,
+                    (int)($data['bedrooms'] ?? 0),
+                    (int)($data['bathrooms'] ?? 0),
+                    (float)($data['area_sqft'] ?? 0),
+                    (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? 1 : 0,
                     $data['main_image'] ?? null,
                     isset($data['gallery_images']) ? json_encode($data['gallery_images']) : null
                 ]);
