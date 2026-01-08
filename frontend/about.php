@@ -219,10 +219,6 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-green-600 py-6">
-        <div class="container mx-auto px-4 text-center text-white">
-            <p>&copy; 2026 Gift Real Estate PLC. All rights reserved.</p>
-        </div>
-    </footer>
+    <?php include 'footer.php'; ?>
 </body>
 </html>

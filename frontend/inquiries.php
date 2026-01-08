@@ -73,11 +73,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-green text-white py-12">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2026 Gift Real Estate PLC. All rights reserved.</p>
-        </div>
-    </footer>
+    <?php include 'footer.php'; ?>
 
     <script>
         document.getElementById('inquiry-form').onsubmit = async (e) => {

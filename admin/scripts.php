@@ -19,20 +19,23 @@ function switchTab(tab) {
     
     const addBtn = document.getElementById('add-btn');
     if (addBtn) {
-        addBtn.style.display = (tab === 'inquiries' || tab === 'settings') ? 'none' : 'block';
+        addBtn.style.display = (tab === 'inquiries' || tab === 'settings' || tab === 'about') ? 'none' : 'block';
     }
     
     fetchData();
 }
 
 async function fetchData() {
-    if (currentTab === 'settings') {
+    if (currentTab === 'settings' || currentTab === 'about') {
         const response = await fetch('/api/settings.php');
         const settings = await response.json();
-        const form = document.getElementById('settings-form');
-        for (const key in settings) {
-            if (form.elements[key]) {
-                form.elements[key].value = settings[key];
+        const formId = currentTab === 'settings' ? 'settings-form' : 'about-form';
+        const form = document.getElementById(formId);
+        if (form) {
+            for (const key in settings) {
+                if (form.elements[key]) {
+                    form.elements[key].value = settings[key];
+                }
             }
         }
         return;
@@ -40,6 +43,22 @@ async function fetchData() {
     const response = await fetch(`/api/${currentTab}.php`);
     data[currentTab] = await response.json();
     renderTable();
+}
+
+async function saveAbout() {
+    const form = document.getElementById('about-form');
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    
+    const response = await fetch('/api/settings.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+        alert('About content saved successfully!');
+    }
 }
 
 function renderTable() {

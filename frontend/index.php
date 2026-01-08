@@ -300,8 +300,12 @@
                     <p class="text-gray-500">Loading properties...</p>
                 </div>
             </div>
-            
-            <script>
+        </div>
+    </section>
+
+    <?php include 'footer.php'; ?>
+    
+    <script>
                 let allProperties = [];
 
                 async function loadProperties() {

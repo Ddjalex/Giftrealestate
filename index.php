@@ -17,16 +17,8 @@ if (strpos($path, '/public/') === 0 || strpos($path, '/uploads/') === 0) {
 }
 
 // Property Detail Routing
-if (preg_match('/^\/property\/([^\/]+)/', $path, $matches)) {
-    $slug = $matches[1];
-    // If slug is numeric, it's an ID
-    if (is_numeric($slug)) {
-        $_GET['id'] = $slug;
-    } else {
-        // Find ID by slug (assuming title to slug conversion for now or direct match)
-        // For simplicity with current DB schema, we'll keep using ID but support the URL structure
-        $_GET['id'] = $slug; 
-    }
+if (preg_match('/^\/property\/([0-9]+)/', $path, $matches)) {
+    $_GET['id'] = $matches[1];
     require 'property.php';
     exit;
 }

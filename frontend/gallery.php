@@ -57,13 +57,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-green text-white py-12 border-t border-white/10">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2026 Gift Real Estate PLC. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
+    <?php include 'footer.php'; ?>
+</body>
+</html>
         async function loadGallery() {
             try {
                 const response = await fetch('/api/gallery');

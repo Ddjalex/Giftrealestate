@@ -27,6 +27,7 @@
             <button onclick="switchTab('gallery')" id="nav-gallery" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Gallery</button>
             <button onclick="switchTab('news')" id="nav-news" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">News</button>
             <button onclick="switchTab('blog')" id="nav-blog" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Blog</button>
+            <button onclick="switchTab('about')" id="nav-about" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">About Us</button>
             <button onclick="switchTab('inquiries')" id="nav-inquiries" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Inquiries</button>
             <button onclick="switchTab('settings')" id="nav-settings" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Settings</button>
         </nav>
@@ -99,6 +100,27 @@
                     </thead>
                     <tbody id="admin-blog-list" class="divide-y divide-gray-200"></tbody>
                 </table>
+            </div>
+        </div>
+
+        <div id="content-about" class="tab-content p-8 hidden">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-brand-green mb-8">About Page Content</h3>
+                <form id="about-form" class="space-y-6">
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">History Section Image URL</label>
+                        <input type="text" name="about_history_image" class="w-full p-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">Vision Section Image URL</label>
+                        <input type="text" name="about_vision_image" class="w-full p-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">CEO/Founder Image URL</label>
+                        <input type="text" name="about_ceo_image" class="w-full p-3 border rounded-lg">
+                    </div>
+                    <button type="button" onclick="saveAbout()" class="bg-brand-green text-brand-yellow font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition">Save About Content</button>
+                </form>
             </div>
         </div>
 
