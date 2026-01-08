@@ -936,7 +936,9 @@
                         return matchLocation && matchType;
                     });
 
-                    displayProperties(filtered);
+                    const settingsBtn = document.getElementById('nav-call-btn');
+                    const contactPhone = settingsBtn ? settingsBtn.href.replace('tel:', '') : '+251921878641';
+                    displayProperties(filtered, contactPhone);
                 }
 
                 loadProperties();

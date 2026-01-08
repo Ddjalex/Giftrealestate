@@ -125,7 +125,7 @@
             const location = document.getElementById('search-location').value.toLowerCase();
             const type = document.getElementById('filter-type').value;
             const filtered = allProperties.filter(p => {
-                const matchLoc = !location || p.location.toLowerCase().includes(location);
+                const matchLoc = !location || (p.location && p.location.toLowerCase().includes(location));
                 const matchType = !type || p.property_type === type;
                 return matchLoc && matchType;
             });
