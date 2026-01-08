@@ -12,6 +12,7 @@
         }
         .bg-brand-green { background-color: var(--brand-green); }
         .text-brand-green { color: var(--brand-green); }
+        .bg-brand-yellow { background-color: var(--brand-yellow); }
     </style>
 </head>
 <body class="bg-gray-100 flex h-screen">
@@ -21,8 +22,6 @@
         <nav class="mt-6">
             <a href="#" class="block py-2.5 px-4 bg-yellow-600 text-white">Properties</a>
             <a href="#" class="block py-2.5 px-4 hover:bg-yellow-600 transition">Inquiries</a>
-            <a href="#" class="block py-2.5 px-4 hover:bg-yellow-600 transition">Users</a>
-            <a href="#" class="block py-2.5 px-4 hover:bg-yellow-600 transition">Settings</a>
         </nav>
     </aside>
 
@@ -30,7 +29,7 @@
     <main class="flex-1 overflow-y-auto">
         <header class="bg-white shadow p-4 flex justify-between items-center">
             <h2 class="text-xl font-bold text-brand-green">Manage Listings</h2>
-            <button class="bg-brand-green text-brand-yellow font-bold px-4 py-2 rounded">+ Add Property</button>
+            <button onclick="showAddModal()" class="bg-brand-green text-brand-yellow font-bold px-4 py-2 rounded">+ Add Property</button>
         </header>
         <div class="p-8">
             <div class="bg-white rounded shadow overflow-hidden">
@@ -44,21 +43,71 @@
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap font-medium">Luxury Villa CMC</td>
-                            <td class="px-6 py-4 whitespace-nowrap">CMC, Addis Ababa</td>
-                            <td class="px-6 py-4 whitespace-nowrap">15,000,000 ETB</td>
-                            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Active</span></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                                <a href="#" class="text-blue-600 hover:text-blue-900 mr-2">Edit</a>
-                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
-                            </td>
-                        </tr>
+                    <tbody id="admin-property-list" class="divide-y divide-gray-200">
+                        <!-- Loaded via JS -->
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
+
+    <!-- Simple Add Modal (Hidden by default) -->
+    <div id="add-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg p-6 max-w-lg w-full">
+            <h3 class="text-xl font-bold mb-4">Add New Property</h3>
+            <form id="add-property-form" class="space-y-4">
+                <input type="text" name="title" placeholder="Property Title" class="w-full p-2 border rounded" required>
+                <textarea name="description" placeholder="Description" class="w-full p-2 border rounded"></textarea>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="number" name="price" placeholder="Price (ETB)" class="p-2 border rounded">
+                    <input type="text" name="location" placeholder="Location" class="p-2 border rounded">
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" onclick="hideAddModal()" class="px-4 py-2 text-gray-500">Cancel</button>
+                    <button type="submit" class="bg-brand-green text-brand-yellow px-4 py-2 rounded">Save Property</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        async function fetchProperties() {
+            const response = await fetch('/api/properties');
+            const data = await response.json();
+            const tbody = document.getElementById('admin-property-list');
+            tbody.innerHTML = data.map(p => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap font-medium">${p.title}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${p.location}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${p.price} ETB</td>
+                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">${p.status}</span></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                        <button class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
+                        <button class="text-red-600 hover:text-red-900">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function showAddModal() { document.getElementById('add-modal').classList.remove('hidden'); }
+        function hideAddModal() { document.getElementById('add-modal').classList.add('hidden'); }
+
+        document.getElementById('add-property-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            const response = await fetch('/api/properties', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (response.ok) {
+                hideAddModal();
+                fetchProperties();
+            }
+        };
+
+        fetchProperties();
+    </script>
 </body>
 </html>
