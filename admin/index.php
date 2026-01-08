@@ -179,6 +179,12 @@
                             <label class="block text-gray-700 font-bold mb-2">LinkedIn URL</label>
                             <input type="text" name="linkedin" class="w-full p-3 border rounded-lg">
                         </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Home Page Client Image</label>
+                            <input type="file" name="home_client_image_file" class="w-full p-3 border rounded-lg" accept="image/*" onchange="previewAboutImage(this, 'home_client_image_preview')">
+                            <input type="hidden" name="home_client_image">
+                            <img id="home_client_image_preview" class="mt-2 h-32 hidden">
+                        </div>
                     </div>
                     <div>
                         <label class="block text-gray-700 font-bold mb-2">Google Map Iframe Source (URL only)</label>
