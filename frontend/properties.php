@@ -83,10 +83,19 @@
     <script>
         let allProperties = [];
         async function loadProperties() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const typeFilter = urlParams.get('type');
+            
             try {
                 const response = await fetch('/api/properties');
                 allProperties = await response.json();
-                displayProperties(allProperties);
+                
+                if (typeFilter) {
+                    document.getElementById('filter-type').value = typeFilter;
+                    filterProperties();
+                } else {
+                    displayProperties(allProperties);
+                }
             } catch (error) {
                 console.error('Error loading properties:', error);
             }
@@ -95,13 +104,13 @@
         function displayProperties(properties) {
             const grid = document.getElementById('property-grid');
             grid.innerHTML = properties.map(p => `
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition cursor-pointer" onclick="window.location.href='/property/${p.id}'">
                     <img src="${p.main_image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'}" class="w-full h-64 object-cover">
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type}</div>
                         <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
                         <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location}</p>
-                        <div class="text-brand-green font-bold text-lg mb-4">${new Intl.NumberFormat().format(p.price)} ETB</div>
+                        <div class="text-brand-green font-bold text-lg mb-4">Call for price</div>
                         <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
                             <span><i class="fas fa-bed mr-1"></i> ${p.bedrooms}</span>
                             <span><i class="fas fa-bath mr-1"></i> ${p.bathrooms}</span>
