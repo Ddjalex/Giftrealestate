@@ -520,11 +520,12 @@
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Contact Details</h4>
+                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Property Types</h4>
                     <ul class="space-y-4 text-gray-400 text-sm">
-                        <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand-yellow mt-1"></i> <span id="footer-address">Kazanchis, Black Gold Plaza, Addis Ababa</span></li>
-                        <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-brand-yellow"></i> <span id="footer-phone">+251 921878641</span></li>
-                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand-yellow"></i> <span id="footer-email">info@giftrealestate.com</span></li>
+                        <li><a href="/properties" class="hover:text-white transition">Residential Apartments</a></li>
+                        <li><a href="/properties" class="hover:text-white transition">Commercial Properties</a></li>
+                        <li><a href="/properties" class="hover:text-white transition">Luxury Villas</a></li>
+                        <li><a href="/properties" class="hover:text-white transition">Office Spaces</a></li>
                     </ul>
                 </div>
                 <div>
@@ -543,6 +544,14 @@
                         <input type="email" placeholder="Email" class="bg-white/10 border border-white/20 p-3 rounded-l w-full focus:outline-none">
                         <button class="bg-brand-yellow text-brand-green px-4 rounded-r font-bold">Join</button>
                     </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Contact Details</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand-yellow mt-1"></i> <span id="footer-address">Kazanchis, Black Gold Plaza, Addis Ababa</span></li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-brand-yellow"></i> <span id="footer-phone">+251 921878641</span></li>
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand-yellow"></i> <span id="footer-email">info@giftrealestate.com</span></li>
+                    </ul>
                 </div>
             </div>
             <div class="border-t border-white/10 pt-8 text-center text-gray-500 text-sm">
