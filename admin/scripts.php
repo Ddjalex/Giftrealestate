@@ -81,7 +81,6 @@ async function fetchData() {
 }
 
 async function saveAbout() {
-    const form = document.getElementById('about-form');
     const payload = {
         title: document.getElementById('about_title_input').value,
         content: document.getElementById('about_content_input').value,
@@ -98,7 +97,7 @@ async function saveAbout() {
     ];
 
     for (const mapping of fileMappings) {
-        const fileInput = form.querySelector(`input[name="${mapping.input}"]`);
+        const fileInput = document.querySelector(`input[name="${mapping.input}"]`);
         if (fileInput && fileInput.files.length > 0) {
             const uploadFormData = new FormData();
             uploadFormData.append('images[]', fileInput.files[0]);
@@ -110,7 +109,7 @@ async function saveAbout() {
         }
     }
     
-    const response = await fetch('/api/about.php', { // Changed from settings.php to about.php
+    const response = await fetch('/api/about.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
