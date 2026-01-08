@@ -19,6 +19,8 @@ if (strpos($path, '/api/') === 0) {
     require_once 'api/db.php';
     require 'api/api.php';
     exit;
+} elseif (strpos($path, '/news') === 0) {
+    include 'news/index.html';
 } elseif (strpos($path, '/admin') === 0) {
     include 'admin/index.html';
 } else {
