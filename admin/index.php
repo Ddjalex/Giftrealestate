@@ -26,6 +26,7 @@
             <button onclick="switchTab('properties')" id="nav-properties" class="w-full text-left py-2.5 px-4 bg-yellow-600 text-white">Properties</button>
             <button onclick="switchTab('gallery')" id="nav-gallery" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Gallery</button>
             <button onclick="switchTab('news')" id="nav-news" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">News</button>
+            <button onclick="switchTab('blog')" id="nav-blog" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Blog</button>
             <button onclick="switchTab('inquiries')" id="nav-inquiries" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Inquiries</button>
             <button onclick="switchTab('settings')" id="nav-settings" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Settings</button>
         </nav>
@@ -50,7 +51,7 @@
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="admin-property-list" class="divide-y divide-gray-200"></tbody>
+                    <tbody id="admin-properties-list" class="divide-y divide-gray-200"></tbody>
                 </table>
             </div>
         </div>
@@ -82,6 +83,21 @@
                         </tr>
                     </thead>
                     <tbody id="admin-news-list" class="divide-y divide-gray-200"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="content-blog" class="tab-content p-8 hidden">
+            <div class="bg-white rounded shadow overflow-hidden">
+                <table class="min-w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-blog-list" class="divide-y divide-gray-200"></tbody>
                 </table>
             </div>
         </div>
@@ -168,7 +184,7 @@
         <div class="bg-white rounded-lg p-6 max-w-lg w-full">
             <h3 id="modal-title" class="text-xl font-bold mb-4">Add New Item</h3>
             
-            <form id="add-property-form" class="modal-form space-y-4">
+            <form id="add-properties-form" class="modal-form space-y-4">
                 <input type="hidden" name="id" id="prop-id">
                 <input type="text" name="title" id="prop-title" placeholder="Property Title" class="w-full p-2 border rounded" required>
                 <textarea name="description" id="prop-description" placeholder="Description" class="w-full p-2 border rounded"></textarea>
@@ -222,6 +238,17 @@
                 <input type="text" name="title" id="news-title" placeholder="News Title" class="w-full p-2 border rounded" required>
                 <textarea name="content" id="news-content" placeholder="News Content" class="w-full p-2 border rounded h-32"></textarea>
                 <input type="text" name="image_url" id="news-url" placeholder="Cover Image URL" class="w-full p-2 border rounded">
+            </form>
+
+            <form id="add-blog-form" class="modal-form space-y-4 hidden">
+                <input type="hidden" name="id" id="blog-id">
+                <input type="text" name="title" id="blog-title" placeholder="Blog Title" class="w-full p-2 border rounded" required>
+                <textarea name="content" id="blog-content" placeholder="Blog Content" class="w-full p-2 border rounded h-32"></textarea>
+                <input type="text" name="image_url" id="blog-url" placeholder="Cover Image URL" class="w-full p-2 border rounded">
+            </form>
+
+            <form id="add-inquiries-form" class="modal-form space-y-4 hidden">
+                <p class="text-gray-600">Inquiries cannot be added manually.</p>
             </form>
 
             <div class="flex justify-end space-x-2 mt-6">

@@ -1,18 +1,27 @@
 <?php
 // PHP version of scripts.js
 ?>
+<script>
 let currentTab = 'properties';
-let data = { properties: [], gallery: [], news: [] };
+let data = { properties: [], gallery: [], news: [], inquiries: [], about: [], blog: [] };
 
 function switchTab(tab) {
     currentTab = tab;
     document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-    document.getElementById(`content-${tab}`).classList.remove('hidden');
+    const content = document.getElementById(`content-${tab}`);
+    if (content) content.classList.remove('hidden');
     
     document.querySelectorAll('#admin-nav button').forEach(b => b.classList.remove('bg-yellow-600', 'text-white'));
-    document.getElementById(`nav-${tab}`).classList.add('bg-yellow-600', 'text-white');
+    const navBtn = document.getElementById(`nav-${tab}`);
+    if (navBtn) navBtn.classList.add('bg-yellow-600', 'text-white');
     
     document.getElementById('current-tab-title').innerText = `Manage ${tab.charAt(0).toUpperCase() + tab.slice(1)}`;
+    
+    const addBtn = document.getElementById('add-btn');
+    if (addBtn) {
+        addBtn.style.display = (tab === 'inquiries' || tab === 'settings') ? 'none' : 'block';
+    }
+    
     fetchData();
 }
 
@@ -34,7 +43,7 @@ async function fetchData() {
 }
 
 function renderTable() {
-    const tbody = document.getElementById(`admin-${currentTab}-list`);
+    const tbody = document.getElementById(`admin-${currentTab === 'properties' ? 'property' : currentTab}-list`);
     if (!tbody) return;
     
     if (currentTab === 'properties') {
@@ -62,14 +71,25 @@ function renderTable() {
                 </td>
             </tr>
         `).join('');
-    } else if (currentTab === 'news') {
-        tbody.innerHTML = data.news.map(n => `
+    } else if (currentTab === 'news' || currentTab === 'blog') {
+        tbody.innerHTML = data[currentTab].map(n => `
             <tr>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(n.created_at).toLocaleDateString()}</td>
                 <td class="px-6 py-4 whitespace-nowrap font-medium">${n.title}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
                     <button onclick="editItem(${n.id})" class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
                     <button onclick="deleteItem(${n.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                </td>
+            </tr>
+        `).join('');
+    } else if (currentTab === 'inquiries') {
+        tbody.innerHTML = data.inquiries.map(i => `
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(i.created_at).toLocaleDateString()}</td>
+                <td class="px-6 py-4 whitespace-nowrap font-medium">${i.name}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">${i.email}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                    <button onclick="deleteItem(${i.id})" class="text-red-600 hover:text-red-900">Delete</button>
                 </td>
             </tr>
         `).join('');
@@ -149,7 +169,7 @@ function editItem(id) {
         document.getElementById('gallery-title').value = item.title;
         document.getElementById('gallery-url').value = item.image_url;
         document.getElementById('gallery-category').value = item.category || '';
-    } else if (currentTab === 'news') {
+    } else if (currentTab === 'news' || currentTab === 'blog') {
         document.getElementById('news-id').value = item.id;
         document.getElementById('news-title').value = item.title;
         document.getElementById('news-content').value = item.content || '';
@@ -159,7 +179,9 @@ function editItem(id) {
 
 function showAddModal() {
     document.querySelectorAll('.modal-form').forEach(f => f.classList.add('hidden'));
-    document.getElementById(`add-${currentTab === 'properties' ? 'property' : currentTab}-form`).classList.remove('hidden');
+    const formId = `add-${currentTab === 'properties' ? 'property' : currentTab}-form`;
+    const form = document.getElementById(formId);
+    if (form) form.classList.remove('hidden');
     document.getElementById('modal-title').innerText = `Add New ${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}`;
     document.getElementById('add-modal').classList.remove('hidden');
 }
@@ -193,3 +215,4 @@ document.getElementById('prop-images-input')?.addEventListener('change', functio
 });
 
 fetchData();
+</script>

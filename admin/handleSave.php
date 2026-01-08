@@ -1,10 +1,14 @@
 <?php
 // PHP version of handleSave.js
-// This file can be included or the logic moved to a script tag in index.php
 ?>
+<script>
 async function handleSave() {
     const formId = `add-${currentTab === 'properties' ? 'property' : currentTab}-form`;
     const form = document.getElementById(formId);
+    if (!form) {
+        console.error('Form not found:', formId);
+        return;
+    }
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
     
@@ -54,3 +58,4 @@ async function handleSave() {
         alert('An error occurred while saving.');
     }
 }
+</script>
