@@ -307,21 +307,6 @@
     </section>
 
     <!-- Services -->
-    <section id="gallery" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-brand-green mb-4">Our Project Gallery</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Take a look at our ongoing and completed projects across Ethiopia.</p>
-            </div>
-            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <!-- Gallery items will be loaded here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- News Section (Removed from home page) -->
-
-    <!-- Original Services Section (Renamed or Kept) -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
