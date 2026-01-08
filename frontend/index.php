@@ -247,7 +247,7 @@
                 </div>
             </div>
             <div class="md:w-1/2 mt-8 md:mt-0 flex justify-start items-end self-stretch pl-0">
-                <img src="/public/assets/man-with-tablet.png" class="max-h-[750px] w-auto object-contain object-bottom mb-[-2px] transform scale-125 translate-x-[-15%]" alt="Gift Real Estate Representative">
+                <img src="/public/assets/man-with-tablet.png" class="max-h-[1000px] w-auto object-contain object-bottom mb-[-10px] transform scale-[1.75] translate-x-[-20%] origin-bottom" alt="Gift Real Estate Representative">
             </div>
         </div>
     </header>
@@ -260,7 +260,7 @@
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Properties Sold</div>
             </div>
             <div class="p-8">
-                <div class="text-4xl font-bold text-brand-green" id="stats-phone">0921878641</div>
+                <div class="text-4xl font-bold text-brand-green" id="stats-phone">0974408281</div>
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Call For Info</div>
             </div>
             <div class="p-8">
