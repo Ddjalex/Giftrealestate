@@ -29,6 +29,8 @@ if (strpos($path, '/api/') === 0) {
         header('Content-Type: application/json');
         echo json_encode(['error' => 'Endpoint not found']);
     }
+} elseif ($path === '/news.html') {
+    readfile('frontend/news.html');
 } elseif (strpos($path, '/admin') === 0) {
     include 'admin/index.html';
 } else {
