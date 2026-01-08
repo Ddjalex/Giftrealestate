@@ -145,21 +145,21 @@
                 <h4 class="text-brand-yellow font-bold uppercase tracking-widest mb-4">GIFT REAL STATES STORY</h4>
                 <h2 class="text-4xl font-bold mb-12">Interesting Facts About Our Company</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    <div>
+                    <div class="text-center">
                         <div class="text-5xl font-bold mb-2">65</div>
-                        <div class="text-gray-200 uppercase text-sm tracking-widest">Properties</div>
+                        <div class="text-gray-200 uppercase text-xs tracking-widest leading-tight">Apartment</div>
                     </div>
-                    <div>
+                    <div class="text-center">
                         <div class="text-5xl font-bold mb-2">41</div>
-                        <div class="text-gray-200 uppercase text-sm tracking-widest">Awards</div>
+                        <div class="text-gray-200 uppercase text-xs tracking-widest leading-tight">Residential<br>Apartment</div>
                     </div>
-                    <div>
-                        <div class="text-5xl font-bold mb-2">17</div>
-                        <div class="text-gray-200 uppercase text-sm tracking-widest">Cities</div>
+                    <div class="text-center">
+                        <div class="text-5xl font-bold mb-2">47</div>
+                        <div class="text-gray-200 uppercase text-xs tracking-widest leading-tight">villa</div>
                     </div>
-                    <div>
-                        <div class="text-5xl font-bold mb-2">21</div>
-                        <div class="text-gray-200 uppercase text-sm tracking-widest">Years</div>
+                    <div class="text-center">
+                        <div class="text-5xl font-bold mb-2">31</div>
+                        <div class="text-gray-200 uppercase text-xs tracking-widest leading-tight">Comercial Apartment</div>
                     </div>
                 </div>
             </div>
