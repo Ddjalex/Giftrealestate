@@ -89,7 +89,7 @@
     </div>
 
     <nav class="bg-white shadow-md sticky top-0 z-50 overflow-hidden">
-        <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-20"></canvas>
+        <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
         <div class="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
             <div class="flex items-center">
                 <img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain">
@@ -108,12 +108,22 @@
         </div>
     </nav>
 
+    <div class="bg-white py-4 border-b border-gray-100">
+        <div class="container mx-auto px-4 flex justify-center items-center gap-4">
+            <div class="h-[2px] w-24 bg-brand-green opacity-50"></div>
+            <div class="h-[2px] w-24 bg-brand-green opacity-50"></div>
+            <i class="fas fa-star text-brand-yellow text-xl"></i>
+            <div class="h-[2px] w-24 bg-brand-green opacity-50"></div>
+            <div class="h-[2px] w-24 bg-brand-green opacity-50"></div>
+        </div>
+    </div>
+
     <script>
         // Particles Animation
         const canvas = document.getElementById('header-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let mouse = { x: null, y: null, radius: 150 };
+        let mouse = { x: null, y: null, radius: 200 };
 
         function resize() {
             canvas.width = canvas.parentElement.offsetWidth;
@@ -133,10 +143,10 @@
                 this.y = Math.random() * canvas.height;
                 this.baseX = this.x;
                 this.baseY = this.y;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2;
-                this.density = (Math.random() * 30) + 1;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.radius = 1.5 + Math.random() * 2;
+                this.density = (Math.random() * 40) + 5;
             }
             update() {
                 // Movement with mouse interaction
@@ -156,11 +166,11 @@
                 } else {
                     if (this.x !== this.baseX) {
                         let dx_ret = this.x - this.baseX;
-                        this.x -= dx_ret / 10;
+                        this.x -= dx_ret / 15;
                     }
                     if (this.y !== this.baseY) {
                         let dy_ret = this.y - this.baseY;
-                        this.y -= dy_ret / 10;
+                        this.y -= dy_ret / 15;
                     }
                     this.x += this.vx;
                     this.y += this.vy;
@@ -174,14 +184,14 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = '#008148';
+                ctx.fillStyle = '#111827';
                 ctx.fill();
             }
         }
 
         function init() {
             particles = [];
-            for (let i = 0; i < 80; i++) {
+            for (let i = 0; i < 120; i++) {
                 particles.push(new Particle());
             }
         }
@@ -195,10 +205,10 @@
                     const dx = p.x - particles[j].x;
                     const dy = p.y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
+                    if (dist < 150) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 129, 72, ${0.4 - dist / 120})`;
-                        ctx.lineWidth = 0.8;
+                        ctx.strokeStyle = `rgba(17, 24, 39, ${0.5 - dist / 150})`;
+                        ctx.lineWidth = 1.2;
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
