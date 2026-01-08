@@ -46,9 +46,9 @@
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 flex justify-between items-center h-20">
+    <nav class="bg-white shadow-md sticky top-0 z-50 overflow-hidden">
+        <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-20"></canvas>
+        <div class="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
             <div class="flex items-center">
                 <div class="text-3xl font-black text-brand-green">GIFT<span class="text-brand-yellow"> REAL ESTATE</span></div>
             </div>
@@ -59,9 +59,77 @@
                 <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Services</a>
                 <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Contact</a>
             </div>
-            <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full hover:bg-opacity-90 transition">Call Us</a>
+            <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full hover:bg-opacity-90 transition">Call Us <i class="fas fa-phone-alt ml-2"></i></a>
         </div>
     </nav>
+
+    <script>
+        // Particles Animation
+        const canvas = document.getElementById('header-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resize() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#004d40';
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.update();
+                p.draw();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = p.x - particles[j].x;
+                    const dy = p.y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 77, 64, ${1 - dist / 100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
 
     <!-- Hero Section -->
     <header class="relative h-[600px] flex items-center overflow-hidden">
