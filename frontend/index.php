@@ -113,39 +113,75 @@
         const canvas = document.getElementById('header-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        
+        let mouse = { x: null, y: null, radius: 150 };
+
         function resize() {
             canvas.width = canvas.parentElement.offsetWidth;
             canvas.height = canvas.parentElement.offsetHeight;
         }
         window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', function(event) {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = event.clientX - rect.left;
+            mouse.y = event.clientY - rect.top;
+        });
         resize();
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
+                this.baseX = this.x;
+                this.baseY = this.y;
                 this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.radius = Math.random() * 2;
+                this.density = (Math.random() * 30) + 1;
             }
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                // Movement with mouse interaction
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+
+                if (distance < mouse.radius) {
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    if (this.x !== this.baseX) {
+                        let dx_ret = this.x - this.baseX;
+                        this.x -= dx_ret / 10;
+                    }
+                    if (this.y !== this.baseY) {
+                        let dy_ret = this.y - this.baseY;
+                        this.y -= dy_ret / 10;
+                    }
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.baseX += this.vx;
+                    this.baseY += this.vy;
+                    
+                    if (this.baseX < 0 || this.baseX > canvas.width) this.vx *= -1;
+                    if (this.baseY < 0 || this.baseY > canvas.height) this.vy *= -1;
+                }
             }
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = '#004d40';
+                ctx.fillStyle = '#008148';
                 ctx.fill();
             }
         }
 
         function init() {
             particles = [];
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 80; i++) {
                 particles.push(new Particle());
             }
         }
@@ -159,10 +195,10 @@
                     const dx = p.x - particles[j].x;
                     const dy = p.y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 100) {
+                    if (dist < 120) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 77, 64, ${1 - dist / 100})`;
-                        ctx.lineWidth = 0.5;
+                        ctx.strokeStyle = `rgba(0, 129, 72, ${0.4 - dist / 120})`;
+                        ctx.lineWidth = 0.8;
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
