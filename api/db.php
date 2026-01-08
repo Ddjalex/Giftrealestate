@@ -18,6 +18,29 @@ if ($host) {
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_TIMEOUT => 2
         ]);
+        
+        // Ensure tables exist
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS settings (
+                key TEXT PRIMARY KEY,
+                value TEXT,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+            CREATE TABLE IF NOT EXISTS about_us (
+                id SERIAL PRIMARY KEY,
+                title TEXT,
+                content TEXT,
+                image_url TEXT,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+        ");
+        
+        // Seed about_us if empty
+        $stmt = $pdo->query("SELECT COUNT(*) FROM about_us");
+        if ($stmt->fetchColumn() == 0) {
+            $pdo->exec("INSERT INTO about_us (title, content, image_url) VALUES ('About Us', 'Welcome to Gift Real Estate.', '')");
+        }
+
     } catch (Exception $e) {
         $db_error = $e->getMessage();
     }
