@@ -251,8 +251,8 @@
                     
                     const imageMappings = [
                         { key: 'image_url', selector: 'section.py-12 img' },
-                        { key: 'vision_image', selector: 'section.relative.py-24', isBg: true },
-                        { key: 'ceo_image', selector: 'section.relative.py-24.bg-cover.bg-center:last-of-type img' }
+                        { key: 'vision_image', selector: 'section:nth-of-type(2)', isBg: true },
+                        { key: 'ceo_image', selector: 'section:nth-of-type(4) img' }
                     ];
 
                     imageMappings.forEach(mapping => {
