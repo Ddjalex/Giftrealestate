@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --brand-green: #008148; /* More vibrant green like the target site */
+            --brand-green: #008148;
             --brand-yellow: #fdd835;
         }
         .bg-brand-green { background-color: var(--brand-green); }
@@ -17,6 +17,10 @@
         .text-brand-yellow { color: var(--brand-yellow); }
         .border-brand-yellow { border-color: var(--brand-yellow); }
         .hover-bg-brand-yellow:hover { background-color: #fbc02d; }
+        
+        .property-title:hover {
+            color: #8cc63f !important;
+        }
         
         /* Navigation enhancements */
         .nav-link {
@@ -367,7 +371,7 @@
                                 </div>
                             </div>
                             <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-800 mb-2 cursor-pointer hover:text-brand-green transition" onclick="showPropertyDetail(${p.id})">${p.title}</h3>
+                                <h3 class="property-title text-xl font-bold text-gray-800 mb-2 cursor-pointer transition" onclick="showPropertyDetail(${p.id})">${p.title}</h3>
                                 <div class="inline-block bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg mb-3">Call for price</div>
                                 <div class="text-sm text-gray-500 mb-3 flex items-center gap-2">
                                     <i class="fas fa-ruler-combined text-gray-400"></i> ${p.area_sqft} sq ft
@@ -657,7 +661,7 @@
                                 </div>
                             </div>
                             <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-800 mb-2 cursor-pointer hover:text-brand-green transition" onclick="showPropertyDetail(${p.id})">${p.title}</h3>
+                                <h3 class="property-title text-xl font-bold text-gray-800 mb-2 cursor-pointer transition" onclick="showPropertyDetail(${p.id})">${p.title}</h3>
                                 <div class="inline-block bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1.5 rounded-lg mb-3">Call for price</div>
                                 <div class="text-sm text-gray-500 mb-3 flex items-center gap-2">
                                     <i class="fas fa-ruler-combined text-gray-400"></i> ${p.area_sqft} sq ft
