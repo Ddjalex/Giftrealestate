@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-        $file_name = time() . '_' . $_FILES['images']['name'][$key];
+        $file_name = time() . '_' . rand(100, 999) . '_' . $_FILES['images']['name'][$key];
         $target_file = $upload_dir . $file_name;
         
         if (move_uploaded_file($tmp_name, $target_file)) {

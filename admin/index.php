@@ -433,6 +433,7 @@
                 const idField = f.querySelector('input[type="hidden"]');
                 if (idField) idField.value = '';
             });
+            window.allFiles = [];
             const preview = document.getElementById('prop-images-preview');
             if (preview) preview.innerHTML = '';
         }
@@ -448,23 +449,18 @@
                 
                 // Handle multiple image uploads
                 const imageInput = document.getElementById('prop-images-input');
-                if (imageInput && imageInput.files.length > 0) {
+                if (window.allFiles && window.allFiles.length > 0) {
                     const imgFormData = new FormData();
-                    // CRITICAL: Send multiple files correctly
-                    for (let i = 0; i < imageInput.files.length; i++) {
-                        imgFormData.append('images[]', imageInput.files[i]);
+                    for (let i = 0; i < window.allFiles.length; i++) {
+                        imgFormData.append('images[]', window.allFiles[i]);
                     }
                     try {
-                        console.log('Uploading images...');
                         const uploadRes = await fetch('/api/upload', {
                             method: 'POST',
                             body: imgFormData
                         });
                         const uploadData = await uploadRes.json();
-                        console.log('Upload result:', uploadData);
-                        if (uploadData.urls) {
-                            // If editing, we might want to append. But for now, we replace.
-                            // To support appending, we'd need to fetch current images first.
+                        if (uploadData.urls && uploadData.urls.length > 0) {
                             payload.main_image = uploadData.urls[0];
                             payload.gallery_images = uploadData.urls;
                         }
@@ -490,7 +486,7 @@
         window.onload = () => {
             fetchData();
             
-            let allFiles = [];
+            window.allFiles = [];
 
             // Image preview listener
             const imgInput = document.getElementById('prop-images-input');
@@ -500,10 +496,10 @@
                     if (!preview) return;
                     
                     const files = Array.from(this.files);
-                    allFiles = [...allFiles, ...files];
+                    window.allFiles = [...window.allFiles, ...files];
                     
                     preview.innerHTML = '';
-                    allFiles.forEach((file, index) => {
+                    window.allFiles.forEach((file, index) => {
                         const reader = new FileReader();
                         reader.onload = function(e) {
                             const container = document.createElement('div');
@@ -518,7 +514,7 @@
                             removeBtn.className = 'absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity';
                             removeBtn.onclick = (e) => {
                                 e.preventDefault();
-                                allFiles.splice(index, 1);
+                                window.allFiles.splice(index, 1);
                                 imgInput.dispatchEvent(new Event('change'));
                             };
                             
