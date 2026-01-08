@@ -114,28 +114,45 @@ $images = array_map(function($img) {
                         </div>
                     </div>
 
-                    <h3 class="text-2xl font-bold mb-6">Description</h3>
-                    <div class="text-gray-600 leading-relaxed mb-10 whitespace-pre-line"><?php echo nl2br(htmlspecialchars($property['description'])); ?></div>
+                    <div class="mb-10">
+                        <div class="flex justify-between items-center mb-6 cursor-pointer group" onclick="toggleSection('description')">
+                            <h3 class="text-2xl font-bold">Description</h3>
+                            <span id="desc-toggle-text" class="text-brand-green font-bold text-sm flex items-center gap-2">
+                                Hide description <i class="fas fa-chevron-up transition-transform duration-300" id="desc-chevron"></i>
+                            </span>
+                        </div>
+                        <div id="description-content" class="text-gray-600 leading-relaxed whitespace-pre-line transition-all duration-300 overflow-hidden">
+                            <?php echo nl2br(htmlspecialchars($property['description'])); ?>
+                        </div>
+                        <div class="border-b border-gray-100 mt-6"></div>
+                    </div>
 
-                    <h3 class="text-2xl font-bold mb-6">Amenities & Features</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                            <i class="fas fa-snowflake text-brand-green"></i> Air conditioning
+                    <div class="mb-10">
+                        <div class="flex justify-between items-center mb-6 cursor-pointer group" onclick="toggleSection('amenities')">
+                            <h3 class="text-2xl font-bold">Amenities & Features</h3>
+                            <span id="amen-toggle-text" class="text-brand-green font-bold text-sm flex items-center gap-2">
+                                Hide amenities <i class="fas fa-chevron-up transition-transform duration-300" id="amen-chevron"></i>
+                            </span>
                         </div>
-                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                            <i class="fas fa-wifi text-brand-green"></i> Free WiFi
-                        </div>
-                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                            <i class="fas fa-elevator text-brand-green"></i> Elevator
-                        </div>
-                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                            <i class="fas fa-dumbbell text-brand-green"></i> Gym
-                        </div>
-                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                            <i class="fas fa-parking text-brand-green"></i> Parking
-                        </div>
-                        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                            <i class="fas fa-shield-alt text-brand-green"></i> Security
+                        <div id="amenities-content" class="grid grid-cols-2 md:grid-cols-3 gap-4 transition-all duration-300 overflow-hidden">
+                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
+                                <i class="fas fa-snowflake text-brand-green"></i> Air conditioning
+                            </div>
+                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
+                                <i class="fas fa-wifi text-brand-green"></i> Free WiFi
+                            </div>
+                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
+                                <i class="fas fa-elevator text-brand-green"></i> Elevator
+                            </div>
+                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
+                                <i class="fas fa-dumbbell text-brand-green"></i> Gym
+                            </div>
+                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
+                                <i class="fas fa-parking text-brand-green"></i> Parking
+                            </div>
+                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
+                                <i class="fas fa-shield-alt text-brand-green"></i> Security
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -202,6 +219,23 @@ $images = array_map(function($img) {
                 thumb.classList.toggle('border-brand-green', i === currentSlide);
                 thumb.classList.toggle('border-transparent', i !== currentSlide);
             });
+        }
+
+        function toggleSection(section) {
+            const content = document.getElementById(`${section}-content`);
+            const chevron = document.getElementById(`${section === 'description' ? 'desc' : 'amen'}-chevron`);
+            const toggleText = document.getElementById(`${section === 'description' ? 'desc' : 'amen'}-toggle-text`);
+            const isHidden = content.classList.contains('hidden');
+
+            if (isHidden) {
+                content.classList.remove('hidden');
+                chevron.classList.remove('rotate-180');
+                toggleText.innerHTML = `Hide ${section} <i class="fas fa-chevron-up transition-transform duration-300" id="${section === 'description' ? 'desc' : 'amen'}-chevron"></i>`;
+            } else {
+                content.classList.add('hidden');
+                chevron.classList.add('rotate-180');
+                toggleText.innerHTML = `Show ${section} <i class="fas fa-chevron-up rotate-180 transition-transform duration-300" id="${section === 'description' ? 'desc' : 'amen'}-chevron"></i>`;
+            }
         }
 
         document.getElementById('inquiry-form').onsubmit = async (e) => {
