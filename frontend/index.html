@@ -3,64 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gift Real Estate - Ethiopia</title>
+    <title>Gift Real Estate PLC - Ethiopia</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --brand-green: #004d40; /* Approximate from logo */
-            --brand-yellow: #fdd835; /* Approximate from logo */
+            --brand-green: #004d40;
+            --brand-yellow: #fdd835;
         }
         .bg-brand-green { background-color: var(--brand-green); }
         .text-brand-green { color: var(--brand-green); }
         .bg-brand-yellow { background-color: var(--brand-yellow); }
         .text-brand-yellow { color: var(--brand-yellow); }
+        .border-brand-yellow { border-color: var(--brand-yellow); }
+        .hover-bg-brand-yellow:hover { background-color: #fbc02d; }
     </style>
 </head>
-<body class="bg-gray-100">
-    <nav class="bg-brand-green p-4 text-white shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-brand-yellow">GIFT REAL ESTATE</h1>
-            <ul class="flex space-x-6">
-                <li><a href="#" class="hover:text-brand-yellow">Home</a></li>
-                <li><a href="#" class="hover:text-brand-yellow">Properties</a></li>
-                <li><a href="#" class="hover:text-brand-yellow">About</a></li>
-                <li><a href="#" class="hover:text-brand-yellow">Contact</a></li>
-            </ul>
+<body class="bg-gray-50 font-sans">
+    <!-- Top Bar -->
+    <div class="bg-brand-green text-white py-2 hidden md:block">
+        <div class="container mx-auto px-4 flex justify-between items-center text-sm">
+            <div class="flex space-x-4">
+                <span><i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>Kazanchis, Black Gold Plaza, Addis Ababa</span>
+                <span><i class="fas fa-phone-alt text-brand-yellow mr-2"></i>+251 921878641</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center h-20">
+            <div class="flex items-center">
+                <div class="text-3xl font-black text-brand-green">GIFT<span class="text-brand-yellow"> REAL ESTATE</span></div>
+            </div>
+            <div class="hidden md:flex space-x-8 font-semibold text-brand-green">
+                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Home</a>
+                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Properties</a>
+                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">About Us</a>
+                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Services</a>
+                <a href="#" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Contact</a>
+            </div>
+            <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full hover:bg-opacity-90 transition">Call Us</a>
         </div>
     </nav>
 
-    <header class="bg-white py-16 text-center">
-        <h2 class="text-4xl font-bold text-brand-green mb-4">Find Your Dream Home in Ethiopia</h2>
-        <p class="text-gray-600 mb-8">Luxury Apartments, Villas, and Commercial Properties</p>
-        <div class="max-w-2xl mx-auto flex">
-            <input type="text" placeholder="Search by location (e.g. CMC, Bole, Ayat)..." class="flex-1 p-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-brand-green">
-            <button class="bg-brand-yellow text-brand-green font-bold px-8 py-3 rounded-r-lg hover:bg-yellow-500 transition">Search</button>
+    <!-- Hero Section -->
+    <header class="relative h-[600px] flex items-center overflow-hidden">
+        <div class="absolute inset-0 bg-black/50 z-10"></div>
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center"></div>
+        <div class="container mx-auto px-4 relative z-20 text-white">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">Ethiopia's Most Trusted <br><span class="text-brand-yellow">Real Estate Partner</span></h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl">Discover exceptional properties and build your future with Gift Real Estate PLC. From luxury villas to commercial spaces.</p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#" class="bg-brand-yellow text-brand-green font-bold px-8 py-4 rounded hover:bg-yellow-500 transition shadow-lg">View Properties</a>
+                <a href="#" class="bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold px-8 py-4 rounded hover:bg-white/20 transition">Read More</a>
+            </div>
         </div>
     </header>
 
-    <main class="container mx-auto py-12 px-4">
-        <h3 class="text-2xl font-bold text-brand-green mb-8">Featured Properties</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Property Card -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-                <div class="h-48 bg-gray-300"></div>
-                <div class="p-6">
-                    <span class="bg-brand-green text-brand-yellow text-xs font-bold px-2 py-1 rounded uppercase">For Sale</span>
-                    <h4 class="text-xl font-bold mt-2 text-brand-green">Luxury Villa in CMC</h4>
-                    <p class="text-gray-600">4 Bedrooms • 3 Bathrooms • 250 sqm</p>
-                    <div class="mt-4 flex justify-between items-center">
-                        <span class="text-brand-green font-bold text-lg">ETB 15,000,000</span>
-                        <a href="#" class="text-brand-green hover:underline">View Details</a>
+    <!-- Stats Bar -->
+    <div class="container mx-auto px-4 -mt-16 relative z-30">
+        <div class="grid grid-cols-1 md:grid-cols-3 bg-white shadow-2xl rounded-xl overflow-hidden text-center divide-y md:divide-y-0 md:divide-x divide-gray-100">
+            <div class="p-8">
+                <div class="text-4xl font-bold text-brand-green">3000+</div>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Properties Sold</div>
+            </div>
+            <div class="p-8">
+                <div class="text-4xl font-bold text-brand-green">0921878641</div>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Call For Info</div>
+            </div>
+            <div class="p-8">
+                <div class="text-4xl font-bold text-brand-green">25+</div>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Years Experience</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Properties -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-brand-green mb-2">Featured Properties</h2>
+                    <p class="text-gray-600">Handpicked selection of exceptional properties meeting the highest standards.</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="bg-white border p-2 rounded hover:bg-gray-50"><i class="fas fa-th-large"></i></button>
+                    <button class="bg-white border p-2 rounded hover:bg-gray-50"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Property 1 -->
+                <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Property">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                            <span class="bg-brand-green text-brand-yellow text-xs font-bold px-3 py-1 rounded">FEATURED</span>
+                            <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded">FOR SALE</span>
+                        </div>
+                        <button class="absolute top-4 right-4 text-white bg-black/20 hover:bg-black/40 w-10 h-10 rounded-full flex items-center justify-center transition"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-brand-green font-bold text-lg mb-1">Call for price</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 truncate">22 Mazoriya Site Three BED ROOM</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">GIFT REAL ESTATE 22 Mazoriya SITE PHASE VII 4B+G+23 MIXED USE BUILDING...</p>
+                        <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
+                            <span class="flex items-center"><i class="fas fa-bed mr-2 text-brand-green"></i> 3 Beds</span>
+                            <span class="flex items-center"><i class="fas fa-bath mr-2 text-brand-green"></i> 2 Baths</span>
+                            <span class="flex items-center"><i class="fas fa-ruler-combined mr-2 text-brand-green"></i> 150 sq ft</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 2 -->
+                <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Property">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                            <span class="bg-brand-green text-brand-yellow text-xs font-bold px-3 py-1 rounded">FEATURED</span>
+                            <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded">FOR SALE</span>
+                        </div>
+                        <button class="absolute top-4 right-4 text-white bg-black/20 hover:bg-black/40 w-10 h-10 rounded-full flex items-center justify-center transition"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-brand-green font-bold text-lg mb-1">Call for price</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 truncate">CMC Site Two Bed Room</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">GIFT REAL ESTATE CMC SITE PHASE V 4B+G+26 Mixed Use Development...</p>
+                        <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
+                            <span class="flex items-center"><i class="fas fa-bed mr-2 text-brand-green"></i> 2 Beds</span>
+                            <span class="flex items-center"><i class="fas fa-bath mr-2 text-brand-green"></i> 2 Baths</span>
+                            <span class="flex items-center"><i class="fas fa-ruler-combined mr-2 text-brand-green"></i> 166 sq ft</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property 3 -->
+                <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1600607687940-4e7a6a953c14?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Property">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                            <span class="bg-brand-green text-brand-yellow text-xs font-bold px-3 py-1 rounded">FEATURED</span>
+                            <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded">FOR SALE</span>
+                        </div>
+                        <button class="absolute top-4 right-4 text-white bg-black/20 hover:bg-black/40 w-10 h-10 rounded-full flex items-center justify-center transition"><i class="far fa-heart"></i></button>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-brand-green font-bold text-lg mb-1">Call for price</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 truncate">Luxury Villa Ayat</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">High-end luxury villa project in the heart of Ayat, featuring modern design...</p>
+                        <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
+                            <span class="flex items-center"><i class="fas fa-bed mr-2 text-brand-green"></i> 4 Beds</span>
+                            <span class="flex items-center"><i class="fas fa-bath mr-2 text-brand-green"></i> 3 Baths</span>
+                            <span class="flex items-center"><i class="fas fa-ruler-combined mr-2 text-brand-green"></i> 250 sq ft</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- More cards can be added here -->
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-brand-green text-brand-yellow font-bold px-10 py-4 rounded hover:bg-opacity-90 transition">View All Properties</a>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="bg-brand-green text-white py-8 mt-12">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2026 Gift Real Estate Ethiopia. All rights reserved.</p>
+    <!-- Services -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-brand-green mb-4">Our Services</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Providing cutting-edge residential and commercial properties designed to transform your lifestyle.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center p-8 rounded-xl hover:bg-gray-50 transition">
+                    <div class="w-16 h-16 bg-brand-yellow/20 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-brand-green">Residential Sales</h4>
+                    <p class="text-gray-500 text-sm">Find your perfect home from our collection of villas and apartments.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl hover:bg-gray-50 transition">
+                    <div class="w-16 h-16 bg-brand-yellow/20 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-brand-green">Commercial</h4>
+                    <p class="text-gray-500 text-sm">Prime commercial spaces for your business needs.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl hover:bg-gray-50 transition">
+                    <div class="w-16 h-16 bg-brand-yellow/20 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-brand-green">Management</h4>
+                    <p class="text-gray-500 text-sm">Comprehensive property management to maximize returns.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl hover:bg-gray-50 transition">
+                    <div class="w-16 h-16 bg-brand-yellow/20 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-brand-green">Consultation</h4>
+                    <p class="text-gray-500 text-sm">Expert guidance on real estate market opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-green text-white pt-20 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="text-2xl font-black text-brand-yellow mb-6 uppercase">Gift Real Estate</div>
+                    <p class="text-gray-400 text-sm mb-6">For over 25 years, Gift Real Estate PLC has been Ethiopia’s trusted partner in building residential and commercial apartments.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Property Types</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Residential Apartments</a></li>
+                        <li><a href="#" class="hover:text-white transition">Commercial Properties</a></li>
+                        <li><a href="#" class="hover:text-white transition">Luxury Villas</a></li>
+                        <li><a href="#" class="hover:text-white transition">Office Spaces</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Quick Links</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Services</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Newsletter</h4>
+                    <p class="text-gray-400 text-sm mb-4">Subscribe to our newsletter for the latest updates.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Email" class="bg-white/10 border border-white/20 p-3 rounded-l w-full focus:outline-none">
+                        <button class="bg-brand-yellow text-brand-green px-4 rounded-r font-bold">Join</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2026 Gift Real Estate PLC. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 </body>
