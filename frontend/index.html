@@ -53,11 +53,11 @@
                 <img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain">
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green">
-                <a href="#home" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Home</a>
-                <a href="#properties" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Properties</a>
-                <a href="/frontend/index.html#gallery" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Gallery</a>
-                <a href="/news.html" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">News</a>
-                <a href="/frontend/index.html#contact" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Contact</a>
+                <a href="/" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Home</a>
+                <a href="/properties" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Properties</a>
+                <a href="/gallery" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Gallery</a>
+                <a href="/news" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">News</a>
+                <a href="/contact" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Contact</a>
             </div>
             <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full hover:bg-opacity-90 transition">Call Us <i class="fas fa-phone-alt ml-2"></i></a>
         </div>
@@ -251,6 +251,14 @@
                 }
 
                 loadProperties();
+
+                // Handle deep linking for section-based routes
+                window.addEventListener('DOMContentLoaded', () => {
+                    const path = window.location.pathname;
+                    if (path === '/properties') document.getElementById('properties').scrollIntoView();
+                    if (path === '/gallery') document.getElementById('gallery').scrollIntoView();
+                    if (path === '/contact') document.getElementById('contact').scrollIntoView();
+                });
 
                 async function loadGallery() {
                     const response = await fetch('/api/gallery');

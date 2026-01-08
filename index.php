@@ -29,8 +29,14 @@ if (strpos($path, '/api/') === 0) {
         header('Content-Type: application/json');
         echo json_encode(['error' => 'Endpoint not found']);
     }
-} elseif ($path === '/news.html') {
+} elseif ($path === '/news') {
     readfile('frontend/news.html');
+} elseif ($path === '/gallery') {
+    include 'frontend/index.html'; // Or a separate gallery page if preferred, but for now we scroll to section
+} elseif ($path === '/properties') {
+    include 'frontend/index.html';
+} elseif ($path === '/contact') {
+    include 'frontend/index.html';
 } elseif (strpos($path, '/admin') === 0) {
     include 'admin/index.html';
 } else {
