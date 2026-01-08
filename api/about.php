@@ -17,8 +17,17 @@ switch ($method) {
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);
         try {
-            $stmt = $pdo->prepare("UPDATE about_us SET title=?, content=?, image_url=?, updated_at=CURRENT_TIMESTAMP WHERE id=(SELECT id FROM about_us LIMIT 1)");
-            $stmt->execute([$data['title'], $data['content'], $data['image_url']]);
+            // First check if a row exists
+            $stmt = $pdo->query("SELECT id FROM about_us LIMIT 1");
+            $row = $stmt->fetch();
+            
+            if ($row) {
+                $stmt = $pdo->prepare("UPDATE about_us SET title=?, content=?, image_url=?, updated_at=CURRENT_TIMESTAMP WHERE id=?");
+                $stmt->execute([$data['title'], $data['content'], $data['image_url'], $row['id']]);
+            } else {
+                $stmt = $pdo->prepare("INSERT INTO about_us (title, content, image_url) VALUES (?, ?, ?)");
+                $stmt->execute([$data['title'], $data['content'], $data['image_url']]);
+            }
             echo json_encode(['status' => 'success']);
         } catch (PDOException $e) {
             http_response_code(500);

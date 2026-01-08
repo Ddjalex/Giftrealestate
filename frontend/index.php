@@ -246,7 +246,7 @@
                 </div>
             </div>
             <div class="md:w-1/2 mt-8 md:mt-0 flex justify-end">
-                <img src="/public/assets/man-with-tablet.png" class="max-h-[550px] object-contain" alt="Gift Real Estate Representative">
+                <img src="/public/assets/man-with-tablet.png" class="max-h-[550px] w-auto object-contain" alt="Gift Real Estate Representative">
             </div>
         </div>
     </header>
