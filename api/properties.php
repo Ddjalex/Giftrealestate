@@ -32,7 +32,7 @@ switch ($method) {
         try {
             if (isset($data['id']) && !empty($data['id'])) {
                 // Update
-                $stmt = $pdo->prepare("UPDATE properties SET title=?, description=?, price=?, location=?, property_type=?, status=?, bedrooms=?, bathrooms=?, area_sqft=?, featured=? WHERE id=?");
+                $stmt = $pdo->prepare("UPDATE properties SET title=?, description=?, price=?, location=?, property_type=?, status=?, bedrooms=?, bathrooms=?, area_sqft=?, featured=?, main_image=?, gallery_images=? WHERE id=?");
                 $stmt->execute([
                     $data['title'],
                     $data['description'] ?? '',
@@ -44,11 +44,13 @@ switch ($method) {
                     $data['bathrooms'] ?? 0,
                     $data['area_sqft'] ?? 0,
                     (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? true : false,
+                    $data['main_image'] ?? null,
+                    isset($data['gallery_images']) ? json_encode($data['gallery_images']) : null,
                     $data['id']
                 ]);
             } else {
                 // Insert
-                $stmt = $pdo->prepare("INSERT INTO properties (title, description, price, location, property_type, status, bedrooms, bathrooms, area_sqft, featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO properties (title, description, price, location, property_type, status, bedrooms, bathrooms, area_sqft, featured, main_image, gallery_images) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute([
                     $data['title'],
                     $data['description'] ?? '',
@@ -59,7 +61,9 @@ switch ($method) {
                     $data['bedrooms'] ?? 0,
                     $data['bathrooms'] ?? 0,
                     $data['area_sqft'] ?? 0,
-                    (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? true : false
+                    (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? true : false,
+                    $data['main_image'] ?? null,
+                    isset($data['gallery_images']) ? json_encode($data['gallery_images']) : null
                 ]);
             }
             echo json_encode(['status' => 'success']);

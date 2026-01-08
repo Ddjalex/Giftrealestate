@@ -447,15 +447,18 @@
                 const imageInput = document.getElementById('prop-images-input');
                 if (imageInput && imageInput.files.length > 0) {
                     const imgFormData = new FormData();
+                    // CRITICAL: Send multiple files correctly
                     for (let i = 0; i < imageInput.files.length; i++) {
                         imgFormData.append('images[]', imageInput.files[i]);
                     }
                     try {
+                        console.log('Uploading images...');
                         const uploadRes = await fetch('/api/upload', {
                             method: 'POST',
                             body: imgFormData
                         });
                         const uploadData = await uploadRes.json();
+                        console.log('Upload result:', uploadData);
                         if (uploadData.urls) {
                             payload.main_image = uploadData.urls[0];
                             payload.gallery_images = uploadData.urls;
