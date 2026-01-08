@@ -81,7 +81,7 @@
         <div class="container mx-auto px-4 flex justify-between items-center text-sm">
             <div class="flex space-x-4">
                 <span><i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>Kazanchis, Black Gold Plaza, Addis Ababa</span>
-                <span><i class="fas fa-phone-alt text-brand-yellow mr-2"></i>+251 921878641</span>
+                <span id="top-bar-phone"><i class="fas fa-phone-alt text-brand-yellow mr-2"></i>+251 921878641</span>
             </div>
             <div class="flex space-x-4">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -106,7 +106,7 @@
                 <a href="/news" class="nav-link">News</a>
                 <a href="/contact" class="nav-link">Contact</a>
             </div>
-            <a href="tel:+251921878641" class="bg-[#008148] text-white font-bold px-8 py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg">
+            <a href="tel:+251921878641" id="nav-call-btn" class="bg-[#008148] text-white font-bold px-8 py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg">
                 Call Us <i class="fas fa-phone-square-alt text-xl"></i>
             </a>
         </div>
@@ -244,7 +244,7 @@
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Properties Sold</div>
             </div>
             <div class="p-8">
-                <div class="text-4xl font-bold text-brand-green">0921878641</div>
+                <div class="text-4xl font-bold text-brand-green" id="stats-phone">0921878641</div>
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Call For Info</div>
             </div>
             <div class="p-8">
@@ -313,6 +313,17 @@
                         allProperties = await propsRes.json();
                         const settings = await settingsRes.json();
                         const contactPhone = settings.phone || '+251921878641';
+                        
+                        // Update UI with dynamic phone number
+                        const topBarPhone = document.getElementById('top-bar-phone');
+                        if (topBarPhone) topBarPhone.innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${contactPhone}`;
+                        
+                        const navCallBtn = document.getElementById('nav-call-btn');
+                        if (navCallBtn) navCallBtn.href = `tel:${contactPhone}`;
+                        
+                        const statsPhone = document.getElementById('stats-phone');
+                        if (statsPhone) statsPhone.innerText = contactPhone;
+
                         displayProperties(allProperties, contactPhone);
                     } catch (error) {
                         console.error('Error loading properties:', error);
