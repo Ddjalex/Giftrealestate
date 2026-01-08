@@ -1,11 +1,6 @@
 <?php
 require_once 'db.php';
-if (!isset($pdo)) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Database connection missing']);
-    exit;
-}
-
+global $pdo;
 header('Content-Type: application/json');
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -31,6 +26,12 @@ switch ($method) {
         }
 
         try {
+            // Handle gallery images if it's already a JSON string from frontend or an array
+            $gallery_images = isset($data['gallery_images']) ? $data['gallery_images'] : null;
+            if (is_array($gallery_images)) {
+                $gallery_images = json_encode($gallery_images);
+            }
+
             if (isset($data['id']) && !empty($data['id'])) {
                 // Update
                 $stmt = $pdo->prepare("UPDATE properties SET title=?, description=?, price=?, location=?, property_type=?, status=?, bedrooms=?, bathrooms=?, area_sqft=?, featured=?, main_image=?, gallery_images=? WHERE id=?");
@@ -46,7 +47,7 @@ switch ($method) {
                     (float)($data['area_sqft'] ?? 0),
                     (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? 1 : 0,
                     $data['main_image'] ?? null,
-                    isset($data['gallery_images']) ? json_encode($data['gallery_images']) : null,
+                    $gallery_images,
                     (int)$data['id']
                 ]);
             } else {
@@ -64,7 +65,7 @@ switch ($method) {
                     (float)($data['area_sqft'] ?? 0),
                     (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? 1 : 0,
                     $data['main_image'] ?? null,
-                    isset($data['gallery_images']) ? json_encode($data['gallery_images']) : null
+                    $gallery_images
                 ]);
             }
             echo json_encode(['status' => 'success']);

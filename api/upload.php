@@ -1,5 +1,6 @@
 <?php
 require_once 'db.php';
+global $pdo;
 if (!isset($pdo)) {
     http_response_code(500);
     echo json_encode(['error' => 'Database connection missing']);
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target_file = $upload_dir . $file_name;
         
         if (move_uploaded_file($tmp_name, $target_file)) {
-            $uploaded_urls[] = '/uploads/' . $file_name;
+            $uploaded_urls[] = $file_name;
         }
     }
 

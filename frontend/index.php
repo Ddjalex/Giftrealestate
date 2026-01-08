@@ -304,15 +304,39 @@
                     }
 
                     grid.innerHTML = properties.map(p => {
-                        const gallery = p.gallery_images ? JSON.parse(p.gallery_images) : [p.main_image];
-                        const images = gallery.filter(img => img);
+                        let gallery = [];
+                        try {
+                            if (p.gallery_images) {
+                                const parsed = typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : p.gallery_images;
+                                gallery = Array.isArray(parsed) ? parsed : [parsed];
+                            } else {
+                                gallery = [p.main_image];
+                            }
+                        } catch (e) {
+                            console.error('Error parsing gallery images for property', p.id, e);
+                            gallery = [p.main_image];
+                        }
+                        const images = gallery.filter(img => {
+                            if (!img) return false;
+                            // Check if it's a relative path starting with /
+                            if (img.startsWith('/')) return true;
+                            // Check if it's an absolute URL
+                            if (img.startsWith('http://') || img.startsWith('https://')) return true;
+                            // If it's a filename, assume it's in /uploads/
+                            return true;
+                        }).map(img => {
+                            if (img.startsWith('/') || img.startsWith('http')) return img;
+                            return '/uploads/' + img;
+                        });
                         
                         return `
                         <div class="group bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
-                            <div class="relative h-64 overflow-hidden">
+                            <div class="relative h-64 overflow-hidden bg-gray-200">
                                 <div class="property-slider h-full w-full flex transition-transform duration-500" id="slider-${p.id}">
                                     ${images.map(img => `
-                                        <img src="${img}" class="w-full h-full object-cover flex-shrink-0" alt="${p.title}">
+                                        <div class="w-full h-full flex-shrink-0">
+                                            <img src="${img}" class="w-full h-full object-cover" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'">
+                                        </div>
                                     `).join('')}
                                 </div>
                                 ${images.length > 1 ? `
@@ -389,18 +413,23 @@
                 });
 
                 async function loadGallery() {
-                    const response = await fetch('/api/gallery');
-                    const items = await response.json();
                     const grid = document.getElementById('gallery-grid');
-                    grid.innerHTML = items.map(item => `
-                        <div class="relative group h-64 overflow-hidden rounded-xl">
-                            <img src="${item.image_url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
-                                <span class="text-xs font-bold text-brand-yellow uppercase mb-1">${item.category}</span>
-                                <h4 class="font-bold">${item.title}</h4>
+                    if (!grid) return;
+                    try {
+                        const response = await fetch('/api/gallery');
+                        const items = await response.json();
+                        grid.innerHTML = items.map(item => `
+                            <div class="relative group h-64 overflow-hidden rounded-xl">
+                                <img src="${item.image_url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
+                                    <span class="text-xs font-bold text-brand-yellow uppercase mb-1">${item.category}</span>
+                                    <h4 class="font-bold">${item.title}</h4>
+                                </div>
                             </div>
-                        </div>
-                    `).join('');
+                        `).join('');
+                    } catch (e) {
+                        console.error('Error loading gallery:', e);
+                    }
                 }
 
                 async function loadNews() {
