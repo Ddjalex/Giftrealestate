@@ -17,10 +17,18 @@ if (strpos($path, '/public/') === 0) {
 }
 if (strpos($path, '/api/') === 0) {
     require_once 'api/db.php';
-    require 'api/api.php';
-    exit;
-} elseif (strpos($path, '/news') === 0) {
-    include 'news/index.html';
+    if (strpos($path, '/api/properties') === 0) {
+        require 'api/properties.php';
+    } elseif (strpos($path, '/api/gallery') === 0) {
+        require 'api/gallery.php';
+    } elseif (strpos($path, '/api/news') === 0) {
+        require 'api/news.php';
+    } elseif (strpos($path, '/api/inquiries') === 0) {
+        require 'api/inquiries.php';
+    } else {
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'Endpoint not found']);
+    }
 } elseif (strpos($path, '/admin') === 0) {
     include 'admin/index.html';
 } else {
