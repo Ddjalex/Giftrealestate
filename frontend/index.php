@@ -57,6 +57,7 @@
                 <a href="/properties" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Properties</a>
                 <a href="/gallery" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Gallery</a>
                 <a href="/news" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">News</a>
+                <a href="/inquiries" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Inquiries</a>
                 <a href="/contact" class="hover:text-brand-yellow border-b-2 border-transparent hover:border-brand-yellow">Contact</a>
             </div>
             <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full hover:bg-opacity-90 transition">Call Us <i class="fas fa-phone-alt ml-2"></i></a>

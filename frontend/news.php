@@ -35,6 +35,7 @@
                 <a href="/properties" class="hover:text-brand-yellow">Properties</a>
                 <a href="/gallery" class="hover:text-brand-yellow">Gallery</a>
                 <a href="/news" class="text-brand-yellow">News</a>
+                <a href="/inquiries" class="hover:text-brand-yellow">Inquiries</a>
                 <a href="/contact" class="hover:text-brand-yellow">Contact</a>
             </div>
             <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full">Call Us</a>
