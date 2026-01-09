@@ -220,7 +220,7 @@
         <div class="bg-white rounded-lg p-6 max-w-lg w-full">
             <h3 id="modal-title" class="text-xl font-bold mb-4">Add New Item</h3>
             
-            <form id="add-properties-form" class="modal-form space-y-4">
+            <form id="add-property-form" class="modal-form space-y-4">
                 <input type="hidden" name="id" id="prop-id">
                 <input type="text" name="title" id="prop-title" placeholder="Property Title" class="w-full p-2 border rounded" required>
                 <textarea name="description" id="prop-description" placeholder="Description" class="w-full p-2 border rounded"></textarea>

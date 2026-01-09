@@ -319,7 +319,73 @@
         </div>
     </section>
 
-    <?php include 'footer.php'; ?>
+    <!-- About Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white rounded-[40px] p-8 md:p-16 border-2 border-[#00ff00] shadow-sm relative overflow-hidden text-center">
+                    <h2 class="text-5xl md:text-6xl font-bold text-black mb-12">About Gift Real Estate PLC</h2>
+                    <p class="text-2xl text-gray-800 leading-relaxed mb-12 max-w-5xl mx-auto font-medium">
+                        For over 25 years, Gift Real Estate PLC has been Ethiopia's trusted partner in building residential apartments, commercial apartments and creating exceptional living experiences. We don't just sell properties – we help you build your future.
+                    </p>
+                    
+                    <div class="relative rounded-[40px] overflow-hidden group shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" class="w-full h-auto min-h-[500px] object-cover transition-all duration-1000 group-hover:scale-110" alt="Gift Real Estate Projects">
+                        <div class="absolute inset-0 about-overlay z-10 opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 md:p-12 text-center text-white">
+                            <h3 class="text-4xl md:text-6xl font-bold mb-4 md:mb-8">"Gift Real Estate PLC"</h3>
+                            <p class="text-lg md:text-3xl max-w-5xl leading-relaxed font-semibold">
+                                Gift Real Estate PLC's mission is to provide cutting-edge residential and commercial properties that are designed and built specifically to meet the needs of customers, transforming their lifestyle to a higher standard 21st-century lifestyle.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Residential Sales -->
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group cursor-pointer" onclick="window.location.href='/properties?type=Residential+Apartments'">
+                    <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 transition-all duration-500 service-icon-container">
+                        <i class="fas fa-home text-4xl text-[#008148] transition-all duration-500 service-icon"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-6 text-black">Residential Sales</h4>
+                    <p class="text-gray-500 text-lg leading-relaxed">Find your perfect home from our extensive collection of villas, apartments, and family residences.</p>
+                </div>
+
+                <!-- Commercial Properties -->
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group cursor-pointer" onclick="window.location.href='/properties?type=Commercial+Properties'">
+                    <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 transition-all duration-500 service-icon-container">
+                        <i class="fas fa-users text-4xl text-[#008148] transition-all duration-500 service-icon"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-6 text-black">Commercial Properties</h4>
+                    <p class="text-gray-500 text-lg leading-relaxed">Prime commercial spaces for your business needs, from retail shops to office complexes.</p>
+                </div>
+
+                <!-- Property Management -->
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group">
+                    <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 transition-all duration-500 service-icon-container">
+                        <i class="fas fa-handshake text-4xl text-[#008148] transition-all duration-500 service-icon"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-6 text-black">Property Management</h4>
+                    <p class="text-gray-500 text-lg leading-relaxed">Comprehensive property management services to maximize your investment returns.</p>
+                </div>
+
+                <!-- Real Estate Developing -->
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group">
+                    <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 transition-all duration-500 service-icon-container">
+                        <i class="fas fa-broadcast-tower text-4xl text-[#008148] transition-all duration-500 service-icon"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-6 text-black">Real Estate Developing</h4>
+                    <p class="text-gray-500 text-lg leading-relaxed">Expert guidance on real estate investments and market opportunities in Ethiopia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
                 let allProperties = [];
@@ -1121,5 +1187,6 @@
         }
         loadSettings();
     </script>
+    <?php include 'footer.php'; ?>
 </body>
 </html>
