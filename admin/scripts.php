@@ -206,22 +206,26 @@ function renderTable() {
     }
 }
 
-async function saveSettings() {
-    const form = document.getElementById('settings-form');
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
-    
-    // Process video file
+// Special handling for header video auto-upload
+function setupHeaderVideoAutoUpload() {
     const videoFile = document.getElementById('header-video-file');
-    if (videoFile && videoFile.files.length > 0) {
+    if (!videoFile) return;
+
+    videoFile.addEventListener('change', async function() {
+        if (this.files.length === 0) return;
+
         const progressContainer = document.getElementById('upload-progress-container');
         const progressBar = document.getElementById('upload-progress-bar');
         const progressText = document.getElementById('upload-progress-text');
+        const hiddenInput = document.getElementById('header_video_input');
+        const previewDiv = document.getElementById('header_video_preview');
+        const video = document.getElementById('admin-header-video');
         
         if (progressContainer) progressContainer.classList.remove('hidden');
+        if (previewDiv) previewDiv.classList.add('hidden');
         
         const uploadFormData = new FormData();
-        uploadFormData.append('images[]', videoFile.files[0]);
+        uploadFormData.append('images[]', this.files[0]);
         
         const xhr = new XMLHttpRequest();
         const uploadPromise = new Promise((resolve, reject) => {
@@ -236,9 +240,13 @@ async function saveSettings() {
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        resolve(JSON.parse(xhr.responseText));
+                        try {
+                            resolve(JSON.parse(xhr.responseText));
+                        } catch (e) {
+                            reject(new Error('Invalid JSON response'));
+                        }
                     } else {
-                        reject(new Error('Upload failed'));
+                        reject(new Error('Upload failed with status: ' + xhr.status));
                     }
                 }
             };
@@ -250,17 +258,31 @@ async function saveSettings() {
         try {
             const uploadData = await uploadPromise;
             if (uploadData.urls && uploadData.urls.length > 0) {
-                payload.header_video = uploadData.urls[0];
+                const videoUrl = uploadData.urls[0];
+                if (hiddenInput) hiddenInput.value = videoUrl;
+                if (video) {
+                    video.src = '/uploads/' + videoUrl;
+                    if (previewDiv) previewDiv.classList.remove('hidden');
+                }
             }
         } catch (e) {
             console.error('Video upload failed', e);
-            alert('Video upload failed');
-            if (progressContainer) progressContainer.classList.add('hidden');
-            return;
+            alert('Video upload failed: ' + e.message);
         } finally {
-            if (progressContainer) setTimeout(() => progressContainer.classList.add('hidden'), 2000);
+            // Keep progress visible for a moment at 100%
+            setTimeout(() => {
+                if (progressContainer) progressContainer.classList.add('hidden');
+            }, 1000);
         }
-    }
+    });
+}
+
+async function saveSettings() {
+    const form = document.getElementById('settings-form');
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    
+    // Video is already uploaded and its URL is in the hidden input via auto-upload
     
     const response = await fetch('/api/settings.php', {
         method: 'POST',
@@ -270,7 +292,7 @@ async function saveSettings() {
 
     if (response.ok) {
         alert('Settings saved successfully!');
-        fetchData(); // Changed from reload to fetchData to preserve state
+        fetchData();
     }
 }
 
@@ -410,6 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupImagePreview('gallery-image-input', 'gallery-image-preview', 'gallery-url');
     setupImagePreview('news-image-input', 'news-image-preview', 'news-url');
     setupImagePreview('blog-image-input', 'blog-image-preview', 'blog-url');
+    setupHeaderVideoAutoUpload();
     
     document.getElementById('prop-images-input')?.addEventListener('change', function(e) {
         const preview = document.getElementById('prop-images-preview');
