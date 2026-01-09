@@ -323,7 +323,7 @@
                 if (headerContainer && settings.header_video) {
                     const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
                     headerContainer.innerHTML = `
-                        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                        <video autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover">
                             <source src="${videoUrl}" type="video/mp4">
                         </video>
                     `;
@@ -344,8 +344,17 @@
                         if (match) mapUrl = match[1];
                     }
                     
+                    // Convert short Google Maps links to embed links if necessary
+                    if (mapUrl.includes('maps.app.goo.gl')) {
+                        // We can't easily resolve short URLs client-side, but we can try to use them in an iframe
+                        // or advise the user to use the long embed URL.
+                        // However, let's try to ensure it's at least treated as a URL.
+                    } else if (mapUrl.includes('google.com/maps') && !mapUrl.includes('embed')) {
+                        mapUrl = mapUrl.replace('/maps/', '/maps/embed');
+                    }
+                    
                     // Look for the footer map container or any map container
-                    const footerMap = document.querySelector('iframe[src*="google.com/maps"]')?.parentElement || document.getElementById('map-container');
+                    const footerMap = document.querySelector('iframe[src*="google.com/maps"]')?.parentElement || document.getElementById('map-container') || document.querySelector('.visit-office-map');
                     if (footerMap) {
                         footerMap.innerHTML = `<iframe src="${mapUrl}" class="w-full h-[500px] border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
                     }
