@@ -57,6 +57,29 @@
             background-size: 1em;
             padding-right: 2.5rem;
         }
+
+        .header-animate-in {
+            animation: fadeInScale 1.2s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(1.05); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -105,23 +128,23 @@
             </div>
             <div id="header-overlay" class="absolute inset-0 bg-brand-green bg-opacity-70"></div>
         </div>
-        <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4 hidden">
+        <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4 header-animate-in">
             <div class="md:w-1/2 text-white py-12">
-                <h1 class="text-6xl md:text-8xl font-bold mb-4 leading-tight uppercase tracking-tighter">GIFT REAL <br>ESTATE PLC</h1>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Real Estate Developer!</h2>
-                <p class="text-lg md:text-xl mb-10 max-w-xl leading-relaxed">Discover exceptional properties and build your future with Ethiopia's most trusted real estate partner. From luxury villas to commercial spaces, we make your dreams a reality.</p>
+                <h1 class="text-6xl md:text-8xl font-bold mb-4 leading-tight uppercase tracking-tighter drop-shadow-2xl">GIFT REAL <br>ESTATE PLC</h1>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-brand-yellow drop-shadow-lg">Real Estate Developer!</h2>
+                <p class="text-lg md:text-xl mb-10 max-w-xl leading-relaxed font-medium drop-shadow-md">Discover exceptional properties and build your future with Ethiopia's most trusted real estate partner.</p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="/properties" class="bg-[#2e7d32] hover:bg-[#1b5e20] text-white px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2 border border-white/20 transition-all">
+                    <a href="/properties" class="bg-brand-green hover:bg-opacity-90 text-white px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2 border border-white/20 transition-all shadow-xl">
                         View Properties <span>→</span>
                     </a>
-                    <a href="/about" class="bg-white hover:bg-gray-100 text-[#2e7d32] px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2 transition-all shadow-lg">
-                        Read More.... <span class="bg-[#2e7d32] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">↓</span>
+                    <a href="/about" class="bg-white hover:bg-gray-100 text-brand-green px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2 transition-all shadow-xl">
+                        Read More.... <span class="bg-brand-green text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">↓</span>
                     </a>
                 </div>
             </div>
-            <div class="md:w-1/2 mt-8 md:mt-0 flex justify-center md:justify-end items-end">
-                <img src="/public/assets/man-with-tablet.png" class="max-h-[600px] w-auto object-contain object-bottom" alt="Gift Real Estate Representative">
-            </div>
+        </div>
+        <div class="scroll-indicator text-white text-2xl">
+            <i class="fas fa-chevron-down"></i>
         </div>
     </header>
 
