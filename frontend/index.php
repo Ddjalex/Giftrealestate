@@ -341,7 +341,7 @@
             grid.innerHTML = props.slice(0, 6).map(p => {
                 const img = p.main_image ? (p.main_image.startsWith('http') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80';
                 return `
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group cursor-pointer" onclick="window.location.href='/property/${p.id}'">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group cursor-pointer" onclick="openPropertyModal(${p.id})">
                     <div class="h-64 relative overflow-hidden">
                         <img src="${img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                     </div>
@@ -355,6 +355,93 @@
                     </div>
                 </div>`;
             }).join('');
+        }
+
+        async function openPropertyModal(id) {
+            const modal = document.getElementById('property-modal');
+            const content = document.getElementById('property-modal-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            content.innerHTML = '<p class="text-center py-20">Loading details...</p>';
+
+            try {
+                const res = await fetch(`/api/properties.php?id=${id}`);
+                const p = await res.json();
+                
+                let galleryHtml = '';
+                if (p.gallery_images) {
+                    let images = [];
+                    try {
+                        images = typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : p.gallery_images;
+                    } catch(e) { images = [p.main_image]; }
+                    
+                    galleryHtml = `
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                            ${images.map(img => `
+                                <div class="aspect-square overflow-hidden rounded-xl border cursor-pointer hover:opacity-80 transition" onclick="updateMainModalImage('${img}')">
+                                    <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="w-full h-full object-cover">
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                const mainImg = p.main_image ? (p.main_image.startsWith('http') ? p.main_image : '/uploads/' + p.main_image) : '';
+
+                content.innerHTML = `
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <div class="md:w-1/2">
+                            <img id="modal-main-img" src="${mainImg}" class="w-full h-[400px] object-cover rounded-3xl mb-6 shadow-lg">
+                            ${galleryHtml}
+                        </div>
+                        <div class="md:w-1/2">
+                            <h2 class="text-4xl font-bold text-brand-green mb-4">${p.title}</h2>
+                            <p class="text-2xl font-bold text-gray-800 mb-6">${new Intl.NumberFormat().format(p.price)} ETB</p>
+                            
+                            <div class="grid grid-cols-3 gap-4 mb-8">
+                                <div class="bg-gray-50 p-4 rounded-2xl text-center">
+                                    <p class="text-gray-500 text-sm">Bedrooms</p>
+                                    <p class="font-bold text-xl">${p.bedrooms}</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-2xl text-center">
+                                    <p class="text-gray-500 text-sm">Bathrooms</p>
+                                    <p class="font-bold text-xl">${p.bathrooms}</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-2xl text-center">
+                                    <p class="text-gray-500 text-sm">Area (sqft)</p>
+                                    <p class="font-bold text-xl">${p.area_sqft}</p>
+                                </div>
+                            </div>
+
+                            <div class="mb-8">
+                                <h3 class="font-bold text-lg mb-2">Description</h3>
+                                <p class="text-gray-600 leading-relaxed">${p.description}</p>
+                            </div>
+
+                            <div class="bg-brand-green/5 p-6 rounded-3xl border border-brand-green/10">
+                                <h3 class="font-bold text-brand-green mb-4">Contact for details</h3>
+                                <div class="flex items-center gap-4">
+                                    <a href="tel:${document.getElementById('stats-phone').innerText}" class="flex-1 bg-brand-green text-white text-center py-4 rounded-xl font-bold hover:bg-opacity-90 transition">Call Agent</a>
+                                    <button onclick="closePropertyModal()" class="flex-1 bg-white border border-gray-200 py-4 rounded-xl font-bold hover:bg-gray-50 transition">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (e) {
+                content.innerHTML = '<p class="text-center py-20 text-red-500">Error loading property details.</p>';
+            }
+        }
+
+        function updateMainModalImage(url) {
+            const img = document.getElementById('modal-main-img');
+            if (img) img.src = url.startsWith('http') ? url : '/uploads/' + url;
+        }
+
+        function closePropertyModal() {
+            const modal = document.getElementById('property-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
         function displayGallery(items) {

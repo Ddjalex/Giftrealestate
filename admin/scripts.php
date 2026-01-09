@@ -271,7 +271,34 @@ function editItem(id) {
     document.getElementById('modal-title').innerText = `Edit ${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}`;
     
     if (currentTab === 'properties') {
-        // ... (properties logic remains)
+        const item = data.properties.find(i => i.id == id);
+        if (!item) return;
+        
+        document.getElementById('prop-id').value = item.id;
+        document.getElementById('prop-title').value = item.title;
+        document.getElementById('prop-description').value = item.description || '';
+        document.getElementById('prop-type').value = item.property_type;
+        document.getElementById('prop-status').value = item.status;
+        document.getElementById('prop-price').value = item.price;
+        document.getElementById('prop-location').value = item.location;
+        document.getElementById('prop-beds').value = item.bedrooms;
+        document.getElementById('prop-baths').value = item.bathrooms;
+        document.getElementById('prop-area').value = item.area_sqft;
+        document.getElementById('prop-featured').checked = item.featured == 1;
+        
+        const preview = document.getElementById('prop-images-preview');
+        if (preview && item.gallery_images) {
+            let images = [];
+            try {
+                images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : item.gallery_images;
+            } catch (e) { images = []; }
+            
+            preview.innerHTML = images.map(img => `
+                <div class="relative group">
+                    <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-20 w-20 object-cover rounded border">
+                </div>
+            `).join('');
+        }
     } else if (currentTab === 'gallery') {
         document.getElementById('gallery-id').value = item.id;
         document.getElementById('gallery-title').value = item.title;
