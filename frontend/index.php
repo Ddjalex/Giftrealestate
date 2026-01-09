@@ -98,12 +98,12 @@
     </nav>
 
     <!-- Hero Section -->
-    <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden">
+    <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div class="absolute inset-0 z-0">
             <div id="header-bg-container" class="w-full h-full relative">
                 <img id="header-image-bg" src="/uploads/home_header.jpg" class="w-full h-full object-cover" alt="Background Aerial View">
             </div>
-            <div id="header-overlay" class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.8) 100%);"></div>
+            <div id="header-overlay" class="absolute inset-0 bg-brand-green bg-opacity-70"></div>
         </div>
         <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4 hidden">
             <div class="md:w-1/2 text-white py-12">
@@ -322,12 +322,25 @@
                 const headerOverlay = document.getElementById('header-overlay');
                 if (headerContainer && settings.header_video) {
                     const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
-                    headerContainer.innerHTML = `
-                        <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover">
-                            <source src="${videoUrl}" type="video/mp4">
-                        </video>
-                    `;
-                    if (headerOverlay) headerOverlay.style.background = 'none';
+                    
+                    // Create video element but don't show it yet
+                    const video = document.createElement('video');
+                    video.autoplay = true;
+                    video.muted = true;
+                    video.loop = true;
+                    video.playsInline = true;
+                    video.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-1000';
+                    video.innerHTML = `<source src="${videoUrl}" type="video/mp4">`;
+                    
+                    headerContainer.appendChild(video);
+                    
+                    video.onplay = () => {
+                        video.classList.remove('opacity-0');
+                        if (headerOverlay) headerOverlay.style.background = 'none';
+                        // Hide fallback image if it exists
+                        const fallbackImg = document.getElementById('header-image-bg');
+                        if (fallbackImg) fallbackImg.classList.add('hidden');
+                    };
                 } else if (headerContainer && settings.header_image) {
                     const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
                     headerContainer.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover" alt="Background View">`;
@@ -344,17 +357,21 @@
                         if (match) mapUrl = match[1];
                     }
                     
-                    // Convert short Google Maps links to embed links if necessary
-                    if (mapUrl.includes('maps.app.goo.gl')) {
-                        // We can't easily resolve short URLs client-side, but we can try to use them in an iframe
-                        // or advise the user to use the long embed URL.
-                        // However, let's try to ensure it's at least treated as a URL.
-                    } else if (mapUrl.includes('google.com/maps') && !mapUrl.includes('embed')) {
-                        mapUrl = mapUrl.replace('/maps/', '/maps/embed');
+                    // Convert Google Maps links to embed links
+                    if (mapUrl.includes('google.com/maps') || mapUrl.includes('maps.app.goo.gl')) {
+                        // For short URLs or regular URLs, we really need the embed format.
+                        // Since we can't easily resolve short URLs client-side, we'll try a common conversion
+                        // but ultimately the user should provide the embed code for best results.
+                        if (mapUrl.includes('/maps/') && !mapUrl.includes('embed')) {
+                            mapUrl = mapUrl.replace('/maps/', '/maps/embed/');
+                        }
                     }
                     
                     // Look for the footer map container or any map container
-                    const footerMap = document.querySelector('iframe[src*="google.com/maps"]')?.parentElement || document.getElementById('map-container') || document.querySelector('.visit-office-map');
+                    const footerMap = document.querySelector('iframe[src*="google.com/maps"]')?.parentElement || 
+                                     document.getElementById('map-container') || 
+                                     document.querySelector('.visit-office-map') ||
+                                     document.querySelector('iframe')?.parentElement;
                     if (footerMap) {
                         footerMap.innerHTML = `<iframe src="${mapUrl}" class="w-full h-[500px] border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
                     }

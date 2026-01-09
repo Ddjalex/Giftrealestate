@@ -62,8 +62,8 @@
 
     <!-- Footer -->
     <?php include 'footer.php'; ?>
-</body>
-</html>
+    
+    <script>
         async function loadNews() {
             try {
                 const response = await fetch('/api/news');
