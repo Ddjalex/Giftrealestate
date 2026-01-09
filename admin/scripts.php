@@ -266,6 +266,7 @@ async function saveSettings() {
 
     if (response.ok) {
         alert('Settings saved successfully!');
+        location.reload(); // Refresh to show new state
     }
 }
 

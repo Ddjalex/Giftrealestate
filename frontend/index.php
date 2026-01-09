@@ -319,15 +319,13 @@
                 
                 // Update header background (image or video)
                 const headerContainer = document.getElementById('header-bg-container');
-                if (headerContainer) {
-                    if (settings.header_video) {
-                        const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
-                        headerContainer.innerHTML = `
-                            <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                                <source src="${videoUrl}" type="video/mp4">
-                            </video>
-                        `;
-                    }
+                if (headerContainer && settings.header_video) {
+                    const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
+                    headerContainer.innerHTML = `
+                        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                            <source src="${videoUrl}" type="video/mp4">
+                        </video>
+                    `;
                 }
 
                 // Update Map if exists
