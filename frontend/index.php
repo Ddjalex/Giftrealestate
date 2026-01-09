@@ -73,12 +73,18 @@
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
+            z-index: 30;
         }
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
             40% {transform: translateX(-50%) translateY(-10px);}
             60% {transform: translateX(-50%) translateY(-5px);}
+        }
+
+        #header-overlay {
+            transition: opacity 1s ease-in-out;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -124,7 +130,7 @@
     <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div class="absolute inset-0 z-0">
             <div id="header-bg-container" class="w-full h-full relative">
-                <img id="header-image-bg" src="/uploads/hero_fallback.jpg" class="w-full h-full object-cover" alt="Background Aerial View">
+                <img id="header-image-bg" src="/uploads/hero_fallback.jpg" class="w-full h-full object-cover transition-opacity duration-1000" alt="Background Aerial View">
             </div>
             <div id="header-overlay" class="absolute inset-0 bg-brand-green bg-opacity-30"></div>
         </div>
@@ -328,6 +334,8 @@
                 // Update header background (image or video)
                 const headerContainer = document.getElementById('header-bg-container');
                 const headerOverlay = document.getElementById('header-overlay');
+                const fallbackImg = document.getElementById('header-image-bg');
+
                 if (headerContainer && settings.header_video) {
                     const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
                     
@@ -343,11 +351,16 @@
                     headerContainer.appendChild(video);
                     
                     video.onplay = () => {
+                        // Fade in video
                         video.classList.remove('opacity-0');
-                        if (headerOverlay) headerOverlay.style.background = 'none';
-                        // Hide fallback image if it exists
-                        const fallbackImg = document.getElementById('header-image-bg');
-                        if (fallbackImg) fallbackImg.classList.add('hidden');
+                        // Fade out fallback image and overlay
+                        if (fallbackImg) fallbackImg.style.opacity = '0';
+                        if (headerOverlay) headerOverlay.style.opacity = '0';
+                        
+                        // After fade complete, remove from layout if needed
+                        setTimeout(() => {
+                            if (fallbackImg) fallbackImg.classList.add('hidden');
+                        }, 1000);
                     };
                 } else if (headerContainer && settings.header_image) {
                     const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
