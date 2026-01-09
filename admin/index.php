@@ -190,6 +190,12 @@
                         <div>
                             <label class="block text-gray-700 font-bold mb-2">Header Video (MP4)</label>
                             <input type="file" id="header-video-file" class="w-full p-3 border rounded-lg" accept="video/mp4,video/webm">
+                            <div id="upload-progress-container" class="mt-2 hidden">
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div id="upload-progress-bar" class="bg-brand-green h-2.5 rounded-full" style="width: 0%"></div>
+                                </div>
+                                <p id="upload-progress-text" class="text-xs text-gray-600 mt-1">0%</p>
+                            </div>
                             <input type="hidden" name="header_video" id="header_video_input">
                             <div id="header_video_preview" class="mt-2 hidden">
                                 <video id="admin-header-video" class="h-32 w-auto border rounded" controls></video>

@@ -114,7 +114,17 @@
             
             if (settings.map_iframe) {
                 const mapContainer = document.getElementById('map-container');
-                if (mapContainer) mapContainer.innerHTML = `<iframe src="${settings.map_iframe}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
+                if (mapContainer) {
+                    let mapUrl = settings.map_iframe;
+                    // Handle Google Maps share links (maps.app.goo.gl)
+                    if (mapUrl.includes('goo.gl')) {
+                        // We can't easily convert short links to embed links client-side without an API
+                        // but we can try to wrap it in an iframe or suggest the user use the embed code
+                        mapContainer.innerHTML = `<iframe src="${mapUrl}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
+                    } else {
+                        mapContainer.innerHTML = `<iframe src="${mapUrl}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
+                    }
+                }
             }
         } catch (e) {
             console.error('Failed to load settings', e);

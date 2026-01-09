@@ -329,6 +329,17 @@
                         `;
                     }
                 }
+
+                // Update Map if exists
+                const mapContainer = document.getElementById('map-container');
+                if (mapContainer && settings.map_iframe) {
+                    let mapUrl = settings.map_iframe;
+                    // Ensure it's a proper embed URL
+                    if (mapUrl.includes('google.com/maps') && !mapUrl.includes('embed')) {
+                        // Very basic conversion attempt or just use as is if it's already correct
+                    }
+                    mapContainer.innerHTML = `<iframe src="${mapUrl}" class="w-full h-[500px] border-0" allowfullscreen="" loading="lazy"></iframe>`;
+                }
                 
                 displayProperties(allProperties, phone);
                 displayGallery(gallery);

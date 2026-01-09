@@ -210,12 +210,51 @@ async function saveSettings() {
     // Process video file
     const videoFile = document.getElementById('header-video-file');
     if (videoFile && videoFile.files.length > 0) {
+        const progressContainer = document.getElementById('upload-progress-container');
+        const progressBar = document.getElementById('upload-progress-bar');
+        const progressText = document.getElementById('upload-progress-text');
+        
+        if (progressContainer) progressContainer.classList.remove('hidden');
+        
         const uploadFormData = new FormData();
         uploadFormData.append('images[]', videoFile.files[0]);
-        const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: uploadFormData });
-        const uploadData = await uploadRes.json();
-        if (uploadData.urls && uploadData.urls.length > 0) {
-            payload.header_video = uploadData.urls[0];
+        
+        const xhr = new XMLHttpRequest();
+        const uploadPromise = new Promise((resolve, reject) => {
+            xhr.upload.addEventListener('progress', (e) => {
+                if (e.lengthComputable) {
+                    const percent = Math.round((e.loaded / e.total) * 100);
+                    if (progressBar) progressBar.style.width = percent + '%';
+                    if (progressText) progressText.innerText = percent + '%';
+                }
+            });
+            
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        reject(new Error('Upload failed'));
+                    }
+                }
+            };
+            
+            xhr.open('POST', '/api/upload.php', true);
+            xhr.send(uploadFormData);
+        });
+
+        try {
+            const uploadData = await uploadPromise;
+            if (uploadData.urls && uploadData.urls.length > 0) {
+                payload.header_video = uploadData.urls[0];
+            }
+        } catch (e) {
+            console.error('Video upload failed', e);
+            alert('Video upload failed');
+            if (progressContainer) progressContainer.classList.add('hidden');
+            return;
+        } finally {
+            if (progressContainer) setTimeout(() => progressContainer.classList.add('hidden'), 2000);
         }
     }
     
