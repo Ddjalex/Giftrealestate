@@ -53,6 +53,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (move_uploaded_file($tmp_name, $target_file)) {
             chmod($target_file, 0644);
+            
+            // If it's a video, attempt to compress it using ffmpeg
+            $file_ext = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            if (in_array($file_ext, ['mp4', 'webm', 'ogg'])) {
+                $compressed_file = $upload_dir . 'compressed_' . $file_name;
+                $cmd = "ffmpeg -i " . escapeshellarg($target_file) . " -vcodec libx264 -crf 28 -preset faster -acodec aac -b:a 128k " . escapeshellarg($compressed_file) . " 2>&1";
+                exec($cmd, $output, $return_var);
+                if ($return_var === 0) {
+                    unlink($target_file); // Remove original
+                    rename($compressed_file, $target_file); // Replace with compressed
+                } else {
+                    error_log("FFmpeg compression failed: " . implode("\n", $output));
+                }
+            }
+            
             $uploaded_urls[] = $file_name;
         }
     }
