@@ -203,7 +203,7 @@
                                 
                                 <input type="hidden" name="header_video" id="header_video_input">
                                 <div id="header_video_preview" class="mt-4 hidden text-center">
-                                    <video id="admin-header-video" controls class="mx-auto max-h-40 rounded"></video>
+                                    <video id="admin-header-video" controls autoplay muted loop class="mx-auto max-h-40 rounded"></video>
                                 </div>
                             </div>
                             <script>

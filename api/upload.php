@@ -39,6 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/webm', 'video/ogg'];
         $file_type = $_FILES['images']['type'][$key];
         
+        // Use mime_content_type if type is not available or generic
+        if (empty($file_type) || $file_type === 'application/octet-stream') {
+            $file_type = mime_content_type($tmp_name);
+        }
+
         if (move_uploaded_file($tmp_name, $target_file)) {
             $uploaded_urls[] = $file_name;
         }
