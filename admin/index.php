@@ -189,17 +189,31 @@
                         </div>
                         <div>
                             <label class="block text-gray-700 font-bold mb-2">Header Video (MP4)</label>
-                            <input type="file" id="header-video-file" class="w-full p-3 border rounded-lg" accept="video/mp4,video/webm">
-                            <div id="upload-progress-container" class="mt-2 hidden">
-                                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                    <div id="upload-progress-bar" class="bg-brand-green h-2.5 rounded-full" style="width: 0%"></div>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                <input type="file" id="header-video-file" class="hidden" accept="video/mp4,video/webm">
+                                <button type="button" onclick="document.getElementById('header-video-file').click()" class="bg-gray-100 px-4 py-2 rounded border hover:bg-gray-200">Choose File</button>
+                                <div id="header-video-name" class="mt-2 text-xs text-gray-500"></div>
+                                
+                                <div id="upload-progress-container" class="mt-4 hidden">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div id="upload-progress-bar" class="bg-brand-green h-2.5 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <p id="upload-progress-text" class="text-xs mt-1">0%</p>
                                 </div>
-                                <p id="upload-progress-text" class="text-xs text-gray-600 mt-1">0%</p>
+                                
+                                <input type="hidden" name="header_video" id="header_video_input">
+                                <div id="header_video_preview" class="mt-4 hidden text-center">
+                                    <video id="admin-header-video" controls class="mx-auto max-h-40 rounded"></video>
+                                </div>
                             </div>
-                            <input type="hidden" name="header_video" id="header_video_input">
-                            <div id="header_video_preview" class="mt-2 hidden">
-                                <video id="admin-header-video" class="h-32 w-auto border rounded" controls></video>
-                            </div>
+                            <script>
+                            document.getElementById('header-video-file')?.addEventListener('change', function() {
+                                const nameDiv = document.getElementById('header-video-name');
+                                if (nameDiv && this.files.length > 0) {
+                                    nameDiv.innerText = this.files[0].name;
+                                }
+                            });
+                            </script>
                         </div>
                     </div>
                     <div>

@@ -80,9 +80,13 @@ async function fetchData() {
                     if (key === 'header_video' && settings[key]) {
                         const previewDiv = document.getElementById('header_video_preview');
                         const video = document.getElementById('admin-header-video');
+                        const hiddenInput = document.getElementById('header_video_input');
                         if (previewDiv && video) {
                             video.src = settings[key].startsWith('http') ? settings[key] : `/uploads/${settings[key]}`;
                             previewDiv.classList.remove('hidden');
+                        }
+                        if (hiddenInput) {
+                            hiddenInput.value = settings[key];
                         }
                     }
                 }

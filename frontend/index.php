@@ -326,6 +326,9 @@
                             <source src="${videoUrl}" type="video/mp4">
                         </video>
                     `;
+                } else if (headerContainer && settings.header_image) {
+                    const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
+                    headerContainer.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover" alt="Background View">`;
                 }
 
                 // Update Map if exists

@@ -18,6 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uploaded_urls = [];
     $upload_dir = __DIR__ . '/../uploads/';
     
+    // Debug logging
+    error_log("Upload request received. Files: " . print_r($_FILES, true));
+    
     if (!file_exists($upload_dir)) {
         if (!mkdir($upload_dir, 0777, true)) {
             http_response_code(500);
