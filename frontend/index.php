@@ -319,68 +319,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <section id="contact" class="bg-brand-green">
-        <footer class="text-white pt-20 pb-10">
-        <div class="container mx-auto px-4 text-center mb-12">
-            <h3 class="text-3xl font-bold text-brand-yellow mb-8">Visit Our Office</h3>
-            <div id="map-container" class="rounded-3xl overflow-hidden shadow-2xl h-96 border-4 border-brand-yellow/30 bg-white/5">
-                <p class="pt-40 text-gray-400">Map location loading...</p>
-            </div>
-        </div>
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                <div>
-                    <div class="text-2xl font-black text-brand-yellow mb-6 uppercase">Gift Real Estate</div>
-                    <p id="footer-about" class="text-gray-400 text-sm mb-6">For over 25 years, Gift Real Estate PLC has been Ethiopia’s trusted partner in building residential and commercial apartments.</p>
-                    <div class="flex space-x-4">
-                        <a id="social-facebook" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-facebook-f"></i></a>
-                        <a id="social-telegram" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-telegram"></i></a>
-                        <a id="social-instagram" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-instagram"></i></a>
-                        <a id="social-linkedin" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Property Types</h4>
-                    <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="/properties?type=Residential+Apartments" class="hover:text-white transition">Residential Apartments</a></li>
-                        <li><a href="/properties?type=Commercial+Properties" class="hover:text-white transition">Commercial Properties</a></li>
-                        <li><a href="/properties?type=Luxury+Villas" class="hover:text-white transition">Luxury Villas</a></li>
-                        <li><a href="/properties?type=Office+Spaces" class="hover:text-white transition">Office Spaces</a></li>
-                        <li><a href="/properties?type=Retail+Shops" class="hover:text-white transition">Retail Shops</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Quick Links</h4>
-                    <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="/about" class="hover:text-white transition">About Us</a></li>
-                        <li><a href="/properties" class="hover:text-white transition">Our Properties</a></li>
-                        <li><a href="/gallery" class="hover:text-white transition">Project Gallery</a></li>
-                        <li><a href="/news" class="hover:text-white transition">Latest News</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Newsletter</h4>
-                    <p class="text-gray-400 text-sm mb-4">Subscribe to our newsletter for the latest updates.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Email" class="bg-white/10 border border-white/20 p-3 rounded-l w-full focus:outline-none">
-                        <button class="bg-brand-yellow text-brand-green px-4 rounded-r font-bold">Join</button>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-6 text-brand-yellow">Contact Details</h4>
-                    <ul class="space-y-4 text-gray-400 text-sm">
-                        <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand-yellow mt-1"></i> <span id="footer-address">Kazanchis, Black Gold Plaza, Addis Ababa</span></li>
-                        <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-brand-yellow"></i> <span id="footer-phone">+251 921878641</span></li>
-                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand-yellow"></i> <span id="footer-email">info@giftrealestate.com</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-white/10 pt-8 text-center text-gray-500 text-sm">
-                <p>&copy; 2026 Gift Real Estate PLC. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <?php include 'footer.php'; ?>
 
     <script>
         async function loadSettings() {
