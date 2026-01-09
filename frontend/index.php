@@ -105,7 +105,7 @@
             </div>
             <div id="header-overlay" class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.8) 100%);"></div>
         </div>
-        <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4">
+        <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4 hidden">
             <div class="md:w-1/2 text-white py-12">
                 <h1 class="text-6xl md:text-8xl font-bold mb-4 leading-tight uppercase tracking-tighter">GIFT REAL <br>ESTATE PLC</h1>
                 <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Real Estate Developer!</h2>
