@@ -21,13 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Debug logging
     error_log("Upload request received. Files: " . print_r($_FILES, true));
     
-    if (!file_exists($upload_dir)) {
-        if (!mkdir($upload_dir, 0777, true)) {
-            http_response_code(500);
-            echo json_encode(['error' => 'Failed to create upload directory']);
-            exit;
+    ob_start();
+    try {
+        if (!file_exists($upload_dir)) {
+            if (!mkdir($upload_dir, 0777, true)) {
+                ob_end_clean();
+                http_response_code(500);
+                echo json_encode(['error' => 'Failed to create upload directory']);
+                exit;
+            }
         }
-    }
+        chmod($upload_dir, 0777);
 
     foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
         if ($_FILES['images']['error'][$key] !== UPLOAD_ERR_OK) continue;
@@ -45,10 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (move_uploaded_file($tmp_name, $target_file)) {
+            chmod($target_file, 0644);
             $uploaded_urls[] = $file_name;
+        } else {
+            error_log("Failed to move uploaded file: " . $tmp_name . " to " . $target_file);
         }
     }
 
+    ob_end_clean();
     echo json_encode(['urls' => $uploaded_urls]);
     exit;
 }

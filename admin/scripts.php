@@ -241,12 +241,14 @@ function setupHeaderVideoAutoUpload() {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         try {
-                            resolve(JSON.parse(xhr.responseText));
+                            const response = JSON.parse(xhr.responseText);
+                            resolve(response);
                         } catch (e) {
-                            reject(new Error('Invalid JSON response'));
+                            console.error('Raw response:', xhr.responseText);
+                            reject(new Error('Invalid JSON response: ' + xhr.responseText.substring(0, 100)));
                         }
                     } else {
-                        reject(new Error('Upload failed with status: ' + xhr.status));
+                        reject(new Error('Upload failed with status: ' + xhr.status + ' ' + xhr.statusText));
                     }
                 }
             };
