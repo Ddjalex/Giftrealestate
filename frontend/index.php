@@ -124,24 +124,9 @@
     <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div class="absolute inset-0 z-0">
             <div id="header-bg-container" class="w-full h-full relative">
-                <img id="header-image-bg" src="/uploads/home_header.jpg" class="w-full h-full object-cover" alt="Background Aerial View">
+                <img id="header-image-bg" src="/uploads/hero_fallback.jpg" class="w-full h-full object-cover" alt="Background Aerial View">
             </div>
-            <div id="header-overlay" class="absolute inset-0 bg-brand-green bg-opacity-70"></div>
-        </div>
-        <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4 header-animate-in">
-            <div class="md:w-1/2 text-white py-12">
-                <h1 class="text-6xl md:text-8xl font-bold mb-4 leading-tight uppercase tracking-tighter drop-shadow-2xl">GIFT REAL <br>ESTATE PLC</h1>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-brand-yellow drop-shadow-lg">Real Estate Developer!</h2>
-                <p class="text-lg md:text-xl mb-10 max-w-xl leading-relaxed font-medium drop-shadow-md">Discover exceptional properties and build your future with Ethiopia's most trusted real estate partner.</p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="/properties" class="bg-brand-green hover:bg-opacity-90 text-white px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2 border border-white/20 transition-all shadow-xl">
-                        View Properties <span>→</span>
-                    </a>
-                    <a href="/about" class="bg-white hover:bg-gray-100 text-brand-green px-8 py-4 rounded-md font-bold text-lg flex items-center gap-2 transition-all shadow-xl">
-                        Read More.... <span class="bg-brand-green text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">↓</span>
-                    </a>
-                </div>
-            </div>
+            <div id="header-overlay" class="absolute inset-0 bg-brand-green bg-opacity-30"></div>
         </div>
         <div class="scroll-indicator text-white text-2xl">
             <i class="fas fa-chevron-down"></i>
