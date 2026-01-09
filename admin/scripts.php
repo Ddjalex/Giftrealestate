@@ -141,7 +141,7 @@ function previewAboutImage(input, previewId) {
 }
 
 function renderTable() {
-    const tbody = document.getElementById(`admin-${currentTab === 'properties' ? 'property' : currentTab}-list`);
+    const tbody = document.getElementById(`admin-${currentTab}-list`);
     if (!tbody) return;
     
     if (currentTab === 'properties') {

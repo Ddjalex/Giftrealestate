@@ -46,7 +46,7 @@ async function handleSave() {
                     body: imgFormData
                 });
                 const uploadData = await uploadRes.json();
-                if (uploadData.urls) {
+                if (uploadData && uploadData.urls) {
                     payload.main_image = uploadData.urls[0];
                     payload.gallery_images = uploadData.urls;
                 }
