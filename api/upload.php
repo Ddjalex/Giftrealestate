@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $file_ext = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             if (in_array($file_ext, ['mp4', 'webm', 'ogg'])) {
                 $compressed_file = $upload_dir . 'compressed_' . $file_name;
-                // High compression for fast loading
-                $cmd = "ffmpeg -i " . escapeshellarg($target_file) . " -vcodec libx264 -crf 32 -preset veryfast -vf scale='trunc(iw/2)*2:trunc(ih/2)*2' -an " . escapeshellarg($compressed_file) . " 2>&1";
+                // High compression + faststart for streaming/web playback
+                $cmd = "ffmpeg -i " . escapeshellarg($target_file) . " -vcodec libx264 -crf 35 -preset superfast -vf scale='trunc(iw/2)*2:trunc(ih/2)*2' -an -movflags +faststart " . escapeshellarg($compressed_file) . " 2>&1";
                 exec($cmd, $output, $return_var);
                 if ($return_var === 0) {
                     unlink($target_file); // Remove original

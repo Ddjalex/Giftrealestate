@@ -323,7 +323,7 @@
                 if (headerContainer && settings.header_video) {
                     const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
                     headerContainer.innerHTML = `
-                        <video autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover">
+                        <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover">
                             <source src="${videoUrl}" type="video/mp4">
                         </video>
                     `;
