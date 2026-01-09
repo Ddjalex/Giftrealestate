@@ -103,7 +103,7 @@
             <div id="header-bg-container" class="w-full h-full relative">
                 <img id="header-image-bg" src="/uploads/home_header.jpg" class="w-full h-full object-cover" alt="Background Aerial View">
             </div>
-            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.8) 100%);"></div>
+            <div id="header-overlay" class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.8) 100%);"></div>
         </div>
         <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4">
             <div class="md:w-1/2 text-white py-12">
@@ -319,6 +319,7 @@
                 
                 // Update header background (image or video)
                 const headerContainer = document.getElementById('header-bg-container');
+                const headerOverlay = document.getElementById('header-overlay');
                 if (headerContainer && settings.header_video) {
                     const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
                     headerContainer.innerHTML = `
@@ -326,20 +327,28 @@
                             <source src="${videoUrl}" type="video/mp4">
                         </video>
                     `;
+                    if (headerOverlay) headerOverlay.style.background = 'none';
                 } else if (headerContainer && settings.header_image) {
                     const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
                     headerContainer.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover" alt="Background View">`;
+                    if (headerOverlay) headerOverlay.style.background = 'linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.8) 100%)';
                 }
 
                 // Update Map if exists
                 const mapContainer = document.getElementById('map-container');
-                if (mapContainer && settings.map_iframe) {
+                if (settings.map_iframe) {
                     let mapUrl = settings.map_iframe;
-                    // Ensure it's a proper embed URL
-                    if (mapUrl.includes('google.com/maps') && !mapUrl.includes('embed')) {
-                        // Very basic conversion attempt or just use as is if it's already correct
+                    // Detect if it's a full iframe tag and extract src
+                    if (mapUrl.includes('<iframe')) {
+                        const match = mapUrl.match(/src=["']([^"']+)["']/);
+                        if (match) mapUrl = match[1];
                     }
-                    mapContainer.innerHTML = `<iframe src="${mapUrl}" class="w-full h-[500px] border-0" allowfullscreen="" loading="lazy"></iframe>`;
+                    
+                    // Look for the footer map container or any map container
+                    const footerMap = document.querySelector('iframe[src*="google.com/maps"]')?.parentElement || document.getElementById('map-container');
+                    if (footerMap) {
+                        footerMap.innerHTML = `<iframe src="${mapUrl}" class="w-full h-[500px] border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+                    }
                 }
                 
                 displayProperties(allProperties, phone);

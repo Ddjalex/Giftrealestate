@@ -27,9 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->beginTransaction();
         $stmt = $pdo->prepare("INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = CURRENT_TIMESTAMP");
         foreach ($data as $key => $value) {
-            $stmt->execute([$key, $value]);
+            // Handle array/object values by encoding to JSON
+            $val = is_array($value) ? json_encode($value) : $value;
+            $stmt->execute([$key, $val]);
         }
         $pdo->commit();
+        
+        // Clear OPcache if enabled to ensure changes are picked up immediately
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+        
         echo json_encode(['status' => 'success']);
     } catch (Exception $e) {
         $pdo->rollBack();
