@@ -98,9 +98,11 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative min-h-[700px] flex items-center overflow-hidden">
+    <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="/uploads/home_header.jpg" class="w-full h-full object-cover" alt="Background Aerial View">
+            <div id="header-bg-container" class="w-full h-full relative">
+                <img id="header-image-bg" src="/uploads/home_header.jpg" class="w-full h-full object-cover" alt="Background Aerial View">
+            </div>
             <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.8) 100%);"></div>
         </div>
         <div class="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center gap-4">
@@ -314,6 +316,19 @@
                 document.getElementById('stats-phone').innerText = phone;
                 document.getElementById('top-bar-phone').innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${phone}`;
                 document.getElementById('nav-call-btn').href = `tel:${phone}`;
+                
+                // Update header background (image or video)
+                const headerContainer = document.getElementById('header-bg-container');
+                if (headerContainer) {
+                    if (settings.header_video) {
+                        const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
+                        headerContainer.innerHTML = `
+                            <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                                <source src="${videoUrl}" type="video/mp4">
+                            </video>
+                        `;
+                    }
+                }
                 
                 displayProperties(allProperties, phone);
                 displayGallery(gallery);

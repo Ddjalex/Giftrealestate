@@ -187,6 +187,14 @@
                             <label class="block text-gray-700 font-bold mb-2">LinkedIn URL</label>
                             <input type="text" name="linkedin" class="w-full p-3 border rounded-lg">
                         </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Header Video (MP4)</label>
+                            <input type="file" id="header-video-file" class="w-full p-3 border rounded-lg" accept="video/mp4,video/webm">
+                            <input type="hidden" name="header_video" id="header_video_input">
+                            <div id="header_video_preview" class="mt-2 hidden">
+                                <video id="admin-header-video" class="h-32 w-auto border rounded" controls></video>
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <label class="block text-gray-700 font-bold mb-2">Google Map Iframe Source (URL only)</label>

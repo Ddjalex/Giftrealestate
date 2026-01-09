@@ -77,6 +77,14 @@ async function fetchData() {
                             preview.classList.remove('hidden');
                         }
                     }
+                    if (key === 'header_video' && settings[key]) {
+                        const previewDiv = document.getElementById('header_video_preview');
+                        const video = document.getElementById('admin-header-video');
+                        if (previewDiv && video) {
+                            video.src = settings[key].startsWith('http') ? settings[key] : `/uploads/${settings[key]}`;
+                            previewDiv.classList.remove('hidden');
+                        }
+                    }
                 }
             }
         }
@@ -198,6 +206,18 @@ async function saveSettings() {
     const form = document.getElementById('settings-form');
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
+    
+    // Process video file
+    const videoFile = document.getElementById('header-video-file');
+    if (videoFile && videoFile.files.length > 0) {
+        const uploadFormData = new FormData();
+        uploadFormData.append('images[]', videoFile.files[0]);
+        const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: uploadFormData });
+        const uploadData = await uploadRes.json();
+        if (uploadData.urls && uploadData.urls.length > 0) {
+            payload.header_video = uploadData.urls[0];
+        }
+    }
     
     const response = await fetch('/api/settings.php', {
         method: 'POST',

@@ -32,6 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $file_name = time() . '_' . rand(100, 999) . '_' . basename($_FILES['images']['name'][$key]);
         $target_file = $upload_dir . $file_name;
         
+        // Allow images and videos
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/webm', 'video/ogg'];
+        $file_type = $_FILES['images']['type'][$key];
+        
         if (move_uploaded_file($tmp_name, $target_file)) {
             $uploaded_urls[] = $file_name;
         }
