@@ -74,3 +74,51 @@
         </div>
     </footer>
 </section>
+<script>
+    async function loadSettings() {
+        try {
+            const response = await fetch('/api/settings');
+            const settings = await response.json();
+            if (settings.address) {
+                const footerAddr = document.getElementById('footer-address');
+                if (footerAddr) footerAddr.innerText = settings.address;
+                const topBarAddress = document.querySelector('.bg-brand-green.text-white span');
+                if (topBarAddress) topBarAddress.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${settings.address}`;
+            }
+            if (settings.phone) {
+                const footerPhone = document.getElementById('footer-phone');
+                if (footerPhone) footerPhone.innerText = settings.phone;
+                const topBarPhone = document.querySelectorAll('.bg-brand-green.text-white span')[1];
+                if (topBarPhone) topBarPhone.innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone}`;
+            }
+            if (settings.email) {
+                const footerEmail = document.getElementById('footer-email');
+                if (footerEmail) footerEmail.innerText = settings.email;
+            }
+            if (settings.facebook) {
+                const socialFB = document.getElementById('social-facebook');
+                if (socialFB) socialFB.href = settings.facebook;
+            }
+            if (settings.telegram) {
+                const socialTG = document.getElementById('social-telegram');
+                if (socialTG) socialTG.href = settings.telegram;
+            }
+            if (settings.instagram) {
+                const socialIG = document.getElementById('social-instagram');
+                if (socialIG) socialIG.href = settings.instagram;
+            }
+            if (settings.linkedin) {
+                const socialLI = document.getElementById('social-linkedin');
+                if (socialLI) socialLI.href = settings.linkedin;
+            }
+            
+            if (settings.map_iframe) {
+                const mapContainer = document.getElementById('map-container');
+                if (mapContainer) mapContainer.innerHTML = `<iframe src="${settings.map_iframe}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
+            }
+        } catch (e) {
+            console.error('Failed to load settings', e);
+        }
+    }
+    loadSettings();
+</script>

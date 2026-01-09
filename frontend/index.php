@@ -322,38 +322,6 @@
     <?php include 'footer.php'; ?>
 
     <script>
-        async function loadSettings() {
-            try {
-                const response = await fetch('/api/settings');
-                const settings = await response.json();
-                if (settings.address) {
-                    document.getElementById('footer-address').innerText = settings.address;
-                    // Update top bar as well
-                    const topBarAddress = document.querySelector('.bg-brand-green.text-white span');
-                    if (topBarAddress) topBarAddress.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${settings.address}`;
-                }
-                if (settings.phone) {
-                    document.getElementById('footer-phone').innerText = settings.phone;
-                    const topBarPhone = document.querySelectorAll('.bg-brand-green.text-white span')[1];
-                    if (topBarPhone) topBarPhone.innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone}`;
-                }
-                if (settings.email) document.getElementById('footer-email').innerText = settings.email;
-                if (settings.facebook) document.getElementById('social-facebook').href = settings.facebook;
-                if (settings.telegram) document.getElementById('social-telegram').href = settings.telegram;
-                if (settings.instagram) document.getElementById('social-instagram').href = settings.instagram;
-                if (settings.linkedin) document.getElementById('social-linkedin').href = settings.linkedin;
-                
-                if (settings.map_iframe) {
-                    document.getElementById('map-container').innerHTML = `<iframe src="${settings.map_iframe}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
-                }
-            } catch (e) {
-                console.error('Failed to load settings', e);
-            }
-        }
-        loadSettings();
-    </script>
-    
-    <script>
                 let allProperties = [];
 
                 async function loadProperties() {
