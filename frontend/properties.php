@@ -82,13 +82,14 @@
     <?php include 'footer.php'; ?>
 </body>
 </html>
+    <script>
         let allProperties = [];
         async function loadProperties() {
             const urlParams = new URLSearchParams(window.location.search);
             const typeFilter = urlParams.get('type');
             
             try {
-                const response = await fetch('/api/properties');
+                const response = await fetch('/api/properties.php');
                 const data = await response.json();
                 allProperties = Array.isArray(data) ? data : [];
                 

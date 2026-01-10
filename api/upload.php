@@ -25,50 +25,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uploaded_urls = [];
     $upload_dir = __DIR__ . '/../uploads/';
     
+    // Ensure upload directory exists
     if (!file_exists($upload_dir)) {
-        if (!mkdir($upload_dir, 0777, true)) {
-            http_response_code(500);
-            echo json_encode(['error' => 'Failed to create upload directory']);
-            exit;
-        }
+        mkdir($upload_dir, 0777, true);
     }
     chmod($upload_dir, 0777);
 
-    foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-        if ($_FILES['images']['error'][$key] !== UPLOAD_ERR_OK) {
-            error_log("Upload error for key $key: " . $_FILES['images']['error'][$key]);
-            continue;
-        }
+    // Filter out potential empty entries and handle single file vs array
+    $files = $_FILES['images'];
+    $file_count = is_array($files['name']) ? count($files['name']) : 1;
+
+    for ($i = 0; $i < $file_count; $i++) {
+        $tmp_name = is_array($files['tmp_name']) ? $files['tmp_name'][$i] : $files['tmp_name'];
+        $error = is_array($files['error']) ? $files['error'][$i] : $files['error'];
+        $name = is_array($files['name']) ? $files['name'][$i] : $files['name'];
+        $type = is_array($files['type']) ? $files['type'][$i] : $files['type'];
+
+        if ($error !== UPLOAD_ERR_OK) continue;
         
-        $file_name = time() . '_' . rand(100, 999) . '_' . basename($_FILES['images']['name'][$key]);
+        $file_name = time() . '_' . rand(100, 999) . '_' . basename($name);
         $target_file = $upload_dir . $file_name;
         
-        // Allow images and videos
-        $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/webm', 'video/ogg'];
-        $file_type = $_FILES['images']['type'][$key];
-        
-        if (empty($file_type) || $file_type === 'application/octet-stream') {
-            $file_type = mime_content_type($tmp_name);
-        }
-
         if (move_uploaded_file($tmp_name, $target_file)) {
             chmod($target_file, 0644);
             
-            // If it's a video, attempt to compress it using ffmpeg
             $file_ext = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             if (in_array($file_ext, ['mp4', 'webm', 'ogg'])) {
                 $compressed_file = $upload_dir . 'compressed_' . $file_name;
-                // High compression + faststart for streaming/web playback, superfast preset for Replit performance
                 $cmd = "ffmpeg -i " . escapeshellarg($target_file) . " -vcodec libx264 -crf 38 -preset superfast -vf scale='trunc(iw/2)*2:trunc(ih/2)*2' -an -movflags +faststart " . escapeshellarg($compressed_file) . " 2>&1";
                 exec($cmd, $output, $return_var);
                 if ($return_var === 0) {
-                    unlink($target_file); // Remove original
-                    rename($compressed_file, $target_file); // Replace with compressed
-                } else {
-                    error_log("FFmpeg compression failed: " . implode("\n", $output));
+                    unlink($target_file);
+                    rename($compressed_file, $target_file);
                 }
             }
-            
             $uploaded_urls[] = $file_name;
         }
     }

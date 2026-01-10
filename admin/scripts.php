@@ -155,18 +155,21 @@ function renderTable() {
     if (!tbody) return;
     
     if (currentTab === 'properties') {
-        tbody.innerHTML = data.properties.map(p => `
+        tbody.innerHTML = data.properties.map(p => {
+            const price = parseFloat(p.price);
+            const priceDisplay = price > 0 ? new Intl.NumberFormat().format(price) + ' ETB' : 'Call for price';
+            return `
             <tr>
                 <td class="px-6 py-4 whitespace-nowrap font-medium">${p.title}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${p.location}</td>
-                <td class="px-6 py-4 whitespace-nowrap">${new Intl.NumberFormat().format(p.price)} ETB</td>
+                <td class="px-6 py-4 whitespace-nowrap">${priceDisplay}</td>
                 <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">${p.status}</span></td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
                     <button onclick="editItem(${p.id})" class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
                     <button onclick="deleteItem(${p.id})" class="text-red-600 hover:text-red-900">Delete</button>
                 </td>
             </tr>
-        `).join('');
+        `;}).join('');
     } else if (currentTab === 'gallery') {
         tbody.innerHTML = data.gallery.map(g => `
             <tr>
