@@ -17,6 +17,19 @@
     <meta name="keywords" content="Gift Real Estate, Gift Real Estate Ethiopia, Apartments for sale in Addis Ababa, Houses for sale in Ethiopia, Luxury villas Addis Ababa, Commercial properties Ethiopia">
     <title>Gift Real Estate PLC | Apartments for Sale in Addis Ababa, Ethiopia</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Tailwind CDN with configuration to avoid warning in some environments -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-green': '#008148',
+              'brand-yellow': '#fdd835',
+            }
+          }
+        }
+      }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
