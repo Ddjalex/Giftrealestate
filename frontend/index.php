@@ -415,15 +415,17 @@
                         ` : ''}
                     </div>
                     <div class="p-6" onclick="window.location.href='/property/${p.id}'">
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">${p.title}</h3>
+                        <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
+                        <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
+                        <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location || 'Ethiopia'}</p>
                         <div class="mb-4">
-                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg">Call for price</span>
+                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
                         </div>
-                        <div class="flex items-center text-gray-400 text-sm mb-4">
-                            <i class="fas fa-ruler-combined mr-2"></i> ${p.area_sqft || 0} sq ft
+                        <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
+                            <span><i class="fas fa-bed mr-1"></i> ${p.bedrooms || 0}</span>
+                            <span><i class="fas fa-bath mr-1"></i> ${p.bathrooms || 0}</span>
+                            <span><i class="fas fa-ruler-combined mr-1"></i> ${p.area_sqft || 0} sq ft</span>
                         </div>
-                        <p class="text-gray-600 text-sm line-clamp-1 mb-2">${p.description || p.title}</p>
-                        <p class="text-brand-green font-bold text-sm">${p.property_type || 'Residential Apartment'}</p>
                     </div>
                 </div>`;
             }).join('');
