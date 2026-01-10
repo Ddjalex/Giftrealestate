@@ -40,10 +40,16 @@
     </nav>
 
     <!-- Header -->
-    <header class="bg-brand-green py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl font-bold text-white mb-4">Our Properties</h1>
-            <p class="text-brand-yellow">Explore our wide range of premium residential and commercial spaces.</p>
+    <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/uploads/properties_header.jpg');">
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <h1 class="text-6xl font-bold text-white mb-4">Our Properties</h1>
+            <div class="w-24 h-1 bg-brand-yellow mx-auto mb-6"></div>
+            <p class="text-brand-yellow font-medium tracking-widest uppercase">Explore our wide range of premium residential and commercial spaces.</p>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-1.42,1200,13.47V0Z" class="fill-white"></path>
+            </svg>
         </div>
     </header>
 
