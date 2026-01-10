@@ -316,9 +316,9 @@
         async function loadData() {
             try {
                 const [pRes, sRes, gRes] = await Promise.all([
-                    fetch('/api/properties'),
-                    fetch('/api/settings'),
-                    fetch('/api/gallery')
+                    fetch('/api/properties.php?featured=1'),
+                    fetch('/api/settings.php'),
+                    fetch('/api/gallery.php')
                 ]);
                 const propertiesData = await pRes.json();
                 const settings = await sRes.json();
@@ -363,8 +363,8 @@
         function displayProperties(props, phone) {
             const grid = document.getElementById('property-grid');
             if (!grid) return;
-            grid.innerHTML = props.slice(0, 6).map(p => {
-                const img = p.main_image ? (p.main_image.startsWith('http') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80';
+            grid.innerHTML = props.map(p => {
+                const img = p.main_image ? (p.main_image.startsWith('http') || p.main_image.startsWith('data:') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80';
                 return `
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group cursor-pointer" onclick="window.location.href='/property/${p.id}'">
                     <div class="h-64 relative overflow-hidden">
@@ -372,7 +372,7 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">${p.title}</h3>
-                        <p class="text-brand-green font-bold mb-4">Call for price</p>
+                        <p class="text-brand-green font-bold mb-4">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</p>
                         <div class="flex justify-between border-t pt-4 text-sm text-gray-500">
                             <span><i class="fas fa-bed mr-2 text-brand-green"></i> ${p.bedrooms} Beds</span>
                             <span><i class="fas fa-bath mr-2 text-brand-green"></i> ${p.bathrooms} Baths</span>

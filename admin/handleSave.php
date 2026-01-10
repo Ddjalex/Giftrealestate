@@ -31,7 +31,7 @@ async function handleSave() {
     }
 
     if (currentTab === 'properties') {
-        payload.featured = document.getElementById('prop-featured').checked;
+        payload.featured = document.getElementById('prop-featured').checked ? 1 : 0;
         
         // Handle multiple image uploads
         const imageInput = document.getElementById('prop-images-input');
@@ -43,12 +43,17 @@ async function handleSave() {
             try {
                 finalGallery = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
             } catch (e) { finalGallery = []; }
+        } else if (payload.gallery_images) {
+             // Handle case where gallery_images might already be in payload from some other logic
+             try {
+                finalGallery = typeof payload.gallery_images === 'string' ? JSON.parse(payload.gallery_images) : payload.gallery_images;
+             } catch(e) { finalGallery = []; }
         }
         
-        if (imageInput && imageInput.files.length > 0) {
+        if (selectedFiles && selectedFiles.length > 0) {
             const imgFormData = new FormData();
-            for (let i = 0; i < imageInput.files.length; i++) {
-                imgFormData.append('images[]', imageInput.files[i]);
+            for (let i = 0; i < selectedFiles.length; i++) {
+                imgFormData.append('images[]', selectedFiles[i]);
             }
             try {
                 const uploadRes = await fetch('/api/upload.php', {
@@ -66,10 +71,10 @@ async function handleSave() {
         
         if (finalGallery.length > 0) {
             payload.main_image = finalGallery[0];
-            payload.gallery_images = finalGallery;
+            payload.gallery_images = JSON.stringify(finalGallery);
         } else {
             payload.main_image = null;
-            payload.gallery_images = [];
+            payload.gallery_images = JSON.stringify([]);
         }
     }
 

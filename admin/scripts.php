@@ -53,7 +53,7 @@ async function fetchData() {
                         if (hiddenInput) hiddenInput.value = value;
                         const preview = document.getElementById(img.preview);
                         if (preview) {
-                            preview.src = value.startsWith('http') ? value : '/uploads/' + value;
+                            preview.src = value.startsWith('http') || value.startsWith('data:') ? value : '/uploads/' + value;
                             preview.classList.remove('hidden');
                         }
                     } else {
@@ -72,7 +72,7 @@ async function fetchData() {
                     if (key.includes('image') && settings[key]) {
                         const preview = document.getElementById(`${key}_preview`);
                         if (preview) {
-                            preview.src = settings[key].startsWith('http') ? settings[key] : `/uploads/${settings[key]}`;
+                            preview.src = settings[key].startsWith('http') || settings[key].startsWith('data:') ? settings[key] : `/uploads/${settings[key]}`;
                             preview.classList.remove('hidden');
                         }
                     }
@@ -81,7 +81,7 @@ async function fetchData() {
                         const video = document.getElementById('admin-header-video');
                         const hiddenInput = document.getElementById('header_video_input');
                         if (previewDiv && video) {
-                            video.src = settings[key].startsWith('http') ? settings[key] : `/uploads/${settings[key]}`;
+                            video.src = settings[key].startsWith('http') || settings[key].startsWith('data:') ? settings[key] : `/uploads/${settings[key]}`;
                             previewDiv.classList.remove('hidden');
                         }
                         if (hiddenInput) {
@@ -345,7 +345,7 @@ function refreshPropertyPreviews() {
         const div = document.createElement('div');
         div.className = 'relative group h-20 w-20';
         div.innerHTML = `
-            <img src="${item.main_image.startsWith('http') ? item.main_image : '/uploads/' + item.main_image}" class="h-full w-full object-cover rounded border border-brand-green">
+            <img src="${item.main_image.startsWith('http') || item.main_image.startsWith('data:') ? item.main_image : '/uploads/' + item.main_image}" class="h-full w-full object-cover rounded border border-brand-green">
             <span class="absolute -top-2 -left-2 bg-brand-green text-white rounded px-1 text-[10px]">Main</span>
         `;
         preview.appendChild(div);
@@ -364,7 +364,7 @@ function refreshPropertyPreviews() {
                 const div = document.createElement('div');
                 div.className = 'relative group h-20 w-20';
                 div.innerHTML = `
-                    <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-full w-full object-cover rounded border">
+                    <img src="${img.startsWith('http') || img.startsWith('data:') ? img : '/uploads/' + img}" class="h-full w-full object-cover rounded border">
                     <button type="button" onclick="removeExistingImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">×</button>
                 `;
                 preview.appendChild(div);
@@ -402,7 +402,7 @@ function removeExistingImage(index) {
     
     if (Array.isArray(images)) {
         images.splice(index, 1);
-        item.gallery_images = JSON.stringify(images);
+        item.gallery_images = images; // Keep as array in memory, will be stringified on save
         if (images.length > 0) item.main_image = images[0];
         else item.main_image = null;
         refreshPropertyPreviews();
@@ -435,6 +435,14 @@ function editItem(id) {
         document.getElementById('prop-featured').checked = item.featured == 1;
         
         selectedFiles = [];
+        // Ensure gallery_images is an array for previews
+        if (typeof item.gallery_images === 'string') {
+            try {
+                item.gallery_images = JSON.parse(item.gallery_images);
+            } catch(e) {
+                item.gallery_images = [];
+            }
+        }
         refreshPropertyPreviews();
     }
 }

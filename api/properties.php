@@ -35,8 +35,8 @@ switch ($method) {
         }
 
         try {
-            // Handle gallery images if it's already a JSON string from frontend or an array
-            $gallery_images = isset($data['gallery_images']) ? $data['gallery_images'] : null;
+            // Handle gallery images
+            $gallery_images = isset($data['gallery_images']) ? $data['gallery_images'] : '[]';
             if (is_array($gallery_images)) {
                 $gallery_images = json_encode($gallery_images);
             }
