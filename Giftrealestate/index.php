@@ -130,7 +130,7 @@
             </button>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
+            <div class="hidden md:flex space-x-6 lg:space-x-8 font-semibold text-brand-green uppercase text-xs lg:text-sm tracking-wider">
                 <a href="index.php" class="nav-link text-brand-green">Home</a>
                 <a href="about.php" class="nav-link">About Us</a>
                 <a href="gallery.php" class="nav-link">Gallery</a>
@@ -141,41 +141,64 @@
 
             <!-- Call Button (Desktop) -->
             <div class="hidden md:flex items-center">
-                <a href="tel:+251921878641" id="nav-call-btn" class="bg-[#008148] text-white font-bold px-8 py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg uppercase text-sm tracking-wider whitespace-nowrap">
-                    <span>Call Us</span> <i class="fas fa-phone-square-alt text-xl"></i>
+                <a href="tel:+251921878641" id="nav-call-btn" class="bg-[#008148] text-white font-bold px-4 lg:px-8 py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg uppercase text-xs lg:text-sm tracking-wider whitespace-nowrap">
+                    <span>Call Us</span> <i class="fas fa-phone-square-alt text-lg lg:text-xl"></i>
                 </a>
             </div>
         </div>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 py-4 px-4 space-y-4 shadow-xl">
-            <a href="index.php" class="block font-semibold text-brand-green uppercase text-sm py-2">Home</a>
-            <a href="about.php" class="block font-semibold text-brand-green uppercase text-sm py-2">About Us</a>
-            <a href="gallery.php" class="block font-semibold text-brand-green uppercase text-sm py-2">Gallery</a>
-            <a href="properties.php" class="block font-semibold text-brand-green uppercase text-sm py-2">Properties</a>
-            <a href="news.php" class="block font-semibold text-brand-green uppercase text-sm py-2">News</a>
-            <a href="contact.php" class="block font-semibold text-brand-green uppercase text-sm py-2">Contact</a>
-            <a href="tel:+251921878641" class="block bg-brand-green text-white font-bold py-3 px-6 rounded text-center uppercase text-sm tracking-widest mt-4">Call Us Now</a>
+        <!-- Mobile Menu Slider Overlay -->
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-[60] hidden transition-opacity duration-300"></div>
+        
+        <!-- Mobile Menu Slider -->
+        <div id="mobile-menu-slider" class="fixed top-0 right-0 h-full w-[280px] bg-white z-[70] transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col">
+            <div class="p-6 border-b flex justify-between items-center">
+                <img src="/assets/logo.png" alt="Logo" class="h-10 w-auto">
+                <button id="close-menu-btn" class="text-brand-green text-2xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto py-8 px-6 space-y-6">
+                <a href="index.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Home</a>
+                <a href="about.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">About Us</a>
+                <a href="gallery.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Gallery</a>
+                <a href="properties.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Properties</a>
+                <a href="news.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">News</a>
+                <a href="contact.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Contact</a>
+            </div>
+            <div class="p-6 border-t bg-gray-50">
+                <a href="tel:+251921878641" class="block bg-brand-green text-white font-bold py-4 px-6 rounded-xl text-center uppercase tracking-widest shadow-lg">
+                    <i class="fas fa-phone-alt mr-2"></i> Call Us Now
+                </a>
+            </div>
         </div>
     </nav>
 
     <script>
-        // Mobile menu toggle
         const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                const icon = menuBtn.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('fa-bars');
-                    icon.classList.toggle('fa-times');
-                }
-            });
+        const closeBtn = document.getElementById('close-menu-btn');
+        const slider = document.getElementById('mobile-menu-slider');
+        const overlay = document.getElementById('mobile-menu-overlay');
+
+        function toggleMenu() {
+            const isOpen = !slider.classList.contains('translate-x-full');
+            if (isOpen) {
+                slider.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            } else {
+                slider.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        if (menuBtn && closeBtn && slider && overlay) {
+            menuBtn.addEventListener('click', toggleMenu);
+            closeBtn.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
         }
     </script>
 
-    <header id="main-header" class="relative min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden bg-brand-green">
+    <header id="main-header" class="relative min-h-[400px] sm:min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div id="header-bg-container" class="absolute inset-0 z-0">
             <img src="/uploads/hero_preloader.jpg" id="header-preloader" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
         </div>
@@ -186,25 +209,25 @@
     </header>
 
     <!-- Stats Bar & Search Box -->
-    <div class="container mx-auto px-4 -mt-16 relative z-30">
-        <div class="grid grid-cols-1 md:grid-cols-3 bg-white shadow-2xl rounded-xl overflow-hidden text-center divide-y md:divide-y-0 md:divide-x divide-gray-100 mb-8">
-            <div class="p-8">
-                <div class="text-4xl font-bold text-brand-green">3000+</div>
-                <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Properties Sold</div>
+    <div class="container mx-auto px-4 -mt-10 sm:-mt-16 relative z-30">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 bg-white shadow-2xl rounded-xl overflow-hidden text-center divide-y sm:divide-y-0 sm:divide-x divide-gray-100 mb-8">
+            <div class="p-6 md:p-8">
+                <div class="text-3xl md:text-4xl font-bold text-brand-green">3000+</div>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Properties Sold</div>
             </div>
-            <div class="p-8">
-                <div class="text-4xl font-bold text-brand-green" id="stats-phone">0974408281</div>
-                <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Call For Info</div>
+            <div class="p-6 md:p-8">
+                <div class="text-3xl md:text-4xl font-bold text-brand-green" id="stats-phone">0974408281</div>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Call For Info</div>
             </div>
-            <div class="p-8">
-                <div class="text-4xl font-bold text-brand-green">25+</div>
-                <div class="text-gray-500 font-semibold uppercase tracking-wider text-sm mt-2">Years Experience</div>
+            <div class="p-6 md:p-8 sm:col-span-2 md:col-span-1">
+                <div class="text-3xl md:text-4xl font-bold text-brand-green">25+</div>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Years Experience</div>
             </div>
         </div>
         
-        <div class="max-w-4xl mx-auto bg-white p-4 rounded-xl shadow-lg flex flex-col md:flex-row gap-4">
-            <input type="text" id="search-location" placeholder="Search by location (CMC, Bole, Ayat)..." class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800">
-            <select id="filter-type" class="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800 bg-white min-w-[200px]">
+        <div class="max-w-4xl mx-auto bg-white p-3 md:p-4 rounded-xl shadow-lg flex flex-col sm:flex-row gap-3 md:gap-4">
+            <input type="text" id="search-location" placeholder="Search by location..." class="flex-1 p-2 md:p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800 text-sm md:text-base">
+            <select id="filter-type" class="p-2 md:p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green text-gray-800 bg-white min-w-[150px] md:min-w-[200px] text-sm md:text-base">
                 <option value="">All Types</option>
                 <option value="Residential Apartments">Residential Apartments</option>
                 <option value="Commercial Properties">Commercial Properties</option>
@@ -213,7 +236,7 @@
                 <option value="Retail Shops">Retail Shops</option>
                 <option value="Land & Plots">Land & Plots</option>
             </select>
-            <button onclick="filterProperties()" class="bg-brand-yellow text-brand-green font-bold px-8 py-3 rounded-lg hover:bg-yellow-500 transition shadow-md whitespace-nowrap">Search Properties</button>
+            <button onclick="filterProperties()" class="bg-brand-yellow text-brand-green font-bold px-6 md:px-8 py-2 md:py-3 rounded-lg hover:bg-yellow-500 transition shadow-md whitespace-nowrap text-sm md:text-base">Search</button>
         </div>
     </div>
 
