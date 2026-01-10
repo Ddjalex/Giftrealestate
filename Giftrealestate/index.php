@@ -115,10 +115,10 @@
 </head>
 <body class="bg-gray-50 font-sans">
     <!-- Top Bar -->
-    <div class="bg-brand-green text-white py-2 hidden md:block">
+    <div class="bg-brand-green text-white py-2">
         <div class="container mx-auto px-4 flex justify-between items-center text-sm">
             <div class="flex space-x-4">
-                <span><i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>Kazanchis, Black Gold Plaza, Addis Ababa</span>
+                <span class="hidden sm:inline"><i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>Kazanchis, Black Gold Plaza, Addis Ababa</span>
                 <span id="top-bar-phone"><i class="fas fa-phone-alt text-brand-yellow mr-2"></i>+251 921878641</span>
             </div>
             <div class="flex space-x-4">
@@ -492,12 +492,12 @@
                 const slideshowId = `slideshow-${p.id}`;
                 
                 return `
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group cursor-pointer">
-                    <div class="h-64 relative overflow-hidden group/slides">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group cursor-pointer h-full flex flex-col">
+                    <div class="h-64 relative overflow-hidden shrink-0">
                         <div id="${slideshowId}" class="w-full h-full relative">
                             ${gallery.map((gImg, idx) => `
                                 <img src="${gImg.startsWith('http') || gImg.startsWith('data:') ? gImg : '/uploads/' + gImg}" 
-                                     class="absolute inset-0 w-full h-full object-contain bg-gray-100 transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}" 
+                                     class="absolute inset-0 w-full h-full object-cover bg-gray-100 transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}" 
                                      data-index="${idx}">
                             `).join('')}
                         </div>
@@ -506,14 +506,8 @@
                         <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
                             ${p.featured == 1 ? '<span class="bg-[#32CD32] text-white text-[10px] font-bold px-2 py-1 rounded">Featured</span>' : ''}
                             <span class="bg-[#FFD700] text-black text-[10px] font-bold px-2 py-1 rounded">${p.status || 'For Sale'}</span>
-                            <span class="bg-[#333] text-white text-[10px] font-bold px-2 py-1 rounded">Reduced Price</span>
                         </div>
                         
-                        <!-- Heart Icon -->
-                        <button class="absolute top-4 right-4 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center text-gray-600 hover:text-red-500 transition z-10">
-                            <i class="far fa-heart"></i>
-                        </button>
-
                         <!-- Slideshow Nav -->
                         ${gallery.length > 1 ? `
                             <button onclick="prevSlide(event, '${slideshowId}')" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition z-10">
@@ -522,25 +516,24 @@
                             <button onclick="nextSlide(event, '${slideshowId}')" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition z-10">
                                 <i class="fas fa-chevron-right text-xs"></i>
                             </button>
-                            <!-- Dots -->
-                            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-                                ${gallery.map((_, idx) => `
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white/50 ${idx === 0 ? 'bg-white' : ''}" data-dot="${idx}"></div>
-                                `).join('')}
-                            </div>
                         ` : ''}
                     </div>
-                    <div class="p-6" onclick="window.location.href='/property/${p.id}'">
+                    <div class="p-6 flex flex-col flex-grow" onclick="window.location.href='/property/${p.id}'">
                         <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
-                        <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
-                        <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location || 'Ethiopia'}</p>
-                        <div class="mb-4">
-                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
+                        <h3 class="text-xl font-bold text-brand-green mb-2 line-clamp-1">${p.title}</h3>
+                        <p class="text-gray-500 text-sm mb-4 flex items-center shrink-0">
+                            <i class="fas fa-map-marker-alt mr-2 text-brand-green"></i> ${p.location || 'Ethiopia'}
+                        </p>
+                        <div class="flex items-center justify-between mb-4 py-3 border-y border-gray-50 shrink-0">
+                            <div class="flex items-center gap-4 text-gray-600 text-sm">
+                                <span class="flex items-center gap-1"><i class="fas fa-bed text-brand-green"></i> ${p.bedrooms || 0}</span>
+                                <span class="flex items-center gap-1"><i class="fas fa-bath text-brand-green"></i> ${p.bathrooms || 0}</span>
+                                <span class="flex items-center gap-1"><i class="fas fa-expand-arrows-alt text-brand-green"></i> ${p.area_sqft || 0} sq ft</span>
+                            </div>
                         </div>
-                        <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
-                            <span><i class="fas fa-bed mr-1"></i> ${p.bedrooms || 0}</span>
-                            <span><i class="fas fa-bath mr-1"></i> ${p.bathrooms || 0}</span>
-                            <span><i class="fas fa-ruler-combined mr-1"></i> ${p.area_sqft || 0} sq ft</span>
+                        <div class="mt-auto pt-4 flex items-center justify-between">
+                            <span class="text-brand-green font-bold text-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
+                            <button onclick="openPropertyModal(${p.id})" class="text-brand-green font-bold text-sm hover:underline">Details <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
                         </div>
                     </div>
                 </div>`;
