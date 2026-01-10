@@ -27,7 +27,8 @@ function switchTab(tab) {
 
 async function fetchData() {
     if (currentTab === 'settings' || currentTab === 'about') {
-        const response = await fetch('/api/about.php'); // Changed from settings.php to about.php
+        const endpoint = currentTab === 'settings' ? '/api/settings.php' : '/api/about.php';
+        const response = await fetch(endpoint);
         const settings = await response.json();
         const formId = currentTab === 'settings' ? 'settings-form' : 'about-form';
         const form = document.getElementById(formId);
@@ -284,7 +285,11 @@ async function saveSettings() {
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
     
-    // Video is already uploaded and its URL is in the hidden input via auto-upload
+    // Ensure header_video is included from the hidden input if it was uploaded
+    const videoInput = document.getElementById('header_video_input');
+    if (videoInput && videoInput.value) {
+        payload.header_video = videoInput.value;
+    }
     
     const response = await fetch('/api/settings.php', {
         method: 'POST',
