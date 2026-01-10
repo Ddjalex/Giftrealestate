@@ -313,7 +313,6 @@
         initParticles();
         animateParticles();
 
-        let allProperties = [];
         async function loadData() {
             try {
                 const [pRes, sRes, gRes] = await Promise.all([
@@ -321,9 +320,11 @@
                     fetch('/api/settings'),
                     fetch('/api/gallery')
                 ]);
-                allProperties = await pRes.json();
+                const propertiesData = await pRes.json();
                 const settings = await sRes.json();
                 const gallery = await gRes.json();
+                
+                const properties = Array.isArray(propertiesData) ? propertiesData : [];
                 
                 const phone = settings.phone || '+251921878641';
                 document.getElementById('stats-phone').innerText = phone;
@@ -335,93 +336,28 @@
                 const headerOverlay = document.getElementById('header-overlay');
                 const fallbackImg = document.getElementById('header-image-bg');
 
-                if (headerContainer && settings.header_video) {
-                    const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
-                    
-                    // Create video element
-                    const video = document.createElement('video');
-                    video.muted = true;
-                    video.loop = true;
-                    video.playsInline = true;
-                    video.autoplay = true;
-                    video.preload = 'auto';
-                    video.className = 'w-full h-full object-cover absolute inset-0'; // Removed opacity-0 for immediate visibility
-                    video.style.zIndex = '5';
-                    video.innerHTML = `<source src="${videoUrl}" type="video/mp4">`;
-                    
-                    headerContainer.appendChild(video);
-                    
-                    // Immediately show video
-                    const showVideo = () => {
-                        video.classList.remove('opacity-0');
-                        if (fallbackImg) {
-                            fallbackImg.style.opacity = '0';
-                            setTimeout(() => {
-                                fallbackImg.classList.add('hidden');
-                            }, 1000);
-                        }
-                    };
-
-                    // Handle playback
-                    const playVideo = () => {
-                        video.play().then(showVideo).catch(e => {
-                            console.error('Video play failed:', e);
-                            showVideo(); // Still show it even if paused
-                            document.addEventListener('click', () => video.play().then(showVideo), { once: true });
-                        });
-                    };
-
-                    if (video.readyState >= 3) {
-                        playVideo();
+                if (headerContainer) {
+                    if (settings.header_video) {
+                        const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
+                        headerContainer.innerHTML = `<video muted loop playsinline autoplay preload="auto" class="w-full h-full object-cover absolute inset-0 z-[5]"><source src="${videoUrl}" type="video/mp4"></video>`;
+                        if (fallbackImg) fallbackImg.style.opacity = '0';
+                    } else if (settings.header_image) {
+                        const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
+                        headerContainer.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover" alt="Background View">`;
+                        if (headerOverlay) headerOverlay.style.background = 'linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.8) 100%)';
                     } else {
-                        video.oncanplay = playVideo;
-                        video.onloadeddata = showVideo; // Show as soon as first frame is ready
-                    }
-                    
-                    video.onloadstart = () => video.load(); 
-                    video.onerror = (e) => {
-                        console.error('Video error:', e);
-                        if (fallbackImg) fallbackImg.classList.remove('hidden');
-                    };
-                } else if (headerContainer && settings.header_image) {
-                    const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
-                    headerContainer.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover" alt="Background View">`;
-                    if (headerOverlay) headerOverlay.style.background = 'linear-gradient(180deg, rgba(0, 129, 72, 0.7) 0%, rgba(0, 129, 72, 0.8) 100%)';
-                }
-
-                // Update Map if exists
-                const mapContainer = document.getElementById('map-container');
-                if (settings.map_iframe) {
-                    let mapUrl = settings.map_iframe;
-                    // Detect if it's a full iframe tag and extract src
-                    if (mapUrl.includes('<iframe')) {
-                        const match = mapUrl.match(/src=["']([^"']+)["']/);
-                        if (match) mapUrl = match[1];
-                    }
-                    
-                    // Convert Google Maps links to embed links
-                    if (mapUrl.includes('google.com/maps') || mapUrl.includes('maps.app.goo.gl')) {
-                        // For short URLs or regular URLs, we really need the embed format.
-                        // Since we can't easily resolve short URLs client-side, we'll try a common conversion
-                        // but ultimately the user should provide the embed code for best results.
-                        if (mapUrl.includes('/maps/') && !mapUrl.includes('embed')) {
-                            mapUrl = mapUrl.replace('/maps/', '/maps/embed/');
-                        }
-                    }
-                    
-                    // Look for the footer map container or any map container
-                    const footerMap = document.querySelector('iframe[src*="google.com/maps"]')?.parentElement || 
-                                     document.getElementById('map-container') || 
-                                     document.querySelector('.visit-office-map') ||
-                                     document.querySelector('iframe')?.parentElement;
-                    if (footerMap) {
-                        footerMap.innerHTML = `<iframe src="${mapUrl}" class="w-full h-[500px] border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+                        const defaultImg = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';
+                        headerContainer.innerHTML = `<img src="${defaultImg}" class="w-full h-full object-cover" alt="Background View">`;
                     }
                 }
                 
-                displayProperties(allProperties, phone);
+                displayProperties(properties, phone);
                 displayGallery(gallery);
-            } catch (e) { console.error('Error loading data:', e); }
+            } catch (e) { 
+                console.error('Error loading data:', e);
+                const grid = document.getElementById('property-grid');
+                if (grid) grid.innerHTML = '<div class="text-center col-span-full py-10"><p class="text-red-500">Error loading featured properties.</p></div>';
+            }
         }
 
         function displayProperties(props, phone) {

@@ -89,7 +89,8 @@
             
             try {
                 const response = await fetch('/api/properties');
-                allProperties = await response.json();
+                const data = await response.json();
+                allProperties = Array.isArray(data) ? data : [];
                 
                 if (typeFilter) {
                     document.getElementById('filter-type').value = typeFilter;
@@ -99,6 +100,7 @@
                 }
             } catch (error) {
                 console.error('Error loading properties:', error);
+                document.getElementById('property-grid').innerHTML = '<div class="col-span-3 text-center py-20 text-red-500">Error loading properties. Please try again later.</div>';
             }
         }
 
