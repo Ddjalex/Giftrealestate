@@ -236,6 +236,15 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
                 <div class="mt-12 pt-8 border-t">
                     <h3 class="text-2xl font-bold text-brand-green mb-8">Security</h3>
+                    <form id="email-form" class="mb-8 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2">Login Email</label>
+                                <input type="email" id="admin-email" class="w-full p-3 border rounded-lg" value="<?php echo $_SESSION['admin_email']; ?>" required>
+                            </div>
+                        </div>
+                        <button type="button" onclick="changeEmail()" class="bg-brand-green text-brand-yellow font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition">Update Email</button>
+                    </form>
                     <form id="password-form" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>

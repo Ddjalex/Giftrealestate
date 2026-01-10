@@ -1,6 +1,14 @@
 <?php
+session_start();
 require_once 'db.php';
 global $pdo;
+
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Unauthorized']);
+    exit;
+}
+
 if (!isset($pdo)) {
     http_response_code(500);
     echo json_encode(['error' => 'Database connection missing']);
@@ -23,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     try {
         $stmt = $pdo->prepare("UPDATE users SET password = ? WHERE email = ?");
-        $stmt->execute([$hashed, 'timnit@gmail.com']);
+        $stmt->execute([$hashed, $_SESSION['admin_email']]);
         echo json_encode(['success' => true]);
     } catch (Exception $e) {
         http_response_code(500);

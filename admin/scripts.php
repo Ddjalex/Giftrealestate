@@ -300,6 +300,27 @@ async function saveSettings() {
     }
 }
 
+async function changeEmail() {
+    const newEmail = document.getElementById('admin-email').value;
+    if (!newEmail) {
+        alert('Please enter a new email');
+        return;
+    }
+    
+    const response = await fetch('/api/change_email.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ new_email: newEmail })
+    });
+
+    if (response.ok) {
+        alert('Email updated successfully! Please login again with your new email.');
+        window.location.href = '/admin/login.php';
+    } else {
+        alert('Failed to update email.');
+    }
+}
+
 async function changePassword() {
     const newPass = document.getElementById('new-password').value;
     const confirmPass = document.getElementById('confirm-password').value;
