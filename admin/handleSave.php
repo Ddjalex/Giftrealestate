@@ -46,11 +46,25 @@ async function handleSave() {
                     body: imgFormData
                 });
                 const uploadData = await uploadRes.json();
-                if (uploadData && uploadData.urls) {
-                    payload.main_image = uploadData.urls[0];
-                    // Ensure we include any existing images if we're not replacing all of them
-                    // or just send the new set of images
-                    payload.gallery_images = uploadData.urls;
+                if (uploadData && uploadData.urls && uploadData.urls.length > 0) {
+                    let newImages = uploadData.urls;
+                    
+                    if (payload.id) {
+                        // If editing, we append new images to existing ones instead of replacing
+                        const item = data.properties.find(i => i.id == payload.id);
+                        if (item) {
+                            let existingImages = [];
+                            try {
+                                existingImages = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
+                            } catch (e) { existingImages = []; }
+                            
+                            if (!Array.isArray(existingImages)) existingImages = [];
+                            newImages = [...existingImages, ...uploadData.urls];
+                        }
+                    }
+                    
+                    payload.main_image = newImages[0];
+                    payload.gallery_images = newImages;
                 }
             } catch (e) {
                 console.error('Upload failed', e);

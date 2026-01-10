@@ -279,10 +279,10 @@
                 <div>
                     <label class="block text-sm font-bold mb-2">Property Images</label>
                     <div class="flex gap-2 mb-2">
-                        <input type="file" id="prop-images-input" multiple class="flex-1 p-2 border rounded" accept="image/*">
-                        <button type="button" onclick="document.getElementById('prop-images-input').click()" class="bg-gray-200 px-4 py-2 rounded font-bold text-sm hover:bg-gray-300">Add More</button>
+                        <input type="file" id="prop-images-input" multiple class="hidden" accept="image/*">
+                        <button type="button" onclick="document.getElementById('prop-images-input').click()" class="bg-brand-green text-brand-yellow px-4 py-2 rounded font-bold text-sm hover:bg-opacity-90 transition">Add More Images</button>
                     </div>
-                    <div id="prop-images-preview" class="grid grid-cols-4 gap-2 mt-2"></div>
+                    <div id="prop-images-preview" class="grid grid-cols-4 gap-4 mt-4"></div>
                 </div>
                 <div class="flex items-center">
                     <input type="checkbox" name="featured" id="prop-featured" class="mr-2">

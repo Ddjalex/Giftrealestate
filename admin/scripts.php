@@ -336,6 +336,40 @@ async function deleteItem(id) {
     }
 }
 
+function renderPropertyImages(images) {
+    if (!Array.isArray(images)) return '';
+    return images.map((img, index) => `
+        <div class="relative group h-20 w-20">
+            <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-full w-full object-cover rounded border">
+            <button type="button" onclick="removePropertyImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">×</button>
+        </div>
+    `).join('');
+}
+
+function removePropertyImage(index) {
+    const idField = document.getElementById('prop-id');
+    const propertyId = idField ? idField.value : null;
+    if (!propertyId) return;
+
+    const item = data.properties.find(i => i.id == propertyId);
+    if (!item) return;
+
+    let images = [];
+    try {
+        images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
+    } catch (e) { images = []; }
+    
+    if (!Array.isArray(images)) images = [];
+    
+    images.splice(index, 1);
+    item.gallery_images = JSON.stringify(images);
+    if (images.length > 0) item.main_image = images[0];
+    else item.main_image = null;
+
+    const preview = document.getElementById('prop-images-preview');
+    if (preview) preview.innerHTML = renderPropertyImages(images);
+}
+
 function editItem(id) {
     const item = data[currentTab].find(i => i.id == id);
     if (!item) return;
@@ -344,9 +378,6 @@ function editItem(id) {
     document.getElementById('modal-title').innerText = `Edit ${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}`;
     
     if (currentTab === 'properties') {
-        const item = data.properties.find(i => i.id == id);
-        if (!item) return;
-        
         document.getElementById('prop-id').value = item.id;
         document.getElementById('prop-title').value = item.title;
         document.getElementById('prop-description').value = item.description || '';
@@ -360,19 +391,14 @@ function editItem(id) {
         document.getElementById('prop-featured').checked = item.featured == 1;
         
         const preview = document.getElementById('prop-images-preview');
-        if (preview && item.gallery_images) {
+        if (preview) {
             let images = [];
             try {
-                images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : item.gallery_images;
+                images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
             } catch (e) { images = []; }
             
             if (!Array.isArray(images)) images = [];
-
-            preview.innerHTML = images.map(img => `
-                <div class="relative group">
-                    <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-20 w-20 object-cover rounded border">
-                </div>
-            `).join('');
+            preview.innerHTML = renderPropertyImages(images);
         }
     } else if (currentTab === 'gallery') {
         document.getElementById('gallery-id').value = item.id;
