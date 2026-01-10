@@ -73,5 +73,5 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- Seed Initial Data
-INSERT INTO users (email, password) VALUES ('timnit@gmail.com', '$2y$10$7Z.X3/0/X3X3X3X3X3X3Xu1e2y3t4h5X3X3X3X3X3X3X3X3X3X3X3X3'); -- Note: Replace with actual hash for security, this is a placeholder format
+INSERT INTO users (email, password) VALUES ('timnit@gmail.com', '$2y$10$a12FC9Dch28/SbQEVaCMfO85WuGnIMFAK1.7bTppmoJKAk9ZrZiyS');
 INSERT INTO about_us (title, content, image_url) VALUES ('About Us', 'Welcome to Gift Real Estate.', '');
