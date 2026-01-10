@@ -344,30 +344,40 @@
                     video.muted = true;
                     video.loop = true;
                     video.playsInline = true;
-                    video.autoplay = true; // Added autoplay
+                    video.autoplay = true;
+                    video.preload = 'auto'; // Force preloading
                     video.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-1000 absolute inset-0';
                     video.innerHTML = `<source src="${videoUrl}" type="video/mp4">`;
                     
                     headerContainer.appendChild(video);
                     
-                    // Try to play immediately if autoplay is blocked
+                    // Immediately show video if it has already loaded metadata or is ready
+                    const showVideo = () => {
+                        video.classList.remove('opacity-0');
+                        if (fallbackImg) {
+                            fallbackImg.style.opacity = '0';
+                            setTimeout(() => {
+                                fallbackImg.classList.add('hidden');
+                            }, 1000);
+                        }
+                    };
+
+                    // Handle playback
                     const playVideo = () => {
-                        video.play().then(() => {
-                            video.classList.remove('opacity-0');
-                            if (fallbackImg) {
-                                fallbackImg.style.opacity = '0';
-                                setTimeout(() => {
-                                    fallbackImg.classList.add('hidden');
-                                }, 1000);
-                            }
-                        }).catch(e => {
+                        video.play().then(showVideo).catch(e => {
                             console.error('Video play failed:', e);
-                            // If autoplay fails, we show fallback or wait for user interaction
+                            // Some browsers need a user interaction to play
+                            document.addEventListener('click', () => video.play().then(showVideo), { once: true });
                         });
                     };
 
-                    video.oncanplaythrough = playVideo;
-                    video.onloadstart = () => video.load(); // Force load start
+                    if (video.readyState >= 3) {
+                        playVideo();
+                    } else {
+                        video.oncanplay = playVideo;
+                    }
+                    
+                    video.onloadstart = () => video.load(); 
                     video.onerror = (e) => console.error('Video error:', e);
                 } else if (headerContainer && settings.header_image) {
                     const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
