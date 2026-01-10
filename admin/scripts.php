@@ -432,7 +432,40 @@ function editItem(id) {
         document.getElementById('prop-featured').checked = item.featured == 1;
         
         selectedFiles = [];
-        refreshPropertyPreviews();
+        const preview = document.getElementById('prop-images-preview');
+        if (preview) {
+            preview.innerHTML = '';
+            
+            // Show main image first
+            if (item.main_image) {
+                const div = document.createElement('div');
+                div.className = 'relative group h-20 w-20';
+                div.innerHTML = `
+                    <img src="${item.main_image.startsWith('http') ? item.main_image : '/uploads/' + item.main_image}" class="h-full w-full object-cover rounded border border-brand-green">
+                    <span class="absolute -top-2 -left-2 bg-brand-green text-white rounded px-1 text-[10px]">Main</span>
+                `;
+                preview.appendChild(div);
+            }
+
+            // Show gallery images
+            let gallery = [];
+            try {
+                gallery = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
+            } catch (e) { gallery = []; }
+            
+            if (Array.isArray(gallery)) {
+                gallery.forEach((img, index) => {
+                    if (img === item.main_image) return;
+                    const div = document.createElement('div');
+                    div.className = 'relative group h-20 w-20';
+                    div.innerHTML = `
+                        <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-full w-full object-cover rounded border">
+                        <button type="button" onclick="removeExistingImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">×</button>
+                    `;
+                    preview.appendChild(div);
+                });
+            }
+        }
     }
 }
 

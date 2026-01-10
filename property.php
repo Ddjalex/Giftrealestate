@@ -67,7 +67,7 @@ $images = array_map(function($img) {
                 <div class="relative h-[500px] rounded-3xl overflow-hidden mb-6 group bg-gray-200">
                     <div class="flex h-full transition-transform duration-500" id="main-slider">
                         <?php foreach ($images as $img): ?>
-                            <img src="<?php echo $img; ?>" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="<?php echo $img; ?>" class="w-full h-full object-cover flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80'">
                         <?php endforeach; ?>
                     </div>
                     <?php if (count($images) > 1): ?>
@@ -83,7 +83,7 @@ $images = array_map(function($img) {
                 <div class="grid grid-cols-4 md:grid-cols-6 gap-3 mb-10">
                     <?php foreach ($images as $i => $img): ?>
                         <div class="h-24 w-full relative group">
-                            <img src="<?php echo $img; ?>" onclick="setSlide(<?php echo $i; ?>)" class="h-full w-full object-cover rounded-xl cursor-pointer hover:opacity-80 transition border-2 <?php echo $i === 0 ? 'border-brand-green' : 'border-transparent'; ?>" data-thumb="<?php echo $i; ?>">
+                            <img src="<?php echo $img; ?>" onclick="setSlide(<?php echo $i; ?>)" class="h-full w-full object-cover rounded-xl cursor-pointer hover:opacity-80 transition border-2 <?php echo $i === 0 ? 'border-brand-green' : 'border-transparent'; ?>" data-thumb="<?php echo $i; ?>" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'">
                         </div>
                     <?php endforeach; ?>
                 </div>

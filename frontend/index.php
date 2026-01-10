@@ -366,7 +366,7 @@
             grid.innerHTML = props.slice(0, 6).map(p => {
                 const img = p.main_image ? (p.main_image.startsWith('http') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80';
                 return `
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group cursor-pointer" onclick="openPropertyModal(${p.id})">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group cursor-pointer" onclick="window.location.href='/property/${p.id}'">
                     <div class="h-64 relative overflow-hidden">
                         <img src="${img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                     </div>
