@@ -171,9 +171,11 @@ function renderTable() {
             </tr>
         `;}).join('');
     } else if (currentTab === 'gallery') {
-        tbody.innerHTML = data.gallery.map(g => `
+        tbody.innerHTML = data.gallery.map(g => {
+            const imgSrc = g.image_url && (g.image_url.startsWith('http') || g.image_url.startsWith('data:')) ? g.image_url : (g.image_url ? '/uploads/' + g.image_url : '/public/assets/logo.png');
+            return `
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap"><img src="${g.image_url}" class="h-10 w-10 object-cover rounded"></td>
+                <td class="px-6 py-4 whitespace-nowrap"><img src="${imgSrc}" class="h-10 w-10 object-cover rounded" onerror="this.src='/public/assets/logo.png'"></td>
                 <td class="px-6 py-4 whitespace-nowrap font-medium">${g.title}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${g.category}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
@@ -181,7 +183,7 @@ function renderTable() {
                     <button onclick="deleteItem(${g.id})" class="text-red-600 hover:text-red-900">Delete</button>
                 </td>
             </tr>
-        `).join('');
+        `;}).join('');
     } else if (currentTab === 'news' || currentTab === 'blog') {
         tbody.innerHTML = data[currentTab].map(n => `
             <tr>

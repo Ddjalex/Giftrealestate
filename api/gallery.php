@@ -17,7 +17,7 @@ switch ($method) {
             $stmt->execute([$_GET['id']]);
             echo json_encode($stmt->fetch());
         } else {
-            $stmt = $pdo->query("SELECT * FROM gallery ORDER BY created_at DESC");
+            $stmt = $pdo->query("SELECT id, title, image_url, category, created_at FROM gallery ORDER BY created_at DESC");
             echo json_encode($stmt->fetchAll());
         }
         break;
