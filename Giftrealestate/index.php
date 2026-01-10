@@ -122,7 +122,7 @@
         <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
         <div class="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
             <div class="flex items-center shrink-0">
-                <a href="index.php"><img src="assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
+                <a href="index.php"><img src="assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
                 <a href="index.php" class="nav-link text-brand-green">Home</a>
