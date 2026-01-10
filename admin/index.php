@@ -44,7 +44,10 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     <main class="flex-1 overflow-y-auto">
         <header class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-40">
             <h2 id="current-tab-title" class="text-xl font-bold text-brand-green">Manage Properties</h2>
-            <button id="add-btn" onclick="showAddModal()" class="bg-brand-green text-brand-yellow font-bold px-4 py-2 rounded">+ Add New</button>
+            <div class="flex items-center gap-4">
+                <button id="add-btn" onclick="showAddModal()" class="bg-brand-green text-brand-yellow font-bold px-4 py-2 rounded">+ Add New</button>
+                <a href="logout.php" class="bg-red-600 text-white font-bold px-4 py-2 rounded hover:bg-red-700 transition">Logout</a>
+            </div>
         </header>
 
         <div id="content-properties" class="tab-content p-8">
