@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News & Updates - Gift Real Estate PLC</title>
+    <meta name="description" content="Stay updated with the latest news, project milestones, and real estate market trends in Ethiopia from Gift Real Estate PLC.">
+    <title>News & Updates | Gift Real Estate PLC Ethiopia Real Estate Market</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>

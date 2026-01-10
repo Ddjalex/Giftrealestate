@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Properties - Gift Real Estate PLC</title>
+    <meta name="description" content="Browse our luxury apartments and commercial properties for sale in Addis Ababa. Find your dream home with Gift Real Estate Ethiopia.">
+    <title>Properties for Sale in Addis Ababa | Gift Real Estate PLC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
