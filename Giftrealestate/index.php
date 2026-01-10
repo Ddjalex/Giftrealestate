@@ -219,7 +219,7 @@
 
     <header id="main-header" class="relative min-h-[300px] sm:min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div id="header-bg-container" class="absolute inset-0 z-0">
-            <img src="/assets/hero_preloader.jpg" id="header-preloader" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
+            <img src="/uploads/hero_preloader.jpg" id="header-preloader" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
         </div>
         <div id="header-overlay" class="absolute inset-0 z-[6] pointer-events-none" style="background: linear-gradient(180deg, rgba(0, 77, 64, 0.4) 0%, rgba(0, 77, 64, 0.6) 100%);"></div>
         <div class="scroll-indicator text-white text-2xl z-30">
@@ -668,16 +668,19 @@
         function displayGallery(items) {
             const grid = document.getElementById('gallery-grid');
             if (!grid) return;
-            grid.innerHTML = items.slice(0, 8).map(item => `
+            grid.innerHTML = items.slice(0, 8).map(item => {
+                const img = item.image ? (item.image.startsWith('http') ? item.image : '/uploads/' + item.image) : (item.image_url || '');
+                return `
                 <div class="relative h-64 overflow-hidden rounded-xl group cursor-pointer">
-                    <img src="${item.image_url}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <img src="${img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div class="text-white">
-                            <p class="text-xs font-bold text-brand-yellow uppercase mb-1">${item.category}</p>
-                            <h4 class="font-bold">${item.title}</h4>
+                            <p class="text-xs font-bold text-brand-yellow uppercase mb-1">${item.category || 'Gallery'}</p>
+                            <h4 class="font-bold">${item.title || ''}</h4>
                         </div>
                     </div>
-                </div>`).join('');
+                </div>`;
+            }).join('');
         }
 
         window.addEventListener('load', loadData);
