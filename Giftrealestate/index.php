@@ -150,7 +150,7 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-6 lg:space-x-8 font-semibold text-brand-green uppercase text-xs lg:text-sm tracking-wider">
-                <a href="index.php" class="nav-link text-brand-green">Home</a>
+                <a href="index.php" class="nav-link">Home</a>
                 <a href="about.php" class="nav-link">About Us</a>
                 <a href="gallery.php" class="nav-link">Gallery</a>
                 <a href="properties.php" class="nav-link">Properties</a>
@@ -347,8 +347,56 @@
         </div>
     </section>
 
+    <!-- Latest News Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <span class="text-brand-yellow font-bold tracking-widest uppercase text-sm">Insights</span>
+                    <h2 class="text-4xl font-bold text-brand-green mt-2">Latest News & Blog</h2>
+                </div>
+                <a href="news.php" class="text-brand-green font-bold hover:text-brand-yellow transition mt-4 md:mt-0">View All Updates <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+            <div id="index-news-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Loaded via JS -->
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <?php include 'footer.php'; ?>
+    
+    <script>
+        async function loadIndexNews() {
+            try {
+                const response = await fetch('/api/blog.php');
+                const items = await response.json();
+                const grid = document.getElementById('index-news-grid');
+                if (!grid) return;
+                
+                grid.innerHTML = items.slice(0, 3).map(item => `
+                    <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition duration-300 group">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="${item.image_url ? (item.image_url.startsWith('http') ? item.image_url : '/uploads/' + item.image_url) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-brand-green">
+                                ${new Date(item.created_at).toLocaleDateString()}
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-brand-green mb-3 line-clamp-2">${item.title}</h4>
+                            <p class="text-gray-500 text-sm line-clamp-3 mb-6">${item.content}</p>
+                            <a href="news.php" class="inline-flex items-center text-brand-green font-bold text-sm group-hover:text-brand-yellow transition">
+                                Read Article <i class="fas fa-chevron-right ml-2 text-xs transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading news:', error);
+            }
+        }
+        window.addEventListener('load', loadIndexNews);
+    </script>
 
     <!-- Modal -->
     <div id="property-modal" class="fixed inset-0 bg-black/80 z-[100] hidden items-center justify-center p-4">
