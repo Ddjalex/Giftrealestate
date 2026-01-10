@@ -35,6 +35,16 @@ async function handleSave() {
         
         // Handle multiple image uploads
         const imageInput = document.getElementById('prop-images-input');
+        
+        // Get existing images from the data object
+        const item = payload.id ? data.properties.find(i => i.id == payload.id) : null;
+        let finalGallery = [];
+        if (item) {
+            try {
+                finalGallery = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
+            } catch (e) { finalGallery = []; }
+        }
+        
         if (imageInput && imageInput.files.length > 0) {
             const imgFormData = new FormData();
             for (let i = 0; i < imageInput.files.length; i++) {
@@ -47,35 +57,19 @@ async function handleSave() {
                 });
                 const uploadData = await uploadRes.json();
                 if (uploadData && uploadData.urls && uploadData.urls.length > 0) {
-                    let newImages = uploadData.urls;
-                    
-                    if (payload.id) {
-                        // If editing, we append new images to existing ones instead of replacing
-                        const item = data.properties.find(i => i.id == payload.id);
-                        if (item) {
-                            let existingImages = [];
-                            try {
-                                existingImages = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
-                            } catch (e) { existingImages = []; }
-                            
-                            if (!Array.isArray(existingImages)) existingImages = [];
-                            newImages = [...existingImages, ...uploadData.urls];
-                        }
-                    }
-                    
-                    payload.main_image = newImages[0];
-                    payload.gallery_images = newImages;
+                    finalGallery = [...finalGallery, ...uploadData.urls];
                 }
             } catch (e) {
                 console.error('Upload failed', e);
             }
-        } else if (payload.id) {
-            // If editing and no new images, keep existing
-            const item = data.properties.find(i => i.id == payload.id);
-            if (item) {
-                payload.main_image = item.main_image;
-                payload.gallery_images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : item.gallery_images;
-            }
+        }
+        
+        if (finalGallery.length > 0) {
+            payload.main_image = finalGallery[0];
+            payload.gallery_images = finalGallery;
+        } else {
+            payload.main_image = null;
+            payload.gallery_images = [];
         }
     }
 

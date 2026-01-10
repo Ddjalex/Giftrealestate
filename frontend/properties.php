@@ -104,22 +104,29 @@
 
         function displayProperties(properties) {
             const grid = document.getElementById('property-grid');
-            grid.innerHTML = properties.map(p => `
+            if (!properties || properties.length === 0) {
+                grid.innerHTML = '<div class="col-span-3 text-center py-20 text-gray-500">No properties found matching your criteria.</div>';
+                return;
+            }
+            grid.innerHTML = properties.map(p => {
+                const mainImage = p.main_image ? (p.main_image.startsWith('http') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
+                return `
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition cursor-pointer" onclick="window.location.href='/property/${p.id}'">
-                    <img src="${p.main_image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'}" class="w-full h-64 object-cover">
+                    <img src="${mainImage}" class="w-full h-64 object-cover" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'">
                     <div class="p-6">
-                        <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type}</div>
+                        <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
                         <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
-                        <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location}</p>
-                        <div class="text-brand-green font-bold text-lg mb-4">Call for price</div>
+                        <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location || 'Ethiopia'}</p>
+                        <div class="text-brand-green font-bold text-lg mb-4">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</div>
                         <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
-                            <span><i class="fas fa-bed mr-1"></i> ${p.bedrooms}</span>
-                            <span><i class="fas fa-bath mr-1"></i> ${p.bathrooms}</span>
-                            <span><i class="fas fa-ruler-combined mr-1"></i> ${p.area_sqft} sq ft</span>
+                            <span><i class="fas fa-bed mr-1"></i> ${p.bedrooms || 0}</span>
+                            <span><i class="fas fa-bath mr-1"></i> ${p.bathrooms || 0}</span>
+                            <span><i class="fas fa-ruler-combined mr-1"></i> ${p.area_sqft || 0} sq ft</span>
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function filterProperties() {

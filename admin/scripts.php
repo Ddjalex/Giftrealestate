@@ -420,25 +420,6 @@ function editItem(id) {
         
         selectedFiles = [];
         refreshPropertyPreviews();
-    } else if (currentTab === 'gallery') {
-        document.getElementById('gallery-id').value = item.id;
-        document.getElementById('gallery-title').value = item.title;
-        document.getElementById('gallery-url').value = item.image_url;
-        document.getElementById('gallery-category').value = item.category || '';
-        const preview = document.getElementById('gallery-image-preview');
-        if (preview && item.image_url) {
-            preview.innerHTML = `<img src="${item.image_url.startsWith('http') ? item.image_url : '/uploads/'+item.image_url}" class="h-20 w-20 object-cover rounded border">`;
-        }
-    } else if (currentTab === 'news' || currentTab === 'blog') {
-        const prefix = currentTab === 'news' ? 'news' : 'blog';
-        document.getElementById(`${prefix}-id`).value = item.id;
-        document.getElementById(`${prefix}-title`).value = item.title;
-        document.getElementById(`${prefix}-content`).value = item.content || '';
-        document.getElementById(`${prefix}-url`).value = item.image_url || '';
-        const preview = document.getElementById(`${prefix}-image-preview`);
-        if (preview && item.image_url) {
-            preview.innerHTML = `<img src="${item.image_url.startsWith('http') ? item.image_url : '/uploads/'+item.image_url}" class="h-20 w-20 object-cover rounded border">`;
-        }
     }
 }
 
