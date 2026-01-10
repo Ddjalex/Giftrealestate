@@ -4,6 +4,7 @@
 <script>
 let currentTab = 'properties';
 let data = { properties: [], gallery: [], news: [], inquiries: [], about: [], blog: [] };
+let selectedFiles = [];
 
 function switchTab(tab) {
     currentTab = tab;
@@ -33,7 +34,6 @@ async function fetchData() {
         const formId = currentTab === 'settings' ? 'settings-form' : 'about-form';
         const form = document.getElementById(formId);
         if (form) {
-            // Special handling for About tab
             if (currentTab === 'about') {
                 const aboutTitle = document.getElementById('about_title_input');
                 const aboutContent = document.getElementById('about_content_input');
@@ -57,7 +57,6 @@ async function fetchData() {
                             preview.classList.remove('hidden');
                         }
                     } else {
-                        // Clear previews if no value
                         const preview = document.getElementById(img.preview);
                         if (preview) {
                             preview.src = '';
@@ -67,7 +66,6 @@ async function fetchData() {
                 });
                 return;
             }
-            // Original logic for settings
             for (const key in settings) {
                 if (form.elements[key]) {
                     form.elements[key].value = settings[key];
@@ -109,7 +107,6 @@ async function saveAbout() {
         ceo_image: document.getElementById('about_ceo_image_input').value
     };
     
-    // Process files
     const fileMappings = [
         { input: 'about_history_image_file', key: 'image_url' },
         { input: 'about_vision_image_file', key: 'vision_image' },
@@ -207,7 +204,6 @@ function renderTable() {
     }
 }
 
-// Special handling for header video auto-upload
 function setupHeaderVideoAutoUpload() {
     const videoFile = document.getElementById('header-video-file');
     if (!videoFile) return;
@@ -245,11 +241,10 @@ function setupHeaderVideoAutoUpload() {
                             const response = JSON.parse(xhr.responseText);
                             resolve(response);
                         } catch (e) {
-                            console.error('Raw response:', xhr.responseText);
-                            reject(new Error('Invalid JSON response: ' + xhr.responseText.substring(0, 100)));
+                            reject(new Error('Invalid JSON response'));
                         }
                     } else {
-                        reject(new Error('Upload failed with status: ' + xhr.status + ' ' + xhr.statusText));
+                        reject(new Error('Upload failed'));
                     }
                 }
             };
@@ -269,10 +264,8 @@ function setupHeaderVideoAutoUpload() {
                 }
             }
         } catch (e) {
-            console.error('Video upload failed', e);
             alert('Video upload failed: ' + e.message);
         } finally {
-            // Keep progress visible for a moment at 100%
             setTimeout(() => {
                 if (progressContainer) progressContainer.classList.add('hidden');
             }, 1000);
@@ -285,7 +278,6 @@ async function saveSettings() {
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
     
-    // Ensure header_video is included from the hidden input if it was uploaded
     const videoInput = document.getElementById('header_video_input');
     if (videoInput && videoInput.value) {
         payload.header_video = videoInput.value;
@@ -336,17 +328,50 @@ async function deleteItem(id) {
     }
 }
 
-function renderPropertyImages(images) {
-    if (!Array.isArray(images)) return '';
-    return images.map((img, index) => `
-        <div class="relative group h-20 w-20">
-            <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-full w-full object-cover rounded border">
-            <button type="button" onclick="removePropertyImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">×</button>
-        </div>
-    `).join('');
+function refreshPropertyPreviews() {
+    const preview = document.getElementById('prop-images-preview');
+    if (!preview) return;
+    preview.innerHTML = '';
+    
+    const idField = document.getElementById('prop-id');
+    const propertyId = idField ? idField.value : null;
+    if (propertyId) {
+        const item = data.properties.find(i => i.id == propertyId);
+        if (item) {
+            let images = [];
+            try {
+                images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
+            } catch (e) { images = []; }
+            if (Array.isArray(images)) {
+                images.forEach((img, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'relative group h-20 w-20';
+                    div.innerHTML = `
+                        <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-full w-full object-cover rounded border">
+                        <button type="button" onclick="removeExistingImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">×</button>
+                    `;
+                    preview.appendChild(div);
+                });
+            }
+        }
+    }
+    
+    selectedFiles.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const div = document.createElement('div');
+            div.className = 'relative group h-20 w-20';
+            div.innerHTML = `
+                <img src="${e.target.result}" class="h-full w-full object-cover rounded border">
+                <button type="button" onclick="removeSelectedFile(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">×</button>
+            `;
+            preview.appendChild(div);
+        }
+        reader.readAsDataURL(file);
+    });
 }
 
-function removePropertyImage(index) {
+function removeExistingImage(index) {
     const idField = document.getElementById('prop-id');
     const propertyId = idField ? idField.value : null;
     if (!propertyId) return;
@@ -359,15 +384,18 @@ function removePropertyImage(index) {
         images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
     } catch (e) { images = []; }
     
-    if (!Array.isArray(images)) images = [];
-    
-    images.splice(index, 1);
-    item.gallery_images = JSON.stringify(images);
-    if (images.length > 0) item.main_image = images[0];
-    else item.main_image = null;
+    if (Array.isArray(images)) {
+        images.splice(index, 1);
+        item.gallery_images = JSON.stringify(images);
+        if (images.length > 0) item.main_image = images[0];
+        else item.main_image = null;
+        refreshPropertyPreviews();
+    }
+}
 
-    const preview = document.getElementById('prop-images-preview');
-    if (preview) preview.innerHTML = renderPropertyImages(images);
+function removeSelectedFile(index) {
+    selectedFiles.splice(index, 1);
+    refreshPropertyPreviews();
 }
 
 function editItem(id) {
@@ -390,16 +418,8 @@ function editItem(id) {
         document.getElementById('prop-area').value = item.area_sqft;
         document.getElementById('prop-featured').checked = item.featured == 1;
         
-        const preview = document.getElementById('prop-images-preview');
-        if (preview) {
-            let images = [];
-            try {
-                images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
-            } catch (e) { images = []; }
-            
-            if (!Array.isArray(images)) images = [];
-            preview.innerHTML = renderPropertyImages(images);
-        }
+        selectedFiles = [];
+        refreshPropertyPreviews();
     } else if (currentTab === 'gallery') {
         document.getElementById('gallery-id').value = item.id;
         document.getElementById('gallery-title').value = item.title;
@@ -433,6 +453,7 @@ function showAddModal() {
 
 function hideAddModal() {
     document.getElementById('add-modal').classList.add('hidden');
+    selectedFiles = [];
     document.querySelectorAll('.modal-form').forEach(f => {
         f.reset();
         const idField = f.querySelector('input[type="hidden"]');
@@ -442,7 +463,6 @@ function hideAddModal() {
     if (preview) preview.innerHTML = '';
 }
 
-// Image preview logic
 function setupImagePreview(inputId, previewId, hiddenId) {
     const input = document.getElementById(inputId);
     if (!input) return;
@@ -470,29 +490,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setupHeaderVideoAutoUpload();
     
     document.getElementById('prop-images-input')?.addEventListener('change', function(e) {
-        const preview = document.getElementById('prop-images-preview');
-        if (!preview) return;
-        
-        // When more images are selected, we append them to the preview
-        // but since we want to support multiple images properly, we should actually
-        // let the user select all of them at once or handle the collection.
-        // For now, let's just make sure the preview shows all newly selected files.
-        
-        // If we want to keep previous selections, we would need a global array.
-        // But for simplicity, let's just make sure the preview is additive if we can.
-        
         Array.from(this.files).forEach(file => {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const div = document.createElement('div');
-                div.className = 'relative group h-20 w-20';
-                div.innerHTML = `
-                    <img src="${e.target.result}" class="h-full w-full object-cover rounded border">
-                `;
-                preview.appendChild(div);
-            }
-            reader.readAsDataURL(file);
+            selectedFiles.push(file);
         });
+        this.value = '';
+        refreshPropertyPreviews();
     });
 });
 
