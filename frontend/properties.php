@@ -112,15 +112,58 @@
                 return;
             }
             grid.innerHTML = properties.map(p => {
-                const mainImage = p.main_image ? (p.main_image.startsWith('http') || p.main_image.startsWith('data:') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
+                const img = p.main_image ? (p.main_image.startsWith('http') || p.main_image.startsWith('data:') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
+                
+                let gallery = [];
+                try {
+                    gallery = typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : (p.gallery_images || []);
+                } catch(e) { gallery = [img]; }
+                if (gallery.length === 0) gallery = [img];
+
+                const slideshowId = `slideshow-${p.id}`;
+
                 return `
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition cursor-pointer" onclick="window.location.href='/property/${p.id}'">
-                    <img src="${mainImage}" class="w-full h-64 object-cover" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'">
-                    <div class="p-6">
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition cursor-pointer">
+                    <div class="h-64 relative overflow-hidden group/slides">
+                        <div id="${slideshowId}" class="w-full h-full relative">
+                            ${gallery.map((gImg, idx) => `
+                                <img src="${gImg.startsWith('http') || gImg.startsWith('data:') ? gImg : '/uploads/' + gImg}" 
+                                     class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}" 
+                                     data-index="${idx}">
+                            `).join('')}
+                        </div>
+                        
+                        <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
+                            ${p.featured == 1 ? '<span class="bg-[#32CD32] text-white text-[10px] font-bold px-2 py-1 rounded">Featured</span>' : ''}
+                            <span class="bg-[#FFD700] text-black text-[10px] font-bold px-2 py-1 rounded">${p.status || 'For Sale'}</span>
+                            <span class="bg-[#333] text-white text-[10px] font-bold px-2 py-1 rounded">Reduced Price</span>
+                        </div>
+                        
+                        <button class="absolute top-4 right-4 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center text-gray-600 hover:text-red-500 transition z-10">
+                            <i class="far fa-heart"></i>
+                        </button>
+
+                        ${gallery.length > 1 ? `
+                            <button onclick="prevSlide(event, '${slideshowId}')" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition z-10">
+                                <i class="fas fa-chevron-left text-xs"></i>
+                            </button>
+                            <button onclick="nextSlide(event, '${slideshowId}')" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition z-10">
+                                <i class="fas fa-chevron-right text-xs"></i>
+                            </button>
+                            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                                ${gallery.map((_, idx) => `
+                                    <div class="w-1.5 h-1.5 rounded-full bg-white/50 ${idx === 0 ? 'bg-white' : ''}" data-dot="${idx}"></div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="p-6" onclick="window.location.href='/property/${p.id}'">
                         <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
                         <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
                         <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location || 'Ethiopia'}</p>
-                        <div class="text-brand-green font-bold text-lg mb-4">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</div>
+                        <div class="mb-4">
+                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
+                        </div>
                         <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
                             <span><i class="fas fa-bed mr-1"></i> ${p.bedrooms || 0}</span>
                             <span><i class="fas fa-bath mr-1"></i> ${p.bathrooms || 0}</span>
@@ -130,6 +173,32 @@
                 </div>
                 `;
             }).join('');
+        }
+
+        function nextSlide(e, id) {
+            e.stopPropagation();
+            const container = document.getElementById(id);
+            const slides = container.querySelectorAll('img');
+            const dots = container.parentElement.querySelectorAll('[data-dot]');
+            let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
+            slides[current].classList.replace('opacity-100', 'opacity-0');
+            if (dots[current]) dots[current].classList.remove('bg-white');
+            current = (current + 1) % slides.length;
+            slides[current].classList.replace('opacity-0', 'opacity-100');
+            if (dots[current]) dots[current].classList.add('bg-white');
+        }
+
+        function prevSlide(e, id) {
+            e.stopPropagation();
+            const container = document.getElementById(id);
+            const slides = container.querySelectorAll('img');
+            const dots = container.parentElement.querySelectorAll('[data-dot]');
+            let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
+            slides[current].classList.replace('opacity-100', 'opacity-0');
+            if (dots[current]) dots[current].classList.remove('bg-white');
+            current = (current - 1 + slides.length) % slides.length;
+            slides[current].classList.replace('opacity-0', 'opacity-100');
+            if (dots[current]) dots[current].classList.add('bg-white');
         }
 
         function filterProperties() {

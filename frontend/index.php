@@ -365,21 +365,98 @@
             if (!grid) return;
             grid.innerHTML = props.map(p => {
                 const img = p.main_image ? (p.main_image.startsWith('http') || p.main_image.startsWith('data:') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80';
+                
+                // Parse gallery images for slideshow
+                let gallery = [];
+                try {
+                    gallery = typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : (p.gallery_images || []);
+                } catch(e) { gallery = [img]; }
+                if (gallery.length === 0) gallery = [img];
+
+                const slideshowId = `slideshow-${p.id}`;
+                
                 return `
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group cursor-pointer" onclick="window.location.href='/property/${p.id}'">
-                    <div class="h-64 relative overflow-hidden">
-                        <img src="${img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">${p.title}</h3>
-                        <p class="text-brand-green font-bold mb-4">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</p>
-                        <div class="flex justify-between border-t pt-4 text-sm text-gray-500">
-                            <span><i class="fas fa-bed mr-2 text-brand-green"></i> ${p.bedrooms} Beds</span>
-                            <span><i class="fas fa-bath mr-2 text-brand-green"></i> ${p.bathrooms} Baths</span>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition group cursor-pointer">
+                    <div class="h-64 relative overflow-hidden group/slides">
+                        <div id="${slideshowId}" class="w-full h-full relative">
+                            ${gallery.map((gImg, idx) => `
+                                <img src="${gImg.startsWith('http') || gImg.startsWith('data:') ? gImg : '/uploads/' + gImg}" 
+                                     class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}" 
+                                     data-index="${idx}">
+                            `).join('')}
                         </div>
+                        
+                        <!-- Badges -->
+                        <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
+                            ${p.featured == 1 ? '<span class="bg-[#32CD32] text-white text-[10px] font-bold px-2 py-1 rounded">Featured</span>' : ''}
+                            <span class="bg-[#FFD700] text-black text-[10px] font-bold px-2 py-1 rounded">${p.status || 'For Sale'}</span>
+                            <span class="bg-[#333] text-white text-[10px] font-bold px-2 py-1 rounded">Reduced Price</span>
+                        </div>
+                        
+                        <!-- Heart Icon -->
+                        <button class="absolute top-4 right-4 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center text-gray-600 hover:text-red-500 transition z-10">
+                            <i class="far fa-heart"></i>
+                        </button>
+
+                        <!-- Slideshow Nav -->
+                        ${gallery.length > 1 ? `
+                            <button onclick="prevSlide(event, '${slideshowId}')" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition z-10">
+                                <i class="fas fa-chevron-left text-xs"></i>
+                            </button>
+                            <button onclick="nextSlide(event, '${slideshowId}')" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition z-10">
+                                <i class="fas fa-chevron-right text-xs"></i>
+                            </button>
+                            <!-- Dots -->
+                            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                                ${gallery.map((_, idx) => `
+                                    <div class="w-1.5 h-1.5 rounded-full bg-white/50 ${idx === 0 ? 'bg-white' : ''}" data-dot="${idx}"></div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="p-6" onclick="window.location.href='/property/${p.id}'">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">${p.title}</h3>
+                        <div class="mb-4">
+                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg">Call for price</span>
+                        </div>
+                        <div class="flex items-center text-gray-400 text-sm mb-4">
+                            <i class="fas fa-ruler-combined mr-2"></i> ${p.area_sqft || 0} sq ft
+                        </div>
+                        <p class="text-gray-600 text-sm line-clamp-1 mb-2">${p.description || p.title}</p>
+                        <p class="text-brand-green font-bold text-sm">${p.property_type || 'Residential Apartment'}</p>
                     </div>
                 </div>`;
             }).join('');
+        }
+
+        function nextSlide(e, id) {
+            e.stopPropagation();
+            const container = document.getElementById(id);
+            const slides = container.querySelectorAll('img');
+            const dots = container.parentElement.querySelectorAll('[data-dot]');
+            let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
+            slides[current].classList.replace('opacity-100', 'opacity-0');
+            if (dots[current]) dots[current].classList.remove('bg-white');
+            
+            current = (current + 1) % slides.length;
+            
+            slides[current].classList.replace('opacity-0', 'opacity-100');
+            if (dots[current]) dots[current].classList.add('bg-white');
+        }
+
+        function prevSlide(e, id) {
+            e.stopPropagation();
+            const container = document.getElementById(id);
+            const slides = container.querySelectorAll('img');
+            const dots = container.parentElement.querySelectorAll('[data-dot]');
+            let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
+            slides[current].classList.replace('opacity-100', 'opacity-0');
+            if (dots[current]) dots[current].classList.remove('bg-white');
+            
+            current = (current - 1 + slides.length) % slides.length;
+            
+            slides[current].classList.replace('opacity-0', 'opacity-100');
+            if (dots[current]) dots[current].classList.add('bg-white');
         }
 
         async function openPropertyModal(id) {
