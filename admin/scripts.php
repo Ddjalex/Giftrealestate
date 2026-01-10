@@ -366,6 +366,8 @@ function editItem(id) {
                 images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : item.gallery_images;
             } catch (e) { images = []; }
             
+            if (!Array.isArray(images)) images = [];
+
             preview.innerHTML = images.map(img => `
                 <div class="relative group">
                     <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-20 w-20 object-cover rounded border">

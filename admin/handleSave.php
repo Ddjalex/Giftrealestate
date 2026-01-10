@@ -48,10 +48,19 @@ async function handleSave() {
                 const uploadData = await uploadRes.json();
                 if (uploadData && uploadData.urls) {
                     payload.main_image = uploadData.urls[0];
+                    // Ensure we include any existing images if we're not replacing all of them
+                    // or just send the new set of images
                     payload.gallery_images = uploadData.urls;
                 }
             } catch (e) {
                 console.error('Upload failed', e);
+            }
+        } else if (payload.id) {
+            // If editing and no new images, keep existing
+            const item = data.properties.find(i => i.id == payload.id);
+            if (item) {
+                payload.main_image = item.main_image;
+                payload.gallery_images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : item.gallery_images;
             }
         }
     }
