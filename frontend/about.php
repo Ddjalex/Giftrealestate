@@ -250,6 +250,15 @@
                         callBtn.href = `tel:${settings.phone.replace(/\s/g, '')}`;
                         callBtn.innerHTML = `Call Us <i class="fas fa-phone"></i>`;
                     }
+                    
+                    const topBarPhone = document.getElementById('top-bar-phone');
+                    if (topBarPhone) {
+                        let phoneHtml = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone}`;
+                        if (settings.phone2) {
+                            phoneHtml += ` | <i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone2}`;
+                        }
+                        topBarPhone.innerHTML = phoneHtml;
+                    }
                 }
 
                 if (data && !data.error) {

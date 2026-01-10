@@ -327,12 +327,19 @@
                 const properties = Array.isArray(propertiesData) ? propertiesData : [];
                 
                 const phone = settings.phone || '+251 921 878 641';
+                const phone2 = settings.phone2 || '';
                 const address = settings.address || 'Kazanchis, Black Gold Plaza, Addis Ababa';
                 const email = settings.email || 'info@giftrealestate.com.et';
                 
                 document.getElementById('stats-phone').innerText = phone;
                 const topBarPhone = document.getElementById('top-bar-phone');
-                if (topBarPhone) topBarPhone.innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${phone}`;
+                if (topBarPhone) {
+                    let phoneHtml = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${phone}`;
+                    if (phone2) {
+                        phoneHtml += ` | <i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${phone2}`;
+                    }
+                    topBarPhone.innerHTML = phoneHtml;
+                }
                 
                 const topBarAddress = document.querySelector('.fa-map-marker-alt')?.parentElement;
                 if (topBarAddress) topBarAddress.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${address}`;

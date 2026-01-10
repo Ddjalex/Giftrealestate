@@ -108,7 +108,13 @@
                 const footerPhone = document.getElementById('footer-phone');
                 if (footerPhone) footerPhone.innerText = settings.phone;
                 const topBarPhone = document.getElementById('top-bar-phone');
-                if (topBarPhone) topBarPhone.innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone}`;
+                if (topBarPhone) {
+                    let phoneHtml = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone}`;
+                    if (settings.phone2) {
+                        phoneHtml += ` | <i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone2}`;
+                    }
+                    topBarPhone.innerHTML = phoneHtml;
+                }
             }
             if (settings.phone2) {
                 const footerPhone2 = document.getElementById('footer-phone2');
