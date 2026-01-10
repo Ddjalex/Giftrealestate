@@ -95,12 +95,16 @@
                     }
                 }
 
-                const response = await fetch('/api/news');
+                const response = await fetch('/api/blog.php');
                 const items = await response.json();
                 const grid = document.getElementById('news-grid');
+                if (items.length === 0) {
+                    grid.innerHTML = '<p class="col-span-3 text-center py-20 text-gray-500 italic">No news or updates available at the moment.</p>';
+                    return;
+                }
                 grid.innerHTML = items.map(item => `
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition">
-                        <img src="${item.image_url || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'}" class="w-full h-48 object-cover">
+                        <img src="${item.image_url ? (item.image_url.startsWith('http') ? item.image_url : '/uploads/' + item.image_url) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'}" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <span class="text-xs text-gray-400 font-bold uppercase">${new Date(item.created_at).toLocaleDateString()}</span>
                             <h4 class="text-xl font-bold text-brand-green mt-2 mb-4">${item.title}</h4>
