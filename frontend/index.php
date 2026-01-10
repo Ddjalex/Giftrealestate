@@ -381,7 +381,7 @@
                         <div id="${slideshowId}" class="w-full h-full relative">
                             ${gallery.map((gImg, idx) => `
                                 <img src="${gImg.startsWith('http') || gImg.startsWith('data:') ? gImg : '/uploads/' + gImg}" 
-                                     class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}" 
+                                     class="absolute inset-0 w-full h-full object-contain bg-gray-100 transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}" 
                                      data-index="${idx}">
                             `).join('')}
                         </div>
