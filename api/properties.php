@@ -12,7 +12,16 @@ switch ($method) {
             $property = $stmt->fetch();
             echo json_encode($property);
         } else {
-            $stmt = $pdo->query("SELECT * FROM properties ORDER BY created_at DESC");
+            $query = "SELECT * FROM properties";
+            $params = [];
+            
+            if (isset($_GET['featured'])) {
+                $query .= " WHERE featured = 1";
+            }
+            
+            $query .= " ORDER BY created_at DESC";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute($params);
             echo json_encode($stmt->fetchAll());
         }
         break;
