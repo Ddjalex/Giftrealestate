@@ -127,12 +127,12 @@
     </nav>
 
     <!-- Hero Section -->
-    <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
+    <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-gray-200">
         <div class="absolute inset-0 z-0">
             <div id="header-bg-container" class="w-full h-full relative">
-                <img id="header-image-bg" src="/uploads/hero_preloader.jpg" class="w-full h-full object-cover transition-opacity duration-1000" alt="Background Aerial View">
+                <img id="header-image-bg" src="/uploads/hero_preloader.jpg" class="w-full h-full object-cover transition-opacity duration-1000" alt="Background Aerial View" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
             </div>
-            <div id="header-overlay" class="absolute inset-0 bg-brand-green bg-opacity-30"></div>
+            <div id="header-overlay" class="absolute inset-0 bg-black bg-opacity-20"></div>
         </div>
         <div class="scroll-indicator text-white text-2xl">
             <i class="fas fa-chevron-down"></i>
@@ -351,17 +351,20 @@
                     
                     // When video is ready to play
                     video.oncanplaythrough = () => {
-                        video.play();
-                        // Fade in video
-                        video.classList.remove('opacity-0');
-                        // Fade out fallback image
-                        if (fallbackImg) {
-                            fallbackImg.style.opacity = '0';
-                            setTimeout(() => {
-                                fallbackImg.classList.add('hidden');
-                            }, 1000);
-                        }
+                        console.log('Video ready to play');
+                        video.play().then(() => {
+                            // Fade in video
+                            video.classList.remove('opacity-0');
+                            // Fade out fallback image
+                            if (fallbackImg) {
+                                fallbackImg.style.opacity = '0';
+                                setTimeout(() => {
+                                    fallbackImg.classList.add('hidden');
+                                }, 1000);
+                            }
+                        }).catch(e => console.error('Video play failed:', e));
                     };
+                    video.onerror = (e) => console.error('Video error:', e);
                 } else if (headerContainer && settings.header_image) {
                     const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
                     headerContainer.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover" alt="Background View">`;
