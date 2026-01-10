@@ -34,7 +34,7 @@
                 <a href="properties.php" class="nav-link text-brand-yellow">Properties</a>
                 <a href="news.php" class="nav-link">News</a>
             </div>
-            <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full">Call Us</a>
+            <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full">Call Us</a>
         </div>
     </nav>
 

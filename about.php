@@ -60,7 +60,7 @@
                 <a href="properties.php" class="nav-link">Properties</a>
                 <a href="news.php" class="nav-link">News</a>
             </div>
-            <a href="tel:+251921878641" class="bg-green-600 text-white font-bold px-6 py-2 rounded flex items-center gap-2">
+            <a href="tel:+251921878641" id="nav-call-btn" class="bg-green-600 text-white font-bold px-6 py-2 rounded flex items-center gap-2">
                 Call Us <i class="fas fa-phone"></i>
             </a>
         </div>

@@ -38,7 +38,7 @@
                 <a href="properties.php" class="nav-link">Properties</a>
                 <a href="news.php" class="nav-link text-brand-yellow">News</a>
             </div>
-            <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full">Call Us</a>
+            <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full">Call Us</a>
         </div>
     </nav>
 
@@ -71,6 +71,16 @@
     <script>
         async function loadNews() {
             try {
+                // Fetch settings for call button
+                const sRes = await fetch('/api/settings.php');
+                const settings = await sRes.json();
+                if (settings.phone) {
+                    const callBtn = document.getElementById('nav-call-btn');
+                    if (callBtn) {
+                        callBtn.href = `tel:${settings.phone.replace(/[^\d+]/g, '')}`;
+                    }
+                }
+
                 const response = await fetch('/api/news');
                 const items = await response.json();
                 const grid = document.getElementById('news-grid');
