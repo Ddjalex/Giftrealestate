@@ -118,12 +118,18 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50 overflow-hidden">
-        <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
-        <div class="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center h-20">
             <div class="flex items-center shrink-0">
-                <a href="index.php"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
+                <a href="index.php"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-10 md:h-16 w-auto object-contain"></a>
             </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-brand-green text-2xl p-2 focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
                 <a href="index.php" class="nav-link text-brand-green">Home</a>
                 <a href="about.php" class="nav-link">About Us</a>
@@ -132,18 +138,46 @@
                 <a href="news.php" class="nav-link">News</a>
                 <a href="contact.php" class="nav-link">Contact</a>
             </div>
-            <div class="flex items-center">
-                <a href="tel:+251921878641" id="nav-call-btn" class="bg-[#008148] text-white font-bold px-4 md:px-8 py-2 md:py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg text-sm md:text-base whitespace-nowrap">
-                    <span class="hidden sm:inline">Call Us</span> <i class="fas fa-phone-square-alt text-lg md:text-xl"></i>
+
+            <!-- Call Button (Desktop) -->
+            <div class="hidden md:flex items-center">
+                <a href="tel:+251921878641" id="nav-call-btn" class="bg-[#008148] text-white font-bold px-8 py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg uppercase text-sm tracking-wider whitespace-nowrap">
+                    <span>Call Us</span> <i class="fas fa-phone-square-alt text-xl"></i>
                 </a>
             </div>
         </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 py-4 px-4 space-y-4 shadow-xl">
+            <a href="index.php" class="block font-semibold text-brand-green uppercase text-sm py-2">Home</a>
+            <a href="about.php" class="block font-semibold text-brand-green uppercase text-sm py-2">About Us</a>
+            <a href="gallery.php" class="block font-semibold text-brand-green uppercase text-sm py-2">Gallery</a>
+            <a href="properties.php" class="block font-semibold text-brand-green uppercase text-sm py-2">Properties</a>
+            <a href="news.php" class="block font-semibold text-brand-green uppercase text-sm py-2">News</a>
+            <a href="contact.php" class="block font-semibold text-brand-green uppercase text-sm py-2">Contact</a>
+            <a href="tel:+251921878641" class="block bg-brand-green text-white font-bold py-3 px-6 rounded text-center uppercase text-sm tracking-widest mt-4">Call Us Now</a>
+        </div>
     </nav>
 
-    <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = menuBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                }
+            });
+        }
+    </script>
+
+    <header id="main-header" class="relative min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div id="header-bg-container" class="absolute inset-0 z-0">
             <img src="/uploads/hero_preloader.jpg" id="header-preloader" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-1000" onerror="this.style.display='none'">
-            <!-- Initial fallback to prevent green flash -->
             <img id="header-image-bg" src="/assets/home-header.jpg" class="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 z-[1]" alt="Header Background" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
         </div>
         <div id="header-overlay" class="absolute inset-0 z-[6] pointer-events-none" style="background: linear-gradient(180deg, rgba(0, 77, 64, 0.4) 0%, rgba(0, 77, 64, 0.6) 100%);"></div>
