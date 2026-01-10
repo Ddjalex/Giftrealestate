@@ -2,74 +2,102 @@
 // Shared Footer Component
 ?>
 <section id="contact" class="bg-brand-green">
-    <footer class="text-white pt-20 pb-10">
-        <div class="container mx-auto px-4 text-center mb-12">
-            <h3 class="text-3xl font-bold text-brand-yellow mb-8">Visit Our Office</h3>
-            <div id="map-container" class="rounded-3xl overflow-hidden shadow-2xl h-96 border-4 border-brand-yellow/30 bg-white/5">
-                <p class="pt-40 text-gray-400">Map location loading...</p>
-            </div>
+    <footer class="text-white pt-20 pb-10 relative overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="/uploads/contact_header.jpg" class="w-full h-full object-cover" alt="Footer Background">
+            <div class="absolute inset-0 bg-brand-green"></div>
         </div>
-        <div class="container mx-auto px-4">
+
+        <div class="container mx-auto px-4 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <!-- Brand -->
-                <div>
-                    <div class="text-2xl font-black text-brand-yellow mb-6 uppercase">Gift Real Estate</div>
-                    <p id="footer-about" class="text-gray-400 text-sm mb-6">
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                    <img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-24 object-contain mb-6 bg-white p-2 rounded-xl">
+                    <p id="footer-about" class="text-gray-200 text-sm mb-6 leading-relaxed">
                         Gift Real Estate PLC is one of the pioneering real estate companies in Ethiopia, building dream homes since 2005.
                     </p>
                     <div class="flex space-x-4">
-                        <a id="social-facebook" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-facebook-f"></i></a>
-                        <a id="social-telegram" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-telegram"></i></a>
-                        <a id="social-instagram" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-instagram"></i></a>
-                        <a id="social-linkedin" href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a id="social-facebook" href="#" class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-green transition"><i class="fab fa-facebook-f"></i></a>
+                        <a id="social-tiktok" href="#" class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-green transition"><i class="fab fa-tiktok"></i></a>
+                        <a id="social-instagram" href="#" class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-green transition"><i class="fab fa-instagram"></i></a>
+                        <a id="social-telegram" href="#" class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-green transition"><i class="fab fa-telegram"></i></a>
+                        <a id="social-linkedin" href="#" class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-green transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a id="social-x" href="#" class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-green transition"><i class="fab fa-x-twitter"></i></a>
+                        <a id="social-youtube" href="#" class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-brand-green transition"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
                 <!-- Property Types -->
                 <div>
-                    <h4 class="text-lg font-bold mb-6 text-brand-yellow uppercase">Property Types</h4>
-                    <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="/properties?type=Residential+Apartments" class="hover:text-brand-yellow transition">Residential Apartments</a></li>
-                        <li><a href="/properties?type=Commercial+Properties" class="hover:text-brand-yellow transition">Commercial Properties</a></li>
-                        <li><a href="/properties?type=Luxury+Villas" class="hover:text-brand-yellow transition">Luxury Villas</a></li>
-                        <li><a href="/properties?type=Office+Spaces" class="hover:text-brand-yellow transition">Office Spaces</a></li>
-                        <li><a href="/properties?type=Retail+Shops" class="hover:text-brand-yellow transition">Retail Shops</a></li>
+                    <h4 class="text-lg font-bold mb-8 text-white uppercase tracking-widest border-b border-brand-yellow/30 pb-2">Property Types</h4>
+                    <ul class="space-y-4 text-gray-200 text-sm">
+                        <li><a href="/properties?type=Residential+Apartments" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Residential Apartments</a></li>
+                        <li><a href="/properties?type=Commercial+Properties" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Commercial Properties</a></li>
+                        <li><a href="/properties?type=Luxury+Villas" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Luxury Villas</a></li>
+                        <li><a href="/properties?type=Office+Spaces" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Office Spaces</a></li>
+                        <li><a href="/properties?type=Retail+Shops" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Retail Shops</a></li>
+                        <li><a href="/properties?type=Land+%26+Plots" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Land & Plots</a></li>
                     </ul>
                 </div>
                 
-                <!-- Quick Links -->
+                <!-- Services Offered -->
                 <div>
-                    <h4 class="text-lg font-bold mb-6 text-brand-yellow uppercase">Quick Links</h4>
-                    <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="/about" class="hover:text-brand-yellow transition">About Us</a></li>
-                        <li><a href="/properties" class="hover:text-brand-yellow transition">Our Properties</a></li>
-                        <li><a href="/gallery" class="hover:text-brand-yellow transition">Project Gallery</a></li>
-                        <li><a href="/news" class="hover:text-brand-yellow transition">Latest News</a></li>
+                    <h4 class="text-lg font-bold mb-8 text-white uppercase tracking-widest border-b border-brand-yellow/30 pb-2">Services Offered</h4>
+                    <ul class="space-y-4 text-gray-200 text-sm">
+                        <li><a href="#" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Property Sales</a></li>
+                        <li><a href="#" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Property Rental</a></li>
+                        <li><a href="#" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Property Management</a></li>
+                        <li><a href="#" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Investment Consultation</a></li>
+                        <li><a href="#" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Property Valuation</a></li>
+                        <li><a href="#" class="hover:text-brand-yellow transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-brand-yellow"></i> Market Analysis</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact Details -->
                 <div>
-                    <h4 class="text-lg font-bold mb-6 text-brand-yellow uppercase">Contact Us</h4>
-                    <ul class="space-y-4 text-gray-400 text-sm">
-                        <li class="flex items-start gap-3">
+                    <h4 class="text-lg font-bold mb-8 text-white uppercase tracking-widest border-b border-brand-yellow/30 pb-2">Our Location</h4>
+                    <ul class="space-y-6 text-gray-200 text-sm">
+                        <li class="flex items-start gap-4">
                             <i class="fas fa-map-marker-alt mt-1 text-brand-yellow"></i>
-                            <span id="footer-address">Kazanchis, Black Gold Plaza, Addis Ababa</span>
+                            <span id="footer-address">Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia</span>
                         </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fas fa-phone-alt text-brand-yellow"></i>
-                            <span id="footer-phone">+251 921 878 641</span>
+                        <li class="flex items-center gap-4">
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-phone-alt text-brand-yellow"></i>
+                                    <span id="footer-phone">+251 921878641</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-phone-alt text-brand-yellow"></i>
+                                    <span>+251 941530182</span>
+                                </div>
+                            </div>
                         </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fas fa-envelope text-brand-yellow"></i>
-                            <span id="footer-email">info@giftrealestate.com.et</span>
+                        <li>
+                            <div class="flex gap-2">
+                                <input type="email" placeholder="Enter your email" class="flex-1 bg-white p-3 rounded-lg text-gray-800 focus:outline-none">
+                                <button class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-indigo-700 transition">SUBSCRIBE</button>
+                            </div>
+                        </li>
+                        <li>
+                            <p class="font-bold uppercase tracking-widest text-xs mb-4">Follow Us</p>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-tiktok"></i></a>
+                                <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-telegram"></i></a>
+                                <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-x-twitter"></i></a>
+                                <a href="#" class="text-white hover:text-brand-yellow transition"><i class="fab fa-youtube"></i></a>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="mt-12 pt-8 border-t border-white/10 text-center text-gray-400 text-sm">
-                <p>&copy; <?php echo date('Y'); ?> Gift Real Estate PLC. All rights reserved.</p>
+            <div class="mt-12 pt-8 border-t border-white/10 text-center text-gray-300 text-sm">
+                <p>Copyright &copy; <?php echo date('Y'); ?> Gift Real Estate PLC</p>
             </div>
         </div>
     </footer>

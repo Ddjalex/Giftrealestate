@@ -53,29 +53,107 @@
         </div>
     </header>
 
-    <section class="py-20">
-        <div class="container mx-auto px-4 max-w-2xl">
-            <div class="bg-white rounded-xl shadow-lg p-8">
-                <form id="inquiry-form" class="space-y-6">
-                    <div>
-                        <label class="block text-gray-700 font-bold mb-2">Full Name</label>
-                        <input type="text" name="name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green" required>
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start bg-white rounded-3xl shadow-2xl overflow-hidden">
+                <!-- Contact Info Side -->
+                <div class="p-12 bg-brand-green text-white h-full relative overflow-hidden">
+                    <div class="relative z-10">
+                        <span class="text-brand-yellow font-bold uppercase tracking-widest text-sm">CONTACT US</span>
+                        <h2 class="text-5xl font-bold mt-4 mb-8 leading-tight">Need Assistance?<br>Reach Out</h2>
+                        
+                        <div class="space-y-8">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-brand-yellow/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-phone-alt text-brand-yellow"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-sm font-bold uppercase mb-1">Our Phone:</p>
+                                    <p class="text-xl font-bold text-white">+251 921878641 / +251 941530182</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-brand-yellow/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-envelope text-brand-yellow"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-sm font-bold uppercase mb-1">Our Mail:</p>
+                                    <p class="text-lg font-bold text-white">info@giftrealestateplc.com / giftrealestatemd@gmail.com / giftrealestateofficialmd@gmail.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-brand-yellow/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt text-brand-yellow"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-sm font-bold uppercase mb-1">Our Address:</p>
+                                    <p class="text-lg font-bold text-white">Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-gray-700 font-bold mb-2">Email Address</label>
-                        <input type="email" name="email" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green" required>
+                    <!-- Decorative building background -->
+                    <div class="absolute bottom-0 right-0 opacity-10 pointer-events-none transform translate-x-1/4 translate-y-1/4">
+                        <i class="fas fa-city text-[300px]"></i>
                     </div>
-                    <div>
-                        <label class="block text-gray-700 font-bold mb-2">Phone Number</label>
-                        <input type="tel" name="phone" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green" required>
+                </div>
+
+                <!-- Form Side -->
+                <div class="p-12">
+                    <form id="inquiry-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2">Name</label>
+                                <input type="text" name="name" placeholder="Name" class="w-full p-4 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-brand-green" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2">Email</label>
+                                <input type="email" name="email" placeholder="Email" class="w-full p-4 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-brand-green" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Message</label>
+                            <textarea name="message" placeholder="Write your message here..." class="w-full p-4 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-brand-green h-48" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-yellow text-brand-green font-bold py-5 rounded-xl hover:bg-yellow-500 transition shadow-xl uppercase tracking-widest text-sm">Let's Get Started</button>
+                    </form>
+                    <div id="form-status" class="mt-6 text-center hidden"></div>
+                </div>
+            </div>
+
+            <!-- Offices Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="h-64 rounded-2xl overflow-hidden mb-6">
+                        <img src="/uploads/properties_header.jpg" class="w-full h-full object-cover" alt="Office 1">
                     </div>
-                    <div>
-                        <label class="block text-gray-700 font-bold mb-2">Message</label>
-                        <textarea name="message" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-brand-green h-32" required></textarea>
+                    <h3 class="text-xl font-bold text-brand-green mb-4">Gift Real Estate PLC, Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia</h3>
+                    <p class="text-gray-500 mb-2 font-bold uppercase text-xs">Our Phone:</p>
+                    <p class="text-brand-green font-bold">+251 921878641</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="h-64 rounded-2xl overflow-hidden mb-6">
+                        <img src="/uploads/gallery_header.jpg" class="w-full h-full object-cover" alt="Office 2">
                     </div>
-                    <button type="submit" class="w-full bg-brand-green text-brand-yellow font-bold py-4 rounded-lg hover:bg-opacity-90 transition shadow-lg">Submit Inquiry</button>
-                </form>
-                <div id="form-status" class="mt-6 text-center hidden"></div>
+                    <h3 class="text-xl font-bold text-brand-green mb-4">Gift Real Estate PLC, Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia</h3>
+                    <p class="text-gray-500 mb-2 font-bold uppercase text-xs">Our Phone:</p>
+                    <p class="text-brand-green font-bold">+251 921878641</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="h-64 rounded-2xl overflow-hidden mb-6">
+                        <img src="/uploads/contact_header.jpg" class="w-full h-full object-cover" alt="Office 3">
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-green mb-4">Gift Real Estate PLC, Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia</h3>
+                    <p class="text-gray-500 mb-2 font-bold uppercase text-xs">Our Phone:</p>
+                    <p class="text-brand-green font-bold">+251 921878641</p>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="mt-20 rounded-3xl overflow-hidden shadow-2xl h-[500px]">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.55132717833!2d38.7754399!3d9.0133469!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b850029b35203%3A0x60edb20360edb203!2sGift%20Real%20Estate!5e0!3m2!1sen!2set!4v1642100000000!5m2!1sen!2set" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>
