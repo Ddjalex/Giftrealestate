@@ -119,7 +119,8 @@
 
     <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 flex justify-between items-center h-20">
+        <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
+        <div class="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
             <div class="flex items-center shrink-0">
                 <a href="index.php"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-10 md:h-16 w-auto object-contain"></a>
             </div>
@@ -198,7 +199,7 @@
         }
     </script>
 
-    <header id="main-header" class="relative min-h-[400px] sm:min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden bg-brand-green">
+    <header id="main-header" class="relative min-h-[300px] sm:min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div id="header-bg-container" class="absolute inset-0 z-0">
             <img src="/uploads/hero_preloader.jpg" id="header-preloader" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
         </div>
