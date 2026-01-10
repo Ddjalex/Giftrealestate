@@ -60,8 +60,8 @@
     <!-- Navigation -->
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 flex justify-between items-center h-20">
-            <div class="flex items-center">
-                <a href="/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
+            <div class="flex items-center shrink-0">
+                <a href="/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-12 md:h-16 object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
                 <a href="index.php" class="nav-link">Home</a>
@@ -70,9 +70,11 @@
                 <a href="properties.php" class="nav-link">Properties</a>
                 <a href="news.php" class="nav-link">News</a>
             </div>
-            <a href="tel:+251921878641" id="nav-call-btn" class="bg-green-600 text-white font-bold px-6 py-2 rounded flex items-center gap-2">
-                Call Us <i class="fas fa-phone"></i>
-            </a>
+            <div class="flex items-center gap-2">
+                <a href="tel:+251921878641" id="nav-call-btn" class="bg-green-600 text-white font-bold px-4 md:px-6 py-2 rounded flex items-center gap-2 text-sm md:text-base whitespace-nowrap">
+                    <span class="hidden sm:inline">Call Us</span> <i class="fas fa-phone"></i>
+                </a>
+            </div>
         </div>
     </nav>
 
