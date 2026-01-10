@@ -237,8 +237,21 @@
     <script>
         async function loadAbout() {
             try {
-                const response = await fetch('/api/about');
+                const response = await fetch('/api/about.php');
                 const data = await response.json();
+                
+                // Fetch settings too for top bar
+                const sRes = await fetch('/api/settings.php');
+                const settings = await sRes.json();
+                
+                if (settings.phone) {
+                    const callBtn = document.querySelector('a[href^="tel:"]');
+                    if (callBtn) {
+                        callBtn.href = `tel:${settings.phone.replace(/\s/g, '')}`;
+                        callBtn.innerHTML = `Call Us <i class="fas fa-phone"></i>`;
+                    }
+                }
+
                 if (data && !data.error) {
                     if (data.title) {
                         const titleElement = document.querySelector('h1.text-5xl.font-bold.text-gray-900.mb-8');

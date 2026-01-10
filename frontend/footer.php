@@ -94,19 +94,25 @@
 <script>
     async function loadSettings() {
         try {
-            const response = await fetch('/api/settings');
+            const response = await fetch('/api/settings.php');
             const settings = await response.json();
             if (settings.address) {
                 const footerAddr = document.getElementById('footer-address');
                 if (footerAddr) footerAddr.innerText = settings.address;
-                const topBarAddress = document.querySelector('.bg-brand-green.text-white span');
+                const contactAddr = document.querySelector('li.text-white');
+                if (contactAddr) contactAddr.innerText = settings.address;
+                const topBarAddress = document.querySelector('.fa-map-marker-alt')?.parentElement;
                 if (topBarAddress) topBarAddress.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${settings.address}`;
             }
             if (settings.phone) {
                 const footerPhone = document.getElementById('footer-phone');
                 if (footerPhone) footerPhone.innerText = settings.phone;
-                const topBarPhone = document.querySelectorAll('.bg-brand-green.text-white span')[1];
+                const topBarPhone = document.getElementById('top-bar-phone');
                 if (topBarPhone) topBarPhone.innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone}`;
+            }
+            if (settings.email) {
+                const footerEmail = document.getElementById('footer-email');
+                if (footerEmail) footerEmail.innerText = settings.email;
             }
             if (settings.facebook) {
                 const socialFB = document.getElementById('social-facebook');

@@ -326,10 +326,27 @@
                 
                 const properties = Array.isArray(propertiesData) ? propertiesData : [];
                 
-                const phone = settings.phone || '+251921878641';
+                const phone = settings.phone || '+251 921 878 641';
+                const address = settings.address || 'Kazanchis, Black Gold Plaza, Addis Ababa';
+                const email = settings.email || 'info@giftrealestate.com.et';
+                
                 document.getElementById('stats-phone').innerText = phone;
-                document.getElementById('top-bar-phone').innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${phone}`;
-                document.getElementById('nav-call-btn').href = `tel:${phone}`;
+                const topBarPhone = document.getElementById('top-bar-phone');
+                if (topBarPhone) topBarPhone.innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${phone}`;
+                
+                const topBarAddress = document.querySelector('.fa-map-marker-alt')?.parentElement;
+                if (topBarAddress) topBarAddress.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${address}`;
+                
+                const callBtn = document.getElementById('nav-call-btn');
+                if (callBtn) callBtn.href = `tel:${phone.replace(/\s/g, '')}`;
+                
+                // Update footer if elements exist
+                const footerAddress = document.getElementById('footer-address');
+                if (footerAddress) footerAddress.innerText = address;
+                const footerPhone = document.getElementById('footer-phone');
+                if (footerPhone) footerPhone.innerText = phone;
+                const footerEmail = document.getElementById('footer-email');
+                if (footerEmail) footerEmail.innerText = email;
                 
                 // Update header background (image or video)
                 const headerContainer = document.getElementById('header-bg-container');

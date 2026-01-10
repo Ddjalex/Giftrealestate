@@ -89,8 +89,22 @@
             const typeFilter = urlParams.get('type');
             
             try {
-                const response = await fetch('/api/properties.php');
-                const data = await response.json();
+                const [pRes, sRes] = await Promise.all([
+                    fetch('/api/properties.php'),
+                    fetch('/api/settings.php')
+                ]);
+                const data = await pRes.json();
+                const settings = await sRes.json();
+                
+                // Update header/footer info
+                if (settings.phone) {
+                    const callBtn = document.querySelector('a[href^="tel:"]');
+                    if (callBtn) {
+                        callBtn.href = `tel:${settings.phone.replace(/\s/g, '')}`;
+                        callBtn.innerText = 'Call Us';
+                    }
+                }
+
                 allProperties = Array.isArray(data) ? data : [];
                 
                 if (typeFilter) {

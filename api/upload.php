@@ -1,4 +1,9 @@
 <?php
+ini_set('upload_max_filesize', '100M');
+ini_set('post_max_size', '105M');
+ini_set('max_execution_time', '300');
+ini_set('memory_limit', '256M');
+
 require_once 'db.php';
 global $pdo;
 if (!isset($pdo)) {
@@ -27,9 +32,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Ensure upload directory exists
     if (!file_exists($upload_dir)) {
-        mkdir($upload_dir, 0777, true);
+        if (!mkdir($upload_dir, 0777, true)) {
+             http_response_code(500);
+             echo json_encode(['error' => 'Failed to create upload directory']);
+             exit;
+        }
     }
     chmod($upload_dir, 0777);
+
+    // Increase PHP limits for video uploads
+    ini_set('upload_max_filesize', '100M');
+    ini_set('post_max_size', '105M');
+    ini_set('max_execution_time', '300');
+    ini_set('memory_limit', '256M');
 
     // Filter out potential empty entries and handle single file vs array
     $files = $_FILES['images'];
@@ -41,7 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = is_array($files['name']) ? $files['name'][$i] : $files['name'];
         $type = is_array($files['type']) ? $files['type'][$i] : $files['type'];
 
-        if ($error !== UPLOAD_ERR_OK) continue;
+        if ($error !== UPLOAD_ERR_OK) {
+             // Log error for debugging
+             error_log("Upload error: " . $error . " for file " . $name);
+             continue;
+        }
         
         $file_name = time() . '_' . rand(100, 999) . '_' . basename($name);
         $target_file = $upload_dir . $file_name;
