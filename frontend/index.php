@@ -127,14 +127,13 @@
     </nav>
 
     <!-- Hero Section -->
-    <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-gray-200">
-        <div class="absolute inset-0 z-0">
-            <div id="header-bg-container" class="w-full h-full relative">
-                <img id="header-image-bg" src="/uploads/hero_preloader.jpg" class="w-full h-full object-cover transition-opacity duration-1000" alt="Background Aerial View" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
-            </div>
-            <div id="header-overlay" class="absolute inset-0 bg-black bg-opacity-20"></div>
+    <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
+        <div id="header-bg-container" class="absolute inset-0 z-0">
+            <!-- Initial fallback to prevent green flash -->
+            <img id="header-image-bg" src="/uploads/hero_preloader.jpg" class="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 z-[1]" alt="Header Background" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
         </div>
-        <div class="scroll-indicator text-white text-2xl">
+        <div id="header-overlay" class="absolute inset-0 z-[6] pointer-events-none" style="background: linear-gradient(180deg, rgba(0, 77, 64, 0.4) 0%, rgba(0, 77, 64, 0.6) 100%);"></div>
+        <div class="scroll-indicator text-white text-2xl z-30">
             <i class="fas fa-chevron-down"></i>
         </div>
     </header>
@@ -345,13 +344,14 @@
                     video.loop = true;
                     video.playsInline = true;
                     video.autoplay = true;
-                    video.preload = 'auto'; // Force preloading
-                    video.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-1000 absolute inset-0';
+                    video.preload = 'auto';
+                    video.className = 'w-full h-full object-cover absolute inset-0'; // Removed opacity-0 for immediate visibility
+                    video.style.zIndex = '5';
                     video.innerHTML = `<source src="${videoUrl}" type="video/mp4">`;
                     
                     headerContainer.appendChild(video);
                     
-                    // Immediately show video if it has already loaded metadata or is ready
+                    // Immediately show video
                     const showVideo = () => {
                         video.classList.remove('opacity-0');
                         if (fallbackImg) {
@@ -366,7 +366,7 @@
                     const playVideo = () => {
                         video.play().then(showVideo).catch(e => {
                             console.error('Video play failed:', e);
-                            // Some browsers need a user interaction to play
+                            showVideo(); // Still show it even if paused
                             document.addEventListener('click', () => video.play().then(showVideo), { once: true });
                         });
                     };
@@ -375,10 +375,14 @@
                         playVideo();
                     } else {
                         video.oncanplay = playVideo;
+                        video.onloadeddata = showVideo; // Show as soon as first frame is ready
                     }
                     
                     video.onloadstart = () => video.load(); 
-                    video.onerror = (e) => console.error('Video error:', e);
+                    video.onerror = (e) => {
+                        console.error('Video error:', e);
+                        if (fallbackImg) fallbackImg.classList.remove('hidden');
+                    };
                 } else if (headerContainer && settings.header_image) {
                     const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
                     headerContainer.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover" alt="Background View">`;
