@@ -247,7 +247,8 @@
                 if (settings.phone) {
                     const callBtn = document.querySelector('a[href^="tel:"]');
                     if (callBtn) {
-                        callBtn.href = `tel:${settings.phone.replace(/\s/g, '')}`;
+                        const cleanPhone = settings.phone.replace(/[^\d+]/g, '');
+                        callBtn.href = `tel:${cleanPhone}`;
                         callBtn.innerHTML = `Call Us <i class="fas fa-phone"></i>`;
                     }
                     

@@ -345,7 +345,10 @@
                 if (topBarAddress) topBarAddress.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${address}`;
                 
                 const callBtn = document.getElementById('nav-call-btn');
-                if (callBtn) callBtn.href = `tel:${phone.replace(/\s/g, '')}`;
+                if (callBtn) {
+                    const cleanPhone = phone.replace(/[^\d+]/g, '');
+                    callBtn.href = `tel:${cleanPhone}`;
+                }
                 
                 // Update footer if elements exist
                 const footerAddress = document.getElementById('footer-address');
