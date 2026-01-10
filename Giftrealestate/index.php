@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-358ERBD36R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-358ERBD36R');
+</script>
+    <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Gift Real Estate PLC - Leading real estate developer in Ethiopia. Apartments for sale in Addis Ababa, luxury villas, and commercial properties.">
@@ -12,10 +22,6 @@
         :root {
             --brand-green: #008148;
             --brand-yellow: #fdd835;
-        }
-        @media (max-width: 400px) {
-            .xs\:inline { display: inline; }
-            .xs\:hidden { display: none; }
         }
         .bg-brand-green { background-color: var(--brand-green); }
         .text-brand-green { color: var(--brand-green); }
@@ -115,8 +121,8 @@
     <nav class="bg-white shadow-md sticky top-0 z-50 overflow-hidden">
         <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
         <div class="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
-            <div class="flex items-center shrink-0">
-                <a href="index.php"><img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-12 md:h-16 object-contain"></a>
+            <div class="flex items-center">
+                <a href="index.php"><img src="assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
                 <a href="index.php" class="nav-link text-brand-green">Home</a>
@@ -126,11 +132,9 @@
                 <a href="news.php" class="nav-link">News</a>
                 <a href="contact.php" class="nav-link">Contact</a>
             </div>
-            <div class="flex items-center gap-2">
-                <a href="tel:+251921878641" id="nav-call-btn" class="bg-[#008148] text-white font-bold px-4 md:px-8 py-2 md:py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg text-sm md:text-base whitespace-nowrap">
-                    <span class="hidden xs:inline">Call Us</span> <i class="fas fa-phone-square-alt text-lg md:text-xl"></i>
-                </a>
-            </div>
+            <a href="tel:+251921878641" id="nav-call-btn" class="bg-[#008148] text-white font-bold px-8 py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg">
+                Call Us <i class="fas fa-phone-square-alt text-xl"></i>
+            </a>
         </div>
     </nav>
 
@@ -138,7 +142,7 @@
     <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div id="header-bg-container" class="absolute inset-0 z-0">
             <!-- Initial fallback to prevent green flash -->
-            <img id="header-image-bg" src="/uploads/hero_preloader.jpg" class="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 z-[1]" alt="Header Background" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
+            <img id="header-image-bg" src="assets/home-header.jpg" class="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 z-[1]" alt="Header Background" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
         </div>
         <div id="header-overlay" class="absolute inset-0 z-[6] pointer-events-none" style="background: linear-gradient(180deg, rgba(0, 77, 64, 0.4) 0%, rgba(0, 77, 64, 0.6) 100%);"></div>
         <div class="scroll-indicator text-white text-2xl z-30">
