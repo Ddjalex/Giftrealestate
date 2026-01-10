@@ -130,7 +130,7 @@
     <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div class="absolute inset-0 z-0">
             <div id="header-bg-container" class="w-full h-full relative">
-                <img id="header-image-bg" src="/uploads/hero_fallback.jpg" class="w-full h-full object-cover transition-opacity duration-1000" alt="Background Aerial View">
+                <img id="header-image-bg" src="/uploads/hero_preloader.jpg" class="w-full h-full object-cover transition-opacity duration-1000" alt="Background Aerial View">
             </div>
             <div id="header-overlay" class="absolute inset-0 bg-brand-green bg-opacity-30"></div>
         </div>
@@ -339,28 +339,28 @@
                 if (headerContainer && settings.header_video) {
                     const videoUrl = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
                     
-                    // Create video element but don't show it yet
+                    // Create video element
                     const video = document.createElement('video');
-                    video.autoplay = true;
                     video.muted = true;
                     video.loop = true;
                     video.playsInline = true;
-                    video.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-1000';
+                    video.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-1000 absolute inset-0';
                     video.innerHTML = `<source src="${videoUrl}" type="video/mp4">`;
                     
                     headerContainer.appendChild(video);
                     
-                    video.onplay = () => {
+                    // When video is ready to play
+                    video.oncanplaythrough = () => {
+                        video.play();
                         // Fade in video
                         video.classList.remove('opacity-0');
-                        // Fade out fallback image and overlay
-                        if (fallbackImg) fallbackImg.style.opacity = '0';
-                        if (headerOverlay) headerOverlay.style.opacity = '0';
-                        
-                        // After fade complete, remove from layout if needed
-                        setTimeout(() => {
-                            if (fallbackImg) fallbackImg.classList.add('hidden');
-                        }, 1000);
+                        // Fade out fallback image
+                        if (fallbackImg) {
+                            fallbackImg.style.opacity = '0';
+                            setTimeout(() => {
+                                fallbackImg.classList.add('hidden');
+                            }, 1000);
+                        }
                     };
                 } else if (headerContainer && settings.header_image) {
                     const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;
