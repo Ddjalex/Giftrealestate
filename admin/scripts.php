@@ -472,14 +472,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('prop-images-input')?.addEventListener('change', function(e) {
         const preview = document.getElementById('prop-images-preview');
         if (!preview) return;
-        preview.innerHTML = '';
+        
+        // When more images are selected, we append them to the preview
+        // but since we want to support multiple images properly, we should actually
+        // let the user select all of them at once or handle the collection.
+        // For now, let's just make sure the preview shows all newly selected files.
+        
+        // If we want to keep previous selections, we would need a global array.
+        // But for simplicity, let's just make sure the preview is additive if we can.
+        
         Array.from(this.files).forEach(file => {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.className = 'h-20 w-20 object-cover rounded border';
-                preview.appendChild(img);
+                const div = document.createElement('div');
+                div.className = 'relative group h-20 w-20';
+                div.innerHTML = `
+                    <img src="${e.target.result}" class="h-full w-full object-cover rounded border">
+                `;
+                preview.appendChild(div);
             }
             reader.readAsDataURL(file);
         });
