@@ -5,7 +5,7 @@
     <footer class="text-white pt-20 pb-10 relative overflow-hidden">
         <!-- Background Image with Overlay -->
         <div class="absolute inset-0 z-0 opacity-40">
-            <img src="/uploads/contact_header.jpg" class="w-full h-full object-cover" alt="Footer Background">
+            <img src="/uploads/footer_bg_new.jpg" class="w-full h-full object-cover" alt="Footer Background">
             <div class="absolute inset-0 bg-[#32CD32] opacity-60"></div>
         </div>
 
