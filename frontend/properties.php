@@ -176,11 +176,15 @@
         }
 
         function nextSlide(e, id) {
-            e.stopPropagation();
+            if (e) e.stopPropagation();
             const container = document.getElementById(id);
+            if (!container) return;
             const slides = container.querySelectorAll('img');
+            if (slides.length <= 1) return;
             const dots = container.parentElement.querySelectorAll('[data-dot]');
             let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
+            if (current === -1) current = 0;
+            
             slides[current].classList.replace('opacity-100', 'opacity-0');
             if (dots[current]) dots[current].classList.remove('bg-white');
             current = (current + 1) % slides.length;
@@ -189,11 +193,15 @@
         }
 
         function prevSlide(e, id) {
-            e.stopPropagation();
+            if (e) e.stopPropagation();
             const container = document.getElementById(id);
+            if (!container) return;
             const slides = container.querySelectorAll('img');
+            if (slides.length <= 1) return;
             const dots = container.parentElement.querySelectorAll('[data-dot]');
             let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
+            if (current === -1) current = 0;
+            
             slides[current].classList.replace('opacity-100', 'opacity-0');
             if (dots[current]) dots[current].classList.remove('bg-white');
             current = (current - 1 + slides.length) % slides.length;
