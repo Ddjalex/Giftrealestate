@@ -335,24 +335,37 @@ function refreshPropertyPreviews() {
     
     const idField = document.getElementById('prop-id');
     const propertyId = idField ? idField.value : null;
-    if (propertyId) {
-        const item = data.properties.find(i => i.id == propertyId);
-        if (item) {
-            let images = [];
-            try {
-                images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
-            } catch (e) { images = []; }
-            if (Array.isArray(images)) {
-                images.forEach((img, index) => {
-                    const div = document.createElement('div');
-                    div.className = 'relative group h-20 w-20';
-                    div.innerHTML = `
-                        <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-full w-full object-cover rounded border">
-                        <button type="button" onclick="removeExistingImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">×</button>
-                    `;
-                    preview.appendChild(div);
-                });
-            }
+    
+    // Show main image if it exists and is not in gallery
+    const item = propertyId ? data.properties.find(i => i.id == propertyId) : null;
+    if (item && item.main_image) {
+        const div = document.createElement('div');
+        div.className = 'relative group h-20 w-20';
+        div.innerHTML = `
+            <img src="${item.main_image.startsWith('http') ? item.main_image : '/uploads/' + item.main_image}" class="h-full w-full object-cover rounded border border-brand-green">
+            <span class="absolute -top-2 -left-2 bg-brand-green text-white rounded px-1 text-[10px]">Main</span>
+        `;
+        preview.appendChild(div);
+    }
+
+    if (item) {
+        let images = [];
+        try {
+            images = typeof item.gallery_images === 'string' ? JSON.parse(item.gallery_images) : (item.gallery_images || []);
+        } catch (e) { images = []; }
+        if (Array.isArray(images)) {
+            images.forEach((img, index) => {
+                // Skip if it's the main image (already shown)
+                if (img === item.main_image) return;
+                
+                const div = document.createElement('div');
+                div.className = 'relative group h-20 w-20';
+                div.innerHTML = `
+                    <img src="${img.startsWith('http') ? img : '/uploads/' + img}" class="h-full w-full object-cover rounded border">
+                    <button type="button" onclick="removeExistingImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">×</button>
+                `;
+                preview.appendChild(div);
+            });
         }
     }
     
