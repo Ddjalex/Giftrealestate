@@ -139,9 +139,14 @@
             </div>
             
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-brand-green text-2xl p-2 focus:outline-none">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="flex items-center gap-2 md:hidden">
+                <a href="tel:+251921878641" class="bg-brand-green text-white p-2 rounded-lg text-lg shadow-md">
+                    <i class="fas fa-phone-alt"></i>
+                </a>
+                <button id="mobile-menu-btn" class="text-brand-green text-2xl p-2 focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-6 lg:space-x-8 font-semibold text-brand-green uppercase text-xs lg:text-sm tracking-wider">
@@ -214,7 +219,7 @@
 
     <header id="main-header" class="relative min-h-[300px] sm:min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div id="header-bg-container" class="absolute inset-0 z-0">
-            <img src="/uploads/hero_preloader.jpg" id="header-preloader" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
+            <img src="/assets/hero_preloader.jpg" id="header-preloader" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
         </div>
         <div id="header-overlay" class="absolute inset-0 z-[6] pointer-events-none" style="background: linear-gradient(180deg, rgba(0, 77, 64, 0.4) 0%, rgba(0, 77, 64, 0.6) 100%);"></div>
         <div class="scroll-indicator text-white text-2xl z-30">
@@ -275,20 +280,20 @@
     </section>
 
     <!-- About Section -->
-    <section class="py-20 bg-white">
+    <section class="py-12 md:py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
-                <div class="bg-white rounded-[40px] p-8 md:p-16 border-2 border-[#00ff00] shadow-sm relative overflow-hidden text-center">
-                    <h2 class="text-5xl md:text-6xl font-bold text-black mb-12">About Gift Real Estate PLC</h2>
-                    <p class="text-2xl text-gray-800 leading-relaxed mb-12 max-w-5xl mx-auto font-medium">
+                <div class="bg-white rounded-[40px] p-6 md:p-16 border-2 border-[#00ff00] shadow-sm relative overflow-hidden text-center">
+                    <h2 class="text-4xl md:text-6xl font-bold text-black mb-6 md:mb-12">About Gift Real Estate PLC</h2>
+                    <p class="text-xl md:text-2xl text-gray-800 leading-relaxed mb-8 md:mb-12 max-w-5xl mx-auto font-medium">
                         For over 25 years, Gift Real Estate PLC has been Ethiopia's trusted partner in building residential apartments, commercial apartments and creating exceptional living experiences. We don't just sell properties – we help you build your future.
                     </p>
                     <div class="relative rounded-[40px] overflow-hidden group shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" class="w-full h-auto min-h-[500px] object-cover transition-all duration-1000 group-hover:scale-110" alt="Gift Real Estate Projects">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" class="w-full h-auto min-h-[300px] md:min-h-[500px] object-cover transition-all duration-1000 group-hover:scale-110" alt="Gift Real Estate Projects">
                         <div class="absolute inset-0 about-overlay z-10 opacity-80 group-hover:opacity-60 transition-opacity"></div>
-                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 md:p-12 text-center text-white">
-                            <h3 class="text-4xl md:text-6xl font-bold mb-4 md:mb-8">"Gift Real Estate PLC"</h3>
-                            <p class="text-lg md:text-3xl max-w-5xl leading-relaxed font-semibold">
+                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center p-4 md:p-12 text-center text-white">
+                            <h3 class="text-3xl md:text-6xl font-bold mb-3 md:mb-8">"Gift Real Estate PLC"</h3>
+                            <p class="text-base md:text-3xl max-w-5xl leading-relaxed font-semibold">
                                 Gift Real Estate PLC's mission is to provide cutting-edge residential and commercial properties that are designed and built specifically to meet the needs of customers, transforming their lifestyle to a higher standard 21st-century lifestyle.
                             </p>
                         </div>
