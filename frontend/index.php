@@ -344,26 +344,30 @@
                     video.muted = true;
                     video.loop = true;
                     video.playsInline = true;
+                    video.autoplay = true; // Added autoplay
                     video.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-1000 absolute inset-0';
                     video.innerHTML = `<source src="${videoUrl}" type="video/mp4">`;
                     
                     headerContainer.appendChild(video);
                     
-                    // When video is ready to play
-                    video.oncanplaythrough = () => {
-                        console.log('Video ready to play');
+                    // Try to play immediately if autoplay is blocked
+                    const playVideo = () => {
                         video.play().then(() => {
-                            // Fade in video
                             video.classList.remove('opacity-0');
-                            // Fade out fallback image
                             if (fallbackImg) {
                                 fallbackImg.style.opacity = '0';
                                 setTimeout(() => {
                                     fallbackImg.classList.add('hidden');
                                 }, 1000);
                             }
-                        }).catch(e => console.error('Video play failed:', e));
+                        }).catch(e => {
+                            console.error('Video play failed:', e);
+                            // If autoplay fails, we show fallback or wait for user interaction
+                        });
                     };
+
+                    video.oncanplaythrough = playVideo;
+                    video.onloadstart = () => video.load(); // Force load start
                     video.onerror = (e) => console.error('Video error:', e);
                 } else if (headerContainer && settings.header_image) {
                     const imgUrl = settings.header_image.startsWith('http') ? settings.header_image : '/uploads/' + settings.header_image;

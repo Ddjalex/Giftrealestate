@@ -32,19 +32,17 @@
                 <a href="/properties" class="hover:text-brand-yellow">Properties</a>
                 <a href="/gallery" class="hover:text-brand-yellow">Gallery</a>
                 <a href="/news" class="hover:text-brand-yellow">News</a>
-                <a href="/inquiries" class="text-brand-yellow">Inquiries</a>
-                <a href="/contact" class="hover:text-brand-yellow">Contact</a>
+                <a href="/contact" class="text-brand-yellow">Contact</a>
             </div>
             <a href="tel:+251921878641" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full">Call Us</a>
         </div>
     </nav>
 
-    <!-- Header -->
     <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/uploads/contact_header.jpg');">
         <div class="container mx-auto px-4 relative z-10 text-center">
-            <h1 class="text-6xl font-bold text-white mb-4">Send Us an Inquiry</h1>
+            <h1 class="text-6xl font-bold text-white mb-4">Contact Us</h1>
             <div class="w-24 h-1 bg-brand-yellow mx-auto mb-6"></div>
-            <p class="text-brand-yellow font-medium tracking-widest uppercase">Interested in a property? Let us know and our agents will contact you.</p>
+            <p class="text-brand-yellow font-medium tracking-widest uppercase">We Love To Hear From You!</p>
         </div>
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
             <svg class="relative block w-full h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">

@@ -53,10 +53,8 @@ if (strpos($path, '/api/') === 0) {
     include 'frontend/gallery.php';
 } elseif ($path === '/properties') {
     include 'frontend/properties.php';
-} elseif ($path === '/inquiries') {
-    include 'frontend/inquiries.php';
 } elseif ($path === '/contact') {
-    include 'frontend/index.php';
+    include 'frontend/inquiries.php';
 } elseif (strpos($path, '/admin') === 0) {
     include 'admin/index.php';
 } else {

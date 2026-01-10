@@ -56,7 +56,7 @@
                 <a href="/" class="hover:text-brand-yellow">HOME</a>
                 <a href="/about" class="text-brand-yellow">ABOUT US</a>
                 <a href="/gallery" class="hover:text-brand-yellow">GALLERY</a>
-                <a href="/properties" class="hover:text-brand-yellow">PROPERTYS</a>
+                <a href="/properties" class="hover:text-brand-yellow">PROPERTIES</a>
                 <a href="/news" class="hover:text-brand-yellow">NEWS</a>
                 <a href="/contact" class="hover:text-brand-yellow">CONTACT</a>
             </div>
