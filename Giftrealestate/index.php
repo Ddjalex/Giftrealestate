@@ -122,7 +122,7 @@
         <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
         <div class="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
             <div class="flex items-center shrink-0">
-                <a href="index.php"><img src="assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
+                <a href="index.php"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
                 <a href="index.php" class="nav-link text-brand-green">Home</a>
@@ -140,11 +140,11 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <header id="main-header" class="relative min-h-[700px] flex items-center overflow-hidden bg-brand-green">
         <div id="header-bg-container" class="absolute inset-0 z-0">
+            <img src="/uploads/hero_preloader.jpg" id="header-preloader" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-1000" onerror="this.style.display='none'">
             <!-- Initial fallback to prevent green flash -->
-            <img id="header-image-bg" src="assets/home-header.jpg" class="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 z-[1]" alt="Header Background" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
+            <img id="header-image-bg" src="/assets/home-header.jpg" class="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 z-[1]" alt="Header Background" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
         </div>
         <div id="header-overlay" class="absolute inset-0 z-[6] pointer-events-none" style="background: linear-gradient(180deg, rgba(0, 77, 64, 0.4) 0%, rgba(0, 77, 64, 0.6) 100%);"></div>
         <div class="scroll-indicator text-white text-2xl z-30">
