@@ -79,7 +79,22 @@ if ($host) {
                 message TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                email TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
         ");
+        
+        // Seed admin user if not exists
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
+        $stmt->execute(['timnit@gmail.com']);
+        if ($stmt->fetchColumn() == 0) {
+            $hashedPassword = password_hash('a1e2y3t4h5', PASSWORD_DEFAULT);
+            $stmt = $pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
+            $stmt->execute(['timnit@gmail.com', $hashedPassword]);
+        }
         
         // Seed about_us if empty
         $stmt = $pdo->query("SELECT COUNT(*) FROM about_us");

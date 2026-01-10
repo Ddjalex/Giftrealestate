@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashed = password_hash($data['new_password'], PASSWORD_DEFAULT);
     
     try {
-        $stmt = $pdo->prepare("UPDATE users SET password = ? WHERE role = 'admin' LIMIT 1");
-        $stmt->execute([$hashed]);
-        echo json_encode(['status' => 'success']);
+        $stmt = $pdo->prepare("UPDATE users SET password = ? WHERE email = ?");
+        $stmt->execute([$hashed, 'timnit@gmail.com']);
+        echo json_encode(['success' => true]);
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
