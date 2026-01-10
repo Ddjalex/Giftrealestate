@@ -57,12 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $type = is_array($files['type']) ? $files['type'][$i] : $files['type'];
 
         if ($error !== UPLOAD_ERR_OK) {
-             // Log error for debugging
              error_log("Upload error: " . $error . " for file " . $name);
              continue;
         }
         
-        $file_name = time() . '_' . rand(100, 999) . '_' . basename($name);
+        $file_name = time() . '_' . rand(100, 999) . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($name));
         $target_file = $upload_dir . $file_name;
         
         if (move_uploaded_file($tmp_name, $target_file)) {
@@ -71,11 +70,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $file_ext = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             if (in_array($file_ext, ['mp4', 'webm', 'ogg'])) {
                 $compressed_file = $upload_dir . 'compressed_' . $file_name;
-                $cmd = "ffmpeg -i " . escapeshellarg($target_file) . " -vcodec libx264 -crf 38 -preset superfast -vf scale='trunc(iw/2)*2:trunc(ih/2)*2' -an -movflags +faststart " . escapeshellarg($compressed_file) . " 2>&1";
+                // Add logging and verify ffmpeg path if needed, but for now just ensure basic command is solid
+                $cmd = "ffmpeg -i " . escapeshellarg($target_file) . " -vcodec libx264 -crf 38 -preset superfast -vf \"scale='trunc(iw/2)*2:trunc(ih/2)*2'\" -an -movflags +faststart " . escapeshellarg($compressed_file) . " 2>&1";
                 exec($cmd, $output, $return_var);
                 if ($return_var === 0) {
                     unlink($target_file);
                     rename($compressed_file, $target_file);
+                } else {
+                    error_log("FFMPEG failed: " . implode("\n", $output));
+                    // Keep original file if compression fails
                 }
             }
             $uploaded_urls[] = $file_name;
