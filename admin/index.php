@@ -164,8 +164,12 @@
                             <input type="text" name="address" class="w-full p-3 border rounded-lg">
                         </div>
                         <div>
-                            <label class="block text-gray-700 font-bold mb-2">Contact Phone</label>
+                            <label class="block text-gray-700 font-bold mb-2">Contact Phone 1</label>
                             <input type="text" name="phone" class="w-full p-3 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">Contact Phone 2</label>
+                            <input type="text" name="phone2" class="w-full p-3 border rounded-lg">
                         </div>
                         <div>
                             <label class="block text-gray-700 font-bold mb-2">Contact Email</label>

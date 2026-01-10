@@ -58,9 +58,9 @@
                                 <i class="fas fa-phone-alt"></i>
                                 <span id="footer-phone">+251 921878641</span>
                             </div>
-                            <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-3 hidden">
                                 <i class="fas fa-phone-alt"></i>
-                                <span>+251 941530182</span>
+                                <span id="footer-phone2"></span>
                             </div>
                         </li>
                         <li>
@@ -109,6 +109,13 @@
                 if (footerPhone) footerPhone.innerText = settings.phone;
                 const topBarPhone = document.getElementById('top-bar-phone');
                 if (topBarPhone) topBarPhone.innerHTML = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone}`;
+            }
+            if (settings.phone2) {
+                const footerPhone2 = document.getElementById('footer-phone2');
+                if (footerPhone2) {
+                    footerPhone2.innerText = settings.phone2;
+                    footerPhone2.parentElement.classList.remove('hidden');
+                }
             }
             if (settings.email) {
                 const footerEmail = document.getElementById('footer-email');
