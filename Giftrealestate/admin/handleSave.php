@@ -33,6 +33,11 @@ async function handleSave() {
     if (currentTab === 'properties') {
         payload.featured = document.getElementById('prop-featured').checked ? 1 : 0;
         
+        // Handle amenities
+        const amenityCheckboxes = document.querySelectorAll('.amenity-checkbox:checked');
+        const amenities = Array.from(amenityCheckboxes).map(cb => cb.value);
+        payload.amenities = JSON.stringify(amenities);
+        
         // Handle multiple image uploads
         const imageInput = document.getElementById('prop-images-input');
         

@@ -456,6 +456,18 @@ function editItem(id) {
         document.getElementById('prop-baths').value = item.bathrooms;
         document.getElementById('prop-area').value = item.area_sqft;
         document.getElementById('prop-featured').checked = item.featured == 1;
+
+        // Set amenities checkboxes
+        const amenityCheckboxes = document.querySelectorAll('.amenity-checkbox');
+        let selectedAmenities = [];
+        try {
+            selectedAmenities = typeof item.amenities === 'string' ? JSON.parse(item.amenities) : (item.amenities || []);
+        } catch (e) {
+            selectedAmenities = [];
+        }
+        amenityCheckboxes.forEach(cb => {
+            cb.checked = selectedAmenities.includes(cb.value);
+        });
         
         selectedFiles = [];
         // Ensure gallery_images is an array for previews

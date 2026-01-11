@@ -331,6 +331,20 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                     <input type="number" name="area_sqft" id="prop-area" placeholder="Sq Ft" class="p-2 border rounded">
                 </div>
                 <div>
+                    <label class="block text-sm font-bold mb-2">Amenities & Features</label>
+                    <div id="amenities-checkboxes" class="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-2 border rounded bg-gray-50">
+                        <?php 
+                        $common_amenities = ['Air conditioning', 'Free WiFi', 'Elevator', 'Gym', 'Parking', 'Security', 'Swimming Pool', 'Garden', 'Balcony', 'City View', 'Furnished', 'Laundry Room'];
+                        foreach ($common_amenities as $amen): 
+                        ?>
+                            <label class="flex items-center gap-2 text-sm">
+                                <input type="checkbox" name="amenities[]" value="<?php echo $amen; ?>" class="amenity-checkbox">
+                                <?php echo $amen; ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div>
                     <label class="block text-sm font-bold mb-2">Property Images</label>
                     <div class="flex gap-2 mb-2">
                         <input type="file" id="prop-images-input" multiple class="hidden" accept="image/*">

@@ -145,24 +145,27 @@ $images = array_map(function($img) {
                             </span>
                         </div>
                         <div id="amenities-content" class="grid grid-cols-2 md:grid-cols-3 gap-4 transition-all duration-300 overflow-hidden">
-                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                                <i class="fas fa-snowflake text-brand-green"></i> Air conditioning
-                            </div>
-                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                                <i class="fas fa-wifi text-brand-green"></i> Free WiFi
-                            </div>
-                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                                <i class="fas fa-elevator text-brand-green"></i> Elevator
-                            </div>
-                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                                <i class="fas fa-dumbbell text-brand-green"></i> Gym
-                            </div>
-                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                                <i class="fas fa-parking text-brand-green"></i> Parking
-                            </div>
-                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
-                                <i class="fas fa-shield-alt text-brand-green"></i> Security
-                            </div>
+                            <?php 
+                            $amenities = json_decode($property['amenities'] ?? '[]', true);
+                            if (empty($amenities)) {
+                                $amenities = ['Air conditioning', 'Free WiFi', 'Elevator', 'Gym', 'Parking', 'Security'];
+                            }
+                            foreach ($amenities as $amenity): 
+                                $icon = 'fa-check';
+                                $lowerAmenity = strtolower($amenity);
+                                if (strpos($lowerAmenity, 'air') !== false) $icon = 'fa-snowflake';
+                                elseif (strpos($lowerAmenity, 'wifi') !== false || strpos($lowerAmenity, 'internet') !== false) $icon = 'fa-wifi';
+                                elseif (strpos($lowerAmenity, 'elevator') !== false) $icon = 'fa-elevator';
+                                elseif (strpos($lowerAmenity, 'gym') !== false) $icon = 'fa-dumbbell';
+                                elseif (strpos($lowerAmenity, 'parking') !== false) $icon = 'fa-parking';
+                                elseif (strpos($lowerAmenity, 'security') !== false) $icon = 'fa-shield-alt';
+                                elseif (strpos($lowerAmenity, 'pool') !== false) $icon = 'fa-swimming-pool';
+                                elseif (strpos($lowerAmenity, 'garden') !== false) $icon = 'fa-leaf';
+                            ?>
+                                <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl text-gray-700">
+                                    <i class="fas <?php echo $icon; ?> text-brand-green"></i> <?php echo htmlspecialchars($amenity); ?>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
