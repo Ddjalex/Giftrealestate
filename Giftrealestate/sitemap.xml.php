@@ -31,22 +31,26 @@ outputUrl("$baseUrl/gallery.php", "0.8");
 outputUrl("$baseUrl/properties.php", "0.9");
 
 // Properties Detail
-try {
-    $stmt = $pdo->query("SELECT id FROM properties");
-    while ($row = $stmt->fetch()) {
-        outputUrl("$baseUrl/property.php?id=" . $row['id'], "0.9");
-    }
-} catch (Exception $e) {}
+if (isset($pdo) && $pdo) {
+    try {
+        $stmt = $pdo->query("SELECT id FROM properties");
+        while ($row = $stmt->fetch()) {
+            outputUrl("$baseUrl/property.php?id=" . $row['id'], "0.9");
+        }
+    } catch (Exception $e) {}
+}
 
 // News/Blog Listing
 outputUrl("$baseUrl/news.php", "0.8");
 
 // News/Blog Detail
-try {
-    $stmt = $pdo->query("SELECT id FROM news");
-    while ($row = $stmt->fetch()) {
-        outputUrl("$baseUrl/news_detail.php?id=" . $row['id'], "0.7");
-    }
-} catch (Exception $e) {}
+if (isset($pdo) && $pdo) {
+    try {
+        $stmt = $pdo->query("SELECT id FROM news");
+        while ($row = $stmt->fetch()) {
+            outputUrl("$baseUrl/news_detail.php?id=" . $row['id'], "0.7");
+        }
+    } catch (Exception $e) {}
+}
 
 echo '</urlset>';
