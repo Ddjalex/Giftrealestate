@@ -17,13 +17,22 @@ echo "<url><loc>$baseUrl/about.php</loc><priority>0.8</priority></url>";
 // Contact
 echo "<url><loc>$baseUrl/contact.php</loc><priority>0.8</priority></url>";
 
-// Properties
+// Gallery
+echo "<url><loc>$baseUrl/gallery.php</loc><priority>0.8</priority></url>";
+
+// Properties Listing
+echo "<url><loc>$baseUrl/properties.php</loc><priority>0.9</priority></url>";
+
+// Properties Detail
 $stmt = $pdo->query("SELECT id FROM properties");
 while ($row = $stmt->fetch()) {
     echo "<url><loc>$baseUrl/property.php?id=" . $row['id'] . "</loc><priority>0.9</priority></url>";
 }
 
-// News/Blog
+// News/Blog Listing
+echo "<url><loc>$baseUrl/news.php</loc><priority>0.8</priority></url>";
+
+// News/Blog Detail
 $stmt = $pdo->query("SELECT id FROM news");
 while ($row = $stmt->fetch()) {
     echo "<url><loc>$baseUrl/news_detail.php?id=" . $row['id'] . "</loc><priority>0.7</priority></url>";
