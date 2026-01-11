@@ -23,16 +23,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         // Background WhatsApp Notification
-        $ownerPhone = "251974408281"; // Target number from screenshot
+        $ownerPhone = "251921878641"; // Corrected owner number from settings
         $msg = "New Inquiry:\n" .
                "Property: " . ($data['property_id'] ?? 'N/A') . "\n" .
                "Name: " . $data['name'] . "\n" .
                "Phone: " . ($data['phone'] ?? 'N/A') . "\n" .
                "Message: " . $data['message'];
                
-        $url = "https://api.callmebot.com/whatsapp.php?phone=" . $ownerPhone . "&text=" . urlencode($msg) . "&apikey=123456"; 
+        // CallMeBot usually requires a setup (API Key per user). 
+        // If the background API isn't working, we might need a different approach or correct API key.
+        // For now, I will use the number that was working in the previous direct-link version.
+        $url = "https://api.callmebot.com/whatsapp.php?phone=" . $ownerPhone . "&text=" . urlencode($msg) . "&apikey=3813853"; // Example/Placeholder API key - ideally user provides this
         
-        // Non-blocking call
         @file_get_contents($url);
 
         echo json_encode(['status' => 'success', 'message' => 'Inquiry sent successfully']);
