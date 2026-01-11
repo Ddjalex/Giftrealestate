@@ -5,40 +5,48 @@ global $pdo;
 
 $baseUrl = "https://realestatepropertyaddis.com";
 
-echo '<?xml version="1.0" encoding="UTF-8"?>';
-echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+echo '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
+
+// Helper function to output URL
+function outputUrl($loc, $priority) {
+    echo "  <url>" . PHP_EOL;
+    echo "    <loc>" . htmlspecialchars($loc) . "</loc>" . PHP_EOL;
+    echo "    <priority>$priority</priority>" . PHP_EOL;
+    echo "  </url>" . PHP_EOL;
+}
 
 // Homepage
-echo "<url><loc>$baseUrl/</loc><priority>1.0</priority></url>";
+outputUrl("$baseUrl/", "1.0");
 
 // About
-echo "<url><loc>$baseUrl/about.php</loc><priority>0.8</priority></url>";
+outputUrl("$baseUrl/about.php", "0.8");
 
 // Contact
-echo "<url><loc>$baseUrl/contact.php</loc><priority>0.8</priority></url>";
+outputUrl("$baseUrl/contact.php", "0.8");
 
 // Gallery
-echo "<url><loc>$baseUrl/gallery.php</loc><priority>0.8</priority></url>";
+outputUrl("$baseUrl/gallery.php", "0.8");
 
 // Properties Listing
-echo "<url><loc>$baseUrl/properties.php</loc><priority>0.9</priority></url>";
+outputUrl("$baseUrl/properties.php", "0.9");
 
 // Properties Detail
 try {
     $stmt = $pdo->query("SELECT id FROM properties");
     while ($row = $stmt->fetch()) {
-        echo "<url><loc>$baseUrl/property.php?id=" . $row['id'] . "</loc><priority>0.9</priority></url>";
+        outputUrl("$baseUrl/property.php?id=" . $row['id'], "0.9");
     }
 } catch (Exception $e) {}
 
 // News/Blog Listing
-echo "<url><loc>$baseUrl/news.php</loc><priority>0.8</priority></url>";
+outputUrl("$baseUrl/news.php", "0.8");
 
 // News/Blog Detail
 try {
     $stmt = $pdo->query("SELECT id FROM news");
     while ($row = $stmt->fetch()) {
-        echo "<url><loc>$baseUrl/news_detail.php?id=" . $row['id'] . "</loc><priority>0.7</priority></url>";
+        outputUrl("$baseUrl/news_detail.php?id=" . $row['id'], "0.7");
     }
 } catch (Exception $e) {}
 
