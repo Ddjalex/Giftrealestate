@@ -206,7 +206,7 @@ $images = array_map(function($img) {
             </div>
         </div>
     <!-- Footer -->
-    <?php include 'frontend/footer.php'; ?>
+    <?php include 'footer.php'; ?>
 
     <script>
         let currentSlide = 0;
