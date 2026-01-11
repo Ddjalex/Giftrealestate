@@ -22,10 +22,11 @@ try {
     // Check if tables exist and create if not (MySQL syntax)
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS settings (
-            \`key\` VARCHAR(255) PRIMARY KEY,
-            \`value\` TEXT,
-            \`updated_at\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            `key` VARCHAR(255) PRIMARY KEY,
+            `value` TEXT,
+            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        
         CREATE TABLE IF NOT EXISTS about_us (
             id INT AUTO_INCREMENT PRIMARY KEY,
             title TEXT,
@@ -35,6 +36,7 @@ try {
             ceo_image TEXT,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
+        
         CREATE TABLE IF NOT EXISTS properties (
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
@@ -51,6 +53,7 @@ try {
             gallery_images TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
+        
         CREATE TABLE IF NOT EXISTS gallery (
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
@@ -58,6 +61,7 @@ try {
             category VARCHAR(255),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
+        
         CREATE TABLE IF NOT EXISTS news (
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
@@ -65,6 +69,7 @@ try {
             image_url TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
+        
         CREATE TABLE IF NOT EXISTS blog (
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
@@ -72,13 +77,17 @@ try {
             image_url TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
+        
         CREATE TABLE IF NOT EXISTS inquiries (
             id INT AUTO_INCREMENT PRIMARY KEY,
+            property_id INT,
             name VARCHAR(255) NOT NULL,
             email VARCHAR(255),
+            phone VARCHAR(50),
             message TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
+        
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             email VARCHAR(255) UNIQUE NOT NULL,
@@ -86,6 +95,19 @@ try {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     ");
+    
+    // Migration: Add missing columns to inquiries if they don't exist
+    // Check if property_id column exists
+    $stmt = $pdo->query("SHOW COLUMNS FROM inquiries LIKE 'property_id'");
+    if (!$stmt->fetch()) {
+        $pdo->exec("ALTER TABLE inquiries ADD COLUMN property_id INT AFTER id");
+    }
+    
+    // Check if phone column exists
+    $stmt = $pdo->query("SHOW COLUMNS FROM inquiries LIKE 'phone'");
+    if (!$stmt->fetch()) {
+        $pdo->exec("ALTER TABLE inquiries ADD COLUMN phone VARCHAR(50) AFTER email");
+    }
     
     // Seed admin user if not exists
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");

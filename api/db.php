@@ -74,8 +74,10 @@ if ($host) {
             );
             CREATE TABLE IF NOT EXISTS inquiries (
                 id SERIAL PRIMARY KEY,
+                property_id INTEGER,
                 name TEXT NOT NULL,
                 email TEXT,
+                phone TEXT,
                 message TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
