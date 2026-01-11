@@ -110,6 +110,9 @@
                             <span class="text-xs text-gray-400 font-bold uppercase">${new Date(item.created_at).toLocaleDateString()}</span>
                             <h4 class="text-xl font-bold text-brand-green mt-2 mb-4">${item.title}</h4>
                             <p class="text-gray-500 text-sm line-clamp-3 mb-4">${item.content}</p>
+                            <div class="mb-4">
+                                <a href="index.php" class="text-brand-green font-bold hover:underline text-sm">View more Real Estate Property in Addis</a>
+                            </div>
                             <a href="#" class="text-brand-green font-bold text-sm hover:text-brand-yellow">Read More <i class="fas fa-arrow-right ml-1"></i></a>
                         </div>
                     </div>

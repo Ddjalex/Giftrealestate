@@ -1,0 +1,36 @@
+"I need to optimize my website https://realestatepropertyaddis.com/ for search engines. Please perform the following:
+
+Dynamic Sitemap: Create a script to generate a sitemap.xml file that includes my homepage, the new Legehar blog post, and all property listing pages.
+
+SEO Meta Tags: Update the <head> section of the homepage and blog pages with these specific tags:
+
+Title: Real Estate Property Addis | Gift Real Estate Legehar Apartments
+
+Description: Find luxury apartments and commercial shops for sale in Addis Ababa. Explore the Gift Real Estate Legehar project with exclusive 20% discounts.
+
+Robots.txt: Add a robots.txt file that points to the sitemap at https://realestatepropertyaddis.com/sitemap.xml.
+
+Schema Markup: Add 'RealEstateListing' and 'Organization' schema (JSON-LD) to help Google display my price lists and phone numbers directly in search results."
+
+2. Top SEO Keywords for Your Domain
+Because your domain name contains "Real Estate Property Addis," you should focus on these keywords to "match" your URL. Include these in your blog titles and image alt-texts:
+
+Top Priority: "Real Estate Property Addis Ababa" (This matches your domain perfectly).
+
+High Traffic: "Gift Real Estate Legehar price list 2026".
+
+Targeted: "Apartments for sale in Legehar Village".
+
+Amharic/English Mix: "ጊፍት ሪል ስቴት (Gift Real Estate) house prices".
+
+3. Why your site isn't showing "at the top" yet
+Looking at your screenshots, Google is currently showing Google Business Profiles (Maps) and Social Media (Telegram/Facebook) for Gift Real Estate. To beat these and get your website to the #1 spot:
+
+Submit to Search Console: Go to Google Search Console, add https://realestatepropertyaddis.com/, and paste your sitemap link there. Without this, Google may not find your site until summer is over.
+
+Internal Linking: In your new blog post, make sure you have a link that says "View more Real Estate Property in Addis" that points back to your homepage.
+
+Backlinks: Share your website link (realestatepropertyaddis.com) on the Telegram channel shown in your screenshots (t.me/rsgift). When Google sees a busy Telegram channel linking to your new website, it will move your site to the top much faster.
+
+Summary of your Summer Goal:
+If you upload the Sitemap this week and post 2 blogs per month using the keywords above, Google will recognize your site as the "official" source for property info in Addis by the time summer arrives.

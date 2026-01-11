@@ -13,9 +13,34 @@
     <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gift Real Estate PLC - Leading real estate developer in Ethiopia. Apartments for sale in Addis Ababa, luxury villas, and commercial properties.">
-    <meta name="keywords" content="Gift Real Estate, Gift Real Estate Ethiopia, Apartments for sale in Addis Ababa, Houses for sale in Ethiopia, Luxury villas Addis Ababa, Commercial properties Ethiopia">
-    <title>Gift Real Estate PLC | Apartments for Sale in Addis Ababa, Ethiopia</title>
+    <meta name="description" content="Find luxury apartments and commercial shops for sale in Addis Ababa. Explore the Gift Real Estate Legehar project with exclusive 20% discounts.">
+    <meta name="keywords" content="Real Estate Property Addis Ababa, Gift Real Estate Legehar price list 2026, Apartments for sale in Legehar Village, ጊፍት ሪል ስቴት house prices">
+    <title>Real Estate Property Addis | Gift Real Estate Legehar Apartments</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Gift Real Estate PLC",
+      "url": "https://realestatepropertyaddis.com",
+      "logo": "https://realestatepropertyaddis.com/assets/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+251 921878641",
+        "contactType": "sales",
+        "areaServed": "ET",
+        "availableLanguage": ["en", "am"]
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      "name": "Gift Real Estate Legehar Apartments",
+      "description": "Luxury apartments and commercial shops for sale in Addis Ababa Legehar.",
+      "url": "https://realestatepropertyaddis.com/properties.php"
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Use Tailwind CDN with configuration to avoid warning in some environments -->
     <script>
@@ -411,7 +436,10 @@
                         </div>
                         <div class="p-6">
                             <h4 class="text-xl font-bold text-brand-green mb-3 line-clamp-2">${item.title}</h4>
-                            <p class="text-gray-500 text-sm line-clamp-3 mb-6">${item.content}</p>
+                            <p class="text-gray-500 text-sm line-clamp-3 mb-4">${item.content}</p>
+                            <div class="mb-4">
+                                <a href="index.php" class="text-brand-green font-bold hover:underline text-sm">View more Real Estate Property in Addis</a>
+                            </div>
                             <a href="news.php" class="inline-flex items-center text-brand-green font-bold text-sm group-hover:text-brand-yellow transition">
                                 Read Article <i class="fas fa-chevron-right ml-2 text-xs transition-transform group-hover:translate-x-1"></i>
                             </a>

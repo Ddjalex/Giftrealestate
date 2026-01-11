@@ -1,0 +1,5 @@
+Sitemap: https://realestatepropertyaddis.com/sitemap.xml
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
