@@ -273,17 +273,15 @@ $images = array_map(function($img) {
                 });
                 
                 if (res.ok) {
-                    // Open WhatsApp in new tab
-                    window.open(whatsappUrl, '_blank');
-                    alert('Your inquiry has been recorded and you are being redirected to WhatsApp.');
-                    e.target.reset();
+                    // Redirect to WhatsApp directly without alert
+                    window.location.href = whatsappUrl;
                 } else {
                     alert('Error recording inquiry. Please try again.');
                 }
             } catch (err) {
                 console.error('Network error:', err);
-                // Still try to open WhatsApp even if DB fails
-                window.open(whatsappUrl, '_blank');
+                // Still redirect to WhatsApp even if DB fails
+                window.location.href = whatsappUrl;
             }
         };
     </script>
