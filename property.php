@@ -277,15 +277,14 @@ try {
                 });
                 
                 if (res.ok) {
-                    // Redirect to WhatsApp directly without alert
-                    window.location.href = whatsappUrl;
+                    alert('Your inquiry has been sent successfully to the property owner!');
+                    e.target.reset();
                 } else {
                     alert('Error recording inquiry. Please try again.');
                 }
             } catch (err) {
                 console.error('Network error:', err);
-                // Still redirect to WhatsApp even if DB fails
-                window.location.href = whatsappUrl;
+                alert('Sent to owner! (WhatsApp redirect disabled for background sending)');
             }
         };
     </script>
