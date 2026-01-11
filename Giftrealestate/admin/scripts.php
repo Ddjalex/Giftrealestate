@@ -157,16 +157,16 @@ function renderTable() {
     if (currentTab === 'properties') {
         tbody.innerHTML = data.properties.map(p => {
             const price = parseFloat(p.price);
-            const priceDisplay = price > 0 ? new Intl.NumberFormat().format(price) + ' ETB' : 'Call for price';
+            const priceDisplay = price > 0 ? new Intl.NumberFormat().format(price) + ' ETB' : 'Call';
             return `
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap font-medium">${p.title}</td>
-                <td class="px-6 py-4 whitespace-nowrap">${p.location}</td>
-                <td class="px-6 py-4 whitespace-nowrap">${priceDisplay}</td>
-                <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">${p.status}</span></td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap font-medium max-w-[80px] truncate">${p.title}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap hidden sm:table-cell">${p.location}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap hidden xs:table-cell">${priceDisplay}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap hidden md:table-cell"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-[10px]">${p.status}</span></td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap text-right text-xs">
                     <button onclick="editItem(${p.id})" class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
-                    <button onclick="deleteItem(${p.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                    <button onclick="deleteItem(${p.id})" class="text-red-600 hover:text-red-900">Del</button>
                 </td>
             </tr>
         `;}).join('');
@@ -175,34 +175,34 @@ function renderTable() {
             const imgSrc = g.image_url && (g.image_url.startsWith('http') || g.image_url.startsWith('data:')) ? g.image_url : (g.image_url ? '/uploads/' + g.image_url : '/assets/logo.png');
             return `
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap"><img src="${imgSrc}" class="h-10 w-10 object-cover rounded" onerror="this.src='/assets/logo.png'"></td>
-                <td class="px-6 py-4 whitespace-nowrap font-medium">${g.title}</td>
-                <td class="px-6 py-4 whitespace-nowrap">${g.category}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap"><img src="${imgSrc}" class="h-8 w-8 object-cover rounded" onerror="this.src='/assets/logo.png'"></td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap font-medium max-w-[80px] truncate">${g.title}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap hidden xs:table-cell text-xs">${g.category}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap text-right text-xs">
                     <button onclick="editItem(${g.id})" class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
-                    <button onclick="deleteItem(${g.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                    <button onclick="deleteItem(${g.id})" class="text-red-600 hover:text-red-900">Del</button>
                 </td>
             </tr>
         `;}).join('');
     } else if (currentTab === 'news' || currentTab === 'blog') {
         tbody.innerHTML = data[currentTab].map(n => `
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(n.created_at).toLocaleDateString()}</td>
-                <td class="px-6 py-4 whitespace-nowrap font-medium">${n.title}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap text-[10px] text-gray-500 hidden xs:table-cell">${new Date(n.created_at).toLocaleDateString()}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap font-medium max-w-[100px] truncate">${n.title}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap text-right text-xs">
                     <button onclick="editItem(${n.id})" class="text-blue-600 hover:text-blue-900 mr-2">Edit</button>
-                    <button onclick="deleteItem(${n.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                    <button onclick="deleteItem(${n.id})" class="text-red-600 hover:text-red-900">Del</button>
                 </td>
             </tr>
         `).join('');
     } else if (currentTab === 'inquiries') {
         tbody.innerHTML = data.inquiries.map(i => `
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(i.created_at).toLocaleDateString()}</td>
-                <td class="px-6 py-4 whitespace-nowrap font-medium">${i.name}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm">${i.email}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                    <button onclick="deleteItem(${i.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap text-[10px] text-gray-500 hidden xs:table-cell">${new Date(i.created_at).toLocaleDateString()}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap font-medium max-w-[80px] truncate">${i.name}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap text-[10px] hidden sm:table-cell">${i.email}</td>
+                <td class="px-2 md:px-6 py-4 whitespace-nowrap text-right text-xs">
+                    <button onclick="deleteItem(${i.id})" class="text-red-600 hover:text-red-900">Del</button>
                 </td>
             </tr>
         `).join('');
