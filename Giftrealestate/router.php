@@ -11,7 +11,11 @@ if ($uri === '/sitemap.xml') {
     exit;
 }
 
-if (strpos($uri, 'google') !== false && file_exists(__DIR__ . $uri)) {
+if (preg_match('/^\/google[a-z0-9]+\.html$/', $uri) && file_exists(__DIR__ . $uri)) {
+    return false;
+}
+
+if ($uri === '/google-verification.html' && file_exists(__DIR__ . '/google-verification.html')) {
     return false;
 }
 
