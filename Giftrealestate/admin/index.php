@@ -69,7 +69,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     <main class="flex-1 overflow-y-auto w-full">
         <header class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-40">
             <div class="flex items-center gap-4">
-                <button onclick="toggleSidebar()" class="lg:hidden text-brand-green p-2 hover:bg-gray-100 rounded-lg">
+                <button onclick="toggleSidebar()" class="lg:hidden text-brand-green p-2 hover:bg-gray-100 rounded-lg flex items-center justify-center border border-gray-200">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
                 <h2 id="current-tab-title" class="text-lg md:text-xl font-bold text-brand-green truncate">Manage Properties</h2>
