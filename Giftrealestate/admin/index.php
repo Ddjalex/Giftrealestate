@@ -22,47 +22,77 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
         .bg-brand-yellow { background-color: var(--brand-yellow); }
     </style>
 </head>
-<body class="bg-gray-100 flex h-screen">
+<body class="bg-gray-100 flex h-screen overflow-hidden">
+    <!-- Mobile Overlay -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
     <!-- Sidebar -->
-    <aside class="w-64 bg-brand-green text-white">
-        <div class="p-6 flex items-center bg-white">
+    <aside id="admin-sidebar" class="fixed inset-y-0 left-0 w-64 bg-brand-green text-white transform -translate-x-full lg:translate-x-0 lg:static lg:inset-auto transition-transform duration-300 ease-in-out z-50 flex flex-col">
+        <div class="p-6 flex items-center bg-white justify-between">
             <img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-12 object-contain">
+            <button onclick="toggleSidebar()" class="lg:hidden text-brand-green p-2">
+                <i class="fas fa-times text-xl"></i>
+            </button>
         </div>
         <div class="p-6 text-xl font-bold text-brand-yellow border-t border-white/10">Admin Dashboard</div>
-        <nav class="mt-6" id="admin-nav">
-            <button onclick="switchTab('properties')" id="nav-properties" class="w-full text-left py-2.5 px-4 bg-yellow-600 text-white">Properties</button>
-            <button onclick="switchTab('gallery')" id="nav-gallery" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Gallery</button>
-            <button onclick="switchTab('news')" id="nav-news" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">News</button>
-            <button onclick="switchTab('blog')" id="nav-blog" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Blog</button>
-            <button onclick="switchTab('about')" id="nav-about" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">About Us</button>
-            <button onclick="switchTab('inquiries')" id="nav-inquiries" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Inquiries</button>
-            <button onclick="switchTab('settings')" id="nav-settings" class="w-full text-left py-2.5 px-4 hover:bg-yellow-600 transition">Settings</button>
+        <nav class="mt-6 flex-1 overflow-y-auto" id="admin-nav">
+            <button onclick="switchTab('properties')" id="nav-properties" class="w-full text-left py-3 px-6 bg-yellow-600 text-white flex items-center gap-3">
+                <i class="fas fa-home w-5"></i> Properties
+            </button>
+            <button onclick="switchTab('gallery')" id="nav-gallery" class="w-full text-left py-3 px-6 hover:bg-yellow-600 transition flex items-center gap-3 text-white/80 hover:text-white">
+                <i class="fas fa-images w-5"></i> Gallery
+            </button>
+            <button onclick="switchTab('news')" id="nav-news" class="w-full text-left py-3 px-6 hover:bg-yellow-600 transition flex items-center gap-3 text-white/80 hover:text-white">
+                <i class="fas fa-newspaper w-5"></i> News
+            </button>
+            <button onclick="switchTab('blog')" id="nav-blog" class="w-full text-left py-3 px-6 hover:bg-yellow-600 transition flex items-center gap-3 text-white/80 hover:text-white">
+                <i class="fas fa-blog w-5"></i> Blog
+            </button>
+            <button onclick="switchTab('about')" id="nav-about" class="w-full text-left py-3 px-6 hover:bg-yellow-600 transition flex items-center gap-3 text-white/80 hover:text-white">
+                <i class="fas fa-info-circle w-5"></i> About Us
+            </button>
+            <button onclick="switchTab('inquiries')" id="nav-inquiries" class="w-full text-left py-3 px-6 hover:bg-yellow-600 transition flex items-center gap-3 text-white/80 hover:text-white">
+                <i class="fas fa-envelope w-5"></i> Inquiries
+            </button>
+            <button onclick="switchTab('settings')" id="nav-settings" class="w-full text-left py-3 px-6 hover:bg-yellow-600 transition flex items-center gap-3 text-white/80 hover:text-white">
+                <i class="fas fa-cog w-5"></i> Settings
+            </button>
         </nav>
+        <div class="p-4 border-t border-white/10 lg:hidden">
+            <a href="logout.php" class="flex items-center gap-3 text-red-400 font-bold px-2 py-2">
+                <i class="fas fa-sign-out-alt w-5"></i> Logout
+            </a>
+        </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto">
+    <main class="flex-1 overflow-y-auto w-full">
         <header class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-40">
-            <h2 id="current-tab-title" class="text-xl font-bold text-brand-green">Manage Properties</h2>
             <div class="flex items-center gap-4">
-                <button id="add-btn" onclick="showAddModal()" class="bg-brand-green text-brand-yellow font-bold px-4 py-2 rounded">+ Add New</button>
-                <a href="logout.php" class="bg-red-600 text-white font-bold px-4 py-2 rounded hover:bg-red-700 transition">Logout</a>
+                <button onclick="toggleSidebar()" class="lg:hidden text-brand-green p-2 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <h2 id="current-tab-title" class="text-lg md:text-xl font-bold text-brand-green truncate">Manage Properties</h2>
+            </div>
+            <div class="flex items-center gap-2 md:gap-4">
+                <button id="add-btn" onclick="showAddModal()" class="bg-brand-green text-brand-yellow font-bold px-3 py-2 md:px-4 md:py-2 rounded text-sm md:text-base whitespace-nowrap">+ Add New</button>
+                <a href="logout.php" class="hidden md:block bg-red-600 text-white font-bold px-4 py-2 rounded hover:bg-red-700 transition">Logout</a>
             </div>
         </header>
 
-        <div id="content-properties" class="tab-content p-8">
-            <div class="bg-white rounded shadow overflow-hidden">
-                <table class="min-w-full">
+        <div id="content-properties" class="tab-content p-4 md:p-8">
+            <div class="bg-white rounded shadow overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                            <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">Location</th>
+                            <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                            <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Status</th>
+                            <th class="px-4 md:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="admin-properties-list" class="divide-y divide-gray-200"></tbody>
+                    <tbody id="admin-properties-list" class="bg-white divide-y divide-gray-200"></tbody>
                 </table>
             </div>
         </div>
@@ -360,6 +390,30 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
         </div>
     </div>
 
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('admin-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const isOpen = sidebar.classList.contains('translate-x-0');
+            
+            if (isOpen) {
+                sidebar.classList.remove('translate-x-0');
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        // Close sidebar when switching tabs on mobile
+        const originalSwitchTab = window.switchTab;
+        window.switchTab = function(tab) {
+            if (window.innerWidth < 1024) toggleSidebar();
+            if (typeof originalSwitchTab === 'function') originalSwitchTab(tab);
+        };
+    </script>
     <?php include 'scripts.php'; ?>
     <?php include 'handleSave.php'; ?>
 </body>
