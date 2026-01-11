@@ -27,8 +27,11 @@ switch ($method) {
         break;
 
     case 'POST':
-        $data = json_decode(file_get_contents('php://input'), true);
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
         if (!$data) {
+            // Log raw input for debugging
+            error_log("Failed to decode JSON: " . $json);
             http_response_code(400);
             echo json_encode(['error' => 'Invalid data']);
             break;

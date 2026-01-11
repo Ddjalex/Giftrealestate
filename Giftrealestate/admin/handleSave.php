@@ -11,6 +11,8 @@ async function handleSave() {
     }
     const formData = new FormData(form);
     const payload = {};
+    
+    // Explicitly handle all form fields including checkboxes
     for (let [key, value] of formData.entries()) {
         if (key.endsWith('[]')) {
             const cleanKey = key.slice(0, -2);
@@ -19,6 +21,11 @@ async function handleSave() {
         } else {
             payload[key] = value;
         }
+    }
+    
+    // Special handling for amenities checkbox array if not present in payload
+    if (currentTab === 'properties' && !payload.amenities) {
+        payload.amenities = [];
     }
     
     // Convert arrays to JSON strings for backend
