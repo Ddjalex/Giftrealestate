@@ -566,7 +566,7 @@
                             </button>
                         ` : ''}
                     </div>
-                    <div class="p-6 flex flex-col flex-grow" onclick="window.location.href='/property/${p.id}'">
+                    <div class="p-6 flex flex-col flex-grow" onclick="window.location.href='property.php?id=${p.id}'">
                         <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
                         <h3 class="text-xl font-bold text-brand-green mb-2 line-clamp-1">${p.title}</h3>
                         <p class="text-gray-500 text-sm mb-4 flex items-center shrink-0">
