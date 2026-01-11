@@ -299,11 +299,12 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
     <!-- Simple Add Modal (Hidden by default) -->
     <div id="add-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-lg p-6 max-w-lg w-full">
-            <h3 id="modal-title" class="text-xl font-bold mb-4">Add New Item</h3>
+        <div class="bg-white rounded-lg p-6 max-w-lg w-full max-h-[90vh] flex flex-col">
+            <h3 id="modal-title" class="text-xl font-bold mb-4 shrink-0">Add New Item</h3>
             
-            <form id="add-property-form" class="modal-form space-y-4">
-                <input type="hidden" name="id" id="prop-id">
+            <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                <form id="add-property-form" class="modal-form space-y-4">
+                    <input type="hidden" name="id" id="prop-id">
                 <input type="text" name="title" id="prop-title" placeholder="Property Title" class="w-full p-2 border rounded" required>
                 <textarea name="description" id="prop-description" placeholder="Description" class="w-full p-2 border rounded"></textarea>
                 <div class="grid grid-cols-2 gap-4">
@@ -394,11 +395,12 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                 </div>
             </form>
 
-            <form id="add-inquiries-form" class="modal-form space-y-4 hidden">
-                <p class="text-gray-600">Inquiries cannot be added manually.</p>
-            </form>
+                <form id="add-inquiries-form" class="modal-form space-y-4 hidden">
+                    <p class="text-gray-600">Inquiries cannot be added manually.</p>
+                </form>
+            </div>
 
-            <div class="flex justify-end space-x-2 mt-6">
+            <div class="flex justify-end space-x-2 mt-6 pt-4 border-t shrink-0">
                 <button type="button" onclick="hideAddModal()" class="px-4 py-2 text-gray-500">Cancel</button>
                 <button type="button" onclick="handleSave()" class="bg-brand-green text-brand-yellow px-4 py-2 rounded">Save Changes</button>
             </div>
