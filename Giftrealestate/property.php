@@ -265,6 +265,7 @@ $images = array_map(function($img) {
             // Format WhatsApp Message
             const whatsappMessage = `New Property Inquiry:\n` +
                 `Property: <?php echo addslashes($property['title']); ?>\n` +
+                `Property Link: ${window.location.href}\n` +
                 `Name: ${data.name}\n` +
                 `Email: ${data.email}\n` +
                 `Phone: ${data.phone || 'N/A'}\n` +
