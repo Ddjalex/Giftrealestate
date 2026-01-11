@@ -47,6 +47,7 @@
                 <a href="gallery.php" class="nav-link">Gallery</a>
                 <a href="properties.php" class="nav-link">Properties</a>
                 <a href="news.php" class="nav-link text-brand-yellow">News</a>
+                <a href="contact.php" class="nav-link">Contact</a>
             </div>
             <div class="flex items-center">
                 <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-4 md:px-6 py-2 rounded-full text-sm md:text-base whitespace-nowrap">
