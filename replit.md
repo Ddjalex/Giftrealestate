@@ -6,6 +6,19 @@ Gift Real Estate is a property listing platform designed for the Ethiopian real 
 
 The platform supports property listings for apartments, villas, and commercial properties across Ethiopian locations (CMC, Bole, Ayat, etc.) with features for searching, filtering, user inquiries, and agent management.
 
+## Recent Changes
+
+### January 2026
+- **SEO Optimization**: Implemented comprehensive SEO for all public routes.
+  - Added dynamic metadata (titles, descriptions, keywords) targeting "Real Estate Property Addis Ababa" and "Gift Real Estate Legehar".
+  - Implemented JSON-LD Schema markup for Organization, AboutPage, ImageGallery, ItemList, and RealEstateListing.
+  - Configured dynamic `sitemap.xml` and `robots.txt` for better search engine indexing.
+- **Amenities Management**: Enhanced property management with a multi-select amenities system.
+  - Properties now store amenities as a JSON array in the database.
+  - Admin panel updated with checkbox-based amenities selection.
+  - Property detail pages dynamically display amenities with representative icons.
+- **Contact System**: Improved contact page with dynamic settings integration and WhatsApp inquiry redirection.
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
@@ -22,12 +35,6 @@ The application is structured into three independent components that communicate
 
 3. **Admin Panel** - Restricted dashboard for site management. Has its own UI but shares the same backend API for data operations. Located in `/admin`.
 
-### Design Patterns
-
-- **Headless Architecture**: Backend serves pure JSON data, allowing frontend flexibility
-- **API-First Approach**: All data access goes through defined API endpoints
-- **Role-Based Access**: Separate flows for regular users, agents, and administrators
-
 ### Core Functional Modules
 
 | Module | Purpose |
@@ -35,39 +42,32 @@ The application is structured into three independent components that communicate
 | Property Management | CRUD for listings with types (Apartment, Villa, Commercial) and statuses (For Sale, Rent, Reduced) |
 | Search & Filtering | Filter by price, bedrooms, area, amenities, and location tags |
 | User/Agent Roles | Differentiated authentication for users (favorites) and agents (listing management) |
-| Lead System | Inquiry forms that route to admin dashboard |
+| Lead System | Inquiry forms that route to admin dashboard and WhatsApp |
 
-### Frontend Technology
+### Technology Stack
 
-- HTML5 with Tailwind CSS (via CDN)
-- Vanilla JavaScript for API consumption
-- Responsive grid layout for property cards
-- Brand colors: Green (#004d40) and Yellow (#fdd835)
-
-### Backend Technology
-
-- Core PHP with custom routing (`router.php`)
-- RESTful API endpoints (e.g., `/api/properties`, `/api/login`)
-- JWT authentication for stateless session management
-- File upload handling for property images
+- **Frontend**: HTML5, Tailwind CSS (CDN), Vanilla JavaScript
+- **Backend**: PHP (Core), Custom Routing (`router.php`)
+- **Database**: PostgreSQL (Replit Database)
+- **Authentication**: JWT (JSON Web Tokens)
+- **Storage**: Local `uploads/` directory for images
 
 ## External Dependencies
 
 ### Database
 
-- **MySQL** - Primary data store
-- Required tables: `users`, `properties`, `images`, `inquiries`
-- Schema should be defined in `db.sql`
+- **PostgreSQL** - Primary data store
+- Schema defined in `db.sql`
 
 ### Frontend Libraries
 
-- **Tailwind CSS** (CDN) - Utility-first CSS framework for styling
+- **Tailwind CSS** (CDN) - Styling
+- **Font Awesome** - Icons
 
 ### Authentication
 
-- **JWT (JSON Web Tokens)** - Stateless authentication for admin and user sessions
+- **JWT** - Stateless session management
 
 ### File Storage
 
-- Local `uploads/` directory for property images
-- PHP file upload handling required
+- Local `uploads/` directory with PHP file upload handling
