@@ -581,7 +581,7 @@
                         </div>
                         <div class="mt-auto pt-4 flex items-center justify-between">
                             <span class="text-brand-green font-bold text-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
-                            <button onclick="openPropertyModal(${p.id})" class="text-brand-green font-bold text-sm hover:underline">Details <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
+                            <button onclick="window.location.href='property.php?id=${p.id}'" class="text-brand-green font-bold text-sm hover:underline">Details <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
                         </div>
                     </div>
                 </div>`;

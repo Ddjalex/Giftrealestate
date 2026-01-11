@@ -185,7 +185,7 @@
                             </div>
                         ` : ''}
                     </div>
-                    <div class="p-6" onclick="window.location.href='/property/${p.id}'">
+                    <div class="p-6" onclick="window.location.href='property.php?id=${p.id}'">
                         <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
                         <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
                         <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location || 'Ethiopia'}</p>
