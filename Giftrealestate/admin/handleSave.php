@@ -10,7 +10,23 @@ async function handleSave() {
         return;
     }
     const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = {};
+    for (let [key, value] of formData.entries()) {
+        if (key.endsWith('[]')) {
+            const cleanKey = key.slice(0, -2);
+            if (!payload[cleanKey]) payload[cleanKey] = [];
+            payload[cleanKey].push(value);
+        } else {
+            payload[key] = value;
+        }
+    }
+    
+    // Convert arrays to JSON strings for backend
+    for (let key in payload) {
+        if (Array.isArray(payload[key])) {
+            payload[key] = JSON.stringify(payload[key]);
+        }
+    }
     
     // Handle image uploads
     if (currentTab === 'about') {
@@ -33,10 +49,7 @@ async function handleSave() {
     if (currentTab === 'properties') {
         payload.featured = document.getElementById('prop-featured').checked ? 1 : 0;
         
-        // Handle amenities
-        const amenityCheckboxes = document.querySelectorAll('.amenity-checkbox:checked');
-        const amenities = Array.from(amenityCheckboxes).map(cb => cb.value);
-        payload.amenities = JSON.stringify(amenities);
+        // Amenities are now handled by the multi-value logic above
         
         // Handle multiple image uploads
         const imageInput = document.getElementById('prop-images-input');
