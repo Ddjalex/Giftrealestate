@@ -11,6 +11,10 @@ if ($uri === '/sitemap.xml') {
     exit;
 }
 
+if (strpos($uri, 'google') !== false && file_exists(__DIR__ . $uri)) {
+    return false;
+}
+
 if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
     return false;
 }
