@@ -50,7 +50,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
     </nav>
 
     <!-- Header -->
-    <header class="relative py-32 bg-cover bg-center text-white text-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/assets/contact-header.png');">
+    <header class="relative py-32 bg-cover bg-center text-white text-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/assets/contact-header.jpg');">
         <div class="container mx-auto px-4 relative z-10">
             <h1 class="text-6xl font-bold mb-4">Contact Us</h1>
             <div class="w-24 h-1 bg-brand-yellow mx-auto mb-6"></div>
