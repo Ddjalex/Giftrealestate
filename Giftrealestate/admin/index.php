@@ -409,16 +409,22 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
         }
 
         // Close sidebar when switching tabs on mobile
-        const originalSwitchTab = window.switchTab;
-        window.switchTab = function(tab) {
-            if (typeof originalSwitchTab === 'function') originalSwitchTab(tab);
+        function switchTab(tab) {
+            if (typeof window.originalSwitchTab === 'function') {
+                window.originalSwitchTab(tab);
+            }
             if (window.innerWidth < 1024) {
                 const sidebar = document.getElementById('admin-sidebar');
                 if (sidebar && sidebar.classList.contains('translate-x-0')) {
                     toggleSidebar();
                 }
             }
-        };
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window.originalSwitchTab = window.switchTab;
+            window.switchTab = switchTab;
+        });
     </script>
     <?php include 'scripts.php'; ?>
     <?php include 'handleSave.php'; ?>
