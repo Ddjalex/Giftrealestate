@@ -68,32 +68,32 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
     <!-- Main Content -->
     <main class="flex-1 overflow-y-auto w-full">
-        <header class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-40">
-            <div class="flex items-center gap-4">
-                <button onclick="toggleSidebar()" class="lg:hidden text-brand-green p-2 hover:bg-gray-100 rounded-lg flex items-center justify-center border-2 border-brand-green">
-                    <i class="fas fa-bars text-2xl"></i>
+        <header class="bg-white shadow p-3 md:p-4 flex justify-between items-center sticky top-0 z-40">
+            <div class="flex items-center gap-2 md:gap-4">
+                <button onclick="toggleSidebar()" class="lg:hidden text-brand-green p-1.5 md:p-2 hover:bg-gray-100 rounded-lg flex items-center justify-center border-2 border-brand-green">
+                    <i class="fas fa-bars text-lg md:text-2xl"></i>
                 </button>
-                <h2 id="current-tab-title" class="text-lg md:text-xl font-bold text-brand-green truncate">Manage Properties</h2>
+                <h2 id="current-tab-title" class="text-base md:text-xl font-bold text-brand-green truncate max-w-[120px] xs:max-w-none">Manage Properties</h2>
             </div>
             <div class="flex items-center gap-2 md:gap-4">
-                <button id="add-btn" onclick="showAddModal()" class="bg-brand-green text-brand-yellow font-bold px-3 py-2 md:px-4 md:py-2 rounded text-sm md:text-base whitespace-nowrap">+ Add New</button>
+                <button id="add-btn" onclick="showAddModal()" class="bg-brand-green text-brand-yellow font-bold px-2 py-1.5 md:px-4 md:py-2 rounded text-xs md:text-base whitespace-nowrap">+ Add New</button>
                 <a href="logout.php" class="hidden md:block bg-red-600 text-white font-bold px-4 py-2 rounded hover:bg-red-700 transition">Logout</a>
             </div>
         </header>
 
-        <div id="content-properties" class="tab-content p-4 md:p-8">
+        <div id="content-properties" class="tab-content p-2 md:p-8">
             <div class="bg-white rounded shadow overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
-                            <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">Location</th>
-                            <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                            <th class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Status</th>
-                            <th class="px-4 md:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-3 md:px-6 py-2 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                            <th class="px-3 md:px-6 py-2 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">Location</th>
+                            <th class="px-3 md:px-6 py-2 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                            <th class="px-3 md:px-6 py-2 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Status</th>
+                            <th class="px-3 md:px-6 py-2 md:py-3 text-right text-[10px] md:text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="admin-properties-list" class="bg-white divide-y divide-gray-200"></tbody>
+                    <tbody id="admin-properties-list" class="bg-white divide-y divide-gray-200 text-xs md:text-sm"></tbody>
                 </table>
             </div>
         </div>
