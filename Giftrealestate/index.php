@@ -10,7 +10,7 @@
 
   gtag('config', 'G-358ERBD36R');
 </script>
-    <link rel="icon" type="image/png" href="/public/assets/logo.png">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Gift Real Estate PLC - Leading real estate developer in Ethiopia. Apartments for sale in Addis Ababa, luxury villas, and commercial properties.">
@@ -135,7 +135,7 @@
         <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
         <div class="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
             <div class="flex items-center shrink-0">
-                <a href="index.php"><img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-10 md:h-16 w-auto object-contain"></a>
+                <a href="index.php"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-10 md:h-16 w-auto object-contain"></a>
             </div>
             
             <!-- Mobile Menu Button -->
@@ -172,7 +172,7 @@
         <!-- Mobile Menu Slider -->
         <div id="mobile-menu-slider" class="fixed top-0 right-0 h-full w-[280px] bg-white z-[70] transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col">
             <div class="p-6 border-b flex justify-between items-center">
-                <img src="/public/assets/logo.png" alt="Logo" class="h-10 w-auto">
+                <img src="/assets/logo.png" alt="Logo" class="h-10 w-auto">
                 <button id="close-menu-btn" class="text-brand-green text-2xl"><i class="fas fa-times"></i></button>
             </div>
             <div class="flex-1 overflow-y-auto py-8 px-6 space-y-6">

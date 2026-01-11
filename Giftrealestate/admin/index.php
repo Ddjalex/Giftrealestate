@@ -30,7 +30,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     <!-- Sidebar -->
     <aside id="admin-sidebar" class="fixed inset-y-0 left-0 w-64 bg-brand-green text-white transform -translate-x-full lg:translate-x-0 lg:static lg:inset-auto transition-transform duration-300 ease-in-out z-50 flex flex-col">
         <div class="p-6 flex items-center bg-white justify-between">
-            <img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-12 object-contain">
+            <img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-12 object-contain">
             <button onclick="toggleSidebar()" class="lg:hidden text-brand-green p-2">
                 <i class="fas fa-times text-xl"></i>
             </button>

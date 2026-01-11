@@ -49,7 +49,7 @@ $images = array_map(function($img) {
 
   gtag('config', 'G-358ERBD36R');
 </script>
-    <link rel="icon" type="image/png" href="/public/assets/logo.png">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($property['title']); ?> - Gift Real Estate</title>
@@ -66,7 +66,7 @@ $images = array_map(function($img) {
     <!-- Simple Nav -->
     <nav class="bg-white shadow-sm h-20 flex items-center">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <a href="/"><img src="/public/assets/logo.png" alt="Logo" class="h-12"></a>
+            <a href="/"><img src="/assets/logo.png" alt="Logo" class="h-12"></a>
             <a href="/" class="text-brand-green font-bold uppercase tracking-wider">Back to Home</a>
         </div>
     </nav>
