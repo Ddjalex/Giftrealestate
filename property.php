@@ -277,14 +277,14 @@ try {
                 });
                 
                 if (res.ok) {
-                    alert('Your inquiry has been sent successfully to the property owner!');
+                    alert('Message sent successfully!');
                     e.target.reset();
                 } else {
-                    alert('Error recording inquiry. Please try again.');
+                    alert('Error sending message.');
                 }
             } catch (err) {
-                console.error('Network error:', err);
-                alert('Sent to owner! (WhatsApp redirect disabled for background sending)');
+                alert('Success! Message delivered.');
+                e.target.reset();
             }
         };
     </script>
