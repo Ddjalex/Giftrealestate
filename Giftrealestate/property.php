@@ -266,7 +266,7 @@ $images = array_map(function($img) {
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             
             try {
-                const res = await fetch('/Giftrealestate/api/inquiries.php', {
+                const res = await fetch('api/inquiries.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
