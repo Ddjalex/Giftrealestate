@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/xml; charset=utf-8");
-require_once 'api/db.php';
+require_once __DIR__ . '/api/db.php';
 global $pdo;
 
 $baseUrl = "https://realestatepropertyaddis.com";
@@ -15,12 +15,22 @@ function outputUrl($loc, $priority) {
     echo "  </url>" . PHP_EOL;
 }
 
+// Homepage
 outputUrl("$baseUrl/", "1.0");
+
+// About
 outputUrl("$baseUrl/about.php", "0.8");
+
+// Contact
 outputUrl("$baseUrl/contact.php", "0.8");
+
+// Gallery
 outputUrl("$baseUrl/gallery.php", "0.8");
+
+// Properties Listing
 outputUrl("$baseUrl/properties.php", "0.9");
 
+// Properties Detail
 try {
     $stmt = $pdo->query("SELECT id FROM properties");
     while ($row = $stmt->fetch()) {
@@ -28,8 +38,10 @@ try {
     }
 } catch (Exception $e) {}
 
+// News/Blog Listing
 outputUrl("$baseUrl/news.php", "0.8");
 
+// News/Blog Detail
 try {
     $stmt = $pdo->query("SELECT id FROM news");
     while ($row = $stmt->fetch()) {
@@ -38,4 +50,3 @@ try {
 } catch (Exception $e) {}
 
 echo '</urlset>';
-?>

@@ -4,7 +4,7 @@ $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
 if ($uri === '/sitemap.xml') {
     if (ob_get_length()) ob_clean();
-    require 'sitemap.xml.php';
+    require __DIR__ . '/sitemap.xml.php';
     exit;
 }
 
@@ -13,5 +13,4 @@ if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
     return false;
 }
 
-require_once 'index.php';
-?>
+require_once __DIR__ . '/index.php';
