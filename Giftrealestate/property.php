@@ -254,20 +254,36 @@ $images = array_map(function($img) {
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
             
+            // Format WhatsApp Message
+            const whatsappMessage = `New Property Inquiry:\n` +
+                `Property: <?php echo addslashes($property['title']); ?>\n` +
+                `Name: ${data.name}\n` +
+                `Email: ${data.email}\n` +
+                `Phone: ${data.phone || 'N/A'}\n` +
+                `Message: ${data.message}`;
+            
+            const whatsappNumber = "<?php echo preg_replace('/[^0-9]/', '', $contactPhone); ?>";
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            
             try {
                 const res = await fetch('/api/inquiries', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
+                
                 if (res.ok) {
-                    alert('Your inquiry has been sent! We will contact you soon.');
+                    // Open WhatsApp in new tab
+                    window.open(whatsappUrl, '_blank');
+                    alert('Your inquiry has been recorded and you are being redirected to WhatsApp.');
                     e.target.reset();
                 } else {
-                    alert('Error sending inquiry. Please try again.');
+                    alert('Error recording inquiry. Please try again.');
                 }
             } catch (err) {
-                alert('Network error. Please try again.');
+                console.error('Network error:', err);
+                // Still try to open WhatsApp even if DB fails
+                window.open(whatsappUrl, '_blank');
             }
         };
     </script>
