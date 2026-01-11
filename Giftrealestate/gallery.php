@@ -13,8 +13,18 @@
     <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Visual journey through Gift Real Estate landmark developments in Ethiopia. View our completed apartments, villas and commercial projects.">
-    <title>Project Gallery | Gift Real Estate PLC Landmark Developments</title>
+    <meta name="description" content="Visual journey through Gift Real Estate landmark developments in Ethiopia. View luxury apartments, villas and commercial projects in Addis Ababa.">
+    <meta name="keywords" content="Real Estate Property Addis Ababa Gallery, Gift Real Estate Projects, Luxury Apartments Addis Ababa, Commercial Properties Ethiopia">
+    <title>Project Gallery | Gift Real Estate PLC Landmark Developments in Addis Ababa</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Gift Real Estate Project Gallery",
+      "description": "Visual journey through our landmark developments in Ethiopia.",
+      "url": "https://realestatepropertyaddis.com/gallery.php"
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>

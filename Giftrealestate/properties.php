@@ -13,8 +13,18 @@
     <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Browse our luxury apartments and commercial properties for sale in Addis Ababa. Find your dream home with Gift Real Estate Ethiopia.">
-    <title>Properties for Sale in Addis Ababa | Gift Real Estate PLC</title>
+    <meta name="description" content="Browse luxury apartments and commercial properties for sale in Addis Ababa. Explore Gift Real Estate Legehar and other prime projects.">
+    <meta name="keywords" content="Real Estate Property Addis Ababa for sale, Gift Real Estate Legehar price list, Apartments for sale Addis, Commercial shops Addis Ababa">
+    <title>Properties for Sale in Addis Ababa | Gift Real Estate Legehar Apartments</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Real Estate Property Listings in Addis Ababa",
+      "description": "Premium residential and commercial spaces for sale by Gift Real Estate PLC.",
+      "url": "https://realestatepropertyaddis.com/properties.php"
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>

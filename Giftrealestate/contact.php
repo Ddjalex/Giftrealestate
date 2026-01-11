@@ -12,9 +12,27 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Gift Real Estate PLC</title>
+    <meta name="description" content="Get in touch with Gift Real Estate PLC. Contact us for inquiries about luxury apartments, villas, and commercial properties in Addis Ababa.">
+    <meta name="keywords" content="Real Estate Property Addis Ababa Contact, Gift Real Estate Phone Number, Real Estate Inquiries Ethiopia">
+    <title>Contact Us | Gift Real Estate PLC - Real Estate Property Addis Ababa</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Gift Real Estate PLC",
+        "telephone": "+251 921878641",
+        "email": "info@giftrealestate.com.et",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Kazanchis, Black Gold Plaza",
+          "addressLocality": "Addis Ababa",
+          "addressCountry": "ET"
+        }
+      }
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>

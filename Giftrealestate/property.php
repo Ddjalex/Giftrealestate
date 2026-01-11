@@ -52,7 +52,24 @@ $images = array_map(function($img) {
     <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($property['title']); ?> - Gift Real Estate</title>
+    <meta name="description" content="<?php echo htmlspecialchars(substr($property['description'], 0, 160)); ?>">
+    <meta name="keywords" content="Real Estate Property Addis Ababa, <?php echo htmlspecialchars($property['property_type']); ?>, <?php echo htmlspecialchars($property['title']); ?>, for sale Addis Ababa">
+    <title><?php echo htmlspecialchars($property['title']); ?> | Gift Real Estate Property Addis Ababa</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      "name": "<?php echo htmlspecialchars($property['title']); ?>",
+      "description": "<?php echo htmlspecialchars(substr($property['description'], 0, 200)); ?>",
+      "url": "https://realestatepropertyaddis.com/property.php?id=<?php echo $property['id']; ?>",
+      "image": "https://realestatepropertyaddis.com/uploads/<?php echo $property['main_image']; ?>",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "<?php echo htmlspecialchars($property['location']); ?>",
+        "addressCountry": "ET"
+      }
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>

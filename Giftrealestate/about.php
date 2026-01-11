@@ -16,8 +16,21 @@
     <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn more about Gift Real Estate PLC, a pioneer in Ethiopia's real estate market since 2005. Our mission is to provide high-quality residential and commercial properties.">
-    <title>About Us | Gift Real Estate PLC Ethiopia - Our History & Vision</title>
+    <meta name="description" content="Learn more about Gift Real Estate PLC, a pioneer in Ethiopia's real estate market since 2005. Find luxury apartments and villas for sale in Addis Ababa.">
+    <meta name="keywords" content="Real Estate Property Addis Ababa, Gift Real Estate History, Apartments for sale Addis, Ethiopia Real Estate Pioneer">
+    <title>About Us | Gift Real Estate PLC - Leading Property Developer in Addis Ababa</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Gift Real Estate PLC",
+        "description": "Pioneering real estate company in Ethiopia established in 2005.",
+        "url": "https://realestatepropertyaddis.com/about.php"
+      }
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
