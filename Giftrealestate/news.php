@@ -57,7 +57,7 @@
     </nav>
 
     <!-- Header -->
-    <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/uploads/news_header.jpg');">
+    <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/assets/news-header.jpg');">
         <div class="container mx-auto px-4 relative z-10 text-center">
             <h1 class="text-6xl font-bold text-white mb-4">Latest News & Updates</h1>
             <div class="w-24 h-1 bg-brand-yellow mx-auto mb-6"></div>
