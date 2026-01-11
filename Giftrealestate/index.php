@@ -221,6 +221,33 @@
         <div id="header-bg-container" class="absolute inset-0 z-0">
             <img src="/uploads/hero_preloader.jpg" id="header-preloader" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80';">
         </div>
+        <script>
+            async function loadHeaderVideo() {
+                try {
+                    const response = await fetch('/api/settings.php');
+                    const settings = await response.json();
+                    if (settings.header_video) {
+                        const container = document.getElementById('header-bg-container');
+                        const video = document.createElement('video');
+                        video.src = settings.header_video.startsWith('http') ? settings.header_video : '/uploads/' + settings.header_video;
+                        video.autoplay = true;
+                        video.muted = true;
+                        video.loop = true;
+                        video.playsInline = true;
+                        video.className = 'absolute inset-0 w-full h-full object-cover z-0';
+                        video.style.opacity = '0';
+                        video.oncanplay = () => {
+                            video.style.transition = 'opacity 1s ease-in-out';
+                            video.style.opacity = '1';
+                            const preloader = document.getElementById('header-preloader');
+                            if (preloader) preloader.style.opacity = '0';
+                        };
+                        container.appendChild(video);
+                    }
+                } catch (e) { console.error('Error loading header video:', e); }
+            }
+            window.addEventListener('DOMContentLoaded', loadHeaderVideo);
+        </script>
         <div id="header-overlay" class="absolute inset-0 z-[6] pointer-events-none" style="background: linear-gradient(180deg, rgba(0, 77, 64, 0.4) 0%, rgba(0, 77, 64, 0.6) 100%);"></div>
         <div class="scroll-indicator text-white text-2xl z-30">
             <i class="fas fa-chevron-down"></i>

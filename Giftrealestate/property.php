@@ -198,7 +198,15 @@ $images = array_map(function($img) {
                         <a href="tel:<?php echo $contactPhone; ?>" class="flex-1 bg-gray-100 text-gray-800 text-center py-4 rounded-2xl font-bold hover:bg-gray-200 transition flex items-center justify-center gap-2">
                             <i class="fas fa-phone-alt"></i> Call
                         </a>
-                        <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $contactPhone); ?>" target="_blank" class="flex-1 bg-[#25D366] text-white text-center py-4 rounded-2xl font-bold hover:bg-opacity-90 transition flex items-center justify-center gap-2">
+                        <a href="https://wa.me/<?php 
+                            $waPhone = preg_replace('/[^0-9]/', '', $contactPhone);
+                            if (strlen($waPhone) === 10 && $waPhone[0] === '0') {
+                                $waPhone = '251' . substr($waPhone, 1);
+                            } elseif (strlen($waPhone) === 9) {
+                                $waPhone = '251' . $waPhone;
+                            }
+                            echo $waPhone; 
+                        ?>" target="_blank" class="flex-1 bg-[#25D366] text-white text-center py-4 rounded-2xl font-bold hover:bg-opacity-90 transition flex items-center justify-center gap-2">
                             <i class="fab fa-whatsapp"></i> WhatsApp
                         </a>
                     </div>
@@ -262,7 +270,15 @@ $images = array_map(function($img) {
                 `Phone: ${data.phone || 'N/A'}\n` +
                 `Message: ${data.message}`;
             
-            const whatsappNumber = "<?php echo preg_replace('/[^0-9]/', '', $contactPhone); ?>";
+            const whatsappNumber = "<?php 
+                $waPhone = preg_replace('/[^0-9]/', '', $contactPhone);
+                if (strlen($waPhone) === 10 && $waPhone[0] === '0') {
+                    $waPhone = '251' . substr($waPhone, 1);
+                } elseif (strlen($waPhone) === 9) {
+                    $waPhone = '251' . $waPhone;
+                }
+                echo $waPhone; 
+            ?>";
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             
             try {
