@@ -1,5 +1,5 @@
 <?php
-require_once 'api/db.php';
+require_once 'Giftrealestate/api/db.php';
 global $pdo;
 
 $id = $_GET['id'] ?? null;
@@ -8,38 +8,51 @@ if (!$id) {
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT * FROM properties WHERE id = ?");
-$stmt->execute([$id]);
-$property = $stmt->fetch(PDO::FETCH_ASSOC);
+try {
+    $stmt = $pdo->prepare("SELECT * FROM properties WHERE id = ?");
+    $stmt->execute([$id]);
+    $property = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$property) {
-    header('Location: /');
-    exit;
+    if (!$property) {
+        header('Location: /');
+        exit;
+    }
+
+    // Fetch settings for contact info
+    $stmt = $pdo->query("SELECT `key`, `value` FROM settings");
+    $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+    $contactPhone = $settings['phone'] ?? '+251921878641';
+
+    $gallery = [];
+    if ($property['gallery_images']) {
+        $parsed = json_decode($property['gallery_images'], true);
+        $gallery = is_array($parsed) ? $parsed : [$parsed];
+    } else {
+        $gallery = [$property['main_image']];
+    }
+
+    $images = array_map(function($img) {
+        if (!$img) return 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';
+        if (strpos($img, '/') === 0 || strpos($img, 'http') === 0) return $img;
+        return '/uploads/' . $img;
+    }, $gallery);
+} catch (Exception $e) {
+    die("Database Error: " . $e->getMessage());
 }
-
-// Fetch settings for contact info
-$stmt = $pdo->query("SELECT key, value FROM settings");
-$settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
-$contactPhone = $settings['phone'] ?? '+251921878641';
-
-$gallery = [];
-if ($property['gallery_images']) {
-    $parsed = json_decode($property['gallery_images'], true);
-    $gallery = is_array($parsed) ? $parsed : [$parsed];
-} else {
-    $gallery = [$property['main_image']];
-}
-
-$images = array_map(function($img) {
-    if (!$img) return 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';
-    if (strpos($img, '/') === 0 || strpos($img, 'http') === 0) return $img;
-    return '/uploads/' . $img;
-}, $gallery);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-358ERBD36R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-358ERBD36R');
+</script>
+    <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($property['title']); ?> - Gift Real Estate</title>
@@ -56,7 +69,7 @@ $images = array_map(function($img) {
     <!-- Simple Nav -->
     <nav class="bg-white shadow-sm h-20 flex items-center">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <a href="/"><img src="/public/assets/logo.png" alt="Logo" class="h-12"></a>
+            <a href="/"><img src="/assets/logo.png" alt="Logo" class="h-12"></a>
             <a href="/" class="text-brand-green font-bold uppercase tracking-wider">Back to Home</a>
         </div>
     </nav>
@@ -195,8 +208,10 @@ $images = array_map(function($img) {
                 </div>
             </div>
         </div>
+    </main>
+
     <!-- Footer -->
-    <?php include 'frontend/footer.php'; ?>
+    <?php include 'footer.php'; ?>
 
     <script>
         let currentSlide = 0;
@@ -226,9 +241,8 @@ $images = array_map(function($img) {
             const content = document.getElementById(`${section}-content`);
             const chevron = document.getElementById(`${section === 'description' ? 'desc' : 'amen'}-chevron`);
             const toggleText = document.getElementById(`${section === 'description' ? 'desc' : 'amen'}-toggle-text`);
-            const isHidden = content.classList.contains('hidden');
-
-            if (isHidden) {
+            
+            if (content.classList.contains('hidden')) {
                 content.classList.remove('hidden');
                 chevron.classList.remove('rotate-180');
                 toggleText.innerHTML = `Hide ${section} <i class="fas fa-chevron-up transition-transform duration-300" id="${section === 'description' ? 'desc' : 'amen'}-chevron"></i>`;

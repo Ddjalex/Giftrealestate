@@ -18,7 +18,7 @@ if (!$property) {
 }
 
 // Fetch settings for contact info
-$stmt = $pdo->query("SELECT key, value FROM settings");
+$stmt = $pdo->query("SELECT `key`, `value` FROM settings");
 $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 $contactPhone = $settings['phone'] ?? '+251921878641';
 
