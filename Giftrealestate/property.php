@@ -273,14 +273,14 @@ $images = array_map(function($img) {
                 });
                 
                 if (res.ok) {
-                    alert('Message sent successfully!');
-                    e.target.reset();
+                    // Reverting to direct link method for reliability in "normal mode"
+                    window.location.href = whatsappUrl;
                 } else {
-                    alert('Error sending message.');
+                    alert('Error recording inquiry. Please try again.');
                 }
             } catch (err) {
-                alert('Success! Message delivered.');
-                e.target.reset();
+                console.error('Network error:', err);
+                window.location.href = whatsappUrl;
             }
         };
     </script>
