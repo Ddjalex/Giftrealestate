@@ -46,6 +46,9 @@ $contactPhone = $settings['phone'] ?? '';
         :root { --brand-green: #008148; --brand-yellow: #fdd835; }
         .text-brand-green { color: var(--brand-green); }
         .bg-brand-green { background-color: var(--brand-green); }
+        .prose img { border-radius: 1.5rem; margin: 2rem 0; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .text-brand-green { color: #008148 !important; }
+        .bg-brand-green { background-color: #008148 !important; }
     </style>
 </head>
 <body class="bg-gray-50">

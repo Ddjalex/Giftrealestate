@@ -501,9 +501,9 @@
                             <h4 class="text-xl font-bold text-brand-green mb-3 line-clamp-2">${item.title}</h4>
                             <p class="text-gray-500 text-sm line-clamp-3 mb-4">${item.content}</p>
                             <div class="mb-4">
-                                <a href="index.php" class="text-brand-green font-bold hover:underline text-sm">View more Real Estate Property in Addis</a>
+                                <a href="properties.php" class="text-brand-green font-bold hover:underline text-sm">View more Real Estate Property in Addis</a>
                             </div>
-                            <a href="news.php" class="inline-flex items-center text-brand-green font-bold text-sm group-hover:text-brand-yellow transition">
+                            <a href="news_detail.php?id=${item.id}" class="inline-flex items-center text-brand-green font-bold text-sm group-hover:text-brand-yellow transition">
                                 Read Article <i class="fas fa-chevron-right ml-2 text-xs transition-transform group-hover:translate-x-1"></i>
                             </a>
                         </div>
