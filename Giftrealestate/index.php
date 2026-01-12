@@ -286,10 +286,13 @@
                 <div class="text-3xl md:text-4xl font-bold text-brand-green">3000+</div>
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Properties Sold</div>
             </div>
-            <a href="#" id="stats-phone-link" class="p-6 md:p-8 block hover:bg-gray-50 transition">
-                <div class="text-3xl md:text-4xl font-bold text-brand-green" id="stats-phone">...</div>
-                <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Call For Info</div>
-            </a>
+            <div class="p-6 md:p-8 flex flex-col items-center justify-center">
+                <a href="#" id="stats-phone-link" class="bg-brand-green text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-opacity-90 transition transform hover:scale-105 flex items-center gap-3">
+                    <i class="fas fa-phone-alt"></i>
+                    <span id="stats-phone">...</span>
+                </a>
+                <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-3 text-center">Call For Info</div>
+            </div>
             <div class="p-6 md:p-8 sm:col-span-2 md:col-span-1">
                 <div class="text-3xl md:text-4xl font-bold text-brand-green">25+</div>
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Years Experience</div>
