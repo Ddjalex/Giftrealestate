@@ -53,7 +53,7 @@ $images = array_map(function($img) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?php echo htmlspecialchars(substr($property['description'], 0, 160)); ?>">
-    <meta name="keywords" content="Real Estate Property Addis Ababa, <?php echo htmlspecialchars($property['property_type']); ?>, <?php echo htmlspecialchars($property['title']); ?>, for sale Addis Ababa, Gift Real Estate Legehar, Leghar apartments, 2 Bedroom Apartment for Sale in Leghar Gift Real Estate">
+    <meta name="keywords" content="Real Estate Property Addis Ababa, <?php echo htmlspecialchars($property['property_type']); ?>, <?php echo htmlspecialchars($property['title']); ?>, for sale Addis Ababa, Gift Real Estate Legehar, Leghar apartments, 2 Bedroom Apartment for Sale in Leghar Gift Real Estate, gift real estate phone number, gift real estate location, gift real estate address">
     <link rel="canonical" href="https://realestatepropertyaddis.com/property.php?id=<?php echo $property['id']; ?>">
     <meta name="robots" content="index, follow">
     <title><?php echo htmlspecialchars($property['title']); ?> | Gift Real Estate PLC Addis Ababa</title>
