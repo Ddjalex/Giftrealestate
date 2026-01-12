@@ -63,12 +63,12 @@
                                 <span id="footer-phone2"></span>
                             </div>
                         </li>
-                        <li>
+                        <li class="relative">
                             <form id="newsletter-form" class="flex gap-0">
                                 <input type="email" id="newsletter-email" placeholder="Enter your email" required class="flex-1 bg-white p-3 rounded-l-lg text-gray-800 focus:outline-none h-12">
                                 <button type="submit" class="bg-[#5D5DFF] text-white px-6 py-3 rounded-r-lg font-bold hover:bg-blue-700 transition h-12 uppercase text-sm">SUBSCRIBE</button>
                             </form>
-                            <p id="newsletter-msg" class="text-sm mt-3 text-white font-bold bg-brand-green p-4 rounded-xl shadow-lg border-2 border-brand-yellow hidden"></p>
+                            <div id="newsletter-msg" class="text-sm mt-3 text-white font-bold bg-[#008148] p-4 rounded-xl shadow-lg border-2 border-[#fdd835] hidden transition-all duration-300 transform scale-95 opacity-0"></div>
                         </li>
                         <li>
                             <p class="font-bold uppercase tracking-widest text-xs mb-4">Follow Us</p>
@@ -207,8 +207,10 @@
                         const data = await res.json();
                         
                         msgEl.innerText = data.success ? "Thanks for subscribing! Now you can get any updates by email." : data.message;
-                        msgEl.classList.remove('hidden', 'text-red-500', 'text-white');
-                        msgEl.classList.add(data.success ? 'text-white' : 'text-red-500');
+                        msgEl.classList.remove('hidden');
+                        // Force reflow
+                        msgEl.offsetHeight;
+                        msgEl.classList.add('scale-100', 'opacity-100');
                         
                         if (data.success) {
                             newsForm.style.display = 'none';
@@ -216,11 +218,14 @@
                         }
                     } catch (err) {
                         msgEl.innerText = 'Something went wrong. Please try again.';
-                        msgEl.classList.remove('hidden', 'text-white');
-                        msgEl.classList.add('text-red-500');
+                        msgEl.classList.remove('hidden');
+                        msgEl.classList.add('scale-100', 'opacity-100', 'bg-red-600');
                     }
                     
-                    setTimeout(() => msgEl.classList.add('hidden'), 5000);
+                    setTimeout(() => {
+                        msgEl.classList.remove('scale-100', 'opacity-100');
+                        setTimeout(() => msgEl.classList.add('hidden'), 300);
+                    }, 5000);
                 };
             }
 
