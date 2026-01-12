@@ -19,9 +19,28 @@ CREATE TABLE IF NOT EXISTS properties (
     bedrooms INTEGER,
     bathrooms INTEGER,
     area_sqft DECIMAL(10, 2),
+    amenities JSONB DEFAULT '[]',
+    gallery_images JSONB DEFAULT '[]',
+    main_image TEXT,
+    map_url TEXT,
     featured BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS settings (
+    id SERIAL PRIMARY KEY,
+    key VARCHAR(100) UNIQUE NOT NULL,
+    value TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO settings (key, value) VALUES 
+('phone', '+251913724749'),
+('phone2', '+251947497777'),
+('email', 'info@giftrealestate.com.et'),
+('address', 'Kazanchis, Street, Addis Ababa, Ethiopia'),
+('map_iframe_url', '')
+ON CONFLICT (key) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS property_images (
     id SERIAL PRIMARY KEY,

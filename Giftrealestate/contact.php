@@ -198,8 +198,13 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
                                     // Convert Google share URL with coordinates to OSM embed
                                     $lat = $matches[1];
                                     $lon = $matches[2];
-                                    // Use search query style embed to force a red pin at coordinates
-                                    $final_src = "https://www.google.com/maps?q=$lat,$lon&z=18&t=k&output=embed";
+                                    // Calculate bounding box for OSM (approx 0.002 degrees for tight zoom)
+                                    $delta = 0.001;
+                                    $minLat = $lat - $delta;
+                                    $maxLat = $lat + $delta;
+                                    $minLon = $lon - $delta;
+                                    $maxLon = $lon + $delta;
+                                    $final_src = "https://www.openstreetmap.org/export/embed.html?bbox=$minLon%2C$minLat%2C$maxLon%2C$maxLat&layer=mapnik&marker=$lat%2C$lon";
                                 }
                             }
                             echo htmlspecialchars($final_src); 
