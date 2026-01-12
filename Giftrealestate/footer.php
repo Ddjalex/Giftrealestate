@@ -56,7 +56,7 @@
                         <li class="flex flex-col gap-2">
                             <div class="flex items-center gap-3">
                                 <i class="fas fa-phone-alt"></i>
-                                <span id="footer-phone">+251 921878641</span>
+                                <span id="footer-phone">+251 913724749</span>
                             </div>
                             <div class="flex items-center gap-3 hidden">
                                 <i class="fas fa-phone-alt"></i>
@@ -103,10 +103,10 @@
             const settings = await response.json();
             
             // Shared Data Updates
-            const phone = settings.phone || '+251921878641';
+            const phone = settings.phone || '+251913724749';
             const phone2 = settings.phone2;
             const address = settings.address || 'Kazanchis, Black Gold Plaza, Addis Ababa';
-            const whatsapp = settings.whatsapp || settings.phone || '+251921878641';
+            const whatsapp = settings.whatsapp || settings.phone || '+251913724749';
 
             // Update Header/Top Bar (if elements exist)
             const topBarAddr = document.getElementById('top-bar-address');
