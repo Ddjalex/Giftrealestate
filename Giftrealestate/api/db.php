@@ -111,11 +111,11 @@ try {
     
     // Seed admin user if not exists
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
-    $stmt->execute(['timnit@gmail.com']);
+    $stmt->execute(['admin@gmail.com']);
     if ($stmt->fetchColumn() == 0) {
         $hashedPassword = password_hash('a1e2y3t4h5', PASSWORD_DEFAULT);
         $stmt = $pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
-        $stmt->execute(['timnit@gmail.com', $hashedPassword]);
+        $stmt->execute(['admin@gmail.com', $hashedPassword]);
     }
     
     // Seed about_us if empty
