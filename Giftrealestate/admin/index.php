@@ -313,7 +313,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                     </div>
                     <div>
                         <label class="block text-gray-700 font-bold mb-2">Google Map Iframe Source (URL only)</label>
-                        <textarea name="map_iframe" class="w-full p-3 border rounded-lg h-24" placeholder="Paste the src URL from the Google Maps embed code"></textarea>
+                        <textarea name="map_iframe_url" class="w-full p-3 border rounded-lg h-24" placeholder="Paste the src URL from the Google Maps embed code or a link with coordinates (e.g., @9.013,38.756)"></textarea>
                     </div>
                     <button type="button" onclick="saveSettings()" class="bg-brand-green text-brand-yellow font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition">Save Settings</button>
                 </form>
@@ -379,7 +379,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                 <div>
                     <label class="block text-sm font-bold mb-1">Map Embed URL (Google or OSM)</label>
                     <input type="text" name="map_url" id="prop-map-url" placeholder="Paste the 'src' URL from the embed code here..." class="w-full p-2 border rounded focus:ring-green-500 outline-none">
-                    <p class="text-[10px] text-gray-500 mt-1">Paste the source URL from any map's "Embed" code (Google Maps or OpenStreetMap).</p>
+                    <p class="text-[10px] text-gray-500 mt-1">Paste the source URL from any map's "Embed" code (Google Maps or OpenStreetMap) or a Google Maps link containing coordinates (e.g., @9.013,38.756).</p>
                 </div>
                 <div class="grid grid-cols-3 gap-4">
                     <input type="number" name="bedrooms" id="prop-beds" placeholder="Beds" class="p-2 border rounded">

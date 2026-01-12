@@ -281,7 +281,14 @@ function setupHeaderVideoAutoUpload() {
 async function saveSettings() {
     const form = document.getElementById('settings-form');
     const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = {};
+    formData.forEach((value, key) => {
+        if (key === 'map_iframe_url') {
+            payload['map_iframe_url'] = value;
+        } else {
+            payload[key] = value;
+        }
+    });
     
     const videoInput = document.getElementById('header_video_input');
     if (videoInput && videoInput.value) {
