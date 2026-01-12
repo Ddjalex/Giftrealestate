@@ -85,8 +85,12 @@
                 </div>
             </div>
             
-            <div class="mt-12 pt-8 border-t border-white/20 text-center text-white text-sm">
+            <div class="mt-12 pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4 text-white text-sm">
                 <p>Copyright &copy; <?php echo date('Y'); ?> Gift Real Estate PLC</p>
+                <a href="https://neodigitalsolutions.com/" target="_blank" class="flex items-center gap-2 hover:opacity-80 transition">
+                    <span class="text-xs uppercase tracking-widest opacity-80">Powered by</span>
+                    <img src="assets/neo-logo.png" alt="Neo Digital Solutions" class="h-8 md:h-10 object-contain brightness-0 invert">
+                </a>
             </div>
         </div>
     </footer>
