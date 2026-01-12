@@ -15,7 +15,7 @@
                 <div class="flex flex-col items-center md:items-start text-center md:text-left">
                     <img src="assets/logo.png" alt="Gift Real Estate Logo" class="h-24 object-contain mb-6 bg-white/10 p-2 rounded-xl">
                     <h4 class="text-lg font-bold mb-4 uppercase tracking-widest">Our Location</h4>
-                    <p id="footer-address" class="text-white text-sm mb-6 leading-relaxed">
+                    <p id="footer-address-brand" class="text-white text-sm mb-6 leading-relaxed">
                         Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia
                     </p>
                 </div>
@@ -105,7 +105,7 @@
             // Shared Data Updates
             const phone = settings.phone || '+251913724749';
             const phone2 = settings.phone2;
-            const address = settings.address || 'Kazanchis, Black Gold Plaza, Addis Ababa';
+            const address = settings.address || 'Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia';
             const whatsapp = settings.whatsapp || settings.phone || '+251913724749';
 
             // Update Header/Top Bar (if elements exist)
@@ -154,6 +154,9 @@
             // Update Footer
             const footerAddr = document.getElementById('footer-address');
             if (footerAddr) footerAddr.innerText = address;
+            
+            const footerAddrBrand = document.getElementById('footer-address-brand');
+            if (footerAddrBrand) footerAddrBrand.innerText = address;
             
             const footerPhone = document.getElementById('footer-phone');
             if (footerPhone) footerPhone.innerText = phone;
