@@ -188,15 +188,17 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
                         id="office-map"
                         src="<?php 
                             $raw_url = $settings['map_iframe_url'] ?? '';
+                            // Default Gift Real Estate PLC Google Maps Embed
                             $final_src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5476317255154!2d38.7566162!3d9.0132338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8593361869cb%3A0xe53655452f10648!2sGift%20Real%20Estate%20PLC!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set';
                             
                             if (!empty($raw_url)) {
                                 if (strpos($raw_url, 'google.com/maps/embed') !== false || strpos($raw_url, 'openstreetmap.org/export/embed') !== false) {
                                     $final_src = $raw_url;
-                                } else {
-                                    // If it's a short link, we'll still use the default embed because short links don't work in iframes
-                                    // but we allow the variable to be there for future correct embed URLs
-                                    // For now, if it doesn't look like an embed URL, we keep the default Gift Real Estate location
+                                } elseif (preg_match('/@(-?\d+\.\d+),(-?\d+\.\d+)/', $raw_url, $matches)) {
+                                    // Convert Google share URL with coordinates to OSM embed
+                                    $lat = $matches[1];
+                                    $lon = $matches[2];
+                                    $final_src = "https://www.openstreetmap.org/export/embed.html?bbox=" . ($lon-0.005) . "," . ($lat-0.005) . "," . ($lon+0.005) . "," . ($lat+0.005) . "&layer=mapnik&marker=$lat,$lon";
                                 }
                             }
                             echo htmlspecialchars($final_src); 

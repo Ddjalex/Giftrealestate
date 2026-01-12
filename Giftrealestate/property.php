@@ -264,11 +264,20 @@ $images = array_map(function($img) {
                                 <?php 
                                     $mapUrl = !empty($property['map_url']) ? $property['map_url'] : '';
                                     
-                                    // If map_url is a short link like maps.app.goo.gl, it won't work in iframe.
-                                    // However, we'll try to display it if it looks like an embed URL, 
-                                    // otherwise fallback to a default search on OSM based on location name.
-                                    $displayUrl = $mapUrl;
-                                    if (empty($mapUrl) || strpos($mapUrl, 'google.com/maps/embed') === false && strpos($mapUrl, 'openstreetmap.org/export/embed') === false) {
+                                    // Robust handling for various URL types
+                                    if (strpos($mapUrl, 'google.com/maps/embed') !== false || strpos($mapUrl, 'openstreetmap.org/export/embed') !== false) {
+                                        $displayUrl = $mapUrl;
+                                    } elseif (preg_match('/@(-?\d+\.\d+),(-?\d+\.\d+)/', $mapUrl, $matches)) {
+                                        // Extract lat/long from Google Maps URL format (@lat,long)
+                                        $lat = $matches[1];
+                                        $lon = $matches[2];
+                                        $displayUrl = "https://www.openstreetmap.org/export/embed.html?bbox=" . ($lon-0.005) . "," . ($lat-0.005) . "," . ($lon+0.005) . "," . ($lat+0.005) . "&layer=mapnik&marker=$lat,$lon";
+                                    } elseif (strpos($mapUrl, 'maps.app.goo.gl') !== false || strpos($mapUrl, 'share.google') !== false) {
+                                        // For Google share links, we can't easily embed them without an API or scraping
+                                        // Fallback to location-based search
+                                        $displayUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=38.70,8.95,38.80,9.05&layer=mapnik&marker=' . urlencode($property['location'] ?? 'Addis Ababa');
+                                    } else {
+                                        // Fallback to location-based search on OSM
                                         $displayUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=38.70,8.95,38.80,9.05&layer=mapnik&marker=' . urlencode($property['location'] ?? 'Addis Ababa');
                                     }
                                 ?>
