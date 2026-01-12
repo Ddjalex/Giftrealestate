@@ -15,6 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Find luxury apartments and commercial shops for sale in Addis Ababa. Explore the Gift Real Estate Legehar project with exclusive discounts.">
     <meta name="keywords" content="Real Estate Property Addis Ababa, Gift Real Estate Legehar price list 2026, Apartments for sale in Legehar Village, ጊፍት ሪል ስቴት house prices, 2 Bedroom Apartment for Sale in Leghar">
+    <link rel="canonical" href="https://realestatepropertyaddis.com/">
+    <meta name="robots" content="index, follow">
     <title>Gift Real Estate PLC | Apartments for Sale in Legehar Addis Ababa</title>
     
     <!-- Open Graph / Facebook -->
