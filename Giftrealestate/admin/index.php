@@ -21,7 +21,57 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
         .bg-brand-green { background-color: var(--brand-green); }
         .text-brand-green { color: var(--brand-green); }
         .bg-brand-yellow { background-color: var(--brand-yellow); }
+        
+        /* Custom Toast Styles */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            background: white;
+            color: #1f2937;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid var(--brand-green);
+        }
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast-error {
+            border-left-color: #ef4444;
+        }
     </style>
+    <script>
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification ${type === 'error' ? 'toast-error' : ''}`;
+            toast.innerHTML = `
+                <i class="fas ${type === 'error' ? 'fa-exclamation-circle text-red-500' : 'fa-check-circle text-brand-green'}"></i>
+                <span class="font-medium">${message}</span>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+        const originalAlert = window.alert;
+        window.alert = (msg) => {
+            if (msg.includes('Are you sure')) {
+                return originalAlert(msg);
+            }
+            showToast(msg, msg.toLowerCase().includes('error') ? 'error' : 'success');
+        };
+    </script>
 </head>
 <body class="bg-gray-100 flex h-screen overflow-hidden">
     <!-- Mobile Overlay -->

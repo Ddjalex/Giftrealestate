@@ -35,7 +35,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script>
+    <style>
         tailwind.config = {
             theme: {
                 extend: {
@@ -46,6 +46,51 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
                 }
             }
         }
+    </style>
+    <style>
+        /* Custom Toast Styles */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            background: white;
+            color: #1f2937;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid var(--brand-green);
+        }
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast-error {
+            border-left-color: #ef4444;
+        }
+    </style>
+    <script>
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification ${type === 'error' ? 'toast-error' : ''}`;
+            toast.innerHTML = `
+                <i class="fas ${type === 'error' ? 'fa-exclamation-circle text-red-500' : 'fa-check-circle text-brand-green'}"></i>
+                <span class="font-medium">${message}</span>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+        window.alert = (msg) => showToast(msg, msg.toLowerCase().includes('error') ? 'error' : 'success');
     </script>
 </head>
 <body class="bg-gray-50">
