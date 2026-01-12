@@ -292,13 +292,7 @@ $images = array_map(function($img) {
                                     loading="lazy">
                                 </iframe>
                             </div>
-                            <button 
-                                onclick="centerPropertyMap()"
-                                class="absolute bottom-6 right-6 bg-white p-3 rounded-full shadow-xl hover:bg-gray-100 transition-all active:scale-95 group/btn border border-gray-100"
-                                title="Center to Exact Location"
-                            >
-                                <i class="fas fa-location-crosshairs text-brand-green text-xl group-hover/btn:scale-110 transition-transform"></i>
-                            </button>
+                            <!-- Location Pin Button Removed -->
                         </div>
                     </div>
                 </div>
