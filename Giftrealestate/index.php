@@ -287,7 +287,7 @@
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Properties Sold</div>
             </div>
             <div class="p-6 md:p-8 flex flex-col items-center justify-center">
-                <a href="#" id="stats-phone-link" class="bg-brand-green text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-opacity-90 transition transform hover:scale-105 flex items-center gap-3">
+                <a href="tel:+" id="stats-phone-link" class="bg-brand-green text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-opacity-90 transition transform hover:scale-105 flex items-center gap-3">
                     <i class="fas fa-phone-alt"></i>
                     <span id="stats-phone">...</span>
                 </a>
