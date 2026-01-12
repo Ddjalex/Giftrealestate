@@ -110,7 +110,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
             </button>
         </nav>
         <div class="p-4 border-t border-white/10 lg:hidden">
-            <a href="logout.php" class="flex items-center gap-3 text-red-400 font-bold px-2 py-2">
+            <a href='logout" class="flex items-center gap-3 text-red-400 font-bold px-2 py-2">
                 <i class="fas fa-sign-out-alt w-5"></i> Logout
             </a>
         </div>
@@ -127,7 +127,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
             </div>
             <div class="flex items-center gap-2 md:gap-4">
                 <button id="add-btn" onclick="showAddModal()" class="bg-brand-green text-brand-yellow font-bold px-2 py-1.5 md:px-4 md:py-2 rounded text-xs md:text-base whitespace-nowrap">+ Add New</button>
-                <a href="logout.php" class="hidden md:block bg-red-600 text-white font-bold px-4 py-2 rounded hover:bg-red-700 transition">Logout</a>
+                <a href='logout" class="hidden md:block bg-red-600 text-white font-bold px-4 py-2 rounded hover:bg-red-700 transition">Logout</a>
             </div>
         </header>
 

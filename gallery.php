@@ -25,10 +25,10 @@
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 flex justify-between items-center h-20">
                             <div class="flex items-center">
-                                <a href='index"><img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
+                                <a href='/"><img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
                             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
-                <a href='index" class="nav-link">Home</a>
+                <a href='/" class="nav-link">Home</a>
                 <a href='about" class="nav-link">About Us</a>
                 <a href='gallery" class="nav-link text-brand-yellow">Gallery</a>
                 <a href='properties" class="nav-link">Properties</a>

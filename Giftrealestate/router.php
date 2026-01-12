@@ -1,22 +1,22 @@
 <?php
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-// Static files and direct file access
+// Handle static files first
 if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
     return false;
 }
 
-// Redirect .php requests to clean URLs (only for browser requests, not internal includes)
-if (preg_match('/\.php$/', $uri) && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+// Redirect .php requests to clean URLs to hide them from address bar
+if (preg_match('/\.php$/', $uri)) {
     $clean_uri = preg_replace('/\.php$/', '', $uri);
-    header("Location: $clean_uri", true, 301);
-    exit;
+    // Avoid infinite loop if somehow it hits itself
+    if ($clean_uri !== $uri) {
+        header("Location: $clean_uri", true, 301);
+        exit;
+    }
 }
 
-// Define the root directory for inclusion
-$baseDir = __DIR__;
-
-// Routes mapping
+// Route mapping
 $routes = [
     '/' => 'index.php',
     '/index' => 'index.php',
@@ -34,32 +34,24 @@ $routes = [
 ];
 
 if (isset($routes[$uri])) {
-    include $baseDir . '/' . $routes[$uri];
+    include __DIR__ . '/' . $routes[$uri];
     exit;
 }
 
-// Check if file exists with .php extension
-if (file_exists($baseDir . $uri . '.php')) {
-    include $baseDir . $uri . '.php';
+// Check if file exists with .php extension and serve it
+if (file_exists(__DIR__ . $uri . '.php')) {
+    include __DIR__ . $uri . '.php';
     exit;
 }
 
-// Admin sub-routes
+// Handle admin sub-routes dynamically
 if (strpos($uri, '/admin/') === 0) {
-    $admin_file = $baseDir . $uri . '.php';
+    $admin_file = __DIR__ . $uri . '.php';
     if (file_exists($admin_file)) {
         include $admin_file;
         exit;
     }
 }
 
-// API routes (keep .php for now to avoid breaking AJAX, or map them too)
-if (strpos($uri, '/api/') === 0) {
-    if (file_exists($baseDir . $uri . '.php')) {
-        include $baseDir . $uri . '.php';
-        exit;
-    }
-}
-
-// Fallback to index
-include $baseDir . '/index.php';
+// Fallback to index if nothing matches
+include __DIR__ . '/index.php';
