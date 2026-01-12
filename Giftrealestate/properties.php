@@ -88,6 +88,8 @@
                     <option value="Commercial Properties">Commercial Properties</option>
                     <option value="Luxury Villas">Luxury Villas</option>
                     <option value="Office Spaces">Office Spaces</option>
+                    <option value="Retail Shops">Retail Shops</option>
+                    <option value="Land & Plots">Land & Plots</option>
                 </select>
                 <button onclick="filterProperties()" class="bg-brand-green text-brand-yellow font-bold px-8 py-3 rounded-lg">Filter</button>
             </div>

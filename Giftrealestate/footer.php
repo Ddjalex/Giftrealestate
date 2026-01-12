@@ -24,12 +24,12 @@
                 <div>
                     <h4 class="text-lg font-bold mb-8 text-white uppercase tracking-widest">Property Types</h4>
                     <ul class="space-y-4 text-white text-sm">
-                        <li><a href="/properties?type=Residential+Apartments" class="hover:underline transition">Residential Apartments</a></li>
-                        <li><a href="/properties?type=Commercial+Properties" class="hover:underline transition">Commercial Properties</a></li>
-                        <li><a href="/properties?type=Luxury+Villas" class="hover:underline transition">Luxury Villas</a></li>
-                        <li><a href="/properties?type=Office+Spaces" class="hover:underline transition">Office Spaces</a></li>
-                        <li><a href="/properties?type=Retail+Shops" class="hover:underline transition">Retail Shops</a></li>
-                        <li><a href="/properties?type=Land+%26+Plots" class="hover:underline transition">Land & Plots</a></li>
+                        <li><a href="properties.php?type=Residential+Apartments" class="hover:underline transition">Residential Apartments</a></li>
+                        <li><a href="properties.php?type=Commercial+Properties" class="hover:underline transition">Commercial Properties</a></li>
+                        <li><a href="properties.php?type=Luxury+Villas" class="hover:underline transition">Luxury Villas</a></li>
+                        <li><a href="properties.php?type=Office+Spaces" class="hover:underline transition">Office Spaces</a></li>
+                        <li><a href="properties.php?type=Retail+Shops" class="hover:underline transition">Retail Shops</a></li>
+                        <li><a href="properties.php?type=Land+%26+Plots" class="hover:underline transition">Land & Plots</a></li>
                     </ul>
                 </div>
                 
