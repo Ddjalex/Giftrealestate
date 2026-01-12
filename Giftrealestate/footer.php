@@ -165,6 +165,8 @@
             if (footerPhone2 && phone2) {
                 footerPhone2.innerText = phone2;
                 footerPhone2.parentElement.classList.remove('hidden');
+            } else if (footerPhone2) {
+                footerPhone2.parentElement.classList.add('hidden');
             }
 
             // Update Contact Detail Links (Call & WhatsApp)
