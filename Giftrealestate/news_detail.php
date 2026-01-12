@@ -8,7 +8,7 @@ if (!$id) {
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT * FROM news WHERE id = ?");
+$stmt = $pdo->prepare("SELECT * FROM blog WHERE id = ?");
 $stmt->execute([$id]);
 $article = $stmt->fetch(PDO::FETCH_ASSOC);
 
