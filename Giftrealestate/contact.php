@@ -36,29 +36,6 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-green': '#004d40',
-                        'brand-yellow': '#fdd835',
-                    }
-                }
-            }
-        }
-    </style>
-    <style>
-        .contact-icon-box {
-            background-color: #004d40;
-            color: white;
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
         /* Custom Toast Styles */
         .toast-notification {
             position: fixed;
@@ -102,6 +79,17 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
             }, 5000);
         }
         window.alert = (msg) => showToast(msg, msg.toLowerCase().includes('error') ? 'error' : 'success');
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#004d40',
+                        'brand-yellow': '#fdd835',
+                    }
+                }
+            }
+        }
     </script>
 </head>
 <body class="bg-gray-50">
@@ -143,33 +131,33 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
                 <div>
                     <h2 class="text-3xl font-bold text-brand-green mb-8">Get In Touch</h2>
                     <div class="space-y-6">
-                        <div class="flex items-start gap-4">
-                            <div class="contact-icon-box">
-                                <i class="fas fa-map-marker-alt text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Our Office</h4>
-                                <p class="text-gray-600"><?php echo htmlspecialchars($contactAddress); ?></p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="contact-icon-box">
-                                <i class="fas fa-phone-alt text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Phone Number</h4>
-                                <p class="text-gray-600"><?php echo htmlspecialchars($contactPhone); ?></p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="contact-icon-box">
-                                <i class="fas fa-envelope text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Email Address</h4>
-                                <p class="text-gray-600"><?php echo htmlspecialchars($contactEmail); ?></p>
-                            </div>
-                        </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-[#004d40] text-white rounded-lg flex items-center justify-center shrink-0">
+                        <i class="fas fa-map-marker-alt text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">Our Office</h4>
+                        <p class="text-gray-600"><?php echo htmlspecialchars($contactAddress); ?></p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-[#004d40] text-white rounded-lg flex items-center justify-center shrink-0">
+                        <i class="fas fa-phone-alt text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">Phone Number</h4>
+                        <p class="text-gray-600"><?php echo htmlspecialchars($contactPhone); ?></p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-[#004d40] text-white rounded-lg flex items-center justify-center shrink-0">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">Email Address</h4>
+                        <p class="text-gray-600"><?php echo htmlspecialchars($contactEmail); ?></p>
+                    </div>
+                </div>
                     </div>
                 </div>
                 <div class="bg-white p-8 rounded-3xl shadow-lg border border-gray-100">
