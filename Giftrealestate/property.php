@@ -215,10 +215,10 @@ $images = array_map(function($img) {
                     </form>
 
                     <div class="mt-8 flex gap-4">
-                        <a href="tel:<?php echo $contactPhone; ?>" class="flex-1 bg-gray-100 text-gray-800 text-center py-4 rounded-2xl font-bold hover:bg-gray-200 transition flex items-center justify-center gap-2">
+                        <a id="detail-call-btn" href="tel:<?php echo $contactPhone; ?>" class="flex-1 bg-gray-100 text-gray-800 text-center py-4 rounded-2xl font-bold hover:bg-gray-200 transition flex items-center justify-center gap-2">
                             <i class="fas fa-phone-alt"></i> Call
                         </a>
-                        <a href="https://wa.me/<?php 
+                        <a id="detail-whatsapp-btn" href="https://wa.me/<?php 
                             $waPhone = preg_replace('/[^0-9]/', '', $contactPhone);
                             if (strlen($waPhone) === 10 && $waPhone[0] === '0') {
                                 $waPhone = '251' . substr($waPhone, 1);

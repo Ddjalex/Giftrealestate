@@ -96,53 +96,83 @@
         try {
             const response = await fetch('/api/settings.php');
             const settings = await response.json();
-            if (settings.address) {
-                const footerAddr = document.getElementById('footer-address');
-                if (footerAddr) footerAddr.innerText = settings.address;
-                const contactAddr = document.querySelector('li.text-white');
-                if (contactAddr) contactAddr.innerText = settings.address;
-                const topBarAddress = document.querySelector('.fa-map-marker-alt')?.parentElement;
-                if (topBarAddress) topBarAddress.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${settings.address}`;
+            
+            // Shared Data Updates
+            const phone = settings.phone || '+251921878641';
+            const phone2 = settings.phone2;
+            const address = settings.address || 'Kazanchis, Black Gold Plaza, Addis Ababa';
+            const whatsapp = settings.whatsapp || settings.phone || '+251921878641';
+
+            // Update Header/Top Bar (if elements exist)
+            const topBarAddr = document.getElementById('top-bar-address');
+            if (topBarAddr) topBarAddr.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${address}`;
+            
+            const topBarPhone = document.getElementById('top-bar-phone');
+            if (topBarPhone) {
+                let html = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${phone}`;
+                if (phone2) html += ` | <i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${phone2}`;
+                topBarPhone.innerHTML = html;
             }
-            if (settings.phone) {
-                const footerPhone = document.getElementById('footer-phone');
-                if (footerPhone) footerPhone.innerText = settings.phone;
-                const topBarPhone = document.getElementById('top-bar-phone');
-                if (topBarPhone) {
-                    let phoneHtml = `<i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone}`;
-                    if (settings.phone2) {
-                        phoneHtml += ` | <i class="fas fa-phone-alt text-brand-yellow mr-2"></i>${settings.phone2}`;
-                    }
-                    topBarPhone.innerHTML = phoneHtml;
+
+            const statsPhone = document.getElementById('stats-phone');
+            if (statsPhone) statsPhone.innerText = phone;
+
+            // Update Socials
+            const socialMapping = {
+                'facebook': ['social-facebook', 'top-social-facebook'],
+                'telegram': ['social-telegram', 'top-social-telegram'],
+                'instagram': ['social-instagram', 'top-social-instagram'],
+                'linkedin': ['social-linkedin', 'top-social-linkedin']
+            };
+
+            Object.entries(socialMapping).forEach(([key, ids]) => {
+                if (settings[key]) {
+                    ids.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            el.href = settings[key];
+                            el.classList.remove('hidden');
+                        }
+                    });
                 }
+            });
+
+            // Update Footer
+            const footerAddr = document.getElementById('footer-address');
+            if (footerAddr) footerAddr.innerText = address;
+            
+            const footerPhone = document.getElementById('footer-phone');
+            if (footerPhone) footerPhone.innerText = phone;
+            
+            const footerPhone2 = document.getElementById('footer-phone2');
+            if (footerPhone2 && phone2) {
+                footerPhone2.innerText = phone2;
+                footerPhone2.parentElement.classList.remove('hidden');
             }
-            if (settings.phone2) {
-                const footerPhone2 = document.getElementById('footer-phone2');
-                if (footerPhone2) {
-                    footerPhone2.innerText = settings.phone2;
-                    footerPhone2.parentElement.classList.remove('hidden');
-                }
+
+            // Update Contact Detail Links (Call & WhatsApp)
+            const detailCall = document.getElementById('detail-call-btn');
+            if (detailCall) detailCall.href = `tel:${phone}`;
+            
+            const detailWhatsapp = document.getElementById('detail-whatsapp-btn');
+            if (detailWhatsapp) {
+                const cleanWA = whatsapp.replace(/\+/g, '').replace(/\s/g, '');
+                detailWhatsapp.href = `https://wa.me/${cleanWA}`;
             }
-            if (settings.email) {
-                const footerEmail = document.getElementById('footer-email');
-                if (footerEmail) footerEmail.innerText = settings.email;
+
+            // Update Nav/Mobile Call Buttons
+            const navCall = document.getElementById('nav-call-btn');
+            if (navCall) navCall.href = `tel:${phone}`;
+            
+            const mobileCall = document.querySelector('a[href^="tel:"]'); // First tel link usually mobile call
+            if (mobileCall && mobileCall.classList.contains('bg-brand-green')) {
+                mobileCall.href = `tel:${phone}`;
             }
-            if (settings.facebook) {
-                const socialFB = document.getElementById('social-facebook');
-                if (socialFB) socialFB.href = settings.facebook;
-            }
-            if (settings.telegram) {
-                const socialTG = document.getElementById('social-telegram');
-                if (socialTG) socialTG.href = settings.telegram;
-            }
-            if (settings.instagram) {
-                const socialIG = document.getElementById('social-instagram');
-                if (socialIG) socialIG.href = settings.instagram;
-            }
-            if (settings.linkedin) {
-                const socialLI = document.getElementById('social-linkedin');
-                if (socialLI) socialLI.href = settings.linkedin;
-            }
+
+            // Update stats phone on index
+            const statsPhone = document.getElementById('stats-phone');
+            if (statsPhone) statsPhone.innerText = phone;
+
         } catch (e) {
             console.error('Failed to load settings', e);
         }

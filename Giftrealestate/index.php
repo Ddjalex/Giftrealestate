@@ -25,7 +25,7 @@
       "logo": "https://realestatepropertyaddis.com/assets/logo.png",
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+251 921878641",
+        "telephone": "+251913724749",
         "contactType": "sales",
         "areaServed": "ET",
         "availableLanguage": ["en", "am"]
@@ -143,14 +143,14 @@
     <div class="bg-brand-green text-white py-2">
         <div class="container mx-auto px-4 flex justify-between items-center text-sm">
             <div class="flex space-x-4">
-                <span class="hidden sm:inline"><i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>Kazanchis, Black Gold Plaza, Addis Ababa</span>
-                <span id="top-bar-phone"><i class="fas fa-phone-alt text-brand-yellow mr-2"></i>+251 921878641</span>
+                <span id="top-bar-address" class="hidden sm:inline"><i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i></span>
+                <span id="top-bar-phone"><i class="fas fa-phone-alt text-brand-yellow mr-2"></i></span>
             </div>
-            <div class="flex space-x-4">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-telegram"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <div id="top-bar-socials" class="flex space-x-4">
+                <a id="top-social-facebook" href="#" class="hidden"><i class="fab fa-facebook-f"></i></a>
+                <a id="top-social-telegram" href="#" class="hidden"><i class="fab fa-telegram"></i></a>
+                <a id="top-social-instagram" href="#" class="hidden"><i class="fab fa-instagram"></i></a>
+                <a id="top-social-linkedin" href="#" class="hidden"><i class="fab fa-linkedin-in"></i></a>
             </div>
         </div>
     </div>
@@ -165,7 +165,7 @@
             
             <!-- Mobile Menu Button -->
             <div class="flex items-center gap-2 md:hidden">
-                <a href="tel:+251921878641" class="bg-brand-green text-white p-2 rounded-lg text-lg shadow-md">
+                <a href="tel:+251913724749" class="bg-brand-green text-white p-2 rounded-lg text-lg shadow-md">
                     <i class="fas fa-phone-alt"></i>
                 </a>
                 <button id="mobile-menu-btn" class="text-brand-green text-2xl p-2 focus:outline-none">
@@ -185,7 +185,7 @@
 
             <!-- Call Button (Desktop) -->
             <div class="hidden md:flex items-center">
-                <a href="tel:+251921878641" id="nav-call-btn" class="bg-[#008148] text-white font-bold px-4 lg:px-8 py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg uppercase text-xs lg:text-sm tracking-wider whitespace-nowrap">
+                <a href="tel:+251913724749" id="nav-call-btn" class="bg-[#008148] text-white font-bold px-4 lg:px-8 py-2.5 rounded flex items-center gap-2 hover:bg-opacity-90 transition shadow-lg uppercase text-xs lg:text-sm tracking-wider whitespace-nowrap">
                     <span>Call Us</span> <i class="fas fa-phone-square-alt text-lg lg:text-xl"></i>
                 </a>
             </div>
@@ -209,7 +209,7 @@
                 <a href="contact.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Contact</a>
             </div>
             <div class="p-6 border-t bg-gray-50">
-                <a href="tel:+251921878641" class="block bg-brand-green text-white font-bold py-4 px-6 rounded-xl text-center uppercase tracking-widest shadow-lg">
+                <a href="tel:+251913724749" class="block bg-brand-green text-white font-bold py-4 px-6 rounded-xl text-center uppercase tracking-widest shadow-lg">
                     <i class="fas fa-phone-alt mr-2"></i> Call Us Now
                 </a>
             </div>
@@ -518,7 +518,7 @@
                 
                 const properties = Array.isArray(propertiesData) ? propertiesData : [];
                 
-                const phone = settings.phone || '+251 921 878 641';
+                const phone = settings.phone || '+251913724749';
                 const phone2 = settings.phone2 || '';
                 const address = settings.address || 'Kazanchis, Black Gold Plaza, Addis Ababa';
                 const email = settings.email || 'info@giftrealestate.com.et';
