@@ -48,6 +48,17 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
         }
     </style>
     <style>
+        .contact-icon-box {
+            background-color: #004d40;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
         /* Custom Toast Styles */
         .toast-notification {
             position: fixed;
@@ -65,7 +76,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-left: 4px solid var(--brand-green);
+            border-left: 4px solid #004d40;
         }
         .toast-notification.show {
             transform: translateY(0);
@@ -80,7 +91,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
             const toast = document.createElement('div');
             toast.className = `toast-notification ${type === 'error' ? 'toast-error' : ''}`;
             toast.innerHTML = `
-                <i class="fas ${type === 'error' ? 'fa-exclamation-circle text-red-500' : 'fa-check-circle text-brand-green'}"></i>
+                <i class="fas ${type === 'error' ? 'fa-exclamation-circle text-red-500' : 'fa-check-circle text-[#004d40]'}"></i>
                 <span class="font-medium">${message}</span>
             `;
             document.body.appendChild(toast);
@@ -133,7 +144,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
                     <h2 class="text-3xl font-bold text-brand-green mb-8">Get In Touch</h2>
                     <div class="space-y-6">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-brand-green text-brand-yellow rounded-xl flex items-center justify-center shrink-0">
+                            <div class="contact-icon-box">
                                 <i class="fas fa-map-marker-alt text-xl"></i>
                             </div>
                             <div>
@@ -142,7 +153,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-brand-green text-brand-yellow rounded-xl flex items-center justify-center shrink-0">
+                            <div class="contact-icon-box">
                                 <i class="fas fa-phone-alt text-xl"></i>
                             </div>
                             <div>
@@ -151,7 +162,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-brand-green text-brand-yellow rounded-xl flex items-center justify-center shrink-0">
+                            <div class="contact-icon-box">
                                 <i class="fas fa-envelope text-xl"></i>
                             </div>
                             <div>
