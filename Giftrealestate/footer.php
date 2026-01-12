@@ -68,7 +68,7 @@
                                 <input type="email" id="newsletter-email" placeholder="Enter your email" required class="flex-1 bg-white p-3 rounded-l-lg text-gray-800 focus:outline-none h-12">
                                 <button type="submit" class="bg-[#5D5DFF] text-white px-6 py-3 rounded-r-lg font-bold hover:bg-blue-700 transition h-12 uppercase text-sm">SUBSCRIBE</button>
                             </form>
-                            <p id="newsletter-msg" class="text-xs mt-2 text-white font-medium bg-brand-green/20 p-2 rounded-lg hidden"></p>
+                            <p id="newsletter-msg" class="text-sm mt-3 text-white font-bold bg-brand-green p-4 rounded-xl shadow-lg border-2 border-brand-yellow hidden"></p>
                         </li>
                         <li>
                             <p class="font-bold uppercase tracking-widest text-xs mb-4">Follow Us</p>
