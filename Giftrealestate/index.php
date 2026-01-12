@@ -720,9 +720,9 @@
                                 <span class="flex items-center gap-1"><i class="fas fa-expand-arrows-alt text-brand-green"></i> ${p.area_sqft || 0} sq ft</span>
                             </div>
                         </div>
-                        <div class="mt-auto pt-4 flex items-center justify-between">
-                            <a href="tel:${settings.phone}" class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-200 transition-colors">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</a>
-                            <button onclick="window.location.href='property.php?id=${p.id}'" class="text-brand-green font-bold text-sm hover:underline">Details <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
+                        <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
+                            <a href="tel:${settings.phone}" class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-200 transition-colors pointer-events-auto">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</a>
+                            <button onclick="window.location.href='property.php?id=${p.id}'" class="text-brand-green font-bold text-sm hover:underline pointer-events-auto">Details <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
                         </div>
                     </div>
                 </div>`;
