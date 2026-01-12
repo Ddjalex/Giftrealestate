@@ -133,7 +133,7 @@ async function saveAbout() {
     });
 
     if (response.ok) {
-        alert('The about page content has been successfully updated.');
+        showToast('The about page content has been successfully updated.');
         fetchData();
     }
 }
@@ -269,7 +269,7 @@ function setupHeaderVideoAutoUpload() {
                 }
             }
         } catch (e) {
-            alert('Video upload failed: ' + e.message);
+            showToast('Video upload failed: ' + e.message, 'error');
         } finally {
             setTimeout(() => {
                 if (progressContainer) progressContainer.classList.add('hidden');
@@ -295,7 +295,7 @@ async function saveSettings() {
     });
 
     if (response.ok) {
-        alert('Your settings have been successfully saved.');
+        showToast('Your settings have been successfully saved.');
         fetchData();
     }
 }
@@ -303,7 +303,7 @@ async function saveSettings() {
 async function changeEmail() {
     const newEmail = document.getElementById('admin-email').value;
     if (!newEmail) {
-        alert('Please enter a new email');
+        showToast('Please enter a new email', 'error');
         return;
     }
     
@@ -314,10 +314,10 @@ async function changeEmail() {
     });
 
     if (response.ok) {
-        alert('Your email has been successfully updated. Please log in again with your new credentials.');
-        window.location.href = '/admin/login.php';
+        showToast('Your email has been successfully updated. Please log in again with your new credentials.');
+        setTimeout(() => window.location.href = '/admin/login.php', 2000);
     } else {
-        alert('We encountered an error while updating your email. Please try again.');
+        showToast('We encountered an error while updating your email. Please try again.', 'error');
     }
 }
 
@@ -325,11 +325,11 @@ async function changePassword() {
     const newPass = document.getElementById('new-password').value;
     const confirmPass = document.getElementById('confirm-password').value;
     if (!newPass) {
-        alert('Please enter a new password');
+        showToast('Please enter a new password', 'error');
         return;
     }
     if (newPass !== confirmPass) {
-        alert('Passwords do not match!');
+        showToast('Passwords do not match!', 'error');
         return;
     }
     
@@ -340,10 +340,10 @@ async function changePassword() {
     });
 
     if (response.ok) {
-        alert('Your password has been successfully updated.');
+        showToast('Your password has been successfully updated.');
         document.getElementById('password-form').reset();
     } else {
-        alert('We encountered an error while updating your password. Please try again.');
+        showToast('We encountered an error while updating your password. Please try again.', 'error');
     }
 }
 
