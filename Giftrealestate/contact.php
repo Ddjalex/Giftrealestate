@@ -183,20 +183,13 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
     <section class="pb-20">
         <div class="container mx-auto px-4">
             <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[450px]">
-                <?php if (!empty($settings['map_url'])): ?>
-                    <iframe 
-                        src="<?php echo htmlspecialchars($settings['map_url']); ?>" 
-                        class="w-full h-full border-0" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                <?php else: ?>
-                    <iframe 
-                        src="https://www.openstreetmap.org/export/embed.html?bbox=38.74,8.98,38.78,9.04&layer=mapnik&marker=9.01,38.76" 
-                        class="w-full h-full border-0">
-                    </iframe>
-                <?php endif; ?>
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5476317255154!2d38.7566162!3d9.0132338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8593361869cb%3A0xe53655452f10648!2sGift%20Real%20Estate%20PLC!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set&maptype=satellite" 
+                    class="w-full h-full border-0" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
     </section>
