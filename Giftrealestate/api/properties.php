@@ -52,7 +52,7 @@ switch ($method) {
 
             if (isset($data['id']) && !empty($data['id'])) {
                 // Update
-                $stmt = $pdo->prepare("UPDATE properties SET title=?, description=?, price=?, location=?, property_type=?, status=?, bedrooms=?, bathrooms=?, area_sqft=?, featured=?, main_image=?, gallery_images=?, amenities=? WHERE id=?");
+                $stmt = $pdo->prepare("UPDATE properties SET title=?, description=?, price=?, location=?, property_type=?, status=?, bedrooms=?, bathrooms=?, area_sqft=?, featured=?, main_image=?, gallery_images=?, amenities=?, map_url=? WHERE id=?");
                 $stmt->execute([
                     $data['title'],
                     $data['description'] ?? '',
@@ -67,11 +67,12 @@ switch ($method) {
                     $data['main_image'] ?? null,
                     $gallery_images,
                     $amenities,
+                    $data['map_url'] ?? '',
                     (int)$data['id']
                 ]);
             } else {
                 // Insert
-                $stmt = $pdo->prepare("INSERT INTO properties (title, description, price, location, property_type, status, bedrooms, bathrooms, area_sqft, featured, main_image, gallery_images, amenities) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO properties (title, description, price, location, property_type, status, bedrooms, bathrooms, area_sqft, featured, main_image, gallery_images, amenities, map_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute([
                     $data['title'],
                     $data['description'] ?? '',
@@ -85,7 +86,8 @@ switch ($method) {
                     (isset($data['featured']) && ($data['featured'] === true || $data['featured'] === 'on' || $data['featured'] === 1)) ? 1 : 0,
                     $data['main_image'] ?? null,
                     $gallery_images,
-                    $amenities
+                    $amenities,
+                    $data['map_url'] ?? ''
                 ]);
             }
             echo json_encode(['status' => 'success']);

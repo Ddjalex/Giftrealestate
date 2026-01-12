@@ -186,7 +186,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
                 <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[450px]">
                     <iframe 
                         id="office-map"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5476317255154!2d38.7566162!3d9.0132338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8593361869cb%3A0xe53655452f10648!2sGift%20Real%20Estate%20PLC!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set&maptype=satellite" 
+                        src="<?php echo !empty($settings['map_url']) ? htmlspecialchars($settings['map_url']) . '&maptype=satellite' : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5476317255154!2d38.7566162!3d9.0132338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8593361869cb%3A0xe53655452f10648!2sGift%20Real%20Estate%20PLC!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set&maptype=satellite'; ?>" 
                         class="w-full h-full border-0" 
                         allowfullscreen="" 
                         loading="lazy" 

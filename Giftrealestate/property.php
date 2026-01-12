@@ -255,6 +255,40 @@ $images = array_map(function($img) {
                             <?php endforeach; ?>
                         </div>
                     </div>
+
+                    <!-- Property Map Section -->
+                    <?php if (!empty($property['map_url'])): ?>
+                    <div class="mb-10">
+                        <h3 class="text-2xl font-bold mb-6">Location</h3>
+                        <div class="relative group">
+                            <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[400px]">
+                                <iframe 
+                                    id="property-map"
+                                    src="<?php echo htmlspecialchars($property['map_url']); ?>&maptype=satellite" 
+                                    class="w-full h-full border-0" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                            <button 
+                                onclick="centerPropertyMap()"
+                                class="absolute bottom-6 right-6 bg-white p-3 rounded-full shadow-xl hover:bg-gray-100 transition-all active:scale-95 group/btn border border-gray-100"
+                                title="Center to Exact Location"
+                            >
+                                <i class="fas fa-location-crosshairs text-brand-green text-xl group-hover/btn:scale-110 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <script>
+                        function centerPropertyMap() {
+                            const map = document.getElementById('property-map');
+                            const originalSrc = map.src;
+                            map.src = originalSrc;
+                            map.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    </script>
+                    <?php endif; ?>
                 </div>
             </div>
 
