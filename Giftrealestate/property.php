@@ -262,13 +262,17 @@ $images = array_map(function($img) {
                         <h3 class="text-2xl font-bold mb-6">Location</h3>
                         <div class="relative group">
                             <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[400px]">
+                                <?php 
+                                    $mapUrl = $property['map_url'];
+                                    // Simple check if it's already an OSM export link or needs conversion
+                                    // For a generic OSM link, we might need a specific format, but we'll try to use it directly
+                                    // if it's an iframe src. If it's a raw coordinate link, it's harder.
+                                    // Assuming the user provides an OSM embed URL.
+                                ?>
                                 <iframe 
                                     id="property-map"
-                                    src="<?php echo htmlspecialchars($property['map_url']); ?>&maptype=satellite" 
-                                    class="w-full h-full border-0" 
-                                    allowfullscreen="" 
-                                    loading="lazy" 
-                                    referrerpolicy="no-referrer-when-downgrade">
+                                    src="<?php echo htmlspecialchars($mapUrl); ?>" 
+                                    class="w-full h-full border-0">
                                 </iframe>
                             </div>
                             <button 
