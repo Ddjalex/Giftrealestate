@@ -55,7 +55,10 @@ async function handleSave() {
 
     if (currentTab === 'properties') {
         payload.featured = document.getElementById('prop-featured').checked ? 1 : 0;
-        payload.map_url = document.getElementById('prop-map-url').value;
+        const mapUrlInput = document.getElementById('prop-map-url');
+        if (mapUrlInput) {
+            payload.map_url = mapUrlInput.value;
+        }
         
         // Amenities are now handled by the multi-value logic above
         

@@ -376,6 +376,11 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                     <input type="number" name="price" id="prop-price" placeholder="Price (ETB)" class="p-2 border rounded">
                     <input type="text" name="location" id="prop-location" placeholder="Location" class="p-2 border rounded">
                 </div>
+                <div>
+                    <label class="block text-sm font-bold mb-1">OpenStreetMap Embed URL</label>
+                    <input type="text" name="map_url" id="prop-map-url" placeholder="https://www.openstreetmap.org/export/embed.html?..." class="w-full p-2 border rounded focus:ring-green-500 outline-none">
+                    <p class="text-[10px] text-gray-500 mt-1">Go to OpenStreetMap, click Share, then HTML Embed, and copy the 'src' attribute.</p>
+                </div>
                 <div class="grid grid-cols-3 gap-4">
                     <input type="number" name="bedrooms" id="prop-beds" placeholder="Beds" class="p-2 border rounded">
                     <input type="number" name="bathrooms" id="prop-baths" placeholder="Baths" class="p-2 border rounded">

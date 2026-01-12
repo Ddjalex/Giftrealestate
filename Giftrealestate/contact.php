@@ -186,7 +186,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
                 <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[450px]">
                     <iframe 
                         id="office-map"
-                        src="<?php echo !empty($settings['map_url']) ? htmlspecialchars($settings['map_url']) : 'https://www.openstreetmap.org/export/embed.html?bbox=38.74,8.98,38.78,9.04&layer=mapnik&marker=9.0132,38.7566'; ?>" 
+                        src="<?php echo !empty($settings['map_iframe']) ? htmlspecialchars($settings['map_iframe']) : 'https://www.openstreetmap.org/export/embed.html?bbox=38.74,8.98,38.78,9.04&layer=mapnik&marker=9.0132,38.7566'; ?>" 
                         class="w-full h-full border-0">
                     </iframe>
                 </div>

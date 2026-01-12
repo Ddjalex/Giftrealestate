@@ -463,6 +463,8 @@ function editItem(id) {
         document.getElementById('prop-status').value = item.status;
         document.getElementById('prop-price').value = item.price;
         document.getElementById('prop-location').value = item.location;
+        const mapUrlInput = document.getElementById('prop-map-url');
+        if (mapUrlInput) mapUrlInput.value = item.map_url || '';
         document.getElementById('prop-beds').value = item.bedrooms;
         document.getElementById('prop-baths').value = item.bathrooms;
         document.getElementById('prop-area').value = item.area_sqft;
