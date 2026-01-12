@@ -527,7 +527,11 @@
         function displayProperties(props, phone) {
             const grid = document.getElementById('property-grid');
             if (!grid) return;
-            grid.innerHTML = props.map(p => {
+            
+            // Limit to 5 properties for the home page
+            const displayProps = props.slice(0, 5);
+            
+            grid.innerHTML = displayProps.map(p => {
                 const img = p.main_image ? (p.main_image.startsWith('http') || p.main_image.startsWith('data:') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80';
                 
                 // Parse gallery images for slideshow
