@@ -182,17 +182,38 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
     <!-- Map Section -->
     <section class="pb-20">
         <div class="container mx-auto px-4">
-            <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[450px]">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5476317255154!2d38.7566162!3d9.0132338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8593361869cb%3A0xe53655452f10648!2sGift%20Real%20Estate%20PLC!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set&maptype=satellite" 
-                    class="w-full h-full border-0" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+            <div class="relative group">
+                <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[450px]">
+                    <iframe 
+                        id="office-map"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5476317255154!2d38.7566162!3d9.0132338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8593361869cb%3A0xe53655452f10648!2sGift%20Real%20Estate%20PLC!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set&maptype=satellite" 
+                        class="w-full h-full border-0" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <button 
+                    onclick="centerMap()"
+                    class="absolute bottom-10 right-10 bg-white p-3 rounded-full shadow-xl hover:bg-gray-100 transition-all active:scale-95 group/btn border border-gray-100"
+                    title="Center to Exact Location"
+                >
+                    <i class="fas fa-location-crosshairs text-brand-green text-xl group-hover/btn:scale-110 transition-transform"></i>
+                </button>
             </div>
         </div>
     </section>
+
+    <script>
+        function centerMap() {
+            const map = document.getElementById('office-map');
+            const originalSrc = map.src;
+            // Force refresh to center by setting src again
+            map.src = originalSrc;
+            // Scroll to map if needed
+            map.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
 
     <?php include 'footer.php'; ?>
     <script>
