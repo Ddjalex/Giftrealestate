@@ -179,6 +179,28 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
         </div>
     </section>
 
+    <!-- Map Section -->
+    <section class="pb-20">
+        <div class="container mx-auto px-4">
+            <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[450px]">
+                <?php if (!empty($settings['map_url'])): ?>
+                    <iframe 
+                        src="<?php echo htmlspecialchars($settings['map_url']); ?>" 
+                        class="w-full h-full border-0" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                <?php else: ?>
+                    <iframe 
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=38.74,8.98,38.78,9.04&layer=mapnik&marker=9.01,38.76" 
+                        class="w-full h-full border-0">
+                    </iframe>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
     <?php include 'footer.php'; ?>
     <script>
         document.getElementById('contact-form').onsubmit = async (e) => {
