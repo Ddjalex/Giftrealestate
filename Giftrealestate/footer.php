@@ -29,7 +29,7 @@
                         <li><a href="properties.php?type=Luxury+Villas" class="hover:underline transition">Luxury Villas</a></li>
                         <li><a href="properties.php?type=Office+Spaces" class="hover:underline transition">Office Spaces</a></li>
                         <li><a href="properties.php?type=Retail+Shops" class="hover:underline transition">Retail Shops</a></li>
-                        <li><a href="properties.php?type=Land+%26+Plots" class="hover:underline transition">Land & Plots</a></li>
+                        <li><a href="properties.php?type=Land+and+Plots" class="hover:underline transition">Land & Plots</a></li>
                     </ul>
                 </div>
                 
