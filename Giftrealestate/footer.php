@@ -64,10 +64,11 @@
                             </div>
                         </li>
                         <li>
-                            <div class="flex gap-0">
-                                <input type="email" placeholder="Enter your email" class="flex-1 bg-white p-3 rounded-l-lg text-gray-800 focus:outline-none h-12">
-                                <button class="bg-[#5D5DFF] text-white px-6 py-3 rounded-r-lg font-bold hover:bg-blue-700 transition h-12 uppercase text-sm">SUBSCRIBE</button>
-                            </div>
+                            <form id="newsletter-form" class="flex gap-0">
+                                <input type="email" id="newsletter-email" placeholder="Enter your email" required class="flex-1 bg-white p-3 rounded-l-lg text-gray-800 focus:outline-none h-12">
+                                <button type="submit" class="bg-[#5D5DFF] text-white px-6 py-3 rounded-r-lg font-bold hover:bg-blue-700 transition h-12 uppercase text-sm">SUBSCRIBE</button>
+                            </form>
+                            <p id="newsletter-msg" class="text-xs mt-2 hidden"></p>
                         </li>
                         <li>
                             <p class="font-bold uppercase tracking-widest text-xs mb-4">Follow Us</p>
@@ -176,6 +177,37 @@
             // Update stats phone on index
             const statsPhone = document.getElementById('stats-phone');
             if (statsPhone) statsPhone.innerText = phone;
+
+            // Newsletter Logic
+            const newsForm = document.getElementById('newsletter-form');
+            if (newsForm) {
+                newsForm.onsubmit = async (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('newsletter-email').value;
+                    const msgEl = document.getElementById('newsletter-msg');
+                    
+                    try {
+                        const res = await fetch('/api/subscribe.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email })
+                        });
+                        const data = await res.json();
+                        
+                        msgEl.innerText = data.message;
+                        msgEl.classList.remove('hidden', 'text-red-500', 'text-white');
+                        msgEl.classList.add(data.success ? 'text-white' : 'text-red-500');
+                        
+                        if (data.success) newsForm.reset();
+                    } catch (err) {
+                        msgEl.innerText = 'Something went wrong. Please try again.';
+                        msgEl.classList.remove('hidden', 'text-white');
+                        msgEl.classList.add('text-red-500');
+                    }
+                    
+                    setTimeout(() => msgEl.classList.add('hidden'), 5000);
+                };
+            }
 
         } catch (e) {
             console.error('Failed to load settings', e);
