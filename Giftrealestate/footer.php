@@ -127,7 +127,10 @@
                 'facebook': ['social-facebook', 'top-social-facebook'],
                 'telegram': ['social-telegram', 'top-social-telegram'],
                 'instagram': ['social-instagram', 'top-social-instagram'],
-                'linkedin': ['social-linkedin', 'top-social-linkedin']
+                'linkedin': ['social-linkedin', 'top-social-linkedin'],
+                'tiktok': ['social-tiktok'],
+                'youtube': ['social-youtube'],
+                'x': ['social-x']
             };
 
             Object.entries(socialMapping).forEach(([key, ids]) => {
@@ -138,6 +141,12 @@
                             el.href = settings[key];
                             el.classList.remove('hidden');
                         }
+                    });
+                } else {
+                    // Hide icons if not set in admin
+                    ids.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.classList.add('hidden');
                     });
                 }
             });

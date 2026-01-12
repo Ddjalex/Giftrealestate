@@ -842,10 +842,10 @@
             const grid = document.getElementById('gallery-grid');
             if (!grid) return;
             grid.innerHTML = items.slice(0, 8).map(item => {
-                const img = item.image ? (item.image.startsWith('http') ? item.image : '/uploads/' + item.image) : (item.image_url || '');
+                const img = item.image ? (item.image.startsWith('http') ? item.image : '/uploads/' + item.image) : (item.image_url ? (item.image_url.startsWith('http') ? item.image_url : '/uploads/' + item.image_url) : '');
                 return `
                 <div class="relative h-64 overflow-hidden rounded-xl group cursor-pointer">
-                    <img src="${img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <img src="${img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='/assets/logo.png'">
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                         <div class="text-white">
                             <p class="text-xs font-bold text-brand-yellow uppercase mb-1">${item.category || 'Gallery'}</p>
