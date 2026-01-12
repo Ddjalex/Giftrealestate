@@ -165,9 +165,9 @@
             
             <!-- Mobile Menu Button -->
             <div class="flex items-center gap-2 md:hidden">
-                <a href="tel:+" class="bg-brand-green text-white px-3 py-2 rounded-lg flex items-center gap-2 shadow-md">
-                    <i class="fas fa-phone-alt"></i>
-                    <span class="font-bold text-sm uppercase">Call</span>
+                <a href="tel:+" class="bg-brand-green text-white px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg hover:bg-opacity-90 active:scale-95 transition-all">
+                    <i class="fas fa-phone-alt text-sm"></i>
+                    <span class="font-bold text-xs uppercase tracking-wider">Call Us</span>
                 </a>
                 <button id="mobile-menu-btn" class="text-brand-green text-2xl p-2 focus:outline-none">
                     <i class="fas fa-bars"></i>
