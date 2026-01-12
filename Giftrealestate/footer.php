@@ -177,6 +177,9 @@
             // Update stats phone on index
             const statsPhone = document.getElementById('stats-phone');
             if (statsPhone) statsPhone.innerText = phone;
+            
+            const statsPhoneLink = document.getElementById('stats-phone-link');
+            if (statsPhoneLink) statsPhoneLink.href = `tel:${phone}`;
 
             // Newsletter Logic
             const newsForm = document.getElementById('newsletter-form');
