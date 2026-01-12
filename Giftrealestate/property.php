@@ -257,21 +257,13 @@ $images = array_map(function($img) {
                     </div>
 
                     <!-- Property Map Section -->
-                    <?php if (!empty($property['map_url'])): ?>
                     <div class="mb-10">
                         <h3 class="text-2xl font-bold mb-6">Location</h3>
                         <div class="relative group">
                             <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[400px]">
-                                <?php 
-                                    $mapUrl = $property['map_url'];
-                                    // Simple check if it's already an OSM export link or needs conversion
-                                    // For a generic OSM link, we might need a specific format, but we'll try to use it directly
-                                    // if it's an iframe src. If it's a raw coordinate link, it's harder.
-                                    // Assuming the user provides an OSM embed URL.
-                                ?>
                                 <iframe 
                                     id="property-map"
-                                    src="<?php echo htmlspecialchars($mapUrl); ?>" 
+                                    src="<?php echo !empty($property['map_url']) ? htmlspecialchars($property['map_url']) : 'https://www.openstreetmap.org/export/embed.html?bbox=38.7413,8.9984,38.7719,9.0280&layer=mapnik&marker=' . urlencode($property['location']); ?>" 
                                     class="w-full h-full border-0"
                                     allowfullscreen="" 
                                     loading="lazy">
@@ -286,37 +278,34 @@ $images = array_map(function($img) {
                             </button>
                         </div>
                     </div>
-                    <script>
-                        function centerPropertyMap() {
-                            const map = document.getElementById('property-map');
-                            const originalSrc = map.src;
-                            
-                            // Check if it's an OSM link and try to increase zoom level
-                            let zoomedSrc = originalSrc;
-                            if (originalSrc.includes('openstreetmap.org')) {
-                                // OSM zoom is often handled by bbox or a zoom parameter
-                                // We'll try to append/modify zoom if possible, or just refresh with a "speed" effect (refresh)
-                                if (originalSrc.includes('zoom=')) {
-                                    zoomedSrc = originalSrc.replace(/zoom=\d+/, 'zoom=18');
-                                } else {
-                                    zoomedSrc = originalSrc + '&zoom=18';
-                                }
-                            }
-                            
-                            map.style.transition = 'all 0.5s ease-in-out';
-                            map.style.transform = 'scale(1.02)';
-                            
-                            map.src = zoomedSrc;
-                            map.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            
-                            setTimeout(() => {
-                                map.style.transform = 'scale(1)';
-                            }, 500);
-                        }
-                    </script>
-                    <?php endif; ?>
                 </div>
             </div>
+
+            <script>
+                function centerPropertyMap() {
+                    const map = document.getElementById('property-map');
+                    const originalSrc = map.src;
+                    
+                    let zoomedSrc = originalSrc;
+                    if (originalSrc.includes('openstreetmap.org')) {
+                        if (originalSrc.includes('zoom=')) {
+                            zoomedSrc = originalSrc.replace(/zoom=\d+/, 'zoom=18');
+                        } else {
+                            zoomedSrc = originalSrc + '&zoom=18';
+                        }
+                    }
+                    
+                    map.style.transition = 'all 0.5s ease-in-out';
+                    map.style.transform = 'scale(1.02)';
+                    
+                    map.src = zoomedSrc;
+                    map.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    setTimeout(() => {
+                        map.style.transform = 'scale(1)';
+                    }, 500);
+                }
+            </script>
 
             <div class="md:w-1/3">
                 <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 sticky top-24">
