@@ -203,7 +203,7 @@
                         <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
                         <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location || 'Ethiopia'}</p>
                         <div class="mb-4">
-                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
+                            <a href="tel:${settings.phone}" class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-200 transition-colors">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</a>
                         </div>
                         <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
                             <span><i class="fas fa-bed mr-1"></i> ${p.bedrooms || 0}</span>
