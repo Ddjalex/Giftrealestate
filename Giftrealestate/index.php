@@ -287,7 +287,7 @@
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Properties Sold</div>
             </div>
             <div class="p-6 md:p-8">
-                <div class="text-3xl md:text-4xl font-bold text-brand-green" id="stats-phone">0974408281</div>
+                <div class="text-3xl md:text-4xl font-bold text-brand-green" id="stats-phone">...</div>
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Call For Info</div>
             </div>
             <div class="p-6 md:p-8 sm:col-span-2 md:col-span-1">

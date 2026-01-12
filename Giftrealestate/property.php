@@ -20,7 +20,7 @@ if (!$property) {
 // Fetch settings for contact info
 $stmt = $pdo->query("SELECT `key`, `value` FROM settings");
 $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
-$contactPhone = $settings['phone'] ?? '+251921878641';
+$contactPhone = $settings['phone'] ?? '';
 
 $gallery = [];
 if ($property['gallery_images']) {
@@ -216,7 +216,7 @@ $images = array_map(function($img) {
 
                     <div class="mt-8 flex gap-4">
                         <a id="detail-call-btn" href="tel:<?php echo $contactPhone; ?>" class="flex-1 bg-gray-100 text-gray-800 text-center py-4 rounded-2xl font-bold hover:bg-gray-200 transition flex items-center justify-center gap-2">
-                            <i class="fas fa-phone-alt"></i> Call
+                            <i class="fas fa-phone-alt"></i> <?php echo $contactPhone ? 'Call' : '...'; ?>
                         </a>
                         <a id="detail-whatsapp-btn" href="https://wa.me/<?php 
                             $waPhone = preg_replace('/[^0-9]/', '', $contactPhone);
