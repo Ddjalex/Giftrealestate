@@ -272,7 +272,9 @@ $images = array_map(function($img) {
                                 <iframe 
                                     id="property-map"
                                     src="<?php echo htmlspecialchars($mapUrl); ?>" 
-                                    class="w-full h-full border-0">
+                                    class="w-full h-full border-0"
+                                    allowfullscreen="" 
+                                    loading="lazy">
                                 </iframe>
                             </div>
                             <button 

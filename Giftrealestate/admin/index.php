@@ -377,9 +377,9 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                     <input type="text" name="location" id="prop-location" placeholder="Location" class="p-2 border rounded">
                 </div>
                 <div>
-                    <label class="block text-sm font-bold mb-1">OpenStreetMap Embed URL</label>
-                    <input type="text" name="map_url" id="prop-map-url" placeholder="https://www.openstreetmap.org/export/embed.html?..." class="w-full p-2 border rounded focus:ring-green-500 outline-none">
-                    <p class="text-[10px] text-gray-500 mt-1">Go to OpenStreetMap, click Share, then HTML Embed, and copy the 'src' attribute.</p>
+                    <label class="block text-sm font-bold mb-1">Map Embed URL (Google or OSM)</label>
+                    <input type="text" name="map_url" id="prop-map-url" placeholder="Paste the 'src' URL from the embed code here..." class="w-full p-2 border rounded focus:ring-green-500 outline-none">
+                    <p class="text-[10px] text-gray-500 mt-1">Paste the source URL from any map's "Embed" code (Google Maps or OpenStreetMap).</p>
                 </div>
                 <div class="grid grid-cols-3 gap-4">
                     <input type="number" name="bedrooms" id="prop-beds" placeholder="Beds" class="p-2 border rounded">
