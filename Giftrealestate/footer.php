@@ -68,7 +68,7 @@
                                 <input type="email" id="newsletter-email" placeholder="Enter your email" required class="flex-1 bg-white p-3 rounded-l-lg text-gray-800 focus:outline-none h-12">
                                 <button type="submit" class="bg-[#5D5DFF] text-white px-6 py-3 rounded-r-lg font-bold hover:bg-blue-700 transition h-12 uppercase text-sm">SUBSCRIBE</button>
                             </form>
-                            <p id="newsletter-msg" class="text-xs mt-2 hidden"></p>
+                            <p id="newsletter-msg" class="text-xs mt-2 text-white font-medium bg-brand-green/20 p-2 rounded-lg hidden"></p>
                         </li>
                         <li>
                             <p class="font-bold uppercase tracking-widest text-xs mb-4">Follow Us</p>
@@ -206,11 +206,14 @@
                         });
                         const data = await res.json();
                         
-                        msgEl.innerText = data.message;
+                        msgEl.innerText = data.success ? "Thanks for subscribing! Now you can get any updates by email." : data.message;
                         msgEl.classList.remove('hidden', 'text-red-500', 'text-white');
                         msgEl.classList.add(data.success ? 'text-white' : 'text-red-500');
                         
-                        if (data.success) newsForm.reset();
+                        if (data.success) {
+                            newsForm.style.display = 'none';
+                            newsForm.reset();
+                        }
                     } catch (err) {
                         msgEl.innerText = 'Something went wrong. Please try again.';
                         msgEl.classList.remove('hidden', 'text-white');
