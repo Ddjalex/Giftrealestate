@@ -721,7 +721,7 @@
                             </div>
                         </div>
                         <div class="mt-auto pt-4 flex items-center justify-between">
-                            <span class="text-brand-green font-bold text-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
+                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
                             <button onclick="window.location.href='property.php?id=${p.id}'" class="text-brand-green font-bold text-sm hover:underline">Details <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
                         </div>
                     </div>
