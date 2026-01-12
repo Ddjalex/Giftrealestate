@@ -5,9 +5,10 @@ global $pdo;
 // Fetch settings
 $stmt = $pdo->query("SELECT `key`, `value` FROM settings");
 $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
-$contactPhone = $settings['phone'] ?? '+251921878641';
+$contactPhone = $settings['phone'] ?? '+251913724749';
+$contactPhone2 = $settings['phone2'] ?? '+251947497777';
 $contactEmail = $settings['email'] ?? 'info@giftrealestate.com.et';
-$contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ababa';
+$contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -147,6 +148,9 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
                     <div>
                         <h4 class="font-bold text-lg">Phone Number</h4>
                         <p class="text-gray-600"><?php echo htmlspecialchars($contactPhone); ?></p>
+                        <?php if ($contactPhone2): ?>
+                            <p class="text-gray-600 mt-1"><?php echo htmlspecialchars($contactPhone2); ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="flex items-start gap-4">

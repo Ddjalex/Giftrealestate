@@ -104,7 +104,7 @@
             
             // Shared Data Updates
             const phone = settings.phone || '+251913724749';
-            const phone2 = settings.phone2;
+            const phone2 = settings.phone2 || '+251947497777';
             const address = settings.address || 'Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia';
             const whatsapp = settings.whatsapp || settings.phone || '+251913724749';
 
