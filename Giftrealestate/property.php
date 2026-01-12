@@ -313,7 +313,7 @@ $images = array_map(function($img) {
                     // Reverting to direct link method for reliability in "normal mode"
                     window.location.href = whatsappUrl;
                 } else {
-                    alert('Error recording inquiry. Please try again.');
+                    alert('We encountered an error while processing your inquiry. Please try contacting us via WhatsApp directly.');
                 }
             } catch (err) {
                 console.error('Network error:', err);

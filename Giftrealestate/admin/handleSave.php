@@ -116,16 +116,16 @@ async function handleSave() {
         });
 
         if (response.ok) {
-            alert('Saved successfully!');
+            alert('Your changes have been successfully saved.');
             hideAddModal();
             fetchData();
         } else {
             const err = await response.json();
-            alert('Error: ' + (err.error || 'Failed to save'));
+            alert('We encountered an error: ' + (err.error || 'The item could not be saved. Please try again.'));
         }
     } catch (e) {
         console.error('Save failed', e);
-        alert('An error occurred while saving.');
+        alert('An unexpected error occurred while saving. Please check your connection and try again.');
     }
 }
 </script>

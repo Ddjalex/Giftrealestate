@@ -135,7 +135,7 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Addis Ab
     <script>
         document.getElementById('contact-form').onsubmit = async (e) => {
             e.preventDefault();
-            alert('Thank you for your message. We will get back to you soon!');
+            alert('Thank you for contacting Gift Real Estate. Your message has been successfully received, and our team will get back to you shortly.');
             e.target.reset();
         };
     </script>

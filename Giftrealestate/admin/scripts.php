@@ -133,7 +133,7 @@ async function saveAbout() {
     });
 
     if (response.ok) {
-        alert('About content saved successfully!');
+        alert('The about page content has been successfully updated.');
         fetchData();
     }
 }
@@ -295,7 +295,7 @@ async function saveSettings() {
     });
 
     if (response.ok) {
-        alert('Settings saved successfully!');
+        alert('Your settings have been successfully saved.');
         fetchData();
     }
 }
@@ -314,10 +314,10 @@ async function changeEmail() {
     });
 
     if (response.ok) {
-        alert('Email updated successfully! Please login again with your new email.');
+        alert('Your email has been successfully updated. Please log in again with your new credentials.');
         window.location.href = '/admin/login.php';
     } else {
-        alert('Failed to update email.');
+        alert('We encountered an error while updating your email. Please try again.');
     }
 }
 
@@ -340,10 +340,10 @@ async function changePassword() {
     });
 
     if (response.ok) {
-        alert('Password updated successfully!');
+        alert('Your password has been successfully updated.');
         document.getElementById('password-form').reset();
     } else {
-        alert('Failed to update password.');
+        alert('We encountered an error while updating your password. Please try again.');
     }
 }
 
