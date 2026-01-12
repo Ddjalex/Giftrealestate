@@ -54,11 +54,11 @@
                 <a href="/"><img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
-                <a href="index.php" class="nav-link">Home</a>
-                <a href="about.php" class="nav-link text-brand-yellow">About Us</a>
-                <a href="gallery.php" class="nav-link">Gallery</a>
-                <a href="properties.php" class="nav-link">Properties</a>
-                <a href="news.php" class="nav-link">News</a>
+                <a href='index" class="nav-link">Home</a>
+                <a href='about" class="nav-link text-brand-yellow">About Us</a>
+                <a href='gallery" class="nav-link">Gallery</a>
+                <a href='properties" class="nav-link">Properties</a>
+                <a href='news" class="nav-link">News</a>
             </div>
             <a href="tel:+251921878641" id="nav-call-btn" class="bg-green-600 text-white font-bold px-6 py-2 rounded flex items-center gap-2">
                 Call Us <i class="fas fa-phone"></i>
@@ -237,11 +237,11 @@
     <script>
         async function loadAbout() {
             try {
-                const response = await fetch('/api/about.php');
+                const response = await fetch('/api/about'));
                 const data = await response.json();
                 
                 // Fetch settings too for top bar
-                const sRes = await fetch('/api/settings.php');
+                const sRes = await fetch('/api/settings'));
                 const settings = await sRes.json();
                 
                 if (settings.phone) {

@@ -45,14 +45,14 @@
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 flex justify-between items-center h-20">
             <div class="flex items-center shrink-0">
-                <a href="index.php"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
+                <a href='/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
-                <a href="index.php" class="nav-link">Home</a>
-                <a href="about.php" class="nav-link">About Us</a>
-                <a href="gallery.php" class="nav-link text-brand-yellow">Gallery</a>
-                <a href="properties.php" class="nav-link">Properties</a>
-                <a href="news.php" class="nav-link">News</a>
+                <a href='/" class="nav-link">Home</a>
+                <a href='about" class="nav-link">About Us</a>
+                <a href='gallery" class="nav-link text-brand-yellow">Gallery</a>
+                <a href='properties" class="nav-link">Properties</a>
+                <a href='news" class="nav-link">News</a>
             </div>
             <div class="flex items-center">
                 <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-4 md:px-6 py-2 rounded-full text-sm md:text-base whitespace-nowrap">
@@ -91,7 +91,7 @@
         async function loadGallery() {
             try {
                 // Fetch settings for call button
-                const sRes = await fetch('/api/settings.php');
+                const sRes = await fetch('/api/settings'));
                 const settings = await sRes.json();
                 if (settings.phone) {
                     const callBtn = document.getElementById('nav-call-btn');
@@ -100,7 +100,7 @@
                     }
                 }
 
-                const response = await fetch('/api/gallery.php');
+                const response = await fetch('/api/gallery'));
                 const items = await response.json();
                 const grid = document.getElementById('gallery-grid');
                 if (grid) {

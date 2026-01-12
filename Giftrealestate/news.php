@@ -42,12 +42,12 @@
                 <a href="/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
-                <a href="index.php" class="nav-link">Home</a>
-                <a href="about.php" class="nav-link">About Us</a>
-                <a href="gallery.php" class="nav-link">Gallery</a>
-                <a href="properties.php" class="nav-link">Properties</a>
-                <a href="news.php" class="nav-link text-brand-yellow">News</a>
-                <a href="contact.php" class="nav-link">Contact</a>
+                <a href='/" class="nav-link">Home</a>
+                <a href='about" class="nav-link">About Us</a>
+                <a href='gallery" class="nav-link">Gallery</a>
+                <a href='properties" class="nav-link">Properties</a>
+                <a href='news" class="nav-link text-brand-yellow">News</a>
+                <a href='contact" class="nav-link">Contact</a>
             </div>
             <div class="flex items-center">
                 <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-4 md:px-6 py-2 rounded-full text-sm md:text-base whitespace-nowrap">
@@ -87,7 +87,7 @@
         async function loadNews() {
             try {
                 // Fetch settings for call button
-                const sRes = await fetch('/api/settings.php');
+                const sRes = await fetch('/api/settings'));
                 const settings = await sRes.json();
                 if (settings.phone) {
                     const callBtn = document.getElementById('nav-call-btn');
@@ -96,7 +96,7 @@
                     }
                 }
 
-                const response = await fetch('/api/blog.php');
+                const response = await fetch('/api/blog'));
                 const items = await response.json();
                 const grid = document.getElementById('news-grid');
                 if (items.length === 0) {
@@ -111,9 +111,9 @@
                             <h4 class="text-xl font-bold text-brand-green mt-2 mb-4">${item.title}</h4>
                             <p class="text-gray-500 text-sm line-clamp-3 mb-4">${item.content}</p>
                             <div class="mb-4">
-                                <a href="properties.php" class="text-brand-green font-bold hover:underline text-sm">View more Real Estate Property in Addis</a>
+                                <a href='properties" class="text-brand-green font-bold hover:underline text-sm">View more Real Estate Property in Addis</a>
                             </div>
-                            <a href="news_detail.php?id=${item.id}" class="text-brand-green font-bold text-sm hover:text-brand-yellow">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                            <a href='news_detail?id=${item.id}" class="text-brand-green font-bold text-sm hover:text-brand-yellow">Read More <i class="fas fa-arrow-right ml-1"></i></a>
                         </div>
                     </div>
                 `).join('');

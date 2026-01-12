@@ -46,7 +46,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
             <h2 id="current-tab-title" class="text-xl font-bold text-brand-green">Manage Properties</h2>
             <div class="flex items-center gap-4">
                 <button id="add-btn" onclick="showAddModal()" class="bg-brand-green text-brand-yellow font-bold px-4 py-2 rounded">+ Add New</button>
-                <a href="logout.php" class="bg-red-600 text-white font-bold px-4 py-2 rounded hover:bg-red-700 transition">Logout</a>
+                <a href='logout" class="bg-red-600 text-white font-bold px-4 py-2 rounded hover:bg-red-700 transition">Logout</a>
             </div>
         </header>
 

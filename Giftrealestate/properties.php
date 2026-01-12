@@ -48,12 +48,12 @@
                 <a href="/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
-                <a href="index.php" class="nav-link">Home</a>
-                <a href="about.php" class="nav-link">About Us</a>
-                <a href="gallery.php" class="nav-link">Gallery</a>
-                <a href="properties.php" class="nav-link text-brand-yellow">Properties</a>
-                <a href="news.php" class="nav-link">News</a>
-                <a href="contact.php" class="nav-link">Contact</a>
+                <a href='/" class="nav-link">Home</a>
+                <a href='about" class="nav-link">About Us</a>
+                <a href='gallery" class="nav-link">Gallery</a>
+                <a href='properties" class="nav-link text-brand-yellow">Properties</a>
+                <a href='news" class="nav-link">News</a>
+                <a href='contact" class="nav-link">Contact</a>
             </div>
             <div class="flex items-center">
                 <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-4 md:px-6 py-2 rounded-full text-sm md:text-base whitespace-nowrap">
@@ -117,8 +117,8 @@
             
             try {
                 const [pRes, sRes] = await Promise.all([
-                    fetch('/api/properties.php'),
-                    fetch('/api/settings.php')
+                    fetch('/api/properties')),
+                    fetch('/api/settings'))
                 ]);
                 const data = await pRes.json();
                 const settings = await sRes.json();
@@ -198,7 +198,7 @@
                             </div>
                         ` : ''}
                     </div>
-                    <div class="p-6" onclick="window.location.href='property.php?id=${p.id}'">
+                    <div class="p-6" onclick="window.location.href='property?id=${p.id}'">
                         <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
                         <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
                         <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location || 'Ethiopia'}</p>

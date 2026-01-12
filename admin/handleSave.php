@@ -22,7 +22,7 @@ async function handleSave() {
         if (imageInput && imageInput.files.length > 0) {
             const imgFormData = new FormData();
             imgFormData.append('images[]', imageInput.files[0]);
-            const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: imgFormData });
+            const uploadRes = await fetch('/api/upload'), { method: 'POST', body: imgFormData });
             const uploadData = await uploadRes.json();
             if (uploadData.urls && uploadData.urls.length > 0) {
                 payload.image_url = uploadData.urls[0];
@@ -56,7 +56,7 @@ async function handleSave() {
                 imgFormData.append('images[]', selectedFiles[i]);
             }
             try {
-                const uploadRes = await fetch('/api/upload.php', {
+                const uploadRes = await fetch('/api/upload'), {
                     method: 'POST',
                     body: imgFormData
                 });

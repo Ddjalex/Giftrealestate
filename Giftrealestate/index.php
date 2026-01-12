@@ -220,7 +220,7 @@
         <canvas id="header-canvas" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
         <div class="container mx-auto px-4 flex justify-between items-center h-20 relative z-10">
             <div class="flex items-center shrink-0">
-                <a href="index.php"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-10 md:h-16 w-auto object-contain"></a>
+                <a href='/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-10 md:h-16 w-auto object-contain"></a>
             </div>
             
             <div class="flex items-center gap-2 md:hidden">
@@ -235,12 +235,12 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-6 lg:space-x-8 font-semibold text-brand-green uppercase text-xs lg:text-sm tracking-wider">
-                <a href="index.php" class="nav-link">Home</a>
-                <a href="about.php" class="nav-link">About Us</a>
-                <a href="gallery.php" class="nav-link">Gallery</a>
-                <a href="properties.php" class="nav-link">Properties</a>
-                <a href="news.php" class="nav-link">News</a>
-                <a href="contact.php" class="nav-link">Contact</a>
+                <a href='/" class="nav-link">Home</a>
+                <a href='about" class="nav-link">About Us</a>
+                <a href='gallery" class="nav-link">Gallery</a>
+                <a href='properties" class="nav-link">Properties</a>
+                <a href='news" class="nav-link">News</a>
+                <a href='contact" class="nav-link">Contact</a>
             </div>
 
             <!-- Call Button (Desktop) -->
@@ -261,12 +261,12 @@
                 <button id="close-menu-btn" class="text-brand-green text-2xl"><i class="fas fa-times"></i></button>
             </div>
             <div class="flex-1 overflow-y-auto py-8 px-6 space-y-6">
-                <a href="index.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Home</a>
-                <a href="about.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">About Us</a>
-                <a href="gallery.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Gallery</a>
-                <a href="properties.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Properties</a>
-                <a href="news.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">News</a>
-                <a href="contact.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Contact</a>
+                <a href='/" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Home</a>
+                <a href='about" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">About Us</a>
+                <a href='gallery" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Gallery</a>
+                <a href='properties" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Properties</a>
+                <a href='news" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">News</a>
+                <a href='contact" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Contact</a>
             </div>
             <div class="p-6 border-t bg-gray-50">
                 <a href="tel:+251913724749" id="mobile-slider-call-btn" class="block bg-brand-green text-white font-bold py-4 px-6 rounded-xl text-center uppercase tracking-widest shadow-lg">
@@ -309,7 +309,7 @@
         <script>
             async function loadHeaderVideo() {
                 try {
-                    const response = await fetch('/api/settings.php');
+                    const response = await fetch('/api/settings'));
                     const settings = await response.json();
                     if (settings.header_video) {
                         const container = document.getElementById('header-bg-container');
@@ -389,7 +389,7 @@
                 </div>
             </div>
             <div class="text-center mt-12">
-                <a href="properties.php" class="inline-block bg-brand-green text-brand-yellow font-bold px-10 py-4 rounded hover:bg-opacity-90 transition shadow-xl">View All Properties</a>
+                <a href='properties" class="inline-block bg-brand-green text-brand-yellow font-bold px-10 py-4 rounded hover:bg-opacity-90 transition shadow-xl">View All Properties</a>
             </div>
         </div>
     </section>
@@ -422,14 +422,14 @@
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group cursor-pointer" onclick="window.location.href='properties.php?type=Residential+Apartments'">
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group cursor-pointer" onclick="window.location.href='properties?type=Residential+Apartments'">
                     <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 transition-all duration-500 service-icon-container">
                         <i class="fas fa-home text-4xl text-[#008148] transition-all duration-500 service-icon"></i>
                     </div>
                     <h4 class="text-2xl font-bold mb-6 text-black">Residential Sales</h4>
                     <p class="text-gray-500 text-lg leading-relaxed">Find your perfect home from our extensive collection of villas, apartments, and family residences.</p>
                 </div>
-                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group cursor-pointer" onclick="window.location.href='properties.php?type=Commercial+Properties'">
+                <div class="bg-white p-10 rounded-[30px] border border-gray-100 service-card text-center group cursor-pointer" onclick="window.location.href='properties?type=Commercial+Properties'">
                     <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-8 transition-all duration-500 service-icon-container">
                         <i class="fas fa-users text-4xl text-[#008148] transition-all duration-500 service-icon"></i>
                     </div>
@@ -470,7 +470,7 @@
                     <span class="text-brand-yellow font-bold tracking-widest uppercase text-sm">Insights</span>
                     <h2 class="text-4xl font-bold text-brand-green mt-2">Latest News & Blog</h2>
                 </div>
-                <a href="news.php" class="text-brand-green font-bold hover:text-brand-yellow transition mt-4 md:mt-0">View All Updates <i class="fas fa-arrow-right ml-2"></i></a>
+                <a href='news" class="text-brand-green font-bold hover:text-brand-yellow transition mt-4 md:mt-0">View All Updates <i class="fas fa-arrow-right ml-2"></i></a>
             </div>
             <div id="index-news-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Loaded via JS -->
@@ -484,7 +484,7 @@
     <script>
         async function loadIndexNews() {
             try {
-                const response = await fetch('/api/blog.php');
+                const response = await fetch('/api/blog'));
                 const items = await response.json();
                 const grid = document.getElementById('index-news-grid');
                 if (!grid) return;
@@ -501,9 +501,9 @@
                             <h4 class="text-xl font-bold text-brand-green mb-3 line-clamp-2">${item.title}</h4>
                             <p class="text-gray-500 text-sm line-clamp-3 mb-4">${item.content}</p>
                             <div class="mb-4">
-                                <a href="properties.php" class="text-brand-green font-bold hover:underline text-sm">View more Real Estate Property in Addis</a>
+                                <a href='properties" class="text-brand-green font-bold hover:underline text-sm">View more Real Estate Property in Addis</a>
                             </div>
-                            <a href="news_detail.php?id=${item.id}" class="inline-flex items-center text-brand-green font-bold text-sm group-hover:text-brand-yellow transition">
+                            <a href='news_detail?id=${item.id}" class="inline-flex items-center text-brand-green font-bold text-sm group-hover:text-brand-yellow transition">
                                 Read Article <i class="fas fa-chevron-right ml-2 text-xs transition-transform group-hover:translate-x-1"></i>
                             </a>
                         </div>
@@ -572,8 +572,8 @@
             try {
                 const [pRes, sRes, gRes] = await Promise.all([
                     fetch('/api/properties.php?featured=1'),
-                    fetch('/api/settings.php'),
-                    fetch('/api/gallery.php')
+                    fetch('/api/settings')),
+                    fetch('/api/gallery'))
                 ]);
                 const propertiesData = await pRes.json();
                 const settings = await sRes.json();
@@ -707,7 +707,7 @@
                             </button>
                         ` : ''}
                     </div>
-                    <div class="p-6 flex flex-col flex-grow" onclick="window.location.href='property.php?id=${p.id}'">
+                    <div class="p-6 flex flex-col flex-grow" onclick="window.location.href='property?id=${p.id}'">
                         <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
                         <h3 class="text-xl font-bold text-brand-green mb-2 line-clamp-1">${p.title}</h3>
                         <p class="text-gray-500 text-sm mb-4 flex items-center shrink-0">
@@ -722,7 +722,7 @@
                         </div>
                         <div class="mt-auto pt-4 flex items-center justify-between relative z-20">
                             <a href="tel:${phone}" class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-200 transition-colors pointer-events-auto">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</a>
-                            <button onclick="window.location.href='property.php?id=${p.id}'" class="text-brand-green font-bold text-sm hover:underline pointer-events-auto">Details <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
+                            <button onclick="window.location.href='property?id=${p.id}'" class="text-brand-green font-bold text-sm hover:underline pointer-events-auto">Details <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
                         </div>
                     </div>
                 </div>`;

@@ -94,7 +94,7 @@
 <script>
     async function loadSettings() {
         try {
-            const response = await fetch('/api/settings.php');
+            const response = await fetch('/api/settings'));
             const settings = await response.json();
             if (settings.address) {
                 const footerAddr = document.getElementById('footer-address');

@@ -118,7 +118,7 @@ async function saveAbout() {
         if (fileInput && fileInput.files.length > 0) {
             const uploadFormData = new FormData();
             uploadFormData.append('images[]', fileInput.files[0]);
-            const uploadRes = await fetch('/api/upload.php', { method: 'POST', body: uploadFormData });
+            const uploadRes = await fetch('/api/upload'), { method: 'POST', body: uploadFormData });
             const uploadData = await uploadRes.json();
             if (uploadData.urls && uploadData.urls.length > 0) {
                 payload[mapping.key] = uploadData.urls[0];
@@ -126,7 +126,7 @@ async function saveAbout() {
         }
     }
     
-    const response = await fetch('/api/about.php', {
+    const response = await fetch('/api/about'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -288,7 +288,7 @@ async function saveSettings() {
         payload.header_video = videoInput.value;
     }
     
-    const response = await fetch('/api/settings.php', {
+    const response = await fetch('/api/settings'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -307,7 +307,7 @@ async function changeEmail() {
         return;
     }
     
-    const response = await fetch('/api/change_email.php', {
+    const response = await fetch('/api/change_email'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ new_email: newEmail })
@@ -315,7 +315,7 @@ async function changeEmail() {
 
     if (response.ok) {
         alert('Email updated successfully! Please login again with your new email.');
-        window.location.href = '/admin/login.php';
+        window.location.href='/admin/login';
     } else {
         alert('Failed to update email.');
     }
@@ -333,7 +333,7 @@ async function changePassword() {
         return;
     }
     
-    const response = await fetch('/api/change_password.php', {
+    const response = await fetch('/api/change_password'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ new_password: newPass })
