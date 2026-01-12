@@ -28,11 +28,11 @@
                 <a href="/"><img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
-                <a href='/" class="nav-link">Home</a>
-                <a href='about" class="nav-link">About Us</a>
-                <a href='gallery" class="nav-link">Gallery</a>
-                <a href='properties" class="nav-link text-brand-yellow">Properties</a>
-                <a href='news" class="nav-link">News</a>
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About Us</a>
+                <a href="/gallery" class="nav-link">Gallery</a>
+                <a href="/properties" class="nav-link text-brand-yellow">Properties</a>
+                <a href="/news" class="nav-link">News</a>
             </div>
             <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full">Call Us</a>
         </div>

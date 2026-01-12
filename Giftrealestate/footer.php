@@ -99,7 +99,7 @@
 <script>
     async function loadSettings() {
         try {
-            const response = await fetch('/api/settings'));
+            const response = await fetch('/api/settings');
             const settings = await response.json();
             
             // Shared Data Updates
@@ -204,7 +204,7 @@
                     const msgEl = document.getElementById('newsletter-msg');
                     
                     try {
-                        const res = await fetch('/api/subscribe'), {
+                        const res = await fetch('/api/subscribe', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ email })

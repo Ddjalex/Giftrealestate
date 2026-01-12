@@ -59,12 +59,12 @@ $contactPhone = $settings['phone'] ?? '';
                 <a href="/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-[#008148] uppercase text-sm tracking-wider">
-                <a href='/" class="nav-link">Home</a>
-                <a href='about" class="nav-link">About Us</a>
-                <a href='gallery" class="nav-link">Gallery</a>
-                <a href='properties" class="nav-link">Properties</a>
-                <a href='news" class="nav-link text-brand-yellow">News</a>
-                <a href='contact" class="nav-link">Contact</a>
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About Us</a>
+                <a href="/gallery" class="nav-link">Gallery</a>
+                <a href="/properties" class="nav-link">Properties</a>
+                <a href="/news" class="nav-link text-brand-yellow">News</a>
+                <a href="/contact" class="nav-link">Contact</a>
             </div>
             <div class="flex items-center">
                 <a href="tel:<?php echo $contactPhone; ?>" class="bg-[#008148] text-white font-bold px-6 py-2 rounded-full text-sm whitespace-nowrap">
@@ -76,7 +76,7 @@ $contactPhone = $settings['phone'] ?? '';
 
     <main class="container mx-auto px-4 py-12">
         <div class="max-w-4xl mx-auto">
-            <a href='news" class="text-brand-green font-bold mb-8 inline-block hover:underline">
+            <a href="/news" class="text-brand-green font-bold mb-8 inline-block hover:underline">
                 <i class="fas fa-arrow-left mr-2"></i> Back to News
             </a>
             

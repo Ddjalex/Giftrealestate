@@ -6,14 +6,12 @@ if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
     return false;
 }
 
-// Redirect .php requests to clean URLs to hide them from address bar
-if (preg_match('/\.php$/', $uri)) {
+// Redirect .php requests to clean URLs for public routes only
+// We exclude /api/ and /admin/ if needed, but usually we just want to hide it from the browser.
+if (preg_match('/\.php$/', $uri) && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
     $clean_uri = preg_replace('/\.php$/', '', $uri);
-    // Avoid infinite loop if somehow it hits itself
-    if ($clean_uri !== $uri) {
-        header("Location: $clean_uri", true, 301);
-        exit;
-    }
+    header("Location: $clean_uri", true, 301);
+    exit;
 }
 
 // Route mapping
@@ -28,7 +26,6 @@ $routes = [
     '/contact' => 'contact.php',
     '/sitemap.xml' => 'sitemap.php',
     '/admin' => 'admin/index.php',
-    '/admin/' => 'admin/index.php',
     '/admin/login' => 'admin/login.php',
     '/admin/logout' => 'admin/logout.php',
 ];
@@ -49,6 +46,15 @@ if (strpos($uri, '/admin/') === 0) {
     $admin_file = __DIR__ . $uri . '.php';
     if (file_exists($admin_file)) {
         include $admin_file;
+        exit;
+    }
+}
+
+// Handle API routes
+if (strpos($uri, '/api/') === 0) {
+    $api_file = __DIR__ . $uri . '.php';
+    if (file_exists($api_file)) {
+        include $api_file;
         exit;
     }
 }

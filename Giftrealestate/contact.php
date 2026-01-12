@@ -101,12 +101,12 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
                 <a href="/"><img src="/assets/logo.png" alt="Logo" class="h-16"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
-                <a href='/" class="nav-link">Home</a>
-                <a href='about" class="nav-link">About Us</a>
-                <a href='gallery" class="nav-link">Gallery</a>
-                <a href='properties" class="nav-link">Properties</a>
-                <a href='news" class="nav-link">News</a>
-                <a href='contact" class="nav-link text-brand-yellow">Contact</a>
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About Us</a>
+                <a href="/gallery" class="nav-link">Gallery</a>
+                <a href="/properties" class="nav-link">Properties</a>
+                <a href="/news" class="nav-link">News</a>
+                <a href="/contact" class="nav-link text-brand-yellow">Contact</a>
             </div>
             <a href="tel:<?php echo $contactPhone; ?>" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full">Call Us</a>
         </div>
