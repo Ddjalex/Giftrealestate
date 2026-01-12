@@ -271,8 +271,10 @@ $images = array_map(function($img) {
                                         // Extract lat/long from Google Maps URL format (@lat,long)
                                         $lat = $matches[1];
                                         $lon = $matches[2];
-                                        // Use Google Satellite view as standard OSM doesn't have good satellite imagery
-                                        $displayUrl = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1000!2d$lon!3d$lat!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set&maptype=satellite";
+                                        // Use Google Maps with place marker if possible, fallback to coordinate-based search with pin
+                                        $displayUrl = "https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&center=$lat,$lon&zoom=18&maptype=satellite";
+                                        // However, since we don't have an API key, we use the 'place' style embed which generates a pin
+                                        $displayUrl = "https://www.google.com/maps?q=$lat,$lon&z=18&t=k&output=embed";
                                     } elseif (strpos($mapUrl, 'maps.app.goo.gl') !== false || strpos($mapUrl, 'share.google') !== false) {
                                         // For Google share links, we can't easily embed them without an API or scraping
                                         // Fallback to location-based search
