@@ -187,17 +187,19 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
                     <iframe 
                         id="office-map"
                         src="<?php 
-                            $map_src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5476317255154!2d38.7566162!3d9.0132338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8593361869cb%3A0xe53655452f10648!2sGift%20Real%20Estate%20PLC!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set';
-                            if (!empty($settings['map_iframe_url'])) {
-                                if (strpos($settings['map_iframe_url'], 'google.com/maps/embed') !== false || strpos($settings['map_iframe_url'], 'openstreetmap.org/export/embed') !== false) {
-                                    $map_src = $settings['map_iframe_url'];
-                                } elseif (strpos($settings['map_iframe_url'], 'maps.app.goo.gl') !== false || strpos($settings['map_iframe_url'], 'share.google') !== false) {
-                                    // It's a share link, we still try to use it but usually these don't work in iframe
-                                    // The user provided https://maps.app.goo.gl/wArEUiTZhZgCR36K9 which is Gift Real Estate PLC
-                                    $map_src = $settings['map_iframe_url'];
+                            $raw_url = $settings['map_iframe_url'] ?? '';
+                            $final_src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5476317255154!2d38.7566162!3d9.0132338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8593361869cb%3A0xe53655452f10648!2sGift%20Real%20Estate%20PLC!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set';
+                            
+                            if (!empty($raw_url)) {
+                                if (strpos($raw_url, 'google.com/maps/embed') !== false || strpos($raw_url, 'openstreetmap.org/export/embed') !== false) {
+                                    $final_src = $raw_url;
+                                } else {
+                                    // If it's a short link, we'll still use the default embed because short links don't work in iframes
+                                    // but we allow the variable to be there for future correct embed URLs
+                                    // For now, if it doesn't look like an embed URL, we keep the default Gift Real Estate location
                                 }
                             }
-                            echo htmlspecialchars($map_src); 
+                            echo htmlspecialchars($final_src); 
                         ?>" 
                         class="w-full h-full border-0"
                         allowfullscreen="" 

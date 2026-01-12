@@ -261,9 +261,20 @@ $images = array_map(function($img) {
                         <h3 class="text-2xl font-bold mb-6">Location</h3>
                         <div class="relative group">
                             <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[400px]">
+                                <?php 
+                                    $mapUrl = !empty($property['map_url']) ? $property['map_url'] : '';
+                                    
+                                    // If map_url is a short link like maps.app.goo.gl, it won't work in iframe.
+                                    // However, we'll try to display it if it looks like an embed URL, 
+                                    // otherwise fallback to a default search on OSM based on location name.
+                                    $displayUrl = $mapUrl;
+                                    if (empty($mapUrl) || strpos($mapUrl, 'google.com/maps/embed') === false && strpos($mapUrl, 'openstreetmap.org/export/embed') === false) {
+                                        $displayUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=38.70,8.95,38.80,9.05&layer=mapnik&marker=' . urlencode($property['location'] ?? 'Addis Ababa');
+                                    }
+                                ?>
                                 <iframe 
                                     id="property-map"
-                                    src="<?php echo !empty($property['map_url']) ? htmlspecialchars($property['map_url']) : 'https://www.openstreetmap.org/export/embed.html?bbox=38.7413,8.9984,38.7719,9.0280&layer=mapnik&marker=' . urlencode($property['location']); ?>" 
+                                    src="<?php echo htmlspecialchars($displayUrl); ?>" 
                                     class="w-full h-full border-0"
                                     allowfullscreen="" 
                                     loading="lazy">
