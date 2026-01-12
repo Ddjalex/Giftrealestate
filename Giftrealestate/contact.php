@@ -186,7 +186,19 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
                 <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-100 h-[450px]">
                     <iframe 
                         id="office-map"
-                        src="<?php echo !empty($settings['map_iframe_url']) ? htmlspecialchars($settings['map_iframe_url']) : 'https://www.openstreetmap.org/export/embed.html?bbox=38.7413,8.9984,38.7719,9.0280&layer=mapnik&marker=9.01323,38.75661'; ?>" 
+                        src="<?php 
+                            $map_src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5476317255154!2d38.7566162!3d9.0132338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8593361869cb%3A0xe53655452f10648!2sGift%20Real%20Estate%20PLC!5e1!3m2!1sen!2set!4v1736674000000!5m2!1sen!2set';
+                            if (!empty($settings['map_iframe_url'])) {
+                                if (strpos($settings['map_iframe_url'], 'google.com/maps/embed') !== false || strpos($settings['map_iframe_url'], 'openstreetmap.org/export/embed') !== false) {
+                                    $map_src = $settings['map_iframe_url'];
+                                } elseif (strpos($settings['map_iframe_url'], 'maps.app.goo.gl') !== false || strpos($settings['map_iframe_url'], 'share.google') !== false) {
+                                    // It's a share link, we still try to use it but usually these don't work in iframe
+                                    // The user provided https://maps.app.goo.gl/wArEUiTZhZgCR36K9 which is Gift Real Estate PLC
+                                    $map_src = $settings['map_iframe_url'];
+                                }
+                            }
+                            echo htmlspecialchars($map_src); 
+                        ?>" 
                         class="w-full h-full border-0"
                         allowfullscreen="" 
                         loading="lazy">
