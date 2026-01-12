@@ -16,7 +16,7 @@
                     <img src="assets/logo.png" alt="Gift Real Estate Logo" class="h-24 object-contain mb-6 bg-white/10 p-2 rounded-xl">
                     <h4 class="text-lg font-bold mb-4 uppercase tracking-widest">Our Location</h4>
                     <p id="footer-address-brand" class="text-white text-sm mb-6 leading-relaxed">
-                        Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia
+                        Kazanchis, Street, Addis Ababa, Ethiopia
                     </p>
                 </div>
                 
@@ -50,17 +50,17 @@
                 <div>
                     <h4 class="text-lg font-bold mb-8 text-white uppercase tracking-widest">Our Location</h4>
                     <ul class="space-y-6 text-white text-sm">
-                        <li class="text-white">
-                            Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia
+                        <li id="footer-address" class="text-white">
+                            Kazanchis, Street, Addis Ababa, Ethiopia
                         </li>
                         <li class="flex flex-col gap-2">
                             <div class="flex items-center gap-3">
                                 <i class="fas fa-phone-alt"></i>
                                 <span id="footer-phone">+251 913724749</span>
                             </div>
-                            <div class="flex items-center gap-3 hidden">
+                            <div class="flex items-center gap-3">
                                 <i class="fas fa-phone-alt"></i>
-                                <span id="footer-phone2"></span>
+                                <span id="footer-phone2">+251 947497777</span>
                             </div>
                         </li>
                         <li class="relative">
@@ -105,7 +105,7 @@
             // Shared Data Updates
             const phone = settings.phone || '+251913724749';
             const phone2 = settings.phone2 || '+251947497777';
-            const address = settings.address || 'Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia';
+            const address = settings.address || 'Kazanchis, Street, Addis Ababa, Ethiopia';
             const whatsapp = settings.whatsapp || settings.phone || '+251913724749';
 
             // Update Header/Top Bar (if elements exist)

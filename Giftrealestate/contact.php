@@ -8,7 +8,7 @@ $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 $contactPhone = $settings['phone'] ?? '+251913724749';
 $contactPhone2 = $settings['phone2'] ?? '+251947497777';
 $contactEmail = $settings['email'] ?? 'info@giftrealestate.com.et';
-$contactAddress = $settings['address'] ?? 'Kazanchis, Black Gold Plaza, Guinea Conakry Street, Addis Ababa, Ethiopia';
+$contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethiopia';
 ?>
 <!DOCTYPE html>
 <html lang="en">
