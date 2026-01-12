@@ -95,7 +95,12 @@ async function handleSave() {
         }
         
         if (finalGallery.length > 0) {
-            payload.main_image = finalGallery[0];
+            // Respect the main_image if it was manually set (or unset) in the state
+            if (item && item.hasOwnProperty('main_image')) {
+                payload.main_image = item.main_image;
+            } else {
+                payload.main_image = finalGallery[0];
+            }
             payload.gallery_images = JSON.stringify(finalGallery);
         } else {
             payload.main_image = null;

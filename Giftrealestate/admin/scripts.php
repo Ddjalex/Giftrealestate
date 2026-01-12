@@ -354,6 +354,18 @@ async function deleteItem(id) {
     }
 }
 
+function removeMainImage() {
+    const idField = document.getElementById('prop-id');
+    const propertyId = idField ? idField.value : null;
+    if (!propertyId) return;
+
+    const item = data.properties.find(i => i.id == propertyId);
+    if (!item) return;
+
+    item.main_image = null;
+    refreshPropertyPreviews();
+}
+
 function refreshPropertyPreviews() {
     const preview = document.getElementById('prop-images-preview');
     if (!preview) return;
@@ -370,6 +382,7 @@ function refreshPropertyPreviews() {
         div.innerHTML = `
             <img src="${item.main_image.startsWith('http') || item.main_image.startsWith('data:') ? item.main_image : '/uploads/' + item.main_image}" class="h-full w-full object-cover rounded border border-brand-green">
             <span class="absolute -top-2 -left-2 bg-brand-green text-white rounded px-1 text-[10px]">Main</span>
+            <button type="button" onclick="removeMainImage()" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">×</button>
         `;
         preview.appendChild(div);
     }
@@ -426,8 +439,6 @@ function removeExistingImage(index) {
     if (Array.isArray(images)) {
         images.splice(index, 1);
         item.gallery_images = images; // Keep as array in memory, will be stringified on save
-        if (images.length > 0) item.main_image = images[0];
-        else item.main_image = null;
         refreshPropertyPreviews();
     }
 }
