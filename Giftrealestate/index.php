@@ -163,7 +163,6 @@
                 <a href="index.php"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-10 md:h-16 w-auto object-contain"></a>
             </div>
             
-            // Mobile Menu Button 
             <div class="flex items-center gap-2 md:hidden">
                 <a href="tel:+251913724749" id="mobile-call-btn" class="bg-brand-green text-white px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg hover:bg-opacity-90 active:scale-95 transition-all">
                     <i class="fas fa-phone-alt text-sm"></i>
