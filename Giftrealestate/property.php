@@ -288,8 +288,28 @@ $images = array_map(function($img) {
                         function centerPropertyMap() {
                             const map = document.getElementById('property-map');
                             const originalSrc = map.src;
-                            map.src = originalSrc;
+                            
+                            // Check if it's an OSM link and try to increase zoom level
+                            let zoomedSrc = originalSrc;
+                            if (originalSrc.includes('openstreetmap.org')) {
+                                // OSM zoom is often handled by bbox or a zoom parameter
+                                // We'll try to append/modify zoom if possible, or just refresh with a "speed" effect (refresh)
+                                if (originalSrc.includes('zoom=')) {
+                                    zoomedSrc = originalSrc.replace(/zoom=\d+/, 'zoom=18');
+                                } else {
+                                    zoomedSrc = originalSrc + '&zoom=18';
+                                }
+                            }
+                            
+                            map.style.transition = 'all 0.5s ease-in-out';
+                            map.style.transform = 'scale(1.02)';
+                            
+                            map.src = zoomedSrc;
                             map.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            setTimeout(() => {
+                                map.style.transform = 'scale(1)';
+                            }, 500);
                         }
                     </script>
                     <?php endif; ?>

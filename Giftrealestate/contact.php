@@ -205,10 +205,26 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
         function centerMap() {
             const map = document.getElementById('office-map');
             const originalSrc = map.src;
-            // Force refresh to center by setting src again
-            map.src = originalSrc;
-            // Scroll to map if needed
+            
+            let zoomedSrc = originalSrc;
+            if (originalSrc.includes('openstreetmap.org')) {
+                if (originalSrc.includes('zoom=')) {
+                    zoomedSrc = originalSrc.replace(/zoom=\d+/, 'zoom=18');
+                } else {
+                    zoomedSrc = originalSrc + '&zoom=18';
+                }
+            }
+            
+            // Visual "speed" effect
+            map.style.transition = 'all 0.5s ease-in-out';
+            map.style.transform = 'scale(1.02)';
+            
+            map.src = zoomedSrc;
             map.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => {
+                map.style.transform = 'scale(1)';
+            }, 500);
         }
     </script>
 
