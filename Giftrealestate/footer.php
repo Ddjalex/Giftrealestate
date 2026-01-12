@@ -1,12 +1,12 @@
 <?php
 // Shared Footer Component
 ?>
-<section id="contact" class="bg-[#32CD32]">
+<section id="contact" class="bg-[#004d40]">
     <footer class="text-white pt-20 pb-10 relative overflow-hidden">
         <!-- Background Image with Overlay -->
         <div class="absolute inset-0 z-0 opacity-40">
             <img src="assets/aerial-view.jpg" class="w-full h-full object-cover" alt="Footer Background">
-            <div class="absolute inset-0 bg-[#32CD32] opacity-60"></div>
+            <div class="absolute inset-0 bg-[#004d40] opacity-60"></div>
         </div>
 
         <div class="container mx-auto px-4 relative z-10">
