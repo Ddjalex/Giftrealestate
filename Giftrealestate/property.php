@@ -271,7 +271,7 @@ $images = array_map(function($img) {
                                         // Extract lat/long from Google Maps URL format (@lat,long)
                                         $lat = $matches[1];
                                         $lon = $matches[2];
-                                        $displayUrl = "https://www.openstreetmap.org/export/embed.html?bbox=" . ($lon-0.005) . "," . ($lat-0.005) . "," . ($lon+0.005) . "," . ($lat+0.005) . "&layer=mapnik&marker=$lat,$lon";
+                                        $displayUrl = "https://www.openstreetmap.org/export/embed.html?bbox=" . ($lon-0.001) . "," . ($lat-0.001) . "," . ($lon+0.001) . "," . ($lat+0.001) . "&layer=mapnik&marker=$lat,$lon";
                                     } elseif (strpos($mapUrl, 'maps.app.goo.gl') !== false || strpos($mapUrl, 'share.google') !== false) {
                                         // For Google share links, we can't easily embed them without an API or scraping
                                         // Fallback to location-based search
