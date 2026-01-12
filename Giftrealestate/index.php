@@ -163,9 +163,9 @@
                 <a href="index.php"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-10 md:h-16 w-auto object-contain"></a>
             </div>
             
-            <!-- Mobile Menu Button -->
+            // Mobile Menu Button 
             <div class="flex items-center gap-2 md:hidden">
-                <a href="tel:+" class="bg-brand-green text-white px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg hover:bg-opacity-90 active:scale-95 transition-all">
+                <a href="tel:+251913724749" id="mobile-call-btn" class="bg-brand-green text-white px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg hover:bg-opacity-90 active:scale-95 transition-all">
                     <i class="fas fa-phone-alt text-sm"></i>
                     <span class="font-bold text-xs uppercase tracking-wider">Call Us</span>
                 </a>
@@ -210,7 +210,7 @@
                 <a href="contact.php" class="block font-bold text-brand-green uppercase text-lg hover:text-brand-yellow transition-colors">Contact</a>
             </div>
             <div class="p-6 border-t bg-gray-50">
-                <a href="tel:+251913724749" class="block bg-brand-green text-white font-bold py-4 px-6 rounded-xl text-center uppercase tracking-widest shadow-lg">
+                <a href="tel:+251913724749" id="mobile-slider-call-btn" class="block bg-brand-green text-white font-bold py-4 px-6 rounded-xl text-center uppercase tracking-widest shadow-lg">
                     <i class="fas fa-phone-alt mr-2"></i> Call Us Now
                 </a>
             </div>
@@ -288,7 +288,7 @@
                 <div class="text-gray-500 font-semibold uppercase tracking-wider text-xs md:text-sm mt-2">Properties Sold</div>
             </div>
             <div class="p-6 md:p-8 flex flex-col items-center justify-center">
-                <a href="tel:+" id="stats-phone-link" class="bg-brand-green text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-opacity-90 transition transform hover:scale-105 flex items-center gap-3">
+                <a href="tel:+251913724749" id="stats-phone-link" class="bg-brand-green text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-opacity-90 transition transform hover:scale-105 flex items-center gap-3">
                     <i class="fas fa-phone-alt"></i>
                     <span id="stats-phone">...</span>
                 </a>
@@ -544,6 +544,25 @@
                 if (callBtn) {
                     const cleanPhone = phone.replace(/[^\d+]/g, '');
                     callBtn.href = `tel:${cleanPhone}`;
+                }
+                
+                // Update mobile call buttons
+                const mobileCallBtn = document.getElementById('mobile-call-btn');
+                if (mobileCallBtn) {
+                    const cleanPhone = phone.replace(/[^\d+]/g, '');
+                    mobileCallBtn.href = `tel:${cleanPhone}`;
+                }
+                
+                const mobileSliderCallBtn = document.getElementById('mobile-slider-call-btn');
+                if (mobileSliderCallBtn) {
+                    const cleanPhone = phone.replace(/[^\d+]/g, '');
+                    mobileSliderCallBtn.href = `tel:${cleanPhone}`;
+                }
+
+                const statsPhoneLink = document.getElementById('stats-phone-link');
+                if (statsPhoneLink) {
+                    const cleanPhone = phone.replace(/[^\d+]/g, '');
+                    statsPhoneLink.href = `tel:${cleanPhone}`;
                 }
                 
                 // Update footer if elements exist
