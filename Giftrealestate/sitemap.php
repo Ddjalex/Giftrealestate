@@ -1,6 +1,7 @@
 <?php
 header("Content-Type: application/xml; charset=utf-8");
 require_once __DIR__ . '/api/db.php';
+global $pdo;
 
 $baseUrl = "https://realestatepropertyaddis.com";
 
