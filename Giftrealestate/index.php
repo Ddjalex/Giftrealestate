@@ -13,9 +13,23 @@
     <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Find luxury apartments and commercial shops for sale in Addis Ababa. Explore the Gift Real Estate Legehar project with exclusive 20% discounts.">
-    <meta name="keywords" content="Real Estate Property Addis Ababa, Gift Real Estate Legehar price list 2026, Apartments for sale in Legehar Village, ጊፍት ሪል ስቴት house prices">
-    <title>Real Estate Property Addis | Gift Real Estate Legehar Apartments</title>
+    <meta name="description" content="Find luxury apartments and commercial shops for sale in Addis Ababa. Explore the Gift Real Estate Legehar project with exclusive discounts.">
+    <meta name="keywords" content="Real Estate Property Addis Ababa, Gift Real Estate Legehar price list 2026, Apartments for sale in Legehar Village, ጊፍት ሪል ስቴት house prices, 2 Bedroom Apartment for Sale in Leghar">
+    <title>Gift Real Estate PLC | Apartments for Sale in Legehar Addis Ababa</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://realestatepropertyaddis.com/">
+    <meta property="og:title" content="Gift Real Estate PLC | Apartments for Sale in Legehar Addis Ababa">
+    <meta property="og:description" content="Find luxury apartments and commercial shops for sale in Addis Ababa. Explore the Gift Real Estate Legehar project.">
+    <meta property="og:image" content="https://realestatepropertyaddis.com/assets/logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://realestatepropertyaddis.com/">
+    <meta property="twitter:title" content="Gift Real Estate PLC | Apartments for Sale in Legehar Addis Ababa">
+    <meta property="twitter:description" content="Find luxury apartments and commercial shops for sale in Addis Ababa. Explore the Gift Real Estate Legehar project.">
+    <meta property="twitter:image" content="https://realestatepropertyaddis.com/assets/logo.png">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",

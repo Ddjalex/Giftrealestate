@@ -53,8 +53,23 @@ $images = array_map(function($img) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?php echo htmlspecialchars(substr($property['description'], 0, 160)); ?>">
-    <meta name="keywords" content="Real Estate Property Addis Ababa, <?php echo htmlspecialchars($property['property_type']); ?>, <?php echo htmlspecialchars($property['title']); ?>, for sale Addis Ababa">
-    <title><?php echo htmlspecialchars($property['title']); ?> | Gift Real Estate Property Addis Ababa</title>
+    <meta name="keywords" content="Real Estate Property Addis Ababa, <?php echo htmlspecialchars($property['property_type']); ?>, <?php echo htmlspecialchars($property['title']); ?>, for sale Addis Ababa, Gift Real Estate Legehar, Leghar apartments">
+    <title><?php echo htmlspecialchars($property['title']); ?> | Gift Real Estate PLC Addis Ababa</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://realestatepropertyaddis.com/property.php?id=<?php echo $property['id']; ?>">
+    <meta property="og:title" content="<?php echo htmlspecialchars($property['title']); ?> | Gift Real Estate PLC">
+    <meta property="og:description" content="<?php echo htmlspecialchars(substr($property['description'], 0, 160)); ?>">
+    <meta property="og:image" content="https://realestatepropertyaddis.com/uploads/<?php echo $property['main_image']; ?>">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://realestatepropertyaddis.com/property.php?id=<?php echo $property['id']; ?>">
+    <meta property="twitter:title" content="<?php echo htmlspecialchars($property['title']); ?> | Gift Real Estate PLC">
+    <meta property="twitter:description" content="<?php echo htmlspecialchars(substr($property['description'], 0, 160)); ?>">
+    <meta property="twitter:image" content="https://realestatepropertyaddis.com/uploads/<?php echo $property['main_image']; ?>">
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -67,6 +82,15 @@ $images = array_map(function($img) {
         "@type": "PostalAddress",
         "addressLocality": "<?php echo htmlspecialchars($property['location']); ?>",
         "addressCountry": "ET"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "ETB",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "name": "Gift Real Estate PLC"
+        }
       }
     }
     </script>
