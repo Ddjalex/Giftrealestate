@@ -373,7 +373,7 @@
                 </div>
             </div>
             <div class="text-center mt-12">
-                <a href="/properties" class="inline-block bg-brand-green text-brand-yellow font-bold px-10 py-4 rounded hover:bg-opacity-90 transition shadow-xl">View All Properties</a>
+                <a href="properties.php" class="inline-block bg-brand-green text-brand-yellow font-bold px-10 py-4 rounded hover:bg-opacity-90 transition shadow-xl">View All Properties</a>
             </div>
         </div>
     </section>
