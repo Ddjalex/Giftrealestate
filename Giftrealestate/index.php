@@ -584,7 +584,7 @@
                             </div>
                         </div>
                         <div class="mt-auto pt-4 flex items-center justify-between">
-                            <span class="text-brand-green font-bold text-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
+                            <a href="tel:+251921878641" class="text-brand-green font-bold text-lg hover:text-brand-yellow transition-colors call-for-price-btn">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</a>
                             <button onclick="window.location.href='property?id=${p.id}'" class="text-brand-green font-bold text-sm hover:underline">Details <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
                         </div>
                     </div>

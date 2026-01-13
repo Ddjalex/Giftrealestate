@@ -146,6 +146,12 @@ error_reporting(E_ALL);
                     callBtns.forEach(btn => {
                         btn.href = `tel:${settings.phone.replace(/\s/g, '')}`;
                     });
+                    
+                    // Specifically update the dynamic property cards
+                    const propertyCallBtns = document.querySelectorAll('.call-for-price-btn');
+                    propertyCallBtns.forEach(btn => {
+                        btn.href = `tel:${settings.phone.replace(/\s/g, '')}`;
+                    });
                 }
 
                 allProperties = Array.isArray(data) ? data : [];
@@ -213,9 +219,9 @@ error_reporting(E_ALL);
                         </div>
 
                         <div class="mt-auto flex items-center justify-between pt-6 border-t border-gray-100">
-                            <span class="bg-gray-50 text-gray-600 text-[11px] font-bold px-3 py-1.5 rounded">
+                            <a href="tel:+251921878641" class="bg-gray-50 text-gray-600 text-[11px] font-bold px-3 py-1.5 rounded hover:bg-brand-green hover:text-white transition-colors call-for-price-btn">
                                 Call for price
-                            </span>
+                            </a>
                             <a href="property.php?id=${p.id}" class="text-brand-green font-bold text-sm flex items-center gap-1 group-hover:text-brand-yellow transition-colors">
                                 Details <i class="fas fa-arrow-right text-[10px]"></i>
                             </a>
