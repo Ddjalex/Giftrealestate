@@ -154,7 +154,20 @@
                 }
             } catch (error) {
                 console.error('Error loading properties:', error);
-                document.getElementById('property-grid').innerHTML = '<div class="col-span-3 text-center py-20 text-red-500">Error loading properties. Please try again later.</div>';
+                console.error('Stack trace:', error.stack);
+                
+                // Detailed diagnostic logging
+                if (window.navigator) {
+                    console.log('User Agent:', navigator.userAgent);
+                }
+                
+                document.getElementById('property-grid').innerHTML = `
+                    <div class="col-span-3 text-center py-20 text-red-500">
+                        <p class="font-bold mb-2">Error loading properties.</p>
+                        <p class="text-xs text-gray-400">Error Details: ${error.message}</p>
+                        <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-brand-green text-white rounded-lg text-sm">Retry Loading</button>
+                    </div>
+                `;
             }
         }
 
