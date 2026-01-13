@@ -1,5 +1,5 @@
 <?php
-require_once 'Giftrealestate/api/db.php';
+require_once 'api/db.php';
 global $pdo;
 
 $id = $_GET['id'] ?? null;
@@ -270,7 +270,7 @@ try {
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             
             try {
-                const res = await fetch('Giftrealestate/api/inquiries'), {
+                const res = await fetch('/api/inquiries', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)

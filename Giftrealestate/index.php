@@ -369,7 +369,7 @@
     <script>
         async function loadIndexNews() {
             try {
-                const response = await fetch('/api/blog'));
+                const response = await fetch('/api/blog');
                 const items = await response.json();
                 const grid = document.getElementById('index-news-grid');
                 if (!grid) return;

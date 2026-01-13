@@ -90,8 +90,8 @@
             
             try {
                 const [pRes, sRes] = await Promise.all([
-                    fetch('/api/properties')),
-                    fetch('/api/settings'))
+                    fetch('/api/properties'),
+                    fetch('/api/settings')
                 ]);
                 const data = await pRes.json();
                 const settings = await sRes.json();

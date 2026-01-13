@@ -51,7 +51,7 @@
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 flex justify-between items-center h-20">
             <div class="flex items-center">
-                <a href="/"><img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
+                <a href="/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
                 <a href="/" class="nav-link">Home</a>
@@ -60,14 +60,14 @@
                 <a href="/properties" class="nav-link">Properties</a>
                 <a href="/news" class="nav-link">News</a>
             </div>
-            <a href="tel:+251921878641" id="nav-call-btn" class="bg-green-600 text-white font-bold px-6 py-2 rounded flex items-center gap-2">
+            <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full flex items-center gap-2">
                 Call Us <i class="fas fa-phone"></i>
             </a>
         </div>
     </nav>
 
     <!-- Header Section -->
-    <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/public/assets/about-header.jpg');">
+    <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/assets/about-header.jpg');">
         <div class="container mx-auto px-4 relative z-10 text-center">
             <h1 class="text-6xl font-bold text-white mb-4">About Us</h1>
             <div class="w-24 h-1 bg-brand-yellow mx-auto mb-6"></div>
@@ -237,11 +237,11 @@
     <script>
         async function loadAbout() {
             try {
-                const response = await fetch('/api/about'));
+                const response = await fetch('/api/about');
                 const data = await response.json();
                 
                 // Fetch settings too for top bar
-                const sRes = await fetch('/api/settings'));
+                const sRes = await fetch('/api/settings');
                 const settings = await sRes.json();
                 
                 if (settings.phone) {

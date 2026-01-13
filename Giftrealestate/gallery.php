@@ -25,7 +25,7 @@
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 flex justify-between items-center h-20">
                             <div class="flex items-center">
-                                <a href="/"><img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
+                                <a href="/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
                             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
                 <a href="/" class="nav-link">Home</a>
@@ -38,7 +38,7 @@
         </div>
     </nav>
 
-    <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/public/assets/logo.png');">
+    <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/assets/logo.png');">
         <div class="container mx-auto px-4 relative z-10 text-center">
             <h1 class="text-6xl font-bold text-white mb-4">Our Project Gallery</h1>
             <div class="w-24 h-1 bg-brand-yellow mx-auto mb-6"></div>
@@ -67,7 +67,7 @@
         async function loadGallery() {
             try {
                 // Fetch settings for call button
-                const sRes = await fetch('/api/settings'));
+                const sRes = await fetch('/api/settings');
                 const settings = await sRes.json();
                 if (settings.phone) {
                     const callBtn = document.getElementById('nav-call-btn');
@@ -76,15 +76,15 @@
                     }
                 }
 
-                const response = await fetch('/api/gallery'));
+                const response = await fetch('/api/gallery');
                 const items = await response.json();
                 const grid = document.getElementById('gallery-grid');
                 if (grid) {
                     grid.innerHTML = items.map(item => {
-                        const imgSrc = item.image_url && (item.image_url.startsWith('http') || item.image_url.startsWith('data:')) ? item.image_url : (item.image_url ? '/uploads/' + item.image_url : '/public/assets/logo.png');
+                        const imgSrc = item.image_url && (item.image_url.startsWith('http') || item.image_url.startsWith('data:')) ? item.image_url : (item.image_url ? '/uploads/' + item.image_url : '/assets/logo.png');
                         return `
                         <div class="relative group h-72 overflow-hidden rounded-xl">
-                            <img src="${imgSrc}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='/public/assets/logo.png'">
+                            <img src="${imgSrc}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='/assets/logo.png'">
                             <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
                                 <span class="text-xs font-bold text-brand-yellow uppercase mb-1">${item.category}</span>
                                 <h4 class="font-bold">${item.title}</h4>
