@@ -179,42 +179,45 @@ error_reporting(E_ALL);
                 const img = p.main_image ? (p.main_image.startsWith('http') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
                 
                 return `
-                <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition duration-300 group">
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition duration-300 group flex flex-col">
                     <div class="relative h-64 overflow-hidden">
                         <img src="${img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 left-4 flex gap-2">
-                            ${p.featured == 1 ? '<span class="bg-brand-green text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider shadow-lg">Featured</span>' : ''}
-                            <span class="bg-brand-yellow text-brand-green text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider shadow-lg">${p.status || 'For Sale'}</span>
+                        <div class="absolute top-4 left-4 flex gap-1">
+                            ${p.featured == 1 ? '<span class="bg-green-600 text-white text-[9px] font-bold px-2 py-0.5 rounded shadow-sm uppercase tracking-wider">Featured</span>' : ''}
+                            <span class="bg-yellow-400 text-brand-green text-[9px] font-bold px-2 py-0.5 rounded shadow-sm uppercase tracking-wider">For Sale</span>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">${p.property_type || 'Residential Apartments'}</div>
-                        <h3 class="text-xl font-bold text-brand-green mb-3 line-clamp-1 group-hover:text-brand-yellow transition-colors">${p.title}</h3>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="mb-4">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 block">${p.property_type || 'Residential Apartments'}</span>
+                            <h3 class="text-xl font-bold text-brand-green mb-3 line-clamp-1 group-hover:text-brand-yellow transition-colors">${p.title}</h3>
+                        </div>
+                        
                         <p class="text-gray-500 text-sm mb-6 flex items-center">
                             <i class="fas fa-map-marker-alt mr-2 text-brand-green"></i> ${p.location || 'Leghar'}
                         </p>
                         
-                        <div class="flex items-center justify-between mb-8 text-gray-600 text-sm">
-                            <div class="flex items-center gap-1.5">
+                        <div class="flex items-center justify-between mb-6 text-gray-600 text-[13px]">
+                            <div class="flex items-center gap-2">
                                 <i class="fas fa-bed text-brand-green"></i>
                                 <span class="font-bold">${p.bedrooms || 0}</span>
                             </div>
-                            <div class="flex items-center gap-1.5">
+                            <div class="flex items-center gap-2">
                                 <i class="fas fa-bath text-brand-green"></i>
                                 <span class="font-bold">${p.bathrooms || 0}</span>
                             </div>
-                            <div class="flex items-center gap-1.5">
+                            <div class="flex items-center gap-2">
                                 <i class="fas fa-vector-square text-brand-green"></i>
                                 <span class="font-bold">${p.area_sqft || 0} sq ft</span>
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between pt-6 border-t border-gray-50">
-                            <span class="bg-gray-50 text-gray-600 text-xs font-bold px-4 py-2 rounded-lg">
-                                ${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}
+                        <div class="mt-auto flex items-center justify-between pt-6 border-t border-gray-100">
+                            <span class="bg-gray-50 text-gray-600 text-[11px] font-bold px-3 py-1.5 rounded">
+                                Call for price
                             </span>
                             <a href="property.php?id=${p.id}" class="text-brand-green font-bold text-sm flex items-center gap-1 group-hover:text-brand-yellow transition-colors">
-                                Details <i class="fas fa-arrow-right text-xs"></i>
+                                Details <i class="fas fa-arrow-right text-[10px]"></i>
                             </a>
                         </div>
                     </div>
