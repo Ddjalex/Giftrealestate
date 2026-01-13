@@ -23,11 +23,11 @@ $contactAddress = $settings['address'] ?? 'Kazanchis, Street, Addis Ababa, Ethio
       "mainEntity": {
         "@type": "Organization",
         "name": "Gift Real Estate PLC",
-        "telephone": "+251 921878641",
-        "email": "info@giftrealestate.com.et",
+        "telephone": "<?php echo $contactPhone; ?>",
+        "email": "<?php echo $contactEmail; ?>",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Kazanchis, Black Gold Plaza",
+          "streetAddress": "<?php echo htmlspecialchars($contactAddress); ?>",
           "addressLocality": "Addis Ababa",
           "addressCountry": "ET"
         }

@@ -100,7 +100,7 @@
                 if (footerAddr) footerAddr.innerText = settings.address;
                 const contactAddr = document.querySelector('li.text-white');
                 if (contactAddr) contactAddr.innerText = settings.address;
-                const topBarAddress = document.querySelector('.fa-map-marker-alt')?.parentElement;
+                const topBarAddress = document.querySelector('.sm\\:inline');
                 if (topBarAddress) topBarAddress.innerHTML = `<i class="fas fa-map-marker-alt text-brand-yellow mr-2"></i>${settings.address}`;
             }
             if (settings.phone) {
@@ -114,6 +114,21 @@
                     }
                     topBarPhone.innerHTML = phoneHtml;
                 }
+                
+                // Update all tel: links
+                const cleanPhone = settings.phone.replace(/\s/g, '');
+                document.querySelectorAll('a[href^="tel:"]').forEach(btn => {
+                    btn.href = `tel:${cleanPhone}`;
+                });
+                
+                // Specifically update property card buttons
+                document.querySelectorAll('.call-for-price-btn').forEach(btn => {
+                    btn.href = `tel:${cleanPhone}`;
+                });
+                
+                // Update stats phone if exists
+                const statsPhone = document.getElementById('stats-phone');
+                if (statsPhone) statsPhone.innerText = settings.phone;
             }
             if (settings.phone2) {
                 const footerPhone2 = document.getElementById('footer-phone2');
@@ -122,26 +137,10 @@
                     footerPhone2.parentElement.classList.remove('hidden');
                 }
             }
-            if (settings.email) {
-                const footerEmail = document.getElementById('footer-email');
-                if (footerEmail) footerEmail.innerText = settings.email;
-            }
-            if (settings.facebook) {
-                const socialFB = document.getElementById('social-facebook');
-                if (socialFB) socialFB.href = settings.facebook;
-            }
-            if (settings.telegram) {
-                const socialTG = document.getElementById('social-telegram');
-                if (socialTG) socialTG.href = settings.telegram;
-            }
-            if (settings.instagram) {
-                const socialIG = document.getElementById('social-instagram');
-                if (socialIG) socialIG.href = settings.instagram;
-            }
-            if (settings.linkedin) {
-                const socialLI = document.getElementById('social-linkedin');
-                if (socialLI) socialLI.href = settings.linkedin;
-            }
+            if (settings.facebook) document.querySelectorAll('[id^="social-facebook"]').forEach(a => a.href = settings.facebook);
+            if (settings.telegram) document.querySelectorAll('[id^="social-telegram"]').forEach(a => a.href = settings.telegram);
+            if (settings.instagram) document.querySelectorAll('[id^="social-instagram"]').forEach(a => a.href = settings.instagram);
+            if (settings.linkedin) document.querySelectorAll('[id^="social-linkedin"]').forEach(a => a.href = settings.linkedin);
         } catch (e) {
             console.error('Failed to load settings', e);
         }

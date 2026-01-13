@@ -140,18 +140,16 @@ error_reporting(E_ALL);
                 const data = await pRes.json();
                 const settings = await sRes.json();
                 
-                // Update Phone Numbers from settings
-                if (settings && settings.phone) {
-                    const callBtns = document.querySelectorAll('a[href^="tel:"]');
-                    callBtns.forEach(btn => {
-                        btn.href = `tel:${settings.phone.replace(/\s/g, '')}`;
-                    });
-                    
-                    // Specifically update the dynamic property cards
-                    const propertyCallBtns = document.querySelectorAll('.call-for-price-btn');
-                    propertyCallBtns.forEach(btn => {
-                        btn.href = `tel:${settings.phone.replace(/\s/g, '')}`;
-                    });
+                // Update Global UI from settings
+                if (settings) {
+                    if (settings.phone) {
+                        const cleanPhone = settings.phone.replace(/\s/g, '');
+                        const navCallBtn = document.getElementById('nav-call-btn');
+                        if (navCallBtn) navCallBtn.href = `tel:${cleanPhone}`;
+                        
+                        const callBtns = document.querySelectorAll('a[href^="tel:"]');
+                        callBtns.forEach(btn => btn.href = `tel:${cleanPhone}`);
+                    }
                 }
 
                 allProperties = Array.isArray(data) ? data : [];
