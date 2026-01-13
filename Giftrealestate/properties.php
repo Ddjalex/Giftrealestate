@@ -7,7 +7,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-358ERBD36R');
 </script>
     <link rel="icon" type="image/png" href="/assets/logo.png">
@@ -99,21 +98,34 @@
     <!-- Properties Grid -->
     <section class="py-20">
         <div class="container mx-auto px-4">
+            <div id="debug-box" class="hidden mb-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded shadow-sm">
+                <h2 class="font-bold underline mb-2">Technical Diagnostic Info:</h2>
+                <div id="debug-message" class="font-mono text-sm break-all"></div>
+                <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-red-600 text-white rounded font-bold text-sm hover:bg-red-700 transition">Retry Connection</button>
+            </div>
+
             <div id="property-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Loaded via JS -->
+                <div class="col-span-full text-center py-20">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-brand-green border-t-transparent"></div>
+                    <p class="mt-4 text-gray-500 font-medium">Loading premium properties...</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <?php include 'footer.php'; ?>
-</body>
-</html>
+
     <script>
         let allProperties = [];
+        let siteSettings = {};
+
         async function loadProperties() {
             const urlParams = new URLSearchParams(window.location.search);
             const typeFilter = urlParams.get('type');
+            const debugBox = document.getElementById('debug-box');
+            const debugMsg = document.getElementById('debug-message');
+            const grid = document.getElementById('property-grid');
 
             try {
                 const [pRes, sRes] = await Promise.all([
@@ -121,27 +133,18 @@
                     fetch('/api/settings.php')
                 ]);
                 
-                if (!pRes.ok) {
-                    const errorText = await pRes.text();
-                    console.error('Properties API HTTP Error:', pRes.status, errorText);
-                    throw new Error(`Properties fetch failed with status ${pRes.status}`);
-                }
-                if (!sRes.ok) {
-                    const errorText = await sRes.text();
-                    console.error('Settings API HTTP Error:', sRes.status, errorText);
-                    throw new Error(`Settings fetch failed with status ${sRes.status}`);
-                }
+                if (!pRes.ok) throw new Error(`Properties API: ${pRes.status} ${pRes.statusText}`);
+                if (!sRes.ok) throw new Error(`Settings API: ${sRes.status} ${sRes.statusText}`);
 
                 const data = await pRes.json();
-                const settings = await sRes.json();
+                siteSettings = await sRes.json();
 
-                // Update header/footer info
-                if (settings.phone) {
-                    const callBtn = document.querySelector('a[href^="tel:"]');
-                    if (callBtn) {
-                        callBtn.href = `tel:${settings.phone.replace(/\s/g, '')}`;
-                        callBtn.innerText = 'Call Us';
-                    }
+                // Update UI from settings
+                if (siteSettings.phone) {
+                    const callBtns = document.querySelectorAll('a[href^="tel:"]');
+                    callBtns.forEach(btn => {
+                        btn.href = `tel:${siteSettings.phone.replace(/\s/g, '')}`;
+                    });
                 }
 
                 allProperties = Array.isArray(data) ? data : [];
@@ -153,33 +156,27 @@
                     displayProperties(allProperties);
                 }
             } catch (error) {
-                console.error('Error loading properties:', error);
-                console.error('Stack trace:', error.stack);
-                
-                // Detailed diagnostic logging
-                if (window.navigator) {
-                    console.log('User Agent:', navigator.userAgent);
-                }
-                
-                document.getElementById('property-grid').innerHTML = `
-                    <div class="col-span-3 text-center py-20 text-red-500">
-                        <p class="font-bold mb-2">Error loading properties.</p>
-                        <p class="text-xs text-gray-400">Error Details: ${error.message}</p>
-                        <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-brand-green text-white rounded-lg text-sm">Retry Loading</button>
-                    </div>
+                console.error('Diagnostic Log:', error);
+                debugBox.classList.remove('hidden');
+                debugMsg.innerHTML = `
+                    <strong>Message:</strong> ${error.message}<br>
+                    <strong>Timestamp:</strong> ${new Date().toISOString()}<br>
+                    <strong>UA:</strong> ${navigator.userAgent}
                 `;
+                grid.innerHTML = '<div class="col-span-full text-center py-20 text-red-500 font-bold">Failed to load properties. Technical details shown above.</div>';
             }
         }
 
         function displayProperties(properties) {
             const grid = document.getElementById('property-grid');
             if (!properties || properties.length === 0) {
-                grid.innerHTML = '<div class="col-span-3 text-center py-20 text-gray-500">No properties found matching your criteria.</div>';
+                grid.innerHTML = '<div class="col-span-full text-center py-20 text-gray-500 bg-white rounded-xl shadow-sm border border-gray-100">No properties found matching your criteria.</div>';
                 return;
             }
+
             grid.innerHTML = properties.map(p => {
                 const img = p.main_image ? (p.main_image.startsWith('http') || p.main_image.startsWith('data:') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
-
+                
                 let gallery = [];
                 try {
                     gallery = typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : (p.gallery_images || []);
@@ -189,51 +186,65 @@
                 const slideshowId = `slideshow-${p.id}`;
 
                 return `
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition cursor-pointer">
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group">
                     <div class="h-64 relative overflow-hidden group/slides">
                         <div id="${slideshowId}" class="w-full h-full relative">
                             ${gallery.map((gImg, idx) => `
                                 <img src="${gImg.startsWith('http') || gImg.startsWith('data:') ? gImg : '/uploads/' + gImg}" 
-                                     class="absolute inset-0 w-full h-full object-contain bg-gray-100 transition-opacity duration-500 ${idx === 0 ? 'opacity-100' : 'opacity-0'}" 
+                                     class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${idx === 0 ? 'opacity-100' : 'opacity-0'}" 
                                      data-index="${idx}">
                             `).join('')}
                         </div>
 
                         <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
-                            ${p.featured == 1 ? '<span class="bg-[#32CD32] text-white text-[10px] font-bold px-2 py-1 rounded">Featured</span>' : ''}
-                            <span class="bg-[#FFD700] text-black text-[10px] font-bold px-2 py-1 rounded">${p.status || 'For Sale'}</span>
-                            <span class="bg-[#333] text-white text-[10px] font-bold px-2 py-1 rounded">Reduced Price</span>
+                            ${p.featured == 1 ? '<span class="bg-[#32CD32] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg uppercase tracking-wider">Featured</span>' : ''}
+                            <span class="bg-[#FFD700] text-black text-[10px] font-bold px-3 py-1 rounded-full shadow-lg uppercase tracking-wider">${p.status || 'For Sale'}</span>
                         </div>
-
-                        <button class="absolute top-4 right-4 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center text-gray-600 hover:text-red-500 transition z-10">
-                            <i class="far fa-heart"></i>
-                        </button>
 
                         ${gallery.length > 1 ? `
-                            <button onclick="prevSlide(event, '${slideshowId}')" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition z-10">
-                                <i class="fas fa-chevron-left text-xs"></i>
+                            <button onclick="prevSlide(event, '${slideshowId}')" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition shadow-lg z-10 hover:bg-white">
+                                <i class="fas fa-chevron-left text-brand-green"></i>
                             </button>
-                            <button onclick="nextSlide(event, '${slideshowId}')" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition z-10">
-                                <i class="fas fa-chevron-right text-xs"></i>
+                            <button onclick="nextSlide(event, '${slideshowId}')" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover/slides:opacity-100 transition shadow-lg z-10 hover:bg-white">
+                                <i class="fas fa-chevron-right text-brand-green"></i>
                             </button>
-                            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-                                ${gallery.map((_, idx) => `
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white/50 ${idx === 0 ? 'bg-white' : ''}" data-dot="${idx}"></div>
-                                `).join('')}
-                            </div>
                         ` : ''}
                     </div>
-                    <div class="p-6" onclick="window.location.href='property.php?id=${p.id}'">
-                        <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
-                        <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
-                        <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location || 'Ethiopia'}</p>
-                        <div class="mb-4 relative z-20">
-                            <a href="tel:${settings.phone}" class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-200 transition-colors pointer-events-auto">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</a>
+
+                    <div class="p-6 cursor-pointer" onclick="window.location.href='property.php?id=${p.id}'">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-[10px] font-black text-brand-green/40 uppercase tracking-[0.2em] mb-1 block">${p.property_type || 'Luxury Residence'}</span>
+                                <h3 class="text-xl font-bold text-brand-green group-hover:text-brand-yellow transition-colors">${p.title}</h3>
+                            </div>
                         </div>
-                        <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
-                            <span><i class="fas fa-bed mr-1"></i> ${p.bedrooms || 0}</span>
-                            <span><i class="fas fa-bath mr-1"></i> ${p.bathrooms || 0}</span>
-                            <span><i class="fas fa-ruler-combined mr-1"></i> ${p.area_sqft || 0} sq ft</span>
+
+                        <p class="text-gray-500 text-sm mb-6 flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2 text-brand-yellow"></i> ${p.location || 'Addis Ababa, Ethiopia'}
+                        </p>
+
+                        <div class="grid grid-cols-3 gap-4 border-t border-gray-50 pt-6 mb-6">
+                            <div class="text-center border-r border-gray-50">
+                                <i class="fas fa-bed text-brand-green/30 mb-2"></i>
+                                <p class="text-xs font-bold text-gray-800">${p.bedrooms || 0} Beds</p>
+                            </div>
+                            <div class="text-center border-r border-gray-50">
+                                <i class="fas fa-bath text-brand-green/30 mb-2"></i>
+                                <p class="text-xs font-bold text-gray-800">${p.bathrooms || 0} Baths</p>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-ruler-combined text-brand-green/30 mb-2"></i>
+                                <p class="text-xs font-bold text-gray-800">${p.area_sqft || 0} m²</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-black text-brand-green">
+                                ${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' <span class="text-sm font-bold">ETB</span>' : 'Call for Price'}
+                            </span>
+                            <div class="w-10 h-10 rounded-full bg-brand-green/5 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-white transition-all">
+                                <i class="fas fa-arrow-right text-sm"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -247,15 +258,10 @@
             if (!container) return;
             const slides = container.querySelectorAll('img');
             if (slides.length <= 1) return;
-            const dots = container.parentElement.querySelectorAll('[data-dot]');
             let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
-            if (current === -1) current = 0;
-
             slides[current].classList.replace('opacity-100', 'opacity-0');
-            if (dots[current]) dots[current].classList.remove('bg-white');
             current = (current + 1) % slides.length;
             slides[current].classList.replace('opacity-0', 'opacity-100');
-            if (dots[current]) dots[current].classList.add('bg-white');
         }
 
         function prevSlide(e, id) {
@@ -264,15 +270,10 @@
             if (!container) return;
             const slides = container.querySelectorAll('img');
             if (slides.length <= 1) return;
-            const dots = container.parentElement.querySelectorAll('[data-dot]');
             let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
-            if (current === -1) current = 0;
-
             slides[current].classList.replace('opacity-100', 'opacity-0');
-            if (dots[current]) dots[current].classList.remove('bg-white');
             current = (current - 1 + slides.length) % slides.length;
             slides[current].classList.replace('opacity-0', 'opacity-100');
-            if (dots[current]) dots[current].classList.add('bg-white');
         }
 
         function filterProperties() {
@@ -285,6 +286,7 @@
             });
             displayProperties(filtered);
         }
+
         loadProperties();
     </script>
 </body>
