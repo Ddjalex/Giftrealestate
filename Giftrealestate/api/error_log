@@ -1,0 +1,53 @@
+[12-Jan-2026 13:14:20 UTC] PHP Parse error:  syntax error, unexpected token ";" in /home/realesfa/public_html/api/db.php on line 103
+[12-Jan-2026 13:14:20 UTC] PHP Parse error:  syntax error, unexpected token ";" in /home/realesfa/public_html/api/db.php on line 103
+[12-Jan-2026 13:14:24 UTC] PHP Parse error:  syntax error, unexpected token ";" in /home/realesfa/public_html/api/db.php on line 103
+[12-Jan-2026 13:14:25 UTC] PHP Parse error:  syntax error, unexpected token ";" in /home/realesfa/public_html/api/db.php on line 103
+[12-Jan-2026 13:14:25 UTC] PHP Parse error:  syntax error, unexpected token ";" in /home/realesfa/public_html/api/db.php on line 103
+[12-Jan-2026 13:14:25 UTC] PHP Parse error:  syntax error, unexpected token ";" in /home/realesfa/public_html/api/db.php on line 103
+[12-Jan-2026 13:14:25 UTC] PHP Parse error:  syntax error, unexpected token ";" in /home/realesfa/public_html/api/db.php on line 103
+[12-Jan-2026 13:14:25 UTC] PHP Parse error:  syntax error, unexpected token ";" in /home/realesfa/public_html/api/db.php on line 103
+[12-Jan-2026 13:29:02 UTC] PHP Warning:  require_once(../db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:29:02 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/api/properties.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:30:01 UTC] PHP Warning:  require_once(../db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:30:01 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/api/properties.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:30:03 UTC] PHP Warning:  require_once(../db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:30:03 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/api/properties.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:30:26 UTC] PHP Warning:  require_once(../db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:30:26 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/api/properties.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:31:56 UTC] PHP Warning:  require_once(../db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:31:56 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/api/properties.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:32:02 UTC] PHP Warning:  require_once(../db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:32:02 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/api/properties.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:32:32 UTC] PHP Warning:  require_once(../db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:32:32 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/api/properties.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:32:36 UTC] PHP Warning:  require_once(../db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:32:36 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/api/properties.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:32:56 UTC] PHP Warning:  require_once(../db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/api/properties.php on line 2
+[12-Jan-2026 13:32:56 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/api/properties.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/api/properties.php on line 2

@@ -1,0 +1,30 @@
+[11-Jan-2026 05:49:35 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'key, value FROM settings' at line 1 in /home/realesfa/public_html/property.php:21
+Stack trace:
+#0 /home/realesfa/public_html/property.php(21): PDO->query('SELECT key, val...')
+#1 {main}
+  thrown in /home/realesfa/public_html/property.php on line 21
+[11-Jan-2026 05:49:39 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'key, value FROM settings' at line 1 in /home/realesfa/public_html/property.php:21
+Stack trace:
+#0 /home/realesfa/public_html/property.php(21): PDO->query('SELECT key, val...')
+#1 {main}
+  thrown in /home/realesfa/public_html/property.php on line 21
+[11-Jan-2026 05:49:41 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'key, value FROM settings' at line 1 in /home/realesfa/public_html/property.php:21
+Stack trace:
+#0 /home/realesfa/public_html/property.php(21): PDO->query('SELECT key, val...')
+#1 {main}
+  thrown in /home/realesfa/public_html/property.php on line 21
+[11-Jan-2026 05:50:11 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'key, value FROM settings' at line 1 in /home/realesfa/public_html/property.php:21
+Stack trace:
+#0 /home/realesfa/public_html/property.php(21): PDO->query('SELECT key, val...')
+#1 {main}
+  thrown in /home/realesfa/public_html/property.php on line 21
+[11-Jan-2026 05:50:27 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'key, value FROM settings' at line 1 in /home/realesfa/public_html/property.php:21
+Stack trace:
+#0 /home/realesfa/public_html/property.php(21): PDO->query('SELECT key, val...')
+#1 {main}
+  thrown in /home/realesfa/public_html/property.php on line 21
+[11-Jan-2026 06:48:29 UTC] PHP Warning:  require_once(Giftrealestate/api/db.php): Failed to open stream: No such file or directory in /home/realesfa/public_html/property.php on line 2
+[11-Jan-2026 06:48:29 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'Giftrealestate/api/db.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/realesfa/public_html/property.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/realesfa/public_html/property.php on line 2
