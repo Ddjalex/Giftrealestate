@@ -183,7 +183,7 @@ error_reporting(E_ALL);
                 const img = p.main_image ? (p.main_image.startsWith('http') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
                 
                 return `
-                <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition duration-300 group flex flex-col">
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-xl transition duration-300 group flex flex-col h-full">
                     <div class="relative h-64 overflow-hidden">
                         <img src="${img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                         <div class="absolute top-4 left-4 flex gap-1">
