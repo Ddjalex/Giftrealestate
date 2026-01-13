@@ -33,16 +33,15 @@
                     </ul>
                 </div>
                 
-                <!-- Services Offered -->
+                <!-- Quick Links -->
                 <div>
-                    <h4 class="text-lg font-bold mb-8 text-white uppercase tracking-widest">Services Offered</h4>
+                    <h4 class="text-lg font-bold mb-8 text-white uppercase tracking-widest">Quick Links</h4>
                     <ul class="space-y-4 text-white text-sm">
-                        <li><a href="#" class="hover:underline transition">Property Sales</a></li>
-                        <li><a href="#" class="hover:underline transition">Property Rental</a></li>
-                        <li><a href="#" class="hover:underline transition">Property Management</a></li>
-                        <li><a href="#" class="hover:underline transition">Investment Consultation</a></li>
-                        <li><a href="#" class="hover:underline transition">Property Valuation</a></li>
-                        <li><a href="#" class="hover:underline transition">Market Analysis</a></li>
+                        <li><a href="/about.php" class="hover:underline transition">About Us</a></li>
+                        <li><a href="/properties.php" class="hover:underline transition">Properties</a></li>
+                        <li><a href="/gallery.php" class="hover:underline transition">Project Gallery</a></li>
+                        <li><a href="/news.php" class="hover:underline transition">Latest News</a></li>
+                        <li><a href="/contact.php" class="hover:underline transition">Contact Us</a></li>
                     </ul>
                 </div>
 
@@ -94,7 +93,7 @@
 <script>
     async function loadSettings() {
         try {
-            const response = await fetch('/api/settings'));
+            const response = await fetch('/api/settings.php');
             const settings = await response.json();
             if (settings.address) {
                 const footerAddr = document.getElementById('footer-address');

@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-358ERBD36R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-358ERBD36R');
+</script>
+    <link rel="icon" type="image/png" href="/assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Browse our luxury apartments and commercial properties for sale in Addis Ababa. Find your dream home with Gift Real Estate Ethiopia.">
-    <title>Properties for Sale in Addis Ababa | Gift Real Estate PLC</title>
+    <meta name="description" content="Browse luxury apartments and commercial properties for sale in Addis Ababa. Explore Gift Real Estate Legehar and other prime projects.">
+    <meta name="keywords" content="Real Estate Property Addis Ababa for sale, Gift Real Estate Legehar price list, Apartments for sale Addis, Commercial shops Addis Ababa">
+    <title>Properties for Sale in Addis Ababa | Gift Real Estate Legehar Apartments</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Real Estate Property Listings in Addis Ababa",
+      "description": "Premium residential and commercial spaces for sale by Gift Real Estate PLC.",
+      "url": "https://realestatepropertyaddis.com/properties.php"
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
@@ -24,22 +44,27 @@
     <!-- Navigation -->
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 flex justify-between items-center h-20">
-            <div class="flex items-center">
-                <a href="/"><img src="/public/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 object-contain"></a>
+            <div class="flex items-center shrink-0">
+                <a href="/"><img src="/assets/logo.png" alt="Gift Real Estate Logo" class="h-16 w-auto max-w-[150px] object-contain"></a>
             </div>
             <div class="hidden md:flex space-x-8 font-semibold text-brand-green uppercase text-sm tracking-wider">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/about" class="nav-link">About Us</a>
-                <a href="/gallery" class="nav-link">Gallery</a>
-                <a href="/properties" class="nav-link text-brand-yellow">Properties</a>
-                <a href="/news" class="nav-link">News</a>
+                <a href="/index.php" class="nav-link">Home</a>
+                <a href="/about.php" class="nav-link">About Us</a>
+                <a href="/gallery.php" class="nav-link">Gallery</a>
+                <a href="/properties.php" class="nav-link text-brand-yellow">Properties</a>
+                <a href="/news.php" class="nav-link">News</a>
+                <a href="/contact.php" class="nav-link">Contact</a>
             </div>
-            <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-6 py-2 rounded-full">Call Us</a>
+            <div class="flex items-center">
+                <a href="tel:+251921878641" id="nav-call-btn" class="bg-brand-green text-brand-yellow font-bold px-4 md:px-6 py-2 rounded-full text-sm md:text-base whitespace-nowrap">
+                    <span class="hidden sm:inline">Call Us</span>
+                </a>
+            </div>
         </div>
     </nav>
 
     <!-- Header -->
-    <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/uploads/properties_header.jpg');">
+    <header class="relative py-32 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), url('/assets/properties-header.jpg');">
         <div class="container mx-auto px-4 relative z-10 text-center">
             <h1 class="text-6xl font-bold text-white mb-4">Our Properties</h1>
             <div class="w-24 h-1 bg-brand-yellow mx-auto mb-6"></div>
@@ -63,6 +88,8 @@
                     <option value="Commercial Properties">Commercial Properties</option>
                     <option value="Luxury Villas">Luxury Villas</option>
                     <option value="Office Spaces">Office Spaces</option>
+                    <option value="Retail Shops">Retail Shops</option>
+                    <option value="Land and Plots">Land & Plots</option>
                 </select>
                 <button onclick="filterProperties()" class="bg-brand-green text-brand-yellow font-bold px-8 py-3 rounded-lg">Filter</button>
             </div>
@@ -87,15 +114,27 @@
         async function loadProperties() {
             const urlParams = new URLSearchParams(window.location.search);
             const typeFilter = urlParams.get('type');
-            
+
             try {
                 const [pRes, sRes] = await Promise.all([
-                    fetch('/api/properties'),
-                    fetch('/api/settings')
+                    fetch('/api/properties.php'),
+                    fetch('/api/settings.php')
                 ]);
+                
+                if (!pRes.ok) {
+                    const errorText = await pRes.text();
+                    console.error('Properties API HTTP Error:', pRes.status, errorText);
+                    throw new Error(`Properties fetch failed with status ${pRes.status}`);
+                }
+                if (!sRes.ok) {
+                    const errorText = await sRes.text();
+                    console.error('Settings API HTTP Error:', sRes.status, errorText);
+                    throw new Error(`Settings fetch failed with status ${sRes.status}`);
+                }
+
                 const data = await pRes.json();
                 const settings = await sRes.json();
-                
+
                 // Update header/footer info
                 if (settings.phone) {
                     const callBtn = document.querySelector('a[href^="tel:"]');
@@ -106,7 +145,7 @@
                 }
 
                 allProperties = Array.isArray(data) ? data : [];
-                
+
                 if (typeFilter) {
                     document.getElementById('filter-type').value = typeFilter;
                     filterProperties();
@@ -127,7 +166,7 @@
             }
             grid.innerHTML = properties.map(p => {
                 const img = p.main_image ? (p.main_image.startsWith('http') || p.main_image.startsWith('data:') ? p.main_image : '/uploads/' + p.main_image) : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
-                
+
                 let gallery = [];
                 try {
                     gallery = typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : (p.gallery_images || []);
@@ -146,13 +185,13 @@
                                      data-index="${idx}">
                             `).join('')}
                         </div>
-                        
+
                         <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
                             ${p.featured == 1 ? '<span class="bg-[#32CD32] text-white text-[10px] font-bold px-2 py-1 rounded">Featured</span>' : ''}
                             <span class="bg-[#FFD700] text-black text-[10px] font-bold px-2 py-1 rounded">${p.status || 'For Sale'}</span>
                             <span class="bg-[#333] text-white text-[10px] font-bold px-2 py-1 rounded">Reduced Price</span>
                         </div>
-                        
+
                         <button class="absolute top-4 right-4 w-8 h-8 bg-white/80 rounded-lg flex items-center justify-center text-gray-600 hover:text-red-500 transition z-10">
                             <i class="far fa-heart"></i>
                         </button>
@@ -171,12 +210,12 @@
                             </div>
                         ` : ''}
                     </div>
-                    <div class="p-6" onclick="window.location.href='property?id=${p.id}'">
+                    <div class="p-6" onclick="window.location.href='property.php?id=${p.id}'">
                         <div class="text-xs font-bold text-gray-400 uppercase mb-2">${p.property_type || 'Property'}</div>
                         <h3 class="text-xl font-bold text-brand-green mb-2">${p.title}</h3>
                         <p class="text-gray-500 text-sm mb-4"><i class="fas fa-map-marker-alt mr-1"></i> ${p.location || 'Ethiopia'}</p>
-                        <div class="mb-4">
-                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</span>
+                        <div class="mb-4 relative z-20">
+                            <a href="tel:${settings.phone}" class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-200 transition-colors pointer-events-auto">${p.price > 0 ? new Intl.NumberFormat().format(p.price) + ' ETB' : 'Call for price'}</a>
                         </div>
                         <div class="flex justify-between border-t pt-4 text-sm text-gray-600">
                             <span><i class="fas fa-bed mr-1"></i> ${p.bedrooms || 0}</span>
@@ -198,7 +237,7 @@
             const dots = container.parentElement.querySelectorAll('[data-dot]');
             let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
             if (current === -1) current = 0;
-            
+
             slides[current].classList.replace('opacity-100', 'opacity-0');
             if (dots[current]) dots[current].classList.remove('bg-white');
             current = (current + 1) % slides.length;
@@ -215,7 +254,7 @@
             const dots = container.parentElement.querySelectorAll('[data-dot]');
             let current = Array.from(slides).findIndex(s => s.classList.contains('opacity-100'));
             if (current === -1) current = 0;
-            
+
             slides[current].classList.replace('opacity-100', 'opacity-0');
             if (dots[current]) dots[current].classList.remove('bg-white');
             current = (current - 1 + slides.length) % slides.length;

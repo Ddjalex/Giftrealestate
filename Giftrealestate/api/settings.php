@@ -12,12 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         // Ensure table exists first if it doesn't
         $pdo->exec("CREATE TABLE IF NOT EXISTS settings (
-            `key` VARCHAR(255) PRIMARY KEY,
-            `value` TEXT,
-            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+            key VARCHAR(255) PRIMARY KEY,
+            value TEXT,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )");
 
-        $stmt = $pdo->query("SELECT `key`, `value` FROM settings");
+        $stmt = $pdo->query("SELECT key, value FROM settings");
         $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
         echo json_encode($settings ?: new stdClass());
     } catch (Exception $e) {

@@ -1,6 +1,11 @@
 <?php
 require_once 'db.php';
 global $pdo;
+if (!isset($pdo)) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Database connection missing']);
+    exit;
+}
 header('Content-Type: application/json');
 $method = $_SERVER['REQUEST_METHOD'];
 
